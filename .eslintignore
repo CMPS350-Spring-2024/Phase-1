@@ -1,0 +1,7 @@
+# Ignore artifacts:
+dist
+build
+coverage
+
+# Ignore tailwind css
+src/index.css
