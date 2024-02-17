@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -17,7 +18,18 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Path aliases */
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/layouts/*": ["layouts/*"],
+      "@/pages/*": ["pages/*"],
+      "@/public/*": ["../public/*"],
+      "@/scripts/*": ["scripts/*"],
+      "@/styles/*": ["styles/*"],
+      "@/types/*": ["types/*"],
+    }
   },
   "include": ["src"]
 }

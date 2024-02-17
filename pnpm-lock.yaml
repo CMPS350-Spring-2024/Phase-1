@@ -91,6 +91,9 @@ devDependencies:
   vite:
     specifier: ^5.1.0
     version: 5.1.3(@types/node@20.11.19)(terser@5.27.1)
+  vite-tsconfig-paths:
+    specifier: ^4.3.1
+    version: 4.3.1(typescript@5.3.3)(vite@5.1.3)
   vituum:
     specifier: ^1.1.0
     version: 1.1.0(@types/node@20.11.19)(terser@5.27.1)
@@ -3231,6 +3234,10 @@ packages:
       slash: 3.0.0
     dev: true
 
+  /globrex@0.1.2:
+    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+    dev: true
+
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
@@ -4815,6 +4822,19 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
+  /tsconfck@3.0.2(typescript@5.3.3):
+    resolution: {integrity: sha512-6lWtFjwuhS3XI4HsX4Zg0izOI3FU/AI9EGVlPEUMDIhvLPMD4wkiof0WCoDgW7qY+Dy198g4d9miAqUHWHFH6Q==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    peerDependencies:
+      typescript: ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      typescript: 5.3.3
+    dev: true
+
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
     dev: true
@@ -4910,6 +4930,23 @@ packages:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
+    dev: true
+
+  /vite-tsconfig-paths@4.3.1(typescript@5.3.3)(vite@5.1.3):
+    resolution: {integrity: sha512-cfgJwcGOsIxXOLU/nELPny2/LUD/lcf1IbfyeKTv2bsupVbTH/xpFtdQlBmIP1GEK2CjjLxYhFfB+QODFAx5aw==}
+    peerDependencies:
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
+    dependencies:
+      debug: 4.3.4
+      globrex: 0.1.2
+      tsconfck: 3.0.2(typescript@5.3.3)
+      vite: 5.1.3(@types/node@20.11.19)(terser@5.27.1)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
     dev: true
 
   /vite@5.1.3(@types/node@20.11.19)(terser@5.27.1):

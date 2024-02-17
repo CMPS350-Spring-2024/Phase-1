@@ -40,6 +40,7 @@
 		"terser": "^5.27.1",
 		"typescript": "^5.2.2",
 		"vite": "^5.1.0",
+		"vite-tsconfig-paths": "^4.3.1",
 		"vituum": "^1.1.0"
 	},
 	"lint-staged": {
