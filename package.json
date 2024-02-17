@@ -59,6 +59,7 @@
 		"experimentalTernaries": true,
 		"htmlWhitespaceSensitivity": "ignore",
 		"jsxSingleQuote": true,
+		"printWidth": 120,
 		"proseWrap": "always",
 		"semi": true,
 		"singleAttributePerLine": true,
@@ -273,10 +274,6 @@
 				"error",
 				"always"
 			],
-			"space-before-function-paren": [
-				"error",
-				"always"
-			],
 			"camelcase": [
 				"error",
 				{
@@ -299,6 +296,7 @@
 					"experimentalTernaries": true,
 					"htmlWhitespaceSensitivity": "ignore",
 					"jsxSingleQuote": true,
+					"printWidth": 120,
 					"proseWrap": "always",
 					"semi": true,
 					"singleAttributePerLine": true,

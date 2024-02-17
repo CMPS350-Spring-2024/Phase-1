@@ -6,7 +6,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import vituum from 'vituum';
 
 export default defineConfig({
-	plugins: [vituum(), posthtml(), tailwindcss(), legacy(), tsconfigPaths()],
+	plugins: [vituum(), posthtml(), legacy(), tsconfigPaths(), tailwindcss()],
 	rollupOptions: {
 		minify: 'terser',
 		input: ['./src/pages/**/*.html'],
