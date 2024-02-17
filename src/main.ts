@@ -1,6 +1,6 @@
-//	Style Imports
-import './index.css';
-import './style.css';
+//	Package Imports
+import '@preline/accordion';
+import '@preline/tooltip';
 
 import { setupCounter } from './counter.ts';
 import typescriptLogo from './typescript.svg';
@@ -8,15 +8,40 @@ import viteLogo from '/vite.svg';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 	<div>
-		<a class="inline size-10" href="https://vitejs.dev" target="_blank">
-			<img src="${viteLogo}" class="logo" alt="Vite logo" />
-		</a>
-		<a class="inline size-10" href="https://www.typescriptlang.org/" target="_blank">
-			<img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-		</a>
-		<h1 class="text-3xl font-bold underline">Vite + TypeScript</h1>
-		<div class="card">
-			<div class="hs-tooltip inline-block">
+		<div class="hs-tooltip inline-block">
+			<a class="inline size-10" href="/test.html">
+				<img src="${viteLogo}" class="logo" alt="Vite logo" />
+			</a>
+			<a class="inline size-10" href="https://www.typescriptlang.org/" target="_blank">
+				<img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
+			</a>
+			<h1 class="text-3xl font-bold underline">Vite + TypeScript</h1>
+			<a
+				href="/test.html"
+				class="
+					bg-slate-600
+					hover:bg-slate-700
+					focus:outline-none
+					focus:ring-2
+					focus:ring-slate-400
+					focus:ring-offset-2
+					focus:ring-offset-slate-50
+					text-white
+					font-semibold
+					h-12
+					px-6
+					rounded-lg
+					w-full
+					flex
+					items-center
+					justify-center
+					sm:w-auto
+					dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400
+				"
+			>
+				TailwindCSS Button
+			</a>
+			<div class="card">
 				<button
 					id="counter"
 					type="button"
@@ -25,27 +50,30 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 				<span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-slate-700" role="tooltip">
 					Tooltip on top
 				</span>
+			<span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-slate-700" role="tooltip">
+				Tooltip on top
+			</span>
 			</div>
-		</div>
-		<p class="read-the-docs">
-			Click on the Vite and TypeScript logos to learn more
-		</p>
-		<div class="bg-teal-50 border-t-2 border-teal-500 rounded-lg p-4 dark:bg-teal-800/30" role="alert">
-			<div class="flex">
-				<div class="flex-shrink-0">
-				<!-- Icon -->
-				<span class="inline-flex justify-center items-center size-8 rounded-full border-4 border-teal-100 bg-teal-200 text-teal-800 dark:border-teal-900 dark:bg-teal-800 dark:text-teal-400">
-					<svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
-				</span>
-				<!-- End Icon -->
-				</div>
-				<div class="ms-3">
-				<h3 class="text-gray-800 font-semibold dark:text-white">
-					Successfully updated.
-				</h3>
-				<p class="text-sm text-gray-700 dark:text-gray-400">
-					You have successfully updated your email preferences.
-				</p>
+			<p class="read-the-docs">
+				Click on the Vite and TypeScript logos to learn more
+			</p>
+			<div class="bg-teal-50 border-t-2 border-teal-500 rounded-lg p-4 dark:bg-teal-800/30" role="alert">
+				<div class="flex">
+					<div class="flex-shrink-0">
+					<!-- Icon -->
+					<span class="inline-flex justify-center items-center size-8 rounded-full border-4 border-teal-100 bg-teal-200 text-teal-800 dark:border-teal-900 dark:bg-teal-800 dark:text-teal-400">
+						<svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+					</span>
+					<!-- End Icon -->
+					</div>
+					<div class="ms-3">
+					<h3 class="text-gray-800 font-semibold dark:text-white">
+						Successfully updated.
+					</h3>
+					<p class="text-sm text-gray-700 dark:text-gray-400">
+						You have successfully updated your email preferences.
+					</p>
+					</div>
 				</div>
 			</div>
 		</div>
