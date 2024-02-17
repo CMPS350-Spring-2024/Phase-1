@@ -18,7 +18,9 @@
 		"@tailwindcss/forms": "^0.5.7",
 		"@typescript-eslint/eslint-plugin": "^7.0.1",
 		"@typescript-eslint/parser": "^7.0.1",
+		"@vitejs/plugin-legacy": "^5.3.0",
 		"autoprefixer": "^10.4.17",
+		"cssnano": "^6.0.3",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-html": "^8.0.0",
@@ -33,6 +35,7 @@
 		"prettier-plugin-organize-imports": "^3.2.4",
 		"prettier-plugin-tailwindcss": "^0.5.11",
 		"tailwindcss": "^3.4.1",
+		"terser": "^5.27.1",
 		"typescript": "^5.2.2",
 		"vite": "^5.1.0"
 	},
@@ -331,4 +334,3 @@
 		}
 	}
 }
-
