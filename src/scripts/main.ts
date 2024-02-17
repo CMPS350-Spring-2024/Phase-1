@@ -2,8 +2,8 @@
 import '@preline/accordion';
 import '@preline/tooltip';
 
-import { setupCounter } from './counter.ts';
-import typescriptLogo from './typescript.svg';
+import { setupCounter } from '@/scripts/counter';
+import typescriptLogo from '/typescript.svg';
 import viteLogo from '/vite.svg';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
