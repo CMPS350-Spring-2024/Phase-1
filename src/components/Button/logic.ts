@@ -1,12 +1,32 @@
-import { BaseComponent } from '@/components/BaseComponent';
+import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
-customElements.define(
-	'preline-button',
-	class extends BaseComponent {
-		private disabled: boolean = false;
+export const BUTTON_ATTRIBUTES = ['color', 'fill', 'size', 'round', 'disabled', 'loading'];
 
-		constructor(debug: boolean = false) {
-			super(debug);
-		}
-	},
-);
+export interface ButtonProps {
+	color?: 'blue';
+	fill?: 'solid' | 'outline' | 'ghost';
+	size?: 'sm' | 'md' | 'lg';
+	round?: boolean;
+	disabled?: boolean;
+	loading?: boolean;
+}
+
+export class Button extends PrimitiveComponent {
+	protected static readonly stylesHref: string = '/src/components/Button/styles.css';
+	protected static readonly forwardedAttributes: string[] = BUTTON_ATTRIBUTES;
+	protected static readonly defaultProperties: ButtonProps = {
+		color: 'blue',
+		fill: 'outline',
+		size: 'sm',
+	};
+
+	constructor() {
+		super({
+			elementName: 'button',
+			stylesHref: Button.stylesHref,
+			defaultProperties: Button.defaultProperties,
+		});
+	}
+}
+
+customElements.define('preline-button', Button);

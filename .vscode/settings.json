@@ -1,6 +1,6 @@
 {
 	"css.lint.unknownAtRules": "ignore",
-	"editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnType": false,
 	"editor.formatOnSave": true,
 	"editor.formatOnSaveMode": "file",
@@ -8,5 +8,5 @@
 	"vs-code-prettier-eslint.prettierLast": false,
 	"editor.wordWrap": "bounded",
 	"editor.wordWrapColumn": 130,
-	"editor.tabSize": 4
+	"editor.tabSize": 4,
 }

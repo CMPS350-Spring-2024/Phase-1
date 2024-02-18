@@ -1,8 +1,15 @@
 <template id="preline-button-template">
 	<button
 		type="button"
-		class="preline-btn small ghost"
+		class="preline-btn"
 	>
+		<span
+			class="spinner"
+			role="status"
+			aria-label="loading"
+		>
+			<span class="sr-only">Loading...</span>
+		</span>
 		<slot></slot>
 	</button>
 </template>
