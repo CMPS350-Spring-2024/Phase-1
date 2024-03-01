@@ -9,11 +9,12 @@ import vituum from 'vituum';
 export default defineConfig({
 	assetsInclude: ['**/*.glb'],
 	plugins: [vituum(), posthtml(), legacy(), tsconfigPaths(), tailwindcss(), analyzer({ analyzerMode: 'json' })],
-	rollupOptions: {
-		minify: 'terser',
-		input: ['./src/pages/**/*.html'],
-	},
 	build: {
+		minify: 'terser',
 		cssMinify: 'lightningcss',
+		rollupOptions: {
+			input: ['./src/pages/**/*.html'],
+			external: ['./src/scripts/buildAnalyzer.mjs'],
+		},
 	},
 });
