@@ -31,12 +31,12 @@ export class PrimitiveComponent extends BaseComponent {
 		//	Reflect forwarded attributes to the element
 		((this as Object).constructor as any).forwardedAttributes.forEach((attribute: string) => {
 			const value = this[attribute as keyof PrimitiveComponent];
-			if (attribute === 'class') {
-				this.element.setAttribute(attribute, `${this.baseClass} ${value}`);
-			} else if (value !== undefined && value !== null && value !== false) {
-				this.element.setAttribute(attribute, typeof value === 'boolean' ? '' : (value as string));
+			if (value !== undefined && value !== null && value !== false) {
+				if (attribute === 'class') this.element.setAttribute(attribute, `${this.baseClass} ${value}`);
+				else this.element.setAttribute(attribute, typeof value === 'boolean' ? '' : (value as string));
 			} else {
-				this.element.removeAttribute(attribute);
+				if (attribute === 'class') this.element.setAttribute(attribute, this.baseClass);
+				else this.element.removeAttribute(attribute);
 			}
 		});
 
@@ -52,12 +52,12 @@ export class PrimitiveComponent extends BaseComponent {
 
 		//	Reflect forwarded attributes to the element
 		if (((this as Object).constructor as any).forwardedAttributes.includes(name)) {
-			if (name === 'class') {
-				this.element.setAttribute(name, `${this.baseClass} ${newValue}`);
-			} else if (newValue !== undefined && newValue !== null) {
-				this.element.setAttribute(name, typeof newValue === 'boolean' ? '' : newValue);
+			if (newValue !== undefined && newValue !== null) {
+				if (name === 'class') this.element.setAttribute(name, `${this.baseClass} ${newValue}`);
+				else this.element.setAttribute(name, typeof newValue === 'boolean' ? '' : newValue);
 			} else {
-				this.element.removeAttribute(name);
+				if (name === 'class') this.element.setAttribute(name, this.baseClass);
+				else this.element.removeAttribute(name);
 			}
 		}
 
