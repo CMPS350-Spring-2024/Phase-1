@@ -1,0 +1,22 @@
+<extends
+	src="../layouts/base.html"
+	locals='{"title": "Vite + TS"}'
+>
+	<block name="app">
+		<ui-button disabled>Disabled button</ui-button>
+		<ui-button loading>test 2</ui-button>
+		<ui-button
+			class="px-16"
+			fill="solid"
+			size="sm"
+			onclick="console.log('test');"
+		>
+			Add to Cart
+			<i
+				class="stroke-3 size-4"
+				data-lucide="plus"
+			/>
+		</ui-button>
+		<ui-drone-viewer />
+	</block>
+</extends>

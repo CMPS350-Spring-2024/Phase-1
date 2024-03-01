@@ -1,0 +1,38 @@
+name: Linting
+
+on: [push]
+
+jobs:
+    commit:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+
+            - name: Setup commitlint GitHub Actions plugin
+              uses: wagoid/commitlint-github-action@v5
+
+    changed-files:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: pnpm/action-setup@v2
+
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: 'pnpm'
+
+            - name: Install dependencies
+              run: |
+                  pnpm install @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-plugin-html eslint-plugin-prettier eslint-plugin-tailwindcss eslint-config-prettier
+
+            - name: Lint files
+              uses: wearerequired/lint-action@v2
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  eslint: true

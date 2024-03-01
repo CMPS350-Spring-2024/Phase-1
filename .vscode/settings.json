@@ -1,0 +1,12 @@
+{
+	"css.lint.unknownAtRules": "ignore",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnType": false,
+	"editor.formatOnSave": true,
+	"editor.formatOnSaveMode": "file",
+	"files.autoSave": "onFocusChange",
+	"vs-code-prettier-eslint.prettierLast": false,
+	"editor.wordWrap": "bounded",
+	"editor.wordWrapColumn": 130,
+	"editor.tabSize": 4,
+}

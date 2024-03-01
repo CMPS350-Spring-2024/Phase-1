@@ -1,0 +1,16 @@
+@import '/src/components/Button/styles.css' layer(components);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+@layer components {
+	[component] {
+		display: contents;
+	}
+
+	.lucide {
+		font-size: 1em;
+	}
+}
