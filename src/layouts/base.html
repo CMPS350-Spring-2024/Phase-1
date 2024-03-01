@@ -2,23 +2,35 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
-		<link rel="stylesheet" href="/src/styles/index.css" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="/vite.svg"
+		/>
+		<link
+			rel="stylesheet"
+			href="/src/styles/index.css"
+		/>
 		<title>{{ title }}</title>
 	</head>
 	<body id="app">
-
 		<!-- Component Templates -->
 		<include src="../components/Button/template.html"></include>
+		<include src="../components/DroneViewer/template.html"></include>
 
 		<!-- Component Scripts -->
-		<script type="module" src="/src/scripts/main.ts"></script>
+		<script
+			type="module"
+			src="/src/scripts/main.ts"
+		></script>
 
 		<!-- Main Entrypoint -->
 		<block name="app"></block>
 
 		<!-- Scripts -->
-
 	</body>
 </html>
