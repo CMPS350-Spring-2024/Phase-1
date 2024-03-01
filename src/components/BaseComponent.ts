@@ -1,4 +1,8 @@
 export interface BaseComponentProps {
+	class?: string;
+}
+
+export interface BaseComponentConstructor {
 	/**
 	 * Default properties for the component.
 	 */
@@ -11,7 +15,7 @@ export interface BaseComponentProps {
 }
 
 export class BaseComponent extends HTMLElement {
-	protected static readonly templateName: string = 'component-template';
+	protected static readonly templateName: string;
 	protected debug: boolean = false;
 
 	//	If any of the following attributes are changed, the attributeChangedCallback will be called
@@ -20,7 +24,7 @@ export class BaseComponent extends HTMLElement {
 	}
 
 	//	Create a new instance of the component
-	constructor({ defaultProperties }: BaseComponentProps) {
+	constructor({ defaultProperties }: BaseComponentConstructor) {
 		super();
 
 		//	Set the default properties
@@ -58,23 +62,26 @@ export class BaseComponent extends HTMLElement {
 		//	Add component attribute to this element
 		this.setAttribute('component', '');
 
-		//	Try to find component template
-		const template = document.querySelector<HTMLTemplateElement>(
-			`#${((this as Object).constructor as any).templateName}`,
-		)!;
+		//	If there is a template for this component, attach it to the shadow dom
+		if (((this as Object).constructor as any).templateName) {
+			//	Try to find component template
+			const template = document.querySelector<HTMLTemplateElement>(
+				`#${((this as Object).constructor as any).templateName}`,
+			)!;
 
-		//	Throw an error if the template is not found
-		if (!template) throw new Error(`Template for "${(this as Object).constructor.name}" component not found.`);
+			//	Throw an error if the template is not found
+			if (!template) throw new Error(`Template for "${(this as Object).constructor.name}" component not found.`);
 
-		//	Attach component to shadow root
-		const shadowRoot = this.attachShadow({ mode: 'open' });
-		shadowRoot.appendChild(template.content.cloneNode(true));
+			//	Attach component to shadow root
+			const shadowRoot = this.attachShadow({ mode: 'open' });
+			shadowRoot.appendChild(template.content.cloneNode(true));
 
-		//	Apply tailwind styles to the shadow dom
-		const tailwindStyles = document.createElement('link');
-		tailwindStyles.setAttribute('rel', 'stylesheet');
-		tailwindStyles.setAttribute('href', '/src/styles/index.css');
-		shadowRoot.appendChild(tailwindStyles);
+			//	Apply tailwind styles to the shadow dom
+			const tailwindStyles = document.createElement('link');
+			tailwindStyles.setAttribute('rel', 'stylesheet');
+			tailwindStyles.setAttribute('href', '/src/styles/index.css');
+			shadowRoot.appendChild(tailwindStyles);
+		}
 	}
 
 	//	When the component is added to the page

@@ -1,6 +1,6 @@
-import { BaseComponent, BaseComponentProps } from '@/components/BaseComponent';
+import { BaseComponent, BaseComponentConstructor } from '@/components/BaseComponent';
 
-export interface PrimitiveComponentProps extends BaseComponentProps {
+export interface PrimitiveComponentConstructor extends BaseComponentConstructor {
 	/**
 	 * The element to use for this primitive component.
 	 */
@@ -19,7 +19,7 @@ export class PrimitiveComponent extends BaseComponent {
 	}
 
 	//	Whenever a primitive component is created, it will find the element inside the shadow dom and reflect the forwarded variants and attributes to it
-	constructor({ elementName, ...props }: PrimitiveComponentProps) {
+	constructor({ elementName, ...props }: PrimitiveComponentConstructor) {
 		super(props);
 
 		//	Find the primitive element inside the template's shadow dom

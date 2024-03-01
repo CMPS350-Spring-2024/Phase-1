@@ -1,7 +1,10 @@
 //	Component Imports
 import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
-export interface ButtonProps {
+//	Type Imports
+import type { BaseComponentProps } from '@/components/BaseComponent';
+
+export interface ButtonProps extends BaseComponentProps {
 	color?: 'blue';
 	fill?: 'solid' | 'outline' | 'ghost';
 	size?: 'sm' | 'md' | 'lg';
@@ -12,7 +15,7 @@ export interface ButtonProps {
 
 export class Button extends PrimitiveComponent {
 	protected static readonly templateName: string = 'button-template';
-	protected static readonly forwardedAttributes: string[] = [
+	protected static readonly forwardedAttributes: Array<keyof ButtonProps> = [
 		'class',
 		'color',
 		'fill',
