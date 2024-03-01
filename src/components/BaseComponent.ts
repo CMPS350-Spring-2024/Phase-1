@@ -11,6 +11,7 @@ export interface BaseComponentProps {
 }
 
 export class BaseComponent extends HTMLElement {
+	protected static readonly templateName: string = 'component-template';
 	protected debug: boolean = false;
 
 	//	If any of the following attributes are changed, the attributeChangedCallback will be called
@@ -57,10 +58,17 @@ export class BaseComponent extends HTMLElement {
 		//	Add component attribute to this element
 		this.setAttribute('component', '');
 
+		//	Try to find component template
+		const template = document.querySelector<HTMLTemplateElement>(
+			`#${((this as Object).constructor as any).templateName}`,
+		)!;
+
+		//	Throw an error if the template is not found
+		if (!template) throw new Error(`Template for "${(this as Object).constructor.name}" component not found.`);
+
 		//	Attach component to shadow root
-		const template = document.querySelector<HTMLTemplateElement>('#preline-button-template')!.content;
 		const shadowRoot = this.attachShadow({ mode: 'open' });
-		shadowRoot.appendChild(template.cloneNode(true));
+		shadowRoot.appendChild(template.content.cloneNode(true));
 
 		//	Apply tailwind styles to the shadow dom
 		const tailwindStyles = document.createElement('link');

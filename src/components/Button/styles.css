@@ -1,4 +1,4 @@
-.preline-btn {
+.ui-btn {
 	@apply inline-flex items-center gap-x-2;
 	@apply rounded-md border;
 	@apply text-sm font-semibold;

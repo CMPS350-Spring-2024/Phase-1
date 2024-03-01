@@ -1,3 +1,4 @@
+//	Component Imports
 import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
 export interface ButtonProps {
@@ -10,6 +11,7 @@ export interface ButtonProps {
 }
 
 export class Button extends PrimitiveComponent {
+	protected static readonly templateName: string = 'button-template';
 	protected static readonly forwardedAttributes: string[] = [
 		'class',
 		'color',
@@ -33,4 +35,4 @@ export class Button extends PrimitiveComponent {
 	}
 }
 
-customElements.define('preline-button', Button);
+customElements.define('ui-button', Button);
