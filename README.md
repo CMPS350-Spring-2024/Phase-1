@@ -11,7 +11,7 @@
 </div>
 
 <div align="center">
-    <img alt="Deploying workflow status" src="https://github.com/CMPS350-Spring-2024/Phase-1/actions/workflows/deploying.yml/badge.svg"/>
+    <a href="https://app.netlify.com/sites/qu-dji-store/deploys"><img alt="Netlify deployment status" src="https://api.netlify.com/api/v1/badges/f74a8370-3d31-41af-b95a-1afa24678b18/deploy-status"/></a>
     <img alt="Generating workflow status" src="https://github.com/CMPS350-Spring-2024/Phase-1/actions/workflows/generating.yml/badge.svg"/>
     <img alt="Linting workflow status" src="https://github.com/CMPS350-Spring-2024/Phase-1/actions/workflows/linting.yml/badge.svg"/>
 </div>
@@ -89,9 +89,10 @@ The below table shows the total bundle size of the application, broken down into
 represents a route which has a colored indicator showing the performance of that particular route.
 
 <!-- BUNDLE_TABLE_START -->
-| | Size | Budget Used (`1 MB`) | 
-| --- | :---: | :---: | 
-| `total` | `327.08 kB` | 🟢 `32.71%` | 
+
+|         |    Size     | Budget Used (`1 MB`) |
+| ------- | :---------: | :------------------: |
+| `total` | `327.08 kB` |     🟢 `32.71%`      |
 
 <!-- BUNDLE_TABLE_END -->
 
