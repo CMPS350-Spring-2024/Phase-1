@@ -77,10 +77,9 @@ export class BaseComponent extends HTMLElement {
 			shadowRoot.appendChild(template.content.cloneNode(true));
 
 			//	Apply tailwind styles to the shadow dom
-			const tailwindStyles = document.createElement('link');
-			tailwindStyles.setAttribute('rel', 'stylesheet');
-			tailwindStyles.setAttribute('href', '/src/styles/index.css');
-			shadowRoot.appendChild(tailwindStyles);
+			const tailwindStyles = document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]')!;
+			const stylesheets = Array.from(tailwindStyles).map((link) => link.cloneNode()) as Array<HTMLLinkElement>;
+			shadowRoot.prepend(...stylesheets);
 		}
 	}
 

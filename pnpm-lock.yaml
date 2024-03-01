@@ -45,10 +45,10 @@ devDependencies:
     version: 5.3.0(esbuild@0.19.12)(terser@5.27.1)(vite@5.1.3)
   '@vituum/vite-plugin-posthtml':
     specifier: ^1.1.0
-    version: 1.1.0(@types/node@20.11.19)(terser@5.27.1)
+    version: 1.1.0(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1)
   '@vituum/vite-plugin-tailwindcss':
     specifier: ^1.1.0
-    version: 1.1.0(@types/node@20.11.19)(terser@5.27.1)
+    version: 1.1.0(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1)
   eslint:
     specifier: ^8.56.0
     version: 8.56.0
@@ -67,6 +67,9 @@ devDependencies:
   husky:
     specifier: ^9.0.11
     version: 9.0.11
+  lightningcss:
+    specifier: ^1.24.0
+    version: 1.24.0
   lint-staged:
     specifier: ^15.2.2
     version: 15.2.2
@@ -99,13 +102,13 @@ devDependencies:
     version: 5.3.3
   vite:
     specifier: ^5.1.0
-    version: 5.1.3(@types/node@20.11.19)(terser@5.27.1)
+    version: 5.1.3(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1)
   vite-tsconfig-paths:
     specifier: ^4.3.1
     version: 4.3.1(typescript@5.3.3)(vite@5.1.3)
   vituum:
     specifier: ^1.1.0
-    version: 1.1.0(@types/node@20.11.19)(terser@5.27.1)
+    version: 1.1.0(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1)
 
 packages:
 
@@ -2173,20 +2176,20 @@ packages:
       regenerator-runtime: 0.14.1
       systemjs: 6.14.3
       terser: 5.27.1
-      vite: 5.1.3(@types/node@20.11.19)(terser@5.27.1)
+      vite: 5.1.3(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1)
     transitivePeerDependencies:
       - esbuild
       - supports-color
     dev: true
 
-  /@vituum/vite-plugin-posthtml@1.1.0(@types/node@20.11.19)(terser@5.27.1):
+  /@vituum/vite-plugin-posthtml@1.1.0(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1):
     resolution: {integrity: sha512-k5lzWzuKBN8z2iYSg9tC/boZRdeySR/GBxfbg2bsDtJW4TsgYml7XUPo9v1yf8oRRPXMse10ka0uX1qhHDVUFQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     dependencies:
       posthtml: 0.16.6
       posthtml-extend: 0.6.5
       posthtml-include: 1.7.4
-      vituum: 1.1.0(@types/node@20.11.19)(terser@5.27.1)
+      vituum: 1.1.0(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -2197,7 +2200,7 @@ packages:
       - terser
     dev: true
 
-  /@vituum/vite-plugin-tailwindcss@1.1.0(@types/node@20.11.19)(terser@5.27.1):
+  /@vituum/vite-plugin-tailwindcss@1.1.0(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1):
     resolution: {integrity: sha512-kA9suUxVM449GX++YKyg3Vvwri0vzMUA9ueFFGzDBt5rFsTvVnXPx6VQszpln5/VvEXdJBme3h6N1tkzLzDgUg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     dependencies:
@@ -2207,7 +2210,7 @@ packages:
       postcss-import: 15.1.0(postcss@8.4.35)
       postcss-nesting: 12.0.2(postcss@8.4.35)
       tailwindcss: 3.4.1
-      vituum: 1.1.0(@types/node@20.11.19)(terser@5.27.1)
+      vituum: 1.1.0(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -2695,6 +2698,12 @@ packages:
   /deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /detect-libc@1.0.3:
+    resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
+    engines: {node: '>=0.10'}
+    hasBin: true
     dev: true
 
   /didyoumean@1.2.2:
@@ -3557,6 +3566,104 @@ packages:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
+    dev: true
+
+  /lightningcss-darwin-arm64@1.24.0:
+    resolution: {integrity: sha512-rTNPkEiynOu4CfGdd5ZfVOQe2gd2idfQd4EfX1l2ZUUwd+2SwSdbb7cG4rlwfnZckbzCAygm85xkpekRE5/wFw==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-darwin-x64@1.24.0:
+    resolution: {integrity: sha512-4KCeF2RJjzp9xdGY8zIH68CUtptEg8uz8PfkHvsIdrP4t9t5CIgfDBhiB8AmuO75N6SofdmZexDZIKdy9vA7Ww==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-freebsd-x64@1.24.0:
+    resolution: {integrity: sha512-FJAYlek1wXuVTsncNU0C6YD41q126dXcIUm97KAccMn9C4s/JfLSqGWT2gIzAblavPFkyGG2gIADTWp3uWfN1g==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [freebsd]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-arm-gnueabihf@1.24.0:
+    resolution: {integrity: sha512-N55K6JqzMx7C0hYUu1YmWqhkHwzEJlkQRMA6phY65noO0I1LOAvP4wBIoFWrzRE+O6zL0RmXJ2xppqyTbk3sYw==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-arm64-gnu@1.24.0:
+    resolution: {integrity: sha512-MqqUB2TpYtFWeBvvf5KExDdClU3YGLW5bHKs50uKKootcvG9KoS7wYwd5UichS+W3mYLc5yXUPGD1DNWbLiYKw==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-arm64-musl@1.24.0:
+    resolution: {integrity: sha512-5wn4d9tFwa5bS1ao9mLexYVJdh3nn09HNIipsII6ZF7z9ZA5J4dOEhMgKoeCl891axTGTUYd8Kxn+Hn3XUSYRQ==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-x64-gnu@1.24.0:
+    resolution: {integrity: sha512-3j5MdTh+LSDF3o6uDwRjRUgw4J+IfDCVtdkUrJvKxL79qBLUujXY7CTe5X3IQDDLKEe/3wu49r8JKgxr0MfjbQ==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-x64-musl@1.24.0:
+    resolution: {integrity: sha512-HI+rNnvaLz0o36z6Ki0gyG5igVGrJmzczxA5fznr6eFTj3cHORoR/j2q8ivMzNFR4UKJDkTWUH5LMhacwOHWBA==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-win32-x64-msvc@1.24.0:
+    resolution: {integrity: sha512-oeije/t7OZ5N9vSs6amyW/34wIYoBCpE6HUlsSKcP2SR1CVgx9oKEM00GtQmtqNnYiMIfsSm7+ppMb4NLtD5vg==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss@1.24.0:
+    resolution: {integrity: sha512-y36QEEDVx4IM7/yIZNsZJMRREIu26WzTsauIysf5s76YeCmlSbRZS7aC97IGPuoFRnyZ5Wx43OBsQBFB5Ne7ng==}
+    engines: {node: '>= 12.0.0'}
+    dependencies:
+      detect-libc: 1.0.3
+    optionalDependencies:
+      lightningcss-darwin-arm64: 1.24.0
+      lightningcss-darwin-x64: 1.24.0
+      lightningcss-freebsd-x64: 1.24.0
+      lightningcss-linux-arm-gnueabihf: 1.24.0
+      lightningcss-linux-arm64-gnu: 1.24.0
+      lightningcss-linux-arm64-musl: 1.24.0
+      lightningcss-linux-x64-gnu: 1.24.0
+      lightningcss-linux-x64-musl: 1.24.0
+      lightningcss-win32-x64-msvc: 1.24.0
     dev: true
 
   /lilconfig@2.1.0:
@@ -4990,13 +5097,13 @@ packages:
       debug: 4.3.4
       globrex: 0.1.2
       tsconfck: 3.0.2(typescript@5.3.3)
-      vite: 5.1.3(@types/node@20.11.19)(terser@5.27.1)
+      vite: 5.1.3(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: true
 
-  /vite@5.1.3(@types/node@20.11.19)(terser@5.27.1):
+  /vite@5.1.3(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1):
     resolution: {integrity: sha512-UfmUD36DKkqhi/F75RrxvPpry+9+tTkrXfMNZD+SboZqBCMsxKtO52XeGzzuh7ioz+Eo/SYDBbdb0Z7vgcDJew==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -5026,6 +5133,7 @@ packages:
     dependencies:
       '@types/node': 20.11.19
       esbuild: 0.19.12
+      lightningcss: 1.24.0
       postcss: 8.4.35
       rollup: 4.12.0
       terser: 5.27.1
@@ -5033,7 +5141,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vituum@1.1.0(@types/node@20.11.19)(terser@5.27.1):
+  /vituum@1.1.0(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1):
     resolution: {integrity: sha512-MinuWgpNvkkXz7RAyj6SqDKL4yIok1NM8WnodBQOP1wnDWHCbE6RSSmg+5dYW2V9uskDJJyVV3YS0z/0eDu2iA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     dependencies:
@@ -5041,7 +5149,7 @@ packages:
       fast-glob: 3.3.2
       lodash: 4.17.21
       minimatch: 9.0.3
-      vite: 5.1.3(@types/node@20.11.19)(terser@5.27.1)
+      vite: 5.1.3(@types/node@20.11.19)(lightningcss@1.24.0)(terser@5.27.1)
     transitivePeerDependencies:
       - '@types/node'
       - less

@@ -54,7 +54,7 @@ export class DroneViewer extends PrimitiveComponent {
 		//	Load the drone model
 		const loader = new GLTFLoader();
 		loader.load(
-			'public/models/Mavic 3.glb',
+			'/models/Mavic 3.glb',
 			async (gltf) => {
 				const model = gltf.scene;
 				model.scale.set(5, 5, 5);
