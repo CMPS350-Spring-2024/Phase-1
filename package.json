@@ -12,6 +12,7 @@
 	"dependencies": {
 		"@preline/accordion": "^2.0.2",
 		"@preline/tooltip": "^2.0.2",
+		"lucide": "^0.343.0",
 		"preline": "^2.0.3",
 		"three": "^0.162.0"
 	},

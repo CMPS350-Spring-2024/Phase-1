@@ -9,4 +9,8 @@
 	[component] {
 		display: contents;
 	}
+
+	.lucide {
+		font-size: 1em;
+	}
 }
