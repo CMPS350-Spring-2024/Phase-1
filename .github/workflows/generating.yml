@@ -1,0 +1,37 @@
+name: Generating
+
+on: [pull_request]
+
+jobs:
+    bundle-analysis:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: pnpm/action-setup@v2
+
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: 'pnpm'
+
+            - name: Install dependencies
+              run: |
+                  pnpm install --frozen-lockfile
+                  pnpm install filesize
+
+            - name: Bundle analysis
+              uses: nick-fields/retry@v2
+              with:
+                  timeout_minutes: 10
+                  max_attempts: 3
+                  command: pnpm run build && node ./src/scripts/bundleAnalyzer.mjs
+
+            - name: Commit bundle analysis
+              uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: 'docs: update bundle data in readme'
+                  file_pattern: '*.md'
