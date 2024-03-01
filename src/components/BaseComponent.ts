@@ -1,10 +1,5 @@
 export interface BaseComponentProps {
 	/**
-	 * The path to the styles for the component.
-	 */
-	stylesHref: string;
-
-	/**
 	 * Default properties for the component.
 	 */
 	defaultProperties?: Record<string, any>;
@@ -24,7 +19,7 @@ export class BaseComponent extends HTMLElement {
 	}
 
 	//	Create a new instance of the component
-	constructor({ defaultProperties, stylesHref }: BaseComponentProps) {
+	constructor({ defaultProperties }: BaseComponentProps) {
 		super();
 
 		//	Set the default properties
@@ -59,6 +54,9 @@ export class BaseComponent extends HTMLElement {
 			});
 		});
 
+		//	Add component attribute to this element
+		this.setAttribute('component', '');
+
 		//	Attach component to shadow root
 		const template = document.querySelector<HTMLTemplateElement>('#preline-button-template')!.content;
 		const shadowRoot = this.attachShadow({ mode: 'open' });
@@ -69,12 +67,6 @@ export class BaseComponent extends HTMLElement {
 		tailwindStyles.setAttribute('rel', 'stylesheet');
 		tailwindStyles.setAttribute('href', '/src/styles/index.css');
 		shadowRoot.appendChild(tailwindStyles);
-
-		//	Apply component styles to the shadow dom
-		const componentStyles = document.createElement('link');
-		componentStyles.setAttribute('rel', 'stylesheet');
-		componentStyles.setAttribute('href', stylesHref);
-		shadowRoot.appendChild(componentStyles);
 	}
 
 	//	When the component is added to the page

@@ -1,7 +1,5 @@
 import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
-export const BUTTON_ATTRIBUTES = ['color', 'fill', 'size', 'round', 'disabled', 'loading'];
-
 export interface ButtonProps {
 	color?: 'blue';
 	fill?: 'solid' | 'outline' | 'ghost';
@@ -12,8 +10,15 @@ export interface ButtonProps {
 }
 
 export class Button extends PrimitiveComponent {
-	protected static readonly stylesHref: string = '/src/components/Button/styles.css';
-	protected static readonly forwardedAttributes: string[] = BUTTON_ATTRIBUTES;
+	protected static readonly forwardedAttributes: string[] = [
+		'class',
+		'color',
+		'fill',
+		'size',
+		'round',
+		'disabled',
+		'loading',
+	];
 	protected static readonly defaultProperties: ButtonProps = {
 		color: 'blue',
 		fill: 'outline',
@@ -23,7 +28,6 @@ export class Button extends PrimitiveComponent {
 	constructor() {
 		super({
 			elementName: 'button',
-			stylesHref: Button.stylesHref,
 			defaultProperties: Button.defaultProperties,
 		});
 	}

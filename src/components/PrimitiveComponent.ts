@@ -11,6 +11,7 @@ export class PrimitiveComponent extends BaseComponent {
 	protected static readonly forwardedVariants: string[] = [];
 	protected static readonly forwardedAttributes: string[] = [];
 
+	protected baseClass: string;
 	protected element: HTMLElement;
 
 	static get observedAttributes() {
@@ -24,10 +25,15 @@ export class PrimitiveComponent extends BaseComponent {
 		//	Find the primitive element inside the template's shadow dom
 		this.element = this.shadowRoot!.querySelector(elementName)!;
 
+		//	Store the base class of the element
+		this.baseClass = this.element.className;
+
 		//	Reflect forwarded attributes to the element
 		((this as Object).constructor as any).forwardedAttributes.forEach((attribute: string) => {
 			const value = this[attribute as keyof PrimitiveComponent];
-			if (value !== undefined && value !== null && value !== false) {
+			if (attribute === 'class') {
+				this.element.setAttribute(attribute, `${this.baseClass} ${value}`);
+			} else if (value !== undefined && value !== null && value !== false) {
 				this.element.setAttribute(attribute, typeof value === 'boolean' ? '' : (value as string));
 			} else {
 				this.element.removeAttribute(attribute);
@@ -46,7 +52,9 @@ export class PrimitiveComponent extends BaseComponent {
 
 		//	Reflect forwarded attributes to the element
 		if (((this as Object).constructor as any).forwardedAttributes.includes(name)) {
-			if (newValue !== undefined && newValue !== null) {
+			if (name === 'class') {
+				this.element.setAttribute(name, `${this.baseClass} ${newValue}`);
+			} else if (newValue !== undefined && newValue !== null) {
 				this.element.setAttribute(name, typeof newValue === 'boolean' ? '' : newValue);
 			} else {
 				this.element.removeAttribute(name);
