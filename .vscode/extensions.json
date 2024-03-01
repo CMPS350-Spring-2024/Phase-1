@@ -8,6 +8,7 @@
 		"rvest.vs-code-prettier-eslint",
 		"yoavbls.pretty-ts-errors",
 		"bradlc.vscode-tailwindcss",
-		"britesnow.vscode-toggle-quotes"
+		"britesnow.vscode-toggle-quotes",
+		"figma.figma-vscode-extension"
 	]
 }
