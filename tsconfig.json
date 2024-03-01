@@ -28,7 +28,8 @@
 			"@/public/*": ["../public/*"],
 			"@/scripts/*": ["scripts/*"],
 			"@/styles/*": ["styles/*"],
-			"@/types/*": ["types/*"]
+			"@/types/*": ["types/*"],
+			"three/addons/*": ["../node_modules/@types/three/examples/jsm/*"]
 		}
 	},
 	"include": ["src"]
