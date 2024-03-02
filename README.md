@@ -89,10 +89,9 @@ The below table shows the total bundle size of the application, broken down into
 represents a route which has a colored indicator showing the performance of that particular route.
 
 <!-- BUNDLE_TABLE_START -->
-
-|         |    Size     | Budget Used (`1 MB`) |
-| ------- | :---------: | :------------------: |
-| `total` | `327.08 kB` |     🟢 `32.71%`      |
+| | Size | Budget Used (`1 MB`) | 
+| --- | :---: | :---: | 
+| `total` | `327.97 kB` | 🟢 `32.80%` | 
 
 <!-- BUNDLE_TABLE_END -->
 
