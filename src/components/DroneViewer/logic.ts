@@ -24,7 +24,7 @@ export class DroneViewer extends PrimitiveComponent {
 
 		//	Create and setup a new scene
 		const scene = new THREE.Scene();
-		scene.background = new THREE.Color(0xeeeeee);
+		scene.background = new THREE.Color(0xffffff);
 		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 		camera.position.set(-1.8, 0.9, 2.7);
 

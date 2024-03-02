@@ -14,8 +14,8 @@ export default {
 				'xs': '.75rem',
 			},
 			fontFamily: {
-				sans: ['"Source Sans 3"', 'sans-serif'],
-				serif: ['"Source Serif 4"', 'serif'],
+				sans: ['"Source Sans Pro"', 'sans-serif'],
+				serif: ['"Source Serif Pro"', 'serif'],
 				display: ['"Montserrat"', 'sans-serif'],
 			},
 			strokeWidth: {
