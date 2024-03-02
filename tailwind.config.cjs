@@ -4,6 +4,15 @@ export default {
 	content: ['./src/**/*.{html,js,ts}', 'node_modules/preline/dist/*.js'],
 	theme: {
 		extend: {
+			colors: {
+				title: '#1F2937',
+				secondary: '#6B7280',
+				border: '#E5E7EB',
+			},
+			fontSize: {
+				'2xs': '.625rem',
+				'xs': '.75rem',
+			},
 			fontFamily: {
 				sans: ['"Source Sans 3"', 'sans-serif'],
 				serif: ['"Source Serif 4"', 'serif'],
