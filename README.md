@@ -91,7 +91,7 @@ represents a route which has a colored indicator showing the performance of that
 <!-- BUNDLE_TABLE_START -->
 | | Size | Budget Used (`1 MB`) | 
 | --- | :---: | :---: | 
-| `total` | `327.97 kB` | 🟢 `32.80%` | 
+| `total` | `328.06 kB` | 🟢 `32.81%` | 
 
 <!-- BUNDLE_TABLE_END -->
 
