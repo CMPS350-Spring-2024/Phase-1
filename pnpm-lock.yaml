@@ -8,6 +8,9 @@ dependencies:
   '@preline/accordion':
     specifier: ^2.0.2
     version: 2.0.2
+  '@preline/dropdown':
+    specifier: ^2.0.2
+    version: 2.0.2
   '@preline/tooltip':
     specifier: ^2.0.2
     version: 2.0.2
@@ -1867,6 +1870,10 @@ packages:
 
   /@preline/accordion@2.0.2:
     resolution: {integrity: sha512-b90J0hluneagH4nlCwoDzU4uay9Lp8tjJU7wuU5k17E18X1VF+iMAkJBWJTJM7UUqVM8v9s022Cs+STmyiK46w==}
+    dev: false
+
+  /@preline/dropdown@2.0.2:
+    resolution: {integrity: sha512-Y3daIlYPWqkFmO4ONOInZQC2y3PT/pAZE/4THN2gOm4kRhVLW7/EMpv2xHHzzvw2e7XmPYXOUafKFgFWnVxSww==}
     dev: false
 
   /@preline/tooltip@2.0.2:

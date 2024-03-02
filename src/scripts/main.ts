@@ -1,5 +1,6 @@
 //	Package Imports
 import '@preline/accordion';
+import '@preline/dropdown';
 import '@preline/tooltip';
 import { MoveRight, Plus, createIcons } from 'lucide';
 
