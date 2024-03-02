@@ -15,8 +15,8 @@
 }
 
 @layer components {
-	/* Web components should only display their contents */
-	[component] {
+	/* Primitive web components should only display their contents */
+	[primitive] {
 		display: contents;
 	}
 

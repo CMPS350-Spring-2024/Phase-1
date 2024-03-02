@@ -22,6 +22,9 @@ export class PrimitiveComponent extends BaseComponent {
 	constructor({ elementName, ...props }: PrimitiveComponentConstructor) {
 		super(props);
 
+		//	Add primitive attribute to this element
+		this.setAttribute('primitive', '');
+
 		//	Find the primitive element inside the template's shadow dom
 		this.element = this.shadowRoot!.querySelector(elementName)!;
 

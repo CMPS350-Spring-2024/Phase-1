@@ -1,0 +1,11 @@
+<template id="dropdown-template">
+	<div class="hs-dropdown relative inline-flex">
+		<slot name="toggle"></slot>
+		<div
+			class="hs-dropdown-menu duration z-10 mt-2 hidden w-56 min-w-60 bg-white opacity-0 transition-[opacity,margin] hs-dropdown-open:opacity-100"
+			aria-labelledby="hs-dropdown-unstyled"
+		>
+			<slot></slot>
+		</div>
+	</div>
+</template>
