@@ -4,6 +4,11 @@ export default {
 	content: ['./src/**/*.{html,js,ts}', 'node_modules/preline/dist/*.js'],
 	theme: {
 		extend: {
+			fontFamily: {
+				sans: ['"Source Sans 3"', 'sans-serif'],
+				serif: ['"Source Serif 4"', 'serif'],
+				display: ['"Montserrat"', 'sans-serif'],
+			},
 			strokeWidth: {
 				3: '3px',
 				4: '4px',
