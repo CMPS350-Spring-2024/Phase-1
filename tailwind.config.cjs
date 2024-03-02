@@ -1,3 +1,5 @@
+import plugin from 'tailwindcss/plugin';
+
 /** @type {import('tailwindcss').Config} */
 export default {
 	important: true,
@@ -26,5 +28,12 @@ export default {
 			},
 		},
 	},
-	plugins: [require('@tailwindcss/forms'), require('preline/plugin')],
+	plugins: [
+		require('@tailwindcss/forms'),
+		require('preline/plugin'),
+		plugin(({ addVariant }) => {
+			addVariant('focus-hover', ['&:focus', '&:hover']);
+			addVariant('group-focus-hover', [':merge(.group):focus &', ':merge(.group):hover &']);
+		}),
+	],
 };
