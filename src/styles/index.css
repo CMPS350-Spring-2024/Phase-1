@@ -1,15 +1,26 @@
-@import '/src/components/Button/styles.css' layer(components);
+@import url('https://fonts.cdnfonts.com/css/montserrat?styles=17389');
+@import url('https://fonts.cdnfonts.com/css/source-sans-pro?styles=14484,14486,14491,14483,14488,14493');
+@import url('https://fonts.cdnfonts.com/css/source-serif-pro?styles=20103,20104,20100');
+
+@import url('/src/components/Button/styles.css') layer(components);
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
 
+/* Make all elements have position relative to make it easy to position absolute */
+* {
+	position: relative;
+}
+
 @layer components {
+	/* Web components should only display their contents */
 	[component] {
 		display: contents;
 	}
 
+	/* Make all icon sizes the same as their container font size */
 	.lucide {
 		font-size: 1em;
 	}

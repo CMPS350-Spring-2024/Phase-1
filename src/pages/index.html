@@ -3,20 +3,52 @@
 	locals='{"title": "Vite + TS"}'
 >
 	<block name="app">
-		<ui-button disabled>Disabled button</ui-button>
-		<ui-button loading>test 2</ui-button>
-		<ui-button
-			class="px-16"
-			fill="solid"
-			size="sm"
-			onclick="console.log('test');"
+		<div class="flex size-fit flex-col gap-12">
+			<div class="flex w-[440px] flex-col gap-2">
+				<h1 class="text-title font-serif text-5xl font-bold tracking-wide">Mavic 3 Pro</h1>
+				<p class="text-secondary font-light tracking-wide">
+					The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and
+					extensive range, ideal for photographers and filmmakers in diverse settings.
+				</p>
+			</div>
+			<hr class="border-border w-12 rounded-full" />
+			<div class="inline-flex place-content-between">
+				<div class="inline-flex items-baseline gap-1">
+					<p class="text-secondary text-lg font-light">USD</p>
+					<p class="text-title font-serif text-2xl font-bold tracking-tight">3,889.00</p>
+				</div>
+				<ui-button
+					class="text-secondary transition-gap focus-hover:gap-x-6 group w-32 rounded-none border-slate-300 font-serif text-xs uppercase tracking-[0.15rem] ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring"
+					fill="outline"
+				>
+					View
+					<i
+						class="size-4 stroke-1"
+						data-lucide="move-right"
+					></i>
+					<span
+						class="group-focus-hover:translate-x-0 group-focus-hover:scale-x-100 group-focus-hover:opacity-100 absolute -left-4 box-content h-[1px] w-6 translate-x-3 scale-x-0 border-y-8 border-white bg-slate-300 opacity-0 transition-all duration-500"
+					></span>
+					<span
+						class="group-focus-hover:translate-x-0 group-focus-hover:scale-x-100 group-focus-hover:opacity-100 absolute -right-4 box-content h-[1px] w-6 -translate-x-3 scale-x-0 border-y-8 border-white bg-slate-300 opacity-0 transition-all duration-500"
+					></span>
+				</ui-button>
+			</div>
+		</div>
+		<ui-drone-viewer></ui-drone-viewer>
+
+		<h1
+			class="font-display line pointer-events-none absolute -bottom-20 left-8 origin-top-left -rotate-90 text-[128px] font-black uppercase leading-[128px] text-zinc-100"
 		>
-			Add to Cart
-			<i
-				class="stroke-3 size-4"
-				data-lucide="plus"
-			/>
-		</ui-button>
-		<ui-drone-viewer />
+			DJI
+		</h1>
+
+		<h2
+			class="font-display line pointer-events-none absolute right-8 top-8 origin-top-left text-right text-[64px] font-black uppercase leading-[64px] text-zinc-100"
+		>
+			Aerial
+			<br />
+			Photography
+		</h2>
 	</block>
 </extends>
