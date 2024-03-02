@@ -55,6 +55,7 @@ export interface DropdownProps extends BaseComponentProps {
 export class Dropdown extends BaseComponent {
 	protected static readonly templateName: string = 'dropdown-template';
 	protected static readonly forwardedAttributes: Array<keyof DropdownProps> = [
+		'class',
 		'placement',
 		'auto-close',
 		'strategy',
@@ -66,10 +67,12 @@ export class Dropdown extends BaseComponent {
 		'placement': 'bottom-left',
 		'auto-close': 'inside',
 		'strategy': 'absolute',
-		'offset': 0,
+		'offset': 8,
 		'flip': true,
 		'trigger': 'click',
 	};
+
+	protected baseClass: string;
 
 	protected root: HTMLElement | null = null;
 	protected toggle: HTMLElement | null = null;
@@ -89,6 +92,9 @@ export class Dropdown extends BaseComponent {
 		)!.assignedNodes()[0] as HTMLElement;
 		this.menu = this.shadowRoot!.querySelector('.hs-dropdown-menu');
 
+		//	Store the base class of the element
+		this.baseClass = this.menu!.className;
+
 		//	If the toggle button is not found, throw an error
 		if (!this.toggle) {
 			throw new Error('No toggle button found');
@@ -101,7 +107,8 @@ export class Dropdown extends BaseComponent {
 		Dropdown.forwardedAttributes.forEach((property: string) => {
 			const value = this[property as keyof Dropdown];
 			const finalValue = value === '' ? 'true' : (value || 'false').toString();
-			this.root!.style.setProperty(`--${property}`, finalValue);
+			if (property === 'class') this.menu!.setAttribute(property, `${this.baseClass} ${finalValue}`);
+			else this.root!.style.setProperty(`--${property}`, finalValue);
 		});
 	}
 
@@ -109,7 +116,7 @@ export class Dropdown extends BaseComponent {
 		super.connectedCallback();
 
 		//	Register this dropdown with the HSDropdown class
-		setTimeout(() => new HSDropdown(this.root as any), 500);
+		setTimeout(() => new HSDropdown(this.root as any), 1000);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -118,7 +125,8 @@ export class Dropdown extends BaseComponent {
 		//	If the attribute is part of the available properties, update the root element's css variables
 		if (Dropdown.forwardedAttributes.includes(name as any)) {
 			const value = newValue === '' ? 'true' : newValue;
-			this.root!.style.setProperty(`--${name}`, value);
+			if (name === 'class') this.menu!.setAttribute(name, `${this.baseClass} ${value}`);
+			else this.root!.style.setProperty(`--${name}`, value);
 		}
 	}
 }

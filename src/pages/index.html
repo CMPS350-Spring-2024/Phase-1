@@ -3,33 +3,69 @@
 	locals='{"title": "Vite + TS"}'
 >
 	<block name="app">
-		<ui-dropdown>
-			<ui-button slot="toggle">Open</ui-button>
+		<ui-dropdown class="w-60">
+			<ui-button
+				class="text-secondary size-10 rounded-none hover:bg-slate-100"
+				fill="ghost"
+				slot="toggle"
+			>
+				<i
+					class="size-4"
+					data-lucide="user"
+				></i>
+			</ui-button>
 
-			<a
-				class="flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700"
-				href="#"
+			<ui-button
+				class="text-secondary w-full place-content-start gap-3 rounded-sm px-2 py-1.5 text-sm font-light hover:bg-slate-100"
+				fill="ghost"
 			>
-				Newsletter
-			</a>
-			<a
-				class="flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700"
-				href="#"
+				<i
+					class="size-4"
+					data-lucide="wallet"
+				></i>
+				My Balance
+			</ui-button>
+			<ui-button
+				class="text-secondary w-full place-content-start gap-3 rounded-sm px-2 py-1.5 text-sm font-light hover:bg-slate-100"
+				fill="ghost"
 			>
-				Purchases
-			</a>
-			<a
-				class="flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700"
-				href="#"
+				<i
+					class="size-4"
+					data-lucide="clipboard-list"
+				></i>
+				Past Orders
+			</ui-button>
+			<ui-button
+				class="text-secondary w-full place-content-start gap-3 rounded-sm px-2 py-1.5 text-sm font-light hover:bg-slate-100"
+				fill="ghost"
 			>
-				Downloads
-			</a>
-			<a
-				class="flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700"
-				href="#"
+				<i
+					class="size-4"
+					data-lucide="map-pin"
+				></i>
+				Saved Address
+			</ui-button>
+			<ui-button
+				class="text-secondary w-full place-content-start gap-3 rounded-sm px-2 py-1.5 text-sm font-light hover:bg-slate-100"
+				fill="ghost"
 			>
-				Team Account
-			</a>
+				<i
+					class="size-4"
+					data-lucide="palette"
+				></i>
+				Appearance
+			</ui-button>
+			<hr />
+			<ui-button
+				class="text-secondary w-full place-content-start gap-3 rounded-sm px-2 py-1.5 text-sm font-light hover:bg-slate-100"
+				fill="ghost"
+			>
+				<i
+					class="size-4"
+					data-lucide="log-out"
+				></i>
+				Log Out
+			</ui-button>
 		</ui-dropdown>
 		<div class="flex size-fit flex-col gap-12">
 			<div class="flex w-[440px] flex-col gap-2">
