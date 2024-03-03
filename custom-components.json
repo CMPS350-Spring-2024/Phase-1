@@ -1,0 +1,135 @@
+{
+	"version": 1.1,
+	"tags": [
+		{
+			"name": "i",
+			"description": "The i element is used to represent an icon. The icons used are from the Lucide icon set.",
+			"attributes": [
+				{
+					"name": "data-lucide",
+					"description": "Specifies the name of the icon to display.",
+					"values": [
+						{ "name": "clipboard-list" },
+						{ "name": "log-out" },
+						{ "name": "map-pin" },
+						{ "name": "move-right" },
+						{ "name": "palette" },
+						{ "name": "plus" },
+						{ "name": "user" },
+						{ "name": "wallet" }
+					]
+				}
+			],
+			"references": [
+				{
+					"name": "Lucide Icon Library",
+					"url": "https://lucide.dev/icons"
+				}
+			]
+		},
+		{
+			"name": "ui-button",
+			"description": "Custom button component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "href",
+					"description": "Passes a href to the button, this will wrap the button in an anchor tag."
+				},
+				{
+					"name": "color",
+					"description": "Specifies the color of the button.",
+					"values": [{ "name": "blue" }]
+				},
+				{
+					"name": "fill",
+					"description": "Specifies the fill type of the button.",
+					"values": [{ "name": "solid" }, { "name": "outline" }, { "name": "ghost" }]
+				},
+				{
+					"name": "size",
+					"description": "Specifies the size of the button.",
+					"values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+				},
+				{
+					"name": "round",
+					"description": "Makes the button have rounded corners.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "disabled",
+					"description": "Disables the button and prevents user interaction.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "loading",
+					"description": "Shows a loading spinner inside the button.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				}
+			],
+			"references": [
+				{
+					"name": "Preline UI buttons",
+					"url": "https://preline.co/docs/buttons.html"
+				}
+			]
+		},
+		{
+			"name": "ui-dropdown",
+			"description": "Custom button component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "placement",
+					"description": "Specifies the position of the menu when opened.",
+					"values": [
+						{ "name": "top" },
+						{ "name": "top-left" },
+						{ "name": "top-right" },
+						{ "name": "bottom" },
+						{ "name": "bottom-left" },
+						{ "name": "bottom-right" },
+						{ "name": "right" },
+						{ "name": "right-top" },
+						{ "name": "right-bottom" },
+						{ "name": "left" },
+						{ "name": "left-top" },
+						{ "name": "left-bottom" }
+					]
+				},
+				{
+					"name": "auto-close",
+					"description": "Specifies the zone, when clicked, which will close the menu.",
+					"values": [{ "name": "true" }, { "name": "false" }, { "name": "inside" }, { "name": "outside" }]
+				},
+				{
+					"name": "fill",
+					"description": "Sets the position to absolute instead of fixed, and removes the transform styles to position the menu relative to the relative parent block.",
+					"values": [{ "name": "fixed" }, { "name": "absolute" }]
+				},
+				{
+					"name": "offset",
+					"description": "Sets the dropdown's bottom or top offset."
+				},
+				{
+					"name": "flip",
+					"description": "Flips the menu's placement when it starts to overlap its reference element.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "trigger",
+					"description": "Event to trigger a dropdown.",
+					"values": [{ "name": "click" }, { "name": "hover" }]
+				}
+			],
+			"references": [
+				{
+					"name": "Preline UI buttons",
+					"url": "https://preline.co/docs/buttons.html"
+				}
+			]
+		},
+		{
+			"name": "ui-drone-viewer",
+			"description": "Custom drone viewer which displays the 3D model of the current selected drone."
+		}
+	]
+}

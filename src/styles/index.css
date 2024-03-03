@@ -3,6 +3,7 @@
 @import url('https://fonts.cdnfonts.com/css/source-serif-pro?styles=20103,20104,20100');
 
 @import url('/src/components/Button/styles.css') layer(components);
+@import url('/src/components/Dropdown/styles.css') layer(components);
 
 @tailwind base;
 @tailwind components;
@@ -15,8 +16,8 @@
 }
 
 @layer components {
-	/* Web components should only display their contents */
-	[component] {
+	/* Primitive web components should only display their contents */
+	[primitive] {
 		display: contents;
 	}
 

@@ -39,7 +39,7 @@ export class BaseComponent extends HTMLElement {
 			//	Add each of the properties in this class as an attribute on the element
 			const value = this[property as keyof BaseComponent];
 			if (value !== undefined && value !== null && value !== false)
-				this.setAttribute(property, typeof value === 'string' ? value : '');
+				this.setAttribute(property, typeof value === 'boolean' ? '' : value.toString());
 
 			//	Define a getter and setter for each of the class properties to automatically update the attributes
 			Object.defineProperty(this, property, {
@@ -51,7 +51,7 @@ export class BaseComponent extends HTMLElement {
 				},
 				set(value) {
 					if (value !== undefined && value !== null && value !== false) {
-						this.setAttribute(property, typeof value === 'string' ? value : '');
+						this.setAttribute(property, typeof value === 'boolean' ? '' : value.toString());
 					} else {
 						this.removeAttribute(property);
 					}
