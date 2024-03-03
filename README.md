@@ -44,11 +44,20 @@ platform both buyers and sellers to manage their accounts, view their transactio
 ## 📖 Table of Contents
 
 -   [💻 Getting Started](#-getting-started)
+    -   [Prerequisites](#1-prerequisites)
+    -   [Setting up the project](#2-setting-up-the-project)
+    -   [Running the application](#running-the-application)
+    -   [Creating a branch for new features](#3-creating-a-branch-for-new-features)
+    -   [Committing changes](#4-committing-changes)
+    -   [Merging new changes](#5-merging-new-changes)
 -   [📦 Bundle Size](#-bundle-size)
 -   [📚 Tech Stack](#-tech-stack)
 -   [🧩 Components](#-components)
+    -   [Creating a new component](#creating-a-new-component)
 
 ## 💻 Getting Started
+
+### 1. Prerequisites
 
 First, make sure you have the following installed on your machine:
 
@@ -61,12 +70,28 @@ And if not already installed, run the following command to globally install `pnp
 npm install -g pnpm
 ```
 
-Next, pull the repository and install the dependencies by opening the folder in VSCode and running the following
-commands:
+---
+
+### 2. Setting up the project
+
+Pull the repository and install the dependencies by opening the folder in VSCode and running the following commands:
 
 ```shell
 pnpm install
 ```
+
+Then, with VSCode open, press ctrl + shift + p and type "recommended". Then click on the "Show Recommended Extensions"
+option and install all the recommended extensions for the project. You should see the list below in your sidebar:
+
+![Recommended Extensions](./public/images/recommended-extensions.png)
+
+For the handlebars extension, make sure to press the settings icon, click on "Disable", and then click on "Enable
+(Workspace)" to make sure the extension is enabled only for this project. Then, reload VSCode to make sure the changes
+have been applied.
+
+---
+
+### Running the application
 
 Once all the dependencies have been installed, start the application by running:
 
@@ -83,15 +108,117 @@ pnpm build
 pnpm preview
 ```
 
+---
+
+### 3. Creating a branch for new features
+
+When working on a new feature, make sure to create a new branch with the following naming convention:
+
+```js
+${VERSION_NUMBER}/${TYPE}/${FEATURE_NAME}
+```
+
+For example, if you are working on a task under "v0.4.0 - Implement Customer Pages" where you implement a new timeline
+component then `${VERSION_NUMBER}` would be `v0.3.x`, `${TYPE}` would be `feat`, and `${FEATURE_NAME}` would be
+`implement-timeline-component`.
+
+Another example would be if you are working on a task under "v0.4.0 - Implement Customer Pages" where you have to
+refactor the authentication logic then `${VERSION_NUMBER}` would also be `v0.3.x`, `${TYPE}` would be `refactor`, and
+`${FEATURE_NAME}` would be `refactor-authentication-logic`.
+
+```js
+// v0.3.x/feat/implement-timeline-component
+// v0.3.x/refactor/refactor-authentication-logic
+```
+
+Note that if there are multiple people working on the same branch, x's are used to indicate that the version number is
+not yet known. This will be updated once the feature is merged into the main branch. More on this can be found in the
+[Merging new changes](#5-merging-new-changes) section.
+
+---
+
+### 4. Committing changes
+
+When committing changes, make sure to follow the below commit message format:
+
+```js
+${TYPE}: ${DESCRIPTION}
+```
+
+Where `${TYPE}` is one of the following:
+
+-   `feat` - A new feature
+-   `tweak` - Small changes or improvements
+-   `refactor` - A code change that neither fixes a bug nor adds a feature
+-   `fix` - A bug fix
+-   `docs` - Documentation only changes
+-   `ci` - Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+-   `chore` - Changes to the build process or auxiliary tools and libraries such as documentation generation
+-   `test` - Adding missing tests or correcting existing tests
+-   `deps` - Add, update, or remove dependencies
+
+And `${DESCRIPTION}` is a brief description of the changes made. Make sure to use the imperative, present tense (e.g.
+"Add" not "Added" or "Adds"). Also the description should not start with a capital letter and should not end with a
+period. For example:
+
+```js
+// testing: Added new tests for some utility function  ❌
+// test: add new tests for some utility function  ✅
+```
+
+Finally, try to not make commits that are too large. If you are working on a large feature, try to break it down into
+smaller tasks and make a commit for each task. This will make it easier to track changes and revert them if necessary.
+
+---
+
+### 5. Merging new changes
+
+When you are done with your feature and are ready to merge it into the main branch, make sure to create a pull request.
+The name of the pull request should follow the below format:
+
+```js
+#${CLICKUP_TASK_ID}/${VERSION_NUMBER}/${TYPE} - ${FEATURE_NAME}
+```
+
+Where `${CLICKUP_TASK_ID}` is the task id from Clickup, `${VERSION_NUMBER}` is the version number of the feature you are
+working on, `${TYPE}` is one of the task types from the previous section, and `${FEATURE_NAME}` is a capitalized version
+of the branch name.
+
+For example, if you are working on a task under "v0.4.0 - Implement Customer Pages" where you implement a new timeline
+component then the pull request name would be:
+
+```js
+#abcdefghi/v0.3.x/feat - Implement timeline component
+```
+
+Make sure to replace the x's with the actual version number, counting numerically from the last version number. For
+example, if the last version number was `v0.3.0` then the next version number would be `v0.3.1`.
+
+For the description of the pull request, use the following template:
+
+```md
+**Clickup Link** - https://app.clickup.com/t/CHANGE_THIS
+
+**Overview** EMPTY_DESCRIPTION
+
+<!-- Add picture here -->
+```
+
+Make sure to replace `CHANGE_THIS` with the task id from Clickup and `EMPTY_DESCRIPTION` with a brief description of the
+changes made. Also, if possible, add a picture of the changes made to the pull request description.
+
+Once ready, assign the pull request to `@MFauzanAP` and wait for the changes to be reviewed and merged.
+
 ## 📦 Bundle Size
 
 The below table shows the total bundle size of the application, broken down into the different routes. Each row
 represents a route which has a colored indicator showing the performance of that particular route.
 
 <!-- BUNDLE_TABLE_START -->
-| | Size | Budget Used (`1 MB`) | 
-| --- | :---: | :---: | 
-| `total` | `352.83 kB` | 🟢 `35.28%` | 
+
+|         |    Size     | Budget Used (`1 MB`) |
+| ------- | :---------: | :------------------: |
+| `total` | `352.83 kB` |     🟢 `35.28%`      |
 
 <!-- BUNDLE_TABLE_END -->
 
@@ -136,3 +263,20 @@ Within the component folder there are 3 main files:
     utility classes.
 -   `template.html` - Contains the HTML template for the component. This is the structure of the component and will be
     rendered in the DOM during runtime.
+
+### Creating a new component
+
+1. Create a new folder in the `src/components` directory with the name of the component. For example, if you are
+   creating a new button component, the folder name would be `Button`.
+2. Inside the new folder, create the following files:
+    - `logic.ts`
+    - `style.css`
+    - `template.html`
+3. In the `logic.ts` file, create a new class that extends the `BaseComponent` class. This class should contain the
+   logic for the component, such as event listeners, state management, and other methods. Also specify which attributes
+   should be observed and reflected to the native element.
+4. In the `style.css` file, create the styles and variants for the component.
+5. In the `template.html` file, create the HTML structure for the component. This is the structure of the component and
+   will be rendered in the DOM during runtime.
+6. Then, import the script inside `src/scripts/main.ts` and the styles inside `src/styles/index.css`.
+7. Finally, add the component to `custom-components.json` to allow for auto-completion and type checking in the editor.
