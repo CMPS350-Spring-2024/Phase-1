@@ -52,6 +52,9 @@ export interface DropdownProps extends BaseComponentProps {
 	'trigger'?: 'click' | 'hover';
 }
 
+/**
+ * Custom dropdown component based on the Preline UI design system.
+ */
 export class Dropdown extends BaseComponent {
 	protected static readonly templateName: string = 'dropdown-template';
 	protected static readonly forwardedAttributes: Array<keyof DropdownProps> = [
