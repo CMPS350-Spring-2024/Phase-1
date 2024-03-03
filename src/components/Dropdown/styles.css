@@ -10,9 +10,9 @@
 	width: var(--width);
 }
 
-.ui-dropdown-item {
+ui-dropdown ui-button.ui-dropdown-item::part(button) {
 	@apply w-full place-content-start gap-3 px-2 py-1.5;
-	@apply rounded-sm;
+	@apply rounded-sm border-none;
 	@apply text-secondary hover:bg-slate-100;
 	@apply text-sm font-light;
 }
