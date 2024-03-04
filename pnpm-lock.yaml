@@ -11,6 +11,9 @@ dependencies:
   '@preline/dropdown':
     specifier: ^2.0.2
     version: 2.0.2
+  '@preline/input-number':
+    specifier: ^2.0.2
+    version: 2.0.2
   '@preline/tooltip':
     specifier: ^2.0.2
     version: 2.0.2
@@ -1874,6 +1877,10 @@ packages:
 
   /@preline/dropdown@2.0.2:
     resolution: {integrity: sha512-Y3daIlYPWqkFmO4ONOInZQC2y3PT/pAZE/4THN2gOm4kRhVLW7/EMpv2xHHzzvw2e7XmPYXOUafKFgFWnVxSww==}
+    dev: false
+
+  /@preline/input-number@2.0.2:
+    resolution: {integrity: sha512-b1lr1J5wMkzv0eEZgjZiGdZNQBE5ZchIVVRRBbIaSMl2ApkrpjYlLhbeyoi6HlIgTw16yCbjz/9g5vaeKlhMIA==}
     dev: false
 
   /@preline/tooltip@2.0.2:
