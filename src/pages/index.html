@@ -5,7 +5,7 @@
 	<block name="app">
 		<ui-dropdown class="w-60">
 			<ui-button
-				class="text-secondary size-10 rounded-none hover:bg-slate-100"
+				class="size-10 rounded-none text-secondary hover:bg-slate-100"
 				fill="ghost"
 				slot="toggle"
 			>
@@ -64,19 +64,20 @@
 				Log Out
 			</ui-button>
 		</ui-dropdown>
+		<ui-numeric-input defaultValue="9"></ui-numeric-input>
 		<div class="flex size-fit flex-col gap-12">
 			<div class="flex w-[440px] flex-col gap-2">
-				<h1 class="text-title font-serif text-5xl font-bold tracking-wide">Mavic 3 Pro</h1>
-				<p class="text-secondary font-light tracking-wide">
+				<h1 class="font-serif text-5xl font-bold tracking-wide text-title">Mavic 3 Pro</h1>
+				<p class="font-light tracking-wide text-secondary">
 					The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and
 					extensive range, ideal for photographers and filmmakers in diverse settings.
 				</p>
 			</div>
-			<hr class="border-border w-12 rounded-full" />
+			<hr class="w-12 rounded-full border-border" />
 			<div class="inline-flex place-content-between">
 				<div class="inline-flex items-baseline gap-1">
-					<p class="text-secondary text-lg font-light">USD</p>
-					<p class="text-title font-serif text-2xl font-bold tracking-tight">3,889.00</p>
+					<p class="text-lg font-light text-secondary">USD</p>
+					<p class="font-serif text-2xl font-bold tracking-tight text-title">3,889.00</p>
 				</div>
 				<ui-button
 					class="transition-gap group w-32 rounded-none border-slate-300 font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-offset-4 transition-[column-gap] duration-300 focus-hover:gap-x-6"
@@ -100,13 +101,13 @@
 		<ui-drone-viewer></ui-drone-viewer>
 
 		<h1
-			class="font-display line pointer-events-none absolute -bottom-20 left-8 origin-top-left -rotate-90 text-[128px] font-black uppercase leading-[128px] text-zinc-100"
+			class="line pointer-events-none absolute -bottom-20 left-8 origin-top-left -rotate-90 font-display text-[128px] font-black uppercase leading-[128px] text-zinc-100"
 		>
 			DJI
 		</h1>
 
 		<h2
-			class="font-display line pointer-events-none absolute right-8 top-8 origin-top-left text-right text-[64px] font-black uppercase leading-[64px] text-zinc-100"
+			class="line pointer-events-none absolute right-8 top-8 origin-top-left text-right font-display text-[64px] font-black uppercase leading-[64px] text-zinc-100"
 		>
 			Aerial
 			<br />
