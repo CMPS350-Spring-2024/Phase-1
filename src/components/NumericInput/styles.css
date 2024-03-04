@@ -1,0 +1,23 @@
+ui-numeric-input {
+	&::part(root) {
+		@apply h-10;
+		@apply inline-flex items-center p-2;
+		@apply rounded-lg border;
+		@apply border-gray-200 bg-white dark:border-gray-700 dark:bg-slate-900;
+	}
+
+	&::part(input) {
+		@apply w-10;
+		@apply border-0 p-0 text-center;
+		@apply text-title dark:text-white;
+		@apply font-serif;
+		@apply focus:ring-0;
+	}
+
+	&::part(button) {
+		@apply size-6 p-0;
+		@apply rounded-md border-gray-200;
+		@apply bg-white text-secondary hover:bg-gray-50;
+		@apply shadow-sm;
+	}
+}
