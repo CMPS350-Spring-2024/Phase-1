@@ -1,6 +1,9 @@
 <extends
 	src="../layouts/base.html"
-	locals='{"title": "Vite + TS"}'
+	locals='{
+		"title": "Vite + TS",
+		"base_url": "../"
+	}'
 >
 	<block name="app">
 		<ui-dropdown class="w-60">
@@ -80,7 +83,7 @@
 					<p class="font-serif text-2xl font-bold tracking-tight text-title">3,889.00</p>
 				</div>
 				<ui-button
-					class="transition-gap group w-32 rounded-none border-slate-300 font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-offset-4 transition-[column-gap] duration-300 focus-hover:gap-x-6"
+					class="transition-gap group w-32 rounded-none border-slate-300 font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6"
 					fill="outline"
 					onclick="HSDropdown.getInstance('#dropdown', true).element.open()"
 				>
