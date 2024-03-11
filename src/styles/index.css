@@ -4,6 +4,7 @@
 
 @import url('/src/components/Button/styles.css') layer(components);
 @import url('/src/components/Dropdown/styles.css') layer(components);
+@import url('/src/components/NumericInput/styles.css') layer(components);
 
 @tailwind base;
 @tailwind components;
@@ -12,17 +13,18 @@
 
 /* Make all elements have position relative to make it easy to position absolute */
 * {
-	position: relative;
+	@apply relative;
+	@apply ring-blue-400 focus:z-10 focus:ring;
 }
 
 @layer components {
 	/* Primitive web components should only display their contents */
-	[primitive] {
-		display: contents;
+	[component] {
+		@apply contents;
 	}
 
 	/* Make all icon sizes the same as their container font size */
 	.lucide {
-		font-size: 1em;
+		@apply text-[1em];
 	}
 }

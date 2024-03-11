@@ -80,16 +80,21 @@ export class Button extends PrimitiveComponent {
 
 				//	Unwrap the button from the anchor tag
 				const button = this.element.firstElementChild!.cloneNode(true) as HTMLElement;
+				button.removeAttribute('tabIndex');
 				this.element.insertAdjacentElement('afterend', button);
 				this.element.remove();
 				this.element = button;
 			} else {
 				this.setAttribute('role', 'link');
 
+				//	Clone the button and make it non-focusable
+				const button = this.element.cloneNode(true) as HTMLElement;
+				button.setAttribute('tabIndex', '-1');
+
 				//	Wrap the button in an anchor tag
 				const anchor = this.element.ownerDocument!.createElement('a');
 				anchor.setAttribute('href', newValue);
-				anchor.appendChild(this.element.cloneNode(true));
+				anchor.appendChild(button);
 				this.element.insertAdjacentElement('beforebegin', anchor);
 				this.element.remove();
 				this.element = anchor;

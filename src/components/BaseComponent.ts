@@ -27,18 +27,12 @@ export class BaseComponent extends HTMLElement {
 	constructor({ defaultProperties }: BaseComponentConstructor) {
 		super();
 
-		//	Set the default properties
-		if (defaultProperties)
-			Object.keys(defaultProperties).forEach((property: string) => {
-				//	@ts-ignore
-				this[property as keyof BaseComponent] = defaultProperties[property];
-			});
-
 		//	Loop through each of the observed attributes to initialize them
 		((this as Object).constructor as any).observedAttributes.forEach((property: string) => {
-			//	Add each of the properties in this class as an attribute on the element
-			const value = this[property as keyof BaseComponent];
-			if (value !== undefined && value !== null && value !== false)
+			//	Set default value for the property if it is not defined
+			let value = this.getAttribute(property);
+			if (value === undefined || value === null) value = defaultProperties![property];
+			if (value !== undefined && value !== null)
 				this.setAttribute(property, typeof value === 'boolean' ? '' : value.toString());
 
 			//	Define a getter and setter for each of the class properties to automatically update the attributes
