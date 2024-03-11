@@ -1,0 +1,46 @@
+nav {
+	display: flex;
+
+	position: relative;
+	flex-wrap: nowrap;
+	justify-content: center;
+	/* padding: 1rem; */
+}
+
+nav > a {
+	text-align: center;
+	text-decoration: none;
+}
+
+.nav-center-group {
+	display: none;
+}
+.page-title {
+	display: none;
+}
+/* .nav-end-group {
+} */
+
+.nav-end-group > nav > a {
+	/* margin: 1rem 1rem; */
+	margin: 0.5rem 0.5rem;
+	color: gray;
+}
+.navbar {
+	display: flex;
+
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	/* border-radius: 0.5rem; */
+}
+
+header {
+	display: inline-block;
+	/* filter: drop-shadow(5px 5px 5px #0000005b); */
+	border-bottom: rgb(177, 177, 177) 2px solid;
+
+	/* padding-bottom: 6rem; */
+	font-family:
+		IBM Plex Sans Condensed,
+		IBM Plex Sans;
+}

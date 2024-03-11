@@ -1,0 +1,19 @@
+footer {
+	display: grid;
+	align-content: center;
+	background: #1f2937;
+	color: white;
+	text-align: center;
+}
+
+.bottom-bar {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	/* grid-template-columns:1fr 1fr ; */
+	align-items: flex-start;
+	gap: 4rem;
+
+	margin: 2rem 0rem 5rem 0rem;
+
+	padding: 25px 30px;
+}
