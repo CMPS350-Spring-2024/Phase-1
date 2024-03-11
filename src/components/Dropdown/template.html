@@ -1,7 +1,13 @@
 <template id="dropdown-template">
-	<div class="hs-dropdown relative inline-flex">
+	<div
+		class="hs-dropdown relative inline-flex"
+		part="root"
+	>
 		<slot name="toggle"></slot>
-		<div class="hs-dropdown-menu ui-dropdown-menu">
+		<div
+			class="hs-dropdown-menu"
+			part="menu"
+		>
 			<slot></slot>
 		</div>
 	</div>

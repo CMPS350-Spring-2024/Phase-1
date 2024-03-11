@@ -1,22 +1,40 @@
-.ui-dropdown-menu {
-	@apply hidden;
-	@apply p-2.5;
-	@apply border-border rounded-md border;
-	@apply bg-white shadow-sm;
-	@apply transition-[opacity,margin] duration-150;
-	@apply opacity-0 hs-dropdown-open:opacity-100;
-	@apply z-10;
+ui-dropdown {
+	/* Container */
+	&::part(root):has(.open) {
+		.hs-dropdown-menu {
+			@apply opacity-100;
+		}
+	}
 
-	width: var(--width);
+	/* Menu */
+	&::part(menu) {
+		@apply hidden;
+		@apply p-2.5;
+		@apply rounded-md border border-border;
+		@apply bg-white shadow-sm;
+		@apply transition-[opacity,margin] duration-150;
+		@apply opacity-0;
+		@apply z-10;
+		width: var(--width);
+	}
+
+	/* Menu Buttons */
+	ui-button.ui-dropdown-item::part(root) {
+		@apply w-full place-content-start gap-3 px-2 py-1.5;
+		@apply rounded-sm border-none;
+		@apply text-secondary hover:bg-slate-100;
+		@apply text-sm font-light;
+	}
+
+	/* Dividers */
+	hr {
+		@apply my-1.5;
+	}
 }
 
-ui-dropdown ui-button.ui-dropdown-item::part(button) {
-	@apply w-full place-content-start gap-3 px-2 py-1.5;
-	@apply rounded-sm border-none;
-	@apply text-secondary hover:bg-slate-100;
-	@apply text-sm font-light;
-}
-
-hr {
-	@apply my-1.5;
+/* This has to be outside to make sure the menu is visible when opened */
+.open {
+	.hs-dropdown-menu {
+		opacity: 1 !important;
+	}
 }
