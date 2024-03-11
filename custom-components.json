@@ -16,6 +16,8 @@
 						{ "name": "move-right" },
 						{ "name": "palette" },
 						{ "name": "plus" },
+						{ "name": "shopping-cart" },
+						{ "name": "search" },
 						{ "name": "user" },
 						{ "name": "wallet" }
 					]

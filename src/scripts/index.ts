@@ -7,4 +7,5 @@ import './icons';
 import '@/components/Button/logic';
 import '@/components/DroneViewer/logic';
 import '@/components/Dropdown/logic';
+import '@/components/Navbar/logic';
 import '@/components/NumericInput/logic';
