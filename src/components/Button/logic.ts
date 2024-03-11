@@ -39,6 +39,11 @@ export interface ButtonProps extends BaseComponentProps {
 	 * Shows a loading spinner inside the button.
 	 */
 	loading?: boolean;
+
+	/**
+	 * The function to call when the button is clicked.
+	 */
+	onclick?: () => void;
 }
 
 /**
@@ -48,6 +53,7 @@ export class Button extends PrimitiveComponent {
 	protected static readonly templateName: string = 'button-template';
 	protected static readonly forwardedAttributes: Array<keyof ButtonProps> = [
 		'href',
+		'onclick',
 
 		'class',
 		'color',

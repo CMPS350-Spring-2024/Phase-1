@@ -132,6 +132,24 @@ export class Dropdown extends BaseComponent {
 			else this.root!.style.setProperty(`--${name}`, value);
 		}
 	}
+
+	open(): void {
+		// @ts-ignore
+		HSDropdown.getInstance(this.root!, true).element.open();
+	}
+
+	close(): void {
+		// @ts-ignore
+		HSDropdown.getInstance(this.root!, true).element.close();
+	}
+
+	toggleMenu(): void {
+		if (this.root!.classList.contains('open')) {
+			this.close();
+		} else {
+			this.open();
+		}
+	}
 }
 
 customElements.define('ui-dropdown', Dropdown);
