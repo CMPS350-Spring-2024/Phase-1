@@ -29,6 +29,40 @@
 			]
 		},
 		{
+			"name": "ui-avatar",
+			"description": "Custom avatar component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "color",
+					"description": "The color of the avatar.",
+					"values": [
+						{ "name": "red" },
+						{ "name": "orange" },
+						{ "name": "amber" },
+						{ "name": "yellow" },
+						{ "name": "lime" },
+						{ "name": "green" },
+						{ "name": "emerald" },
+						{ "name": "teal" },
+						{ "name": "cyan" },
+						{ "name": "sky" },
+						{ "name": "blue" },
+						{ "name": "indigo" },
+						{ "name": "violet" },
+						{ "name": "purple" },
+						{ "name": "magenta" },
+						{ "name": "pink" },
+						{ "name": "rose" }
+					]
+				},
+				{
+					"name": "size",
+					"description": "The size of the avatar.",
+					"values": [{ "name": "xs" }, { "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+				}
+			]
+		},
+		{
 			"name": "ui-button",
 			"description": "Custom button component based on the Preline UI design system.",
 			"attributes": [
