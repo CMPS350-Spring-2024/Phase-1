@@ -10,6 +10,7 @@ export interface AvatarProps extends BaseComponentProps {
 	 * The color of the avatar.
 	 */
 	color?:
+		| 'black'
 		| 'red'
 		| 'orange'
 		| 'amber'
@@ -45,6 +46,7 @@ export class Avatar extends PrimitiveComponent {
 		size: 'sm',
 	};
 	protected static readonly colors: Array<AvatarProps['color']> = [
+		'black',
 		'red',
 		'orange',
 		'amber',

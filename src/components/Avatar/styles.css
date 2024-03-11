@@ -7,6 +7,9 @@ ui-avatar {
 		@apply font-display font-bold leading-none;
 
 		/* Color Variants */
+		&[color='black'] {
+			@apply bg-slate-800;
+		}
 		&[color='red'] {
 			@apply bg-red-500;
 		}

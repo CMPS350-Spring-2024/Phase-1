@@ -36,6 +36,7 @@
 					"name": "color",
 					"description": "The color of the avatar.",
 					"values": [
+						{ "name": "black" },
 						{ "name": "red" },
 						{ "name": "orange" },
 						{ "name": "amber" },
