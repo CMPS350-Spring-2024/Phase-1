@@ -69,6 +69,20 @@
 		</ui-dropdown>
 		<ui-numeric-input defaultValue="9"></ui-numeric-input>
 		<ui-avatar color="black">MF</ui-avatar>
+		<ui-button fill="ghost">
+			<i
+				class="size-3.5"
+				data-lucide="chevron-left"
+			></i>
+			Back
+		</ui-button>
+		<ui-button>
+			Top-Up Balance
+			<i
+				class="size-3.5"
+				data-lucide="wallet"
+			></i>
+		</ui-button>
 		<div class="flex size-fit flex-col gap-12">
 			<div class="flex w-[440px] flex-col gap-2">
 				<h1 class="font-serif text-5xl font-bold tracking-wide text-title">Mavic 3 Pro</h1>
@@ -84,7 +98,7 @@
 					<p class="font-serif text-2xl font-bold tracking-tight text-title">3,889.00</p>
 				</div>
 				<ui-button
-					class="transition-gap group w-32 rounded-none border-slate-300 font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6"
+					class="transition-gap group w-32 rounded-none font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6"
 					fill="outline"
 					onclick="document.querySelector('ui-dropdown').toggleMenu(); document.querySelector('ui-avatar').randomizeColor()"
 				>

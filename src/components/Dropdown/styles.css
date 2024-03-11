@@ -21,9 +21,9 @@ ui-dropdown {
 	/* Menu Buttons */
 	ui-button.ui-dropdown-item::part(root) {
 		@apply w-full place-content-start gap-3 px-2 py-1.5;
-		@apply rounded-sm border-none;
+		@apply border-none;
 		@apply text-secondary hover:bg-slate-100;
-		@apply text-sm font-light;
+		@apply font-light;
 	}
 
 	/* Dividers */

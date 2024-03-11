@@ -9,6 +9,7 @@
 					"name": "data-lucide",
 					"description": "Specifies the name of the icon to display.",
 					"values": [
+						{ "name": "chevron-left" },
 						{ "name": "clipboard-list" },
 						{ "name": "log-out" },
 						{ "name": "map-pin" },

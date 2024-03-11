@@ -12,11 +12,6 @@ export interface ButtonProps extends BaseComponentProps {
 	href?: string;
 
 	/**
-	 * Specifies the color of the button.
-	 */
-	color?: 'blue';
-
-	/**
 	 * Specifies the fill type of the button.
 	 */
 	fill?: 'solid' | 'outline' | 'ghost';
@@ -57,7 +52,6 @@ export class Button extends PrimitiveComponent {
 		'onclick',
 
 		'class',
-		'color',
 		'fill',
 		'size',
 		'round',
@@ -65,7 +59,6 @@ export class Button extends PrimitiveComponent {
 		'loading',
 	];
 	protected static readonly defaultProperties: ButtonProps = {
-		color: 'blue',
 		fill: 'outline',
 		size: 'sm',
 	};
