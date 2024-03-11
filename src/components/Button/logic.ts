@@ -4,6 +4,7 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
+export interface Button extends Omit<ButtonProps, 'onclick'> {}
 export interface ButtonProps extends BaseComponentProps {
 	/**
 	 * Passes a href to the button, this will wrap the button in an anchor tag.

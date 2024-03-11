@@ -7,6 +7,7 @@ import { BaseComponent } from '@/components/BaseComponent';
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
+export interface Dropdown extends DropdownProps {}
 export interface DropdownProps extends BaseComponentProps {
 	/**
 	 * Specifies the position of the menu when opened.
