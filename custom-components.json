@@ -12,6 +12,7 @@
 						{ "name": "clipboard-list" },
 						{ "name": "log-out" },
 						{ "name": "map-pin" },
+						{ "name": "minus" },
 						{ "name": "move-right" },
 						{ "name": "palette" },
 						{ "name": "plus" },
@@ -74,6 +75,10 @@
 			]
 		},
 		{
+			"name": "ui-drone-viewer",
+			"description": "Custom drone viewer which displays the 3D model of the current selected drone."
+		},
+		{
 			"name": "ui-dropdown",
 			"description": "Custom button component based on the Preline UI design system.",
 			"attributes": [
@@ -128,8 +133,64 @@
 			]
 		},
 		{
-			"name": "ui-drone-viewer",
-			"description": "Custom drone viewer which displays the 3D model of the current selected drone."
+			"name": "ui-numeric-input",
+			"description": "Custom numeric input component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "name",
+					"description": "The name of the input."
+				},
+				{
+					"name": "value",
+					"description": "The numeric value of the input."
+				},
+				{
+					"name": "defaultValue",
+					"description": "The default value of the input."
+				},
+				{
+					"name": "placeholder",
+					"description": "The placeholder text to display when the input is empty."
+				},
+				{
+					"name": "min",
+					"description": "The minimum value of the input."
+				},
+				{
+					"name": "max",
+					"description": "The maximum value of the input."
+				},
+				{
+					"name": "step",
+					"description": "The step value of the input."
+				},
+				{
+					"name": "autofocus",
+					"description": "Should this input be focused when the page loads?",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "disabled",
+					"description": "Disables the input.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "readonly",
+					"description": "Stops the user from being able to change the value of the input.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "required",
+					"description": "If this input is in a form, this property makes it required.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				}
+			],
+			"references": [
+				{
+					"name": "Preline UI numeric input",
+					"url": "https://preline.co/docs/input-number.html"
+				}
+			]
 		}
 	]
 }
