@@ -6,6 +6,7 @@
 	}'
 >
 	<block name="app">
+		<dialog id="test">test</dialog>
 		<ui-dropdown class="w-60">
 			<ui-button
 				class="size-10 rounded-none text-secondary hover:bg-slate-100"
@@ -98,9 +99,9 @@
 					<p class="font-serif text-2xl font-bold tracking-tight text-title">3,889.00</p>
 				</div>
 				<ui-button
-					class="transition-gap group w-32 rounded-none font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6"
+					class="transition-gap group w-32 rounded-none font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6 focus-hover:bg-white"
 					fill="outline"
-					onclick="document.querySelector('ui-dropdown').toggleMenu(); document.querySelector('ui-avatar').randomizeColor()"
+					onclick="document.querySelector('ui-dropdown').toggleMenu(); document.querySelector('ui-avatar').randomizeColor(); document.querySelector('#test').showModal();"
 				>
 					View
 					<i
