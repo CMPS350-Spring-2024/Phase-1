@@ -1,10 +1,23 @@
 //	Package Imports
-import { ClipboardList, LogOut, MapPin, Minus, MoveRight, Palette, Plus, User, Wallet, createIcons } from 'lucide';
+import {
+	ChevronLeft,
+	ClipboardList,
+	LogOut,
+	MapPin,
+	Minus,
+	MoveRight,
+	Palette,
+	Plus,
+	User,
+	Wallet,
+	createIcons,
+} from 'lucide';
 
 //	Convert all <i> tags with the class "lucide" to lucide icons
 export const convertIcons = () =>
 	createIcons({
 		icons: {
+			ChevronLeft,
 			ClipboardList,
 			LogOut,
 			MapPin,

@@ -7,6 +7,7 @@ import { BaseComponent } from '@/components/BaseComponent';
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
+export interface Dropdown extends DropdownProps {}
 export interface DropdownProps extends BaseComponentProps {
 	/**
 	 * Specifies the position of the menu when opened.
@@ -130,6 +131,24 @@ export class Dropdown extends BaseComponent {
 			const value = newValue === '' ? 'true' : newValue;
 			if (name === 'class') this.menu!.setAttribute(name, `${this.baseClass} ${value}`);
 			else this.root!.style.setProperty(`--${name}`, value);
+		}
+	}
+
+	open(): void {
+		// @ts-ignore
+		HSDropdown.getInstance(this.root!, true).element.open();
+	}
+
+	close(): void {
+		// @ts-ignore
+		HSDropdown.getInstance(this.root!, true).element.close();
+	}
+
+	toggleMenu(): void {
+		if (this.root!.classList.contains('open')) {
+			this.close();
+		} else {
+			this.open();
 		}
 	}
 }
