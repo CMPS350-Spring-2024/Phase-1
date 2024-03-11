@@ -278,5 +278,6 @@ Within the component folder there are 3 main files:
 4. In the `style.css` file, create the styles and variants for the component.
 5. In the `template.html` file, create the HTML structure for the component. This is the structure of the component and
    will be rendered in the DOM during runtime.
-6. Then, import the script inside `src/scripts/main.ts` and the styles inside `src/styles/index.css`.
+6. Then, import the script inside `src/scripts/index.ts`, the styles inside `src/styles/index.css`, and the template
+   inside `src/layouts/base.html`.
 7. Finally, add the component to `custom-components.json` to allow for auto-completion and type checking in the editor.
