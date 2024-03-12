@@ -1,7 +1,7 @@
 header.navbar {
 	@apply h-14 px-4;
 	@apply flex flex-row place-content-between items-center;
-	@apply border-b border-b-border bg-white;
+	@apply border-b-2 border-b-border bg-white;
 
 	.group {
 		@apply flex-1;
@@ -13,20 +13,35 @@ header.navbar {
 		}
 
 		&.logo {
-			@apply flex-none gap-x-0;
+			@apply flex-none;
 
-			img {
-				@apply h-10;
-			}
+			a {
+				@apply flex items-center gap-x-0;
 
-			h2 {
-				@apply text-secondary;
-				@apply font-display text-xs font-bold uppercase tracking-tight;
+				img {
+					@apply h-10;
+				}
+
+				h2 {
+					@apply text-secondary;
+					@apply font-display text-xs font-bold uppercase tracking-tight;
+				}
 			}
 		}
 
-		&.admin-tabs {
-			@apply hidden;
+		&.tabs {
+			@apply hidden flex-none gap-x-4;
+
+			ui-button::part(root) {
+				@apply h-8 px-8;
+				@apply rounded-[4px];
+				@apply text-secondary focus-hover:bg-slate-50;
+				@apply text-xs font-normal;
+
+				&.active {
+					@apply bg-slate-100 focus-hover:bg-slate-200;
+				}
+			}
 		}
 
 		&.actions {
@@ -39,16 +54,24 @@ header.navbar {
 		}
 	}
 
+	&[type='customer'] .logo h2::before {
+		content: 'Customer';
+	}
+
 	&[type='admin'] {
 		.left-spacer {
 			@apply hidden;
 		}
 
-		.logo h2::before {
-			content: 'Admin';
+		.logo {
+			@apply flex-1;
+
+			h2::before {
+				content: 'Admin';
+			}
 		}
 
-		.admin-tabs {
+		.tabs {
 			@apply flex;
 		}
 	}

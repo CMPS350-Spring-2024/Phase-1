@@ -1,25 +1,48 @@
 <template id="navbar-template">
 	<header class="navbar">
 		<span class="left-spacer group"></span>
-		<a
-			class="logo group"
-			href="/"
-		>
-			<img
-				alt="Image showing the logo of the company, DJI."
-				src="/DJI 1.svg"
-			/>
-			<h2></h2>
-		</a>
-		<div class="admin-tabs group">
-			<nav>
-				<a href="">Sale history</a>
-				<a href="">product list</a>
-				<a href="">Registered Users</a>
-				<a href="">Analytics</a>
-				<a href="">Settings</a>
-			</nav>
+		<div class="logo group">
+			<a href="/">
+				<img
+					alt="Image showing the logo of the company, DJI."
+					src="/DJI 1.svg"
+				/>
+				<h2></h2>
+			</a>
 		</div>
+		<nav class="tabs group">
+			<ui-button
+				class="active"
+				fill="ghost"
+				href="/admin/index.html"
+			>
+				Sale History
+			</ui-button>
+			<ui-button
+				fill="ghost"
+				href="/admin/products.html"
+			>
+				Product List
+			</ui-button>
+			<ui-button
+				fill="ghost"
+				href="/admin/users.html"
+			>
+				Registered Users
+			</ui-button>
+			<ui-button
+				fill="ghost"
+				href="/admin/analytics.html"
+			>
+				Analytics
+			</ui-button>
+			<ui-button
+				fill="ghost"
+				href="/admin/settings.html"
+			>
+				Settings
+			</ui-button>
+		</nav>
 		<div class="actions group">
 			<ui-button
 				class="action-button"
