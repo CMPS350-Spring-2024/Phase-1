@@ -18,6 +18,11 @@
 	@apply ring-blue-400 focus:z-10 focus:ring;
 }
 
+/* Make the body tag always fill the entire width */
+body {
+	@apply fixed w-full overflow-y-auto;
+}
+
 @layer components {
 	/* Primitive web components should only display their contents */
 	[component] {
