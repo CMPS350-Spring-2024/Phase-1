@@ -32,7 +32,10 @@
 		></script>
 
 		<!-- Main Entrypoint -->
-		<block name="app"></block>
+		<ui-navbar type="{{ type }}"></ui-navbar>
+		<main class="flex-col">
+			<block name="app"></block>
+		</main>
 
 		<!-- Scripts -->
 	</body>
