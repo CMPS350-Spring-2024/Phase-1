@@ -1,44 +1,55 @@
-nav {
-	display: flex;
+header.navbar {
+	@apply h-14 px-4;
+	@apply flex flex-row place-content-between items-center;
+	@apply border-b border-b-border bg-white;
 
-	position: relative;
-	flex-wrap: nowrap;
-	justify-content: center;
-	/* padding: 1rem; */
-}
+	.group {
+		@apply flex-1;
+		@apply flex flex-row items-center;
+		@apply gap-x-2;
 
-nav > a {
-	text-align: center;
-	text-decoration: none;
-}
+		&.left-spacer {
+			@apply hidden lg:flex;
+		}
 
-.nav-center-group {
-	display: none;
-}
-.page-title {
-	display: none;
-}
+		&.logo {
+			@apply flex-none gap-x-0;
 
-.nav-end-group > nav > a {
-	/* margin: 1rem 1rem; */
-	margin: 0.5rem 0.5rem;
-	color: gray;
-}
-.navbar {
-	display: flex;
+			img {
+				@apply h-10;
+			}
 
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	/* border-radius: 0.5rem; */
-}
+			h2 {
+				@apply text-secondary;
+				@apply font-display text-xs font-bold uppercase tracking-tight;
+			}
+		}
 
-header {
-	display: inline-block;
-	/* filter: drop-shadow(5px 5px 5px #0000005b); */
-	border-bottom: rgb(177, 177, 177) 2px solid;
+		&.admin-tabs {
+			@apply hidden;
+		}
 
-	/* padding-bottom: 6rem; */
-	font-family:
-		IBM Plex Sans Condensed,
-		IBM Plex Sans;
+		&.actions {
+			@apply place-content-end;
+
+			.action-button::part(root) {
+				@apply size-10 rounded-none;
+				@apply text-secondary hover:bg-slate-100;
+			}
+		}
+	}
+
+	&[type='admin'] {
+		.left-spacer {
+			@apply hidden;
+		}
+
+		.logo h2::before {
+			content: 'Admin';
+		}
+
+		.admin-tabs {
+			@apply flex;
+		}
+	}
 }

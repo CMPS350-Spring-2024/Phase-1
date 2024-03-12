@@ -1,14 +1,17 @@
 <template id="navbar-template">
-	<header class="admin navbar">
-		<section>
+	<header class="navbar">
+		<span class="left-spacer group"></span>
+		<a
+			class="logo group"
+			href="/"
+		>
 			<img
-				class="company-logo"
-				alt="company-logo"
+				alt="Image showing the logo of the company, DJI."
 				src="/DJI 1.svg"
 			/>
-			<h2 class="page-title">Admin</h2>
-		</section>
-		<section class="nav-center-group">
+			<h2></h2>
+		</a>
+		<div class="admin-tabs group">
 			<nav>
 				<a href="">Sale history</a>
 				<a href="">product list</a>
@@ -16,40 +19,155 @@
 				<a href="">Analytics</a>
 				<a href="">Settings</a>
 			</nav>
-		</section>
-		<section class="nav-end-group">
-			<nav>
-				<a href="">
-					<!-- <img
-                    alt="Search-icon"
-                    src="./temp-images/search.svg"
-                /> -->
+		</div>
+		<div class="actions group">
+			<ui-button
+				class="action-button"
+				fill="ghost"
+			>
+				<svg
+					class="lucide lucide-search"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<circle
+						cx="11"
+						cy="11"
+						r="8"
+					/>
+					<path d="m21 21-4.3-4.3" />
+				</svg>
+			</ui-button>
+			<ui-dropdown class="w-[400px]">
+				<ui-button
+					class="action-button"
+					fill="ghost"
+					slot="toggle"
+				>
+					<svg
+						class="lucide lucide-shopping-cart"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<circle
+							cx="8"
+							cy="21"
+							r="1"
+						/>
+						<circle
+							cx="19"
+							cy="21"
+							r="1"
+						/>
+						<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+					</svg>
+				</ui-button>
+
+				<hr />
+				<ui-button
+					class="w-full"
+					fill="solid"
+				>
+					Confirm Purchase
+					<svg
+						class="lucide lucide-arrow-right"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M5 12h14" />
+						<path d="m12 5 7 7-7 7" />
+					</svg>
+				</ui-button>
+			</ui-dropdown>
+			<ui-dropdown class="w-60">
+				<ui-button
+					class="action-button"
+					fill="ghost"
+					slot="toggle"
+				>
+					<svg
+						class="lucide lucide-user"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+						<circle
+							cx="12"
+							cy="7"
+							r="4"
+						/>
+					</svg>
+				</ui-button>
+
+				<ui-button
+					class="ui-dropdown-item"
+					href="/customer/index.html#my_balance"
+				>
 					<i
-						alt="search-icon"
-						data-lucide="search"
+						class="size-4"
+						data-lucide="wallet"
 					></i>
-				</a>
-				<a href="">
-					<!-- <img
-                    alt="cart-icon"
-                    src="./temp-images/shopping-cart.svg"
-                /> -->
+					My Balance
+				</ui-button>
+				<ui-button
+					class="ui-dropdown-item"
+					href="/customer/index.html#past_orders"
+				>
 					<i
-						alt="shopping-cart"
-						data-lucide="shopping-cart"
+						class="size-4"
+						data-lucide="clipboard-list"
 					></i>
-				</a>
-				<a href="">
-					<!-- <img
-                        alt="user-icon"
-                        src="./temp-images/user.svg"
-                    /> -->
+					Past Orders
+				</ui-button>
+				<ui-button
+					class="ui-dropdown-item"
+					href="/customer/index.html#saved_address"
+				>
 					<i
-						alt="user"
-						data-lucide="user"
+						class="size-4"
+						data-lucide="map-pin"
 					></i>
-				</a>
-			</nav>
-		</section>
+					Saved Address
+				</ui-button>
+				<ui-button
+					class="ui-dropdown-item"
+					href="/customer/index.html#appearance"
+				>
+					<i
+						class="size-4"
+						data-lucide="palette"
+					></i>
+					Appearance
+				</ui-button>
+				<hr />
+				<ui-button class="ui-dropdown-item">
+					<i
+						class="size-4"
+						data-lucide="log-out"
+					></i>
+					Log Out
+				</ui-button>
+			</ui-dropdown>
+		</div>
 	</header>
 </template>
