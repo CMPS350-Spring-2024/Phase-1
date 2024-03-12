@@ -9,3 +9,4 @@ import '@/components/DroneViewer/logic';
 import '@/components/Dropdown/logic';
 import '@/components/Navbar/logic';
 import '@/components/NumericInput/logic';
+import '@/components/PriceDisplay/logic';
