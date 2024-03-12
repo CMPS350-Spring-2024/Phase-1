@@ -47,4 +47,15 @@ ui-button {
 			@apply inline-block;
 		}
 	}
+
+	/* Icon */
+	&[size='sm'] svg {
+		@apply size-3.5;
+	}
+	&[size='md'] svg {
+		@apply size-4;
+	}
+	&[size='lg'] svg {
+		@apply size-4;
+	}
 }
