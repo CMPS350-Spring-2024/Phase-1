@@ -1,12 +1,21 @@
 <template id="modal-template">
 	<slot name="toggle"></slot>
 	<dialog part="root">
-		<div part="header"></div>
-		<div part="content">
-			<slot></slot>
+		<div part="modal">
+			<div part="header"></div>
+			<div part="content">
+				<slot></slot>
+			</div>
+			<div part="footer">
+				<slot name="footer"></slot>
+			</div>
 		</div>
-		<div part="footer">
-			<slot name="footer"></slot>
-		</div>
+		<!-- Allows the modal to be closed when the background is clicked -->
+		<form
+			method="dialog"
+			part="close-overlay"
+		>
+			<button part="close-button">close</button>
+		</form>
 	</dialog>
 </template>

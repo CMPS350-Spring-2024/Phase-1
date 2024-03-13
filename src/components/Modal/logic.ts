@@ -59,8 +59,13 @@ export class Modal extends PrimitiveComponent {
 
 		//	Override "open" attribute behaviour, should open or close the modal using the methods provided
 		if (name === 'open') {
-			if (newValue === null) (this.element as HTMLDialogElement).close();
-			else (this.element as HTMLDialogElement).showModal();
+			if (newValue === null) {
+				(this.element as HTMLDialogElement).close();
+				document.body.style.overflow = 'initial';
+			} else {
+				(this.element as HTMLDialogElement).showModal();
+				document.body.style.overflow = 'hidden';
+			}
 		}
 	}
 

@@ -1,5 +1,26 @@
 ui-modal {
 	/* Container */
 	&::part(root) {
+		@apply fixed bottom-0 left-0 right-0 top-0;
+		@apply h-full max-h-none w-full max-w-none;
+		@apply m-0 overflow-hidden p-0;
+		@apply place-content-center items-center;
+		@apply bg-transparent;
+		@apply z-50;
+	}
+
+	/* Hide the close-on-background-click button and make it as big as the screen */
+	&::part(close-overlay) {
+		@apply absolute h-screen w-screen;
+	}
+	&::part(close-button) {
+		@apply h-full w-full cursor-default opacity-0;
+	}
+
+	/* Open state */
+	&[open] {
+		&::part(root) {
+			@apply flex;
+		}
 	}
 }
