@@ -12,6 +12,11 @@ export interface TextInputProps extends BaseComponentProps {
 	name?: string;
 
 	/**
+	 * The type of the input.
+	 */
+	type?: 'text' | 'password' | 'email' | 'search' | 'tel' | 'url';
+
+	/**
 	 * The numeric value of the input.
 	 */
 	value?: string;
@@ -56,6 +61,7 @@ export class TextInput extends PrimitiveComponent {
 		'class',
 
 		'name',
+		'type',
 		'value',
 		'defaultValue',
 		'placeholder',
@@ -65,6 +71,7 @@ export class TextInput extends PrimitiveComponent {
 		'required',
 	];
 	protected static readonly defaultProperties: TextInputProps = {
+		type: 'text',
 		placeholder: 'Enter text...',
 	};
 
