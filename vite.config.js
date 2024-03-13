@@ -11,7 +11,6 @@ export default defineConfig({
 	plugins: [vituum(), posthtml(), legacy(), tsconfigPaths(), tailwindcss(), analyzer({ analyzerMode: 'json' })],
 	build: {
 		minify: 'terser',
-		cssMinify: 'lightningcss',
 		rollupOptions: {
 			input: ['./src/pages/**/*.html'],
 			external: ['./src/scripts/buildAnalyzer.mjs'],

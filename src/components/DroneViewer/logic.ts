@@ -9,8 +9,12 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
+export interface DroneViewer extends DroneViewerProps {}
 export interface DroneViewerProps extends BaseComponentProps {}
 
+/**
+ * Custom drone viewer which displays the 3D model of the current selected drone.
+ */
 export class DroneViewer extends PrimitiveComponent {
 	protected static readonly templateName: string = 'drone-viewer-template';
 	protected static readonly forwardedAttributes: Array<keyof DroneViewerProps> = ['class'];

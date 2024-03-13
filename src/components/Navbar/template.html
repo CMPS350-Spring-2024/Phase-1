@@ -1,0 +1,347 @@
+<template id="navbar-template">
+	<header class="navbar">
+		<div class="row">
+			<span class="left-spacer group"></span>
+			<div class="logo group">
+				<a href="/">
+					<img
+						alt="Image showing the logo of the company, DJI."
+						src="/DJI 1.svg"
+					/>
+					<h2></h2>
+				</a>
+			</div>
+			<nav class="tabs group">
+				<ui-button
+					class="active"
+					fill="ghost"
+					href="/admin/index.html"
+				>
+					Sale History
+				</ui-button>
+				<ui-button
+					fill="ghost"
+					href="/admin/products.html"
+				>
+					Product List
+				</ui-button>
+				<ui-button
+					fill="ghost"
+					href="/admin/users.html"
+				>
+					Registered Users
+				</ui-button>
+				<ui-button
+					fill="ghost"
+					href="/admin/analytics.html"
+				>
+					Analytics
+				</ui-button>
+				<ui-button
+					fill="ghost"
+					href="/admin/settings.html"
+				>
+					Settings
+				</ui-button>
+			</nav>
+			<div class="actions group">
+				<ui-button
+					class="action-button"
+					fill="ghost"
+				>
+					<svg
+						class="lucide lucide-search"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<circle
+							cx="11"
+							cy="11"
+							r="8"
+						/>
+						<path d="m21 21-4.3-4.3" />
+					</svg>
+				</ui-button>
+				<ui-dropdown
+					class="cart"
+					placement="bottom-right"
+				>
+					<ui-button
+						class="action-button"
+						fill="ghost"
+						slot="toggle"
+					>
+						<svg
+							class="lucide lucide-shopping-cart"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<circle
+								cx="8"
+								cy="21"
+								r="1"
+							/>
+							<circle
+								cx="19"
+								cy="21"
+								r="1"
+							/>
+							<path
+								d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+							/>
+						</svg>
+					</ui-button>
+
+					<ui-numeric-input value="2"></ui-numeric-input>
+					<hr />
+					<span class="price-label">
+						<p>Subtotal</p>
+						<ui-price-display size="sm">3,889.00</ui-price-display>
+					</span>
+					<span class="price-label">
+						<p>Shipping Fee</p>
+						<ui-price-display size="sm">100.00</ui-price-display>
+					</span>
+					<hr />
+					<span class="price-label">
+						<p>Total</p>
+						<ui-price-display size="md">3,999.00</ui-price-display>
+					</span>
+					<ui-button
+						class="w-full"
+						fill="solid"
+					>
+						Confirm Purchase
+						<svg
+							class="lucide lucide-arrow-right"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M5 12h14" />
+							<path d="m12 5 7 7-7 7" />
+						</svg>
+					</ui-button>
+				</ui-dropdown>
+				<ui-dropdown
+					class="account"
+					placement="bottom-right"
+				>
+					<ui-button
+						class="action-button"
+						fill="ghost"
+						slot="toggle"
+					>
+						<svg
+							class="lucide lucide-user"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+							<circle
+								cx="12"
+								cy="7"
+								r="4"
+							/>
+						</svg>
+					</ui-button>
+
+					<ui-button
+						class="ui-dropdown-item"
+						href="/customer/index.html#my_balance"
+					>
+						<svg
+							class="lucide lucide-wallet"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+							<path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+							<path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+						</svg>
+						My Balance
+					</ui-button>
+					<ui-button
+						class="ui-dropdown-item"
+						href="/customer/index.html#past_orders"
+					>
+						<svg
+							class="lucide lucide-clipboard-list"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<rect
+								width="8"
+								height="4"
+								x="8"
+								y="2"
+								rx="1"
+								ry="1"
+							/>
+							<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+							<path d="M12 11h4" />
+							<path d="M12 16h4" />
+							<path d="M8 11h.01" />
+							<path d="M8 16h.01" />
+						</svg>
+						Past Orders
+					</ui-button>
+					<ui-button
+						class="ui-dropdown-item"
+						href="/customer/index.html#saved_address"
+					>
+						<svg
+							class="lucide lucide-map-pin"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+							<circle
+								cx="12"
+								cy="10"
+								r="3"
+							/>
+						</svg>
+						Saved Address
+					</ui-button>
+					<ui-button
+						class="ui-dropdown-item"
+						href="/customer/index.html#appearance"
+					>
+						<svg
+							class="lucide lucide-palette"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<circle
+								cx="13.5"
+								cy="6.5"
+								r=".5"
+								fill="currentColor"
+							/>
+							<circle
+								cx="17.5"
+								cy="10.5"
+								r=".5"
+								fill="currentColor"
+							/>
+							<circle
+								cx="8.5"
+								cy="7.5"
+								r=".5"
+								fill="currentColor"
+							/>
+							<circle
+								cx="6.5"
+								cy="12.5"
+								r=".5"
+								fill="currentColor"
+							/>
+							<path
+								d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"
+							/>
+						</svg>
+						Appearance
+					</ui-button>
+					<hr />
+					<ui-button class="ui-dropdown-item">
+						<svg
+							class="lucide lucide-log-out"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+							<polyline points="16 17 21 12 16 7" />
+							<line
+								x1="21"
+								x2="9"
+								y1="12"
+								y2="12"
+							/>
+						</svg>
+						Log Out
+					</ui-button>
+				</ui-dropdown>
+			</div>
+		</div>
+		<div class="row">
+			<nav class="tabs group">
+				<ui-button
+					class="active"
+					fill="ghost"
+					href="/admin/index.html"
+				>
+					Sale History
+				</ui-button>
+				<ui-button
+					fill="ghost"
+					href="/admin/products.html"
+				>
+					Product List
+				</ui-button>
+				<ui-button
+					fill="ghost"
+					href="/admin/users.html"
+				>
+					Registered Users
+				</ui-button>
+				<ui-button
+					fill="ghost"
+					href="/admin/analytics.html"
+				>
+					Analytics
+				</ui-button>
+				<ui-button
+					fill="ghost"
+					href="/admin/settings.html"
+				>
+					Settings
+				</ui-button>
+			</nav>
+		</div>
+	</header>
+</template>

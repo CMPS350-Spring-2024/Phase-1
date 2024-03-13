@@ -1,6 +1,12 @@
-<extends src="../layouts/base.html" locals='{"title": "Test Page"}'>
+<extends
+	src="../layouts/base.html"
+	locals='{
+		"title": "Vite + TS",
+		"type": "home",
+		"base_url": "../"
+	}'
+>
 	<block name="app">
-		<div id="app"></div>
-		<script type="module" src="/src/scripts/main.ts"></script>
+		<ui-drone-viewer></ui-drone-viewer>
 	</block>
 </extends>

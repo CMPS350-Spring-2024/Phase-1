@@ -1,8 +1,15 @@
-@import url('https://fonts.cdnfonts.com/css/montserrat?styles=17389');
+@import url('https://fonts.cdnfonts.com/css/montserrat?styles=17389,17391');
 @import url('https://fonts.cdnfonts.com/css/source-sans-pro?styles=14484,14486,14491,14483,14488,14493');
 @import url('https://fonts.cdnfonts.com/css/source-serif-pro?styles=20103,20104,20100');
 
+@import url('/src/components/Avatar/styles.css') layer(components);
 @import url('/src/components/Button/styles.css') layer(components);
+@import url('/src/components/Dropdown/styles.css') layer(components);
+@import url('/src/components/Modal/styles.css') layer(components);
+@import url('/src/components/Navbar/styles.css') layer(components);
+@import url('/src/components/NumericInput/styles.css') layer(components);
+@import url('/src/components/PriceDisplay/styles.css') layer(components);
+@import url('/src/components/TextInput/styles.css') layer(components);
 
 @tailwind base;
 @tailwind components;
@@ -11,17 +18,23 @@
 
 /* Make all elements have position relative to make it easy to position absolute */
 * {
-	position: relative;
+	@apply relative;
+	@apply ring-blue-400 focus:z-10 focus:ring;
+}
+
+/* Make the body tag always fill the entire width */
+body {
+	@apply fixed w-full overflow-y-auto;
 }
 
 @layer components {
-	/* Web components should only display their contents */
+	/* Primitive web components should only display their contents */
 	[component] {
-		display: contents;
+		@apply contents;
 	}
 
 	/* Make all icon sizes the same as their container font size */
 	.lucide {
-		font-size: 1em;
+		@apply text-[1em];
 	}
 }

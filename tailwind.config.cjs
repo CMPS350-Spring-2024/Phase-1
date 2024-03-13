@@ -20,11 +20,17 @@ export default {
 				serif: ['"Source Serif Pro"', 'serif'],
 				display: ['"Montserrat"', 'sans-serif'],
 			},
+			borderRadius: {
+				sm: '4px',
+			},
 			strokeWidth: {
 				3: '3px',
 				4: '4px',
 				5: '5px',
 				6: '6px',
+			},
+			boxShadow: {
+				sm: '0px 6px 12px 0px rgba(0, 0, 0, 0.03)',
 			},
 		},
 	},
