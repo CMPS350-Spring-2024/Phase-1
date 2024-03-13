@@ -12,12 +12,13 @@
 						{ "name": "chevron-left" },
 						{ "name": "clipboard-list" },
 						{ "name": "log-out" },
+						{ "name": "mail" },
 						{ "name": "map-pin" },
 						{ "name": "minus" },
 						{ "name": "move-right" },
 						{ "name": "palette" },
 						{ "name": "plus" },
-            { "name": "shopping-cart" },
+						{ "name": "shopping-cart" },
 						{ "name": "search" },
 						{ "name": "user" },
 						{ "name": "wallet" }
@@ -170,17 +171,17 @@
 				}
 			]
 		},
-    {
-      "name": "ui-navbar",
+		{
+			"name": "ui-navbar",
 			"description": "Custom navbar component based on the Preline UI design system.",
 			"attributes": [
 				{
 					"name": "type",
 					"description": "The type of the current page",
 					"values": [{ "name": "home" }, { "name": "customer" }, { "name": "admin" }]
-        }
-      ]
-    },
+				}
+			]
+		},
 		{
 			"name": "ui-modal",
 			"description": "Custom modal component based on the Preline UI design system.",
@@ -268,6 +269,60 @@
 					"name": "size",
 					"description": "Specifies the size of the price display.",
 					"values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+				}
+			]
+		},
+		{
+			"name": "ui-text-input",
+			"description": "Custom text input component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "name",
+					"description": "The name of the input."
+				},
+				{
+					"name": "type",
+					"description": "The type of the input.",
+					"values": [
+						{ "name": "text" },
+						{ "name": "password" },
+						{ "name": "email" },
+						{ "name": "search" },
+						{ "name": "tel" },
+						{ "name": "url" }
+					]
+				},
+				{
+					"name": "value",
+					"description": "The value of the input."
+				},
+				{
+					"name": "defaultValue",
+					"description": "The default value of the input."
+				},
+				{
+					"name": "placeholder",
+					"description": "The placeholder text to display when the input is empty."
+				},
+				{
+					"name": "autofocus",
+					"description": "Should this input be focused when the page loads?",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "disabled",
+					"description": "Disables the input.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "readonly",
+					"description": "Stops the user from being able to change the value of the input.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "required",
+					"description": "If this input is in a form, this property makes it required.",
+					"values": [{ "name": "true" }, { "name": "false" }]
 				}
 			]
 		}
