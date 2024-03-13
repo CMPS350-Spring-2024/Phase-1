@@ -10,3 +10,4 @@ import '@/components/Modal/logic';
 import '@/components/Navbar/logic';
 import '@/components/NumericInput/logic';
 import '@/components/PriceDisplay/logic';
+import '@/components/TextInput/logic';
