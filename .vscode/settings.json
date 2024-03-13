@@ -9,5 +9,11 @@
 	"editor.wordWrap": "bounded",
 	"editor.wordWrapColumn": 130,
 	"editor.tabSize": 4,
-	"html.customData": ["./custom-components.json"]
+	"html.customData": [
+		"./custom-components.json"
+	],
+	"workbench.colorCustomizations": {
+		"editor.lineHighlightBackground": "#1073cf2d",
+		"editor.lineHighlightBorder": "#9fced11f"
+	}
 }

@@ -17,6 +17,7 @@
 						{ "name": "move-right" },
 						{ "name": "palette" },
 						{ "name": "plus" },
+            { "name": "shopping-cart" },
 						{ "name": "search" },
 						{ "name": "user" },
 						{ "name": "wallet" }
@@ -169,6 +170,17 @@
 				}
 			]
 		},
+    {
+      "name": "ui-navbar",
+			"description": "Custom navbar component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "type",
+					"description": "The type of the current page",
+					"values": [{ "name": "home" }, { "name": "customer" }, { "name": "admin" }]
+        }
+      ]
+    },
 		{
 			"name": "ui-modal",
 			"description": "Custom modal component based on the Preline UI design system.",
@@ -245,6 +257,17 @@
 				{
 					"name": "Preline UI numeric input",
 					"url": "https://preline.co/docs/input-number.html"
+				}
+			]
+		},
+		{
+			"name": "ui-price-display",
+			"description": "Custom price display component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "size",
+					"description": "Specifies the size of the price display.",
+					"values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
 				}
 			]
 		}

@@ -1,15 +1,14 @@
 ui-dropdown {
-	/* Container */
-	&::part(root):has(.open) {
-		.hs-dropdown-menu {
-			@apply opacity-100;
-		}
+	/* Show the menu when the toggle button is clicked */
+	&:focus-within::part(menu) {
+		@apply pointer-events-auto opacity-100;
 	}
 
 	/* Menu */
 	&::part(menu) {
-		@apply hidden;
-		@apply p-2.5;
+		@apply pointer-events-none;
+		@apply gap-2 p-2.5;
+		@apply absolute flex flex-col;
 		@apply rounded-md border border-border;
 		@apply bg-white shadow-sm;
 		@apply transition-[opacity,margin] duration-150;
@@ -26,15 +25,8 @@ ui-dropdown {
 		@apply font-light;
 	}
 
-	/* Dividers */
-	hr {
-		@apply my-1.5;
-	}
-}
-
-/* This has to be outside to make sure the menu is visible when opened */
-.open {
-	.hs-dropdown-menu {
-		opacity: 1 !important;
+	/* Align end */
+	&[placement='bottom-right']::part(menu) {
+		@apply end-0;
 	}
 }

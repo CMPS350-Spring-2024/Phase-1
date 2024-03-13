@@ -1,0 +1,119 @@
+header.navbar {
+	/* We have multiple rows for the mobile admin version where the tabs will go to a new row */
+	.row {
+		@apply h-14 px-4;
+		@apply flex flex-row place-content-between items-center;
+		@apply border-b-2 border-b-border bg-white;
+
+		&:last-child {
+			@apply hidden h-12 overflow-x-auto border-b;
+
+			.tabs {
+				@apply flex;
+			}
+		}
+	}
+
+	.group {
+		@apply flex-1;
+		@apply flex flex-row items-center;
+		@apply gap-x-2;
+
+		/* This group is used as a placeholder div to center the logo in the home and customer page */
+		&.left-spacer {
+			@apply hidden md:flex;
+		}
+
+		/* This group holds the company logo */
+		&.logo {
+			@apply flex-none;
+
+			a {
+				@apply flex items-center gap-x-0;
+
+				img {
+					@apply h-10;
+				}
+
+				h2 {
+					@apply text-secondary;
+					@apply font-display text-xs font-bold uppercase tracking-tight;
+				}
+			}
+		}
+
+		/* Holds the navigation tabs on the admin version */
+		&.tabs {
+			@apply hidden flex-none gap-x-2 lg:gap-x-4;
+
+			ui-button::part(root) {
+				@apply h-8 px-4 lg:px-8;
+				@apply rounded-[4px];
+				@apply text-secondary focus-hover:bg-slate-50;
+				@apply text-xs font-normal;
+
+				&.active {
+					@apply bg-slate-100 focus-hover:bg-slate-200;
+				}
+			}
+		}
+
+		/* Holds the search input and actions */
+		&.actions {
+			@apply place-content-end;
+
+			.action-button::part(root) {
+				@apply size-10 rounded-none;
+				@apply text-secondary hover:bg-slate-100;
+			}
+		}
+	}
+
+	ui-dropdown {
+		.price-label {
+			@apply flex flex-row place-content-between;
+
+			p {
+				@apply text-sm font-light tracking-wide text-secondary;
+			}
+		}
+
+		&.cart::part(menu) {
+			@apply w-[400px] gap-4;
+		}
+	}
+
+	ui-dropdown.account::part(menu) {
+		@apply w-60;
+	}
+
+	/* Add "Customer" next to the DJI logo */
+	&[type='customer'] .logo h2::before {
+		content: 'Customer';
+	}
+
+	/* Hide the left spacer to place the DJI logo on the left and add "Admin" next to it */
+	&[type='admin'] {
+		.row {
+			.left-spacer {
+				@apply hidden;
+			}
+
+			.logo {
+				@apply flex-1;
+
+				h2::before {
+					content: 'Admin';
+				}
+			}
+		}
+
+		/* Move the tabs to the next row on mobile screens */
+		.row:first-child .tabs {
+			@apply md:flex;
+		}
+		.row:last-child {
+			@apply flex md:hidden;
+		}
+	}
+}

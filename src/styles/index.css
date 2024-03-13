@@ -6,7 +6,9 @@
 @import url('/src/components/Button/styles.css') layer(components);
 @import url('/src/components/Dropdown/styles.css') layer(components);
 @import url('/src/components/Modal/styles.css') layer(components);
+@import url('/src/components/Navbar/styles.css') layer(components);
 @import url('/src/components/NumericInput/styles.css') layer(components);
+@import url('/src/components/PriceDisplay/styles.css') layer(components);
 
 @tailwind base;
 @tailwind components;
@@ -17,6 +19,11 @@
 * {
 	@apply relative;
 	@apply ring-blue-400 focus:z-10 focus:ring;
+}
+
+/* Make the body tag always fill the entire width */
+body {
+	@apply fixed w-full overflow-y-auto;
 }
 
 @layer components {

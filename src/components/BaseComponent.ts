@@ -67,7 +67,7 @@ export class BaseComponent extends HTMLElement {
 			if (!template) throw new Error(`Template for "${(this as Object).constructor.name}" component not found.`);
 
 			//	Attach component to shadow root
-			const shadowRoot = this.attachShadow({ mode: 'open' });
+			const shadowRoot = this.attachShadow({ mode: 'open', delegatesFocus: true });
 			shadowRoot.appendChild(template.content.cloneNode(true));
 
 			//	Apply tailwind styles to the shadow dom

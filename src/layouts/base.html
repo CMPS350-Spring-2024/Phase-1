@@ -24,7 +24,9 @@
 		<include src="{{ base_url }}/components/DroneViewer/template.html"></include>
 		<include src="{{ base_url }}/components/Dropdown/template.html"></include>
 		<include src="{{ base_url }}/components/Modal/template.html"></include>
+		<include src="{{ base_url }}/components/Navbar/template.html"></include>
 		<include src="{{ base_url }}/components/NumericInput/template.html"></include>
+		<include src="{{ base_url }}/components/PriceDisplay/template.html"></include>
 
 		<!-- Component Scripts -->
 		<script
@@ -33,7 +35,10 @@
 		></script>
 
 		<!-- Main Entrypoint -->
-		<block name="app"></block>
+		<ui-navbar type="{{ type }}"></ui-navbar>
+		<main class="flex-col">
+			<block name="app"></block>
+		</main>
 
 		<!-- Scripts -->
 	</body>
