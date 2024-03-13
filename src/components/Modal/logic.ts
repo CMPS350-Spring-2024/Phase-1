@@ -104,7 +104,7 @@ export class Modal extends PrimitiveComponent {
 
 		//	Update header if the title or description changes
 		if (name === 'title' || name === 'description') {
-			this.showHeader = !!this.title || !!this.description;
+			this.showHeader = this.title !== undefined;
 			if (name === 'title') this.titleElement!.innerText = newValue;
 			if (name === 'description') this.descriptionElement!.innerText = newValue;
 		}
