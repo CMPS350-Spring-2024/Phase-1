@@ -27,13 +27,32 @@ export interface ModalProps extends BaseComponentProps {
  */
 export class Modal extends PrimitiveComponent {
 	protected static readonly templateName: string = 'modal-template';
-	protected static readonly forwardedAttributes: Array<keyof ModalProps> = ['class'];
+	protected static readonly forwardedAttributes: Array<keyof ModalProps> = [];
 	protected static readonly defaultProperties: ModalProps = {};
 
+	protected showHeader: boolean = false;
+	protected showFooter: boolean = false;
+
 	protected toggleButton: HTMLElement | null = null;
+	protected modalContainer: HTMLElement | null = null;
+
+	protected header: HTMLElement | null = null;
+	protected titleElement: HTMLElement | null = null;
+	protected descriptionElement: HTMLElement | null = null;
+	protected closeButton: HTMLElement | null = null;
+
+	protected content: HTMLElement | null = null;
+	protected footer: HTMLElement | null = null;
 
 	static get observedAttributes() {
-		return [...super.observedAttributes, ...this.forwardedAttributes, 'open'] as string[];
+		return [
+			...super.observedAttributes,
+			...this.forwardedAttributes,
+			'class',
+			'open',
+			'title',
+			'description',
+		] as string[];
 	}
 
 	constructor() {
@@ -42,13 +61,23 @@ export class Modal extends PrimitiveComponent {
 			defaultProperties: Modal.defaultProperties,
 		});
 
-		//	Save the reference to the toggle button
+		//	Save the reference to all sub elements
+		this.modalContainer = this.shadowRoot!.querySelector('[part="modal"]');
+		this.header = this.shadowRoot!.querySelector('[part="header"]');
+		this.titleElement = this.shadowRoot!.querySelector('[part="title"]');
+		this.descriptionElement = this.shadowRoot!.querySelector('[part="description"]');
+		this.closeButton = this.shadowRoot!.querySelector('[exportparts="root: close-button"]');
+		this.content = this.shadowRoot!.querySelector('[part="content"]');
+		this.footer = this.shadowRoot!.querySelector('[part="footer"]');
 		this.toggleButton = this.shadowRoot!.querySelector<HTMLSlotElement>(
 			'[name="toggle"]',
 		)!.assignedNodes()[0] as HTMLElement;
 
 		//	Add on click event listener to the toggle button
-		this.toggleButton.addEventListener('click', () => this.toggle());
+		if (this.toggleButton) this.toggleButton.addEventListener('click', () => this.toggle());
+
+		//	When the close button is clicked, close the modal
+		if (this.closeButton) this.closeButton.addEventListener('click', () => this.close());
 
 		//	When the modal is closed, remove the open attribute
 		this.element.addEventListener('close', () => (this.open = false));
@@ -56,6 +85,11 @@ export class Modal extends PrimitiveComponent {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		super.attributeChangedCallback(name, oldValue, newValue);
+
+		//	Pass class attribute changes to the modal element
+		if (name === 'class') {
+			this.modalContainer!.className = newValue;
+		}
 
 		//	Override "open" attribute behaviour, should open or close the modal using the methods provided
 		if (name === 'open') {
@@ -66,6 +100,13 @@ export class Modal extends PrimitiveComponent {
 				(this.element as HTMLDialogElement).showModal();
 				document.body.style.overflow = 'hidden';
 			}
+		}
+
+		//	Update header if the title or description changes
+		if (name === 'title' || name === 'description') {
+			this.showHeader = !!this.title || !!this.description;
+			if (name === 'title') this.titleElement!.innerText = newValue;
+			if (name === 'description') this.descriptionElement!.innerText = newValue;
 		}
 	}
 

@@ -16,6 +16,28 @@ ui-modal {
 		box-shadow: 0px 2px 12px 4px rgba(0, 0, 0, 0.1);
 	}
 
+	/* Header */
+	&::part(header) {
+		@apply flex place-content-between items-center;
+		@apply gap-x-6 px-6 py-4;
+		@apply border-b border-b-border;
+	}
+
+	/* Title */
+	&::part(title) {
+		@apply font-serif text-base font-bold text-title;
+	}
+
+	/* Description */
+	&::part(description) {
+		@apply text-sm font-light tracking-wide text-secondary;
+	}
+
+	/* Close Button */
+	&::part(close-button) {
+		@apply size-6 p-0 text-xs;
+	}
+
 	/* Content */
 	&::part(content) {
 		@apply gap-4 p-4;
@@ -23,9 +45,9 @@ ui-modal {
 
 	/* Hide the close-on-background-click button and make it as big as the screen */
 	&::part(close-overlay) {
-		@apply absolute h-screen w-screen;
+		@apply absolute -z-10 h-screen w-screen;
 	}
-	&::part(close-button) {
+	&::part(close-overlay-button) {
 		@apply h-full w-full cursor-default opacity-0;
 	}
 
