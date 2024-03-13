@@ -3,14 +3,13 @@ import { BaseComponent } from '@/components/BaseComponent';
 
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
-import type { ICollectionItem } from 'preline';
 
 export interface Dropdown extends DropdownProps {}
 export interface DropdownProps extends BaseComponentProps {
 	/**
 	 * Should the dropdown be open?
 	 */
-	'open'?: boolean;
+	open?: boolean;
 
 	/**
 	 * Specifies the position of the menu when opened.
@@ -23,7 +22,7 @@ export interface DropdownProps extends BaseComponentProps {
  */
 export class Dropdown extends BaseComponent {
 	protected static readonly templateName: string = 'dropdown-template';
-  protected static readonly forwardedProperties: Array<keyof DropdownProps> = ['class', 'placement'];
+	protected static readonly forwardedProperties: Array<keyof DropdownProps> = ['class', 'placement'];
 	protected static readonly defaultProperties: DropdownProps = {
 		placement: 'bottom-left',
 	};
@@ -41,7 +40,7 @@ export class Dropdown extends BaseComponent {
 
 		//	Save the reference to the menu and the toggle button
 		this.root = this.shadowRoot!.querySelector('[part="root"]');
-		this.toggle = this.shadowRoot!.querySelector<HTMLSlotElement>(
+		this.toggleButton = this.shadowRoot!.querySelector<HTMLSlotElement>(
 			'[name="toggle"]',
 		)!.assignedNodes()[0] as HTMLElement;
 		this.menu = this.shadowRoot!.querySelector('[part="menu"]');

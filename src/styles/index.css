@@ -5,8 +5,8 @@
 @import url('/src/components/Avatar/styles.css') layer(components);
 @import url('/src/components/Button/styles.css') layer(components);
 @import url('/src/components/Dropdown/styles.css') layer(components);
-@import url('/src/components/Navbar/styles.css') layer(components);
 @import url('/src/components/Modal/styles.css') layer(components);
+@import url('/src/components/Navbar/styles.css') layer(components);
 @import url('/src/components/NumericInput/styles.css') layer(components);
 @import url('/src/components/PriceDisplay/styles.css') layer(components);
 
