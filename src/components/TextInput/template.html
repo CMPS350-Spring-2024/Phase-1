@@ -1,10 +1,15 @@
 <template id="text-input-template">
-	<label part="label">
-		<slot name="left-icon"></slot>
-		<input
-			type="text"
-			part="root"
-		/>
-		<slot name="right-icon"></slot>
-	</label>
+	<div part="form-input">
+		<span part="label-container">
+			<p part="label"><slot></slot></p>
+		</span>
+		<label part="container">
+			<slot name="left-icon"></slot>
+			<input
+				type="text"
+				part="root"
+			/>
+			<slot name="right-icon"></slot>
+		</label>
+	</div>
 </template>

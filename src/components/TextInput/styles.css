@@ -1,6 +1,24 @@
 ui-text-input {
+	/* Form Input Container */
+	&::part(form-input) {
+		@apply flex flex-col;
+		@apply gap-1.5;
+	}
+
+	/* Label Container */
+	&::part(label-container) {
+		@apply flex flex-row items-center;
+		@apply gap-1;
+	}
+
 	/* Label */
 	&::part(label) {
+		@apply text-sm font-light tracking-wide;
+		@apply text-title;
+	}
+
+	/* Input Container */
+	&::part(container) {
 		@apply cursor-text;
 		@apply flex items-center self-stretch;
 		@apply gap-3 rounded-sm px-3.5 py-2.5;
