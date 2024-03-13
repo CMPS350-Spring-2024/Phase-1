@@ -72,6 +72,11 @@ header.navbar {
 	ui-dropdown {
 		.price-label {
 			@apply flex flex-row place-content-between;
+			@apply my-4;
+
+			p {
+				@apply text-sm font-light tracking-wide text-secondary;
+			}
 		}
 
 		&.cart::part(menu) {
