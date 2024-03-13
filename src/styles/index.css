@@ -9,6 +9,7 @@
 @import url('/src/components/Navbar/styles.css') layer(components);
 @import url('/src/components/NumericInput/styles.css') layer(components);
 @import url('/src/components/PriceDisplay/styles.css') layer(components);
+@import url('/src/components/TextInput/styles.css') layer(components);
 
 @tailwind base;
 @tailwind components;
