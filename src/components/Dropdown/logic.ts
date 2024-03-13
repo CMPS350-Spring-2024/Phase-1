@@ -6,6 +6,7 @@ import { BaseComponent } from '@/components/BaseComponent';
 
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
+import type { ICollectionItem } from 'preline';
 
 export interface Dropdown extends DropdownProps {}
 export interface DropdownProps extends BaseComponentProps {
@@ -138,10 +139,11 @@ export class Dropdown extends BaseComponent {
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		super.attributeChangedCallback(name, oldValue, newValue);
 
-		//	If the open attribute is changed
+		//	If the open attribute is changed, either open or close the dropdown
 		if (name === 'open') {
-			if (newValue === '') this.show();
-			else this.close();
+			const { element } = HSDropdown.getInstance(this.root!, true) as ICollectionItem<HSDropdown>;
+			if (newValue === '') element.open();
+			else element.close();
 		}
 
 		//	If the attribute is part of the available properties, update the root element's css variables
@@ -152,20 +154,9 @@ export class Dropdown extends BaseComponent {
 		}
 	}
 
-	show(): void {
-		// @ts-ignore
-		HSDropdown.getInstance(this.root!, true).element.open();
-	}
-
-	close(): void {
-		// @ts-ignore
-		HSDropdown.getInstance(this.root!, true).element.close();
-	}
-
-	toggle(): void {
-		if (this.open) this.close();
-		else this.show();
-	}
+	show = () => (this.open = true);
+	close = () => (this.open = false);
+	toggle = () => (this.open = !this.open);
 }
 
 customElements.define('ui-dropdown', Dropdown);
