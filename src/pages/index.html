@@ -2,7 +2,7 @@
 	src="../layouts/base.html"
 	locals='{
 		"title": "Vite + TS",
-		"type": "customer",
+		"type": "home",
 		"base_url": "../"
 	}'
 >
@@ -18,10 +18,7 @@
 			</div>
 			<hr class="w-12 rounded-full border-border" />
 			<div class="inline-flex place-content-between">
-				<div class="inline-flex items-baseline gap-1">
-					<p class="text-lg font-light text-secondary">USD</p>
-					<p class="font-serif text-2xl font-bold tracking-tight text-title">3,889.00</p>
-				</div>
+				<ui-price-display size="lg">3,889.00</ui-price-display>
 				<ui-button
 					class="transition-gap group w-32 rounded-none border-slate-300 font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6"
 					fill="outline"

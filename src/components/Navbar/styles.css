@@ -69,6 +69,20 @@ header.navbar {
 		}
 	}
 
+	ui-dropdown {
+		.price-label {
+			@apply flex flex-row place-content-between;
+		}
+
+		&.cart::part(menu) {
+			@apply w-[400px];
+		}
+	}
+
+	ui-dropdown.account::part(menu) {
+		@apply w-60;
+	}
+
 	/* Add "Customer" next to the DJI logo */
 	&[type='customer'] .logo h2::before {
 		content: 'Customer';
