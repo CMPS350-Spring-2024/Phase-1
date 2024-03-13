@@ -1,0 +1,12 @@
+<template id="modal-template">
+	<slot name="toggle"></slot>
+	<dialog part="root">
+		<div part="header"></div>
+		<div part="content">
+			<slot></slot>
+		</div>
+		<div part="footer">
+			<slot name="footer"></slot>
+		</div>
+	</dialog>
+</template>

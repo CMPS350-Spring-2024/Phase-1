@@ -1,0 +1,5 @@
+ui-modal {
+	/* Container */
+	&::part(root) {
+	}
+}
