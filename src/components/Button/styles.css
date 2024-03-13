@@ -4,7 +4,7 @@ ui-button {
 		@apply inline-flex place-content-center items-center gap-x-2;
 		@apply rounded-sm border;
 		@apply text-sm font-semibold;
-		@apply focus:outline-none disabled:pointer-events-none disabled:opacity-50;
+		@apply disabled:pointer-events-none disabled:opacity-50 focus-hover:outline-none;
 		@apply transition-colors duration-200;
 
 		/* Size Variants */

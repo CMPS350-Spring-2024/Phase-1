@@ -17,6 +17,7 @@
 						{ "name": "move-right" },
 						{ "name": "palette" },
 						{ "name": "plus" },
+						{ "name": "search" },
 						{ "name": "user" },
 						{ "name": "wallet" }
 					]
@@ -165,6 +166,25 @@
 				{
 					"name": "Preline UI buttons",
 					"url": "https://preline.co/docs/buttons.html"
+				}
+			]
+		},
+		{
+			"name": "ui-modal",
+			"description": "Custom modal component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "open",
+					"description": "Is the modal currently open?",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "title",
+					"description": "The title of the modal, if none is provided, the header will not be displayed."
+				},
+				{
+					"name": "description",
+					"description": "The description of the modal"
 				}
 			]
 		},

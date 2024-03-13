@@ -6,9 +6,15 @@ import { BaseComponent } from '@/components/BaseComponent';
 
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
+import type { ICollectionItem } from 'preline';
 
 export interface Dropdown extends DropdownProps {}
 export interface DropdownProps extends BaseComponentProps {
+	/**
+	 * Should the dropdown be open?
+	 */
+	'open'?: boolean;
+
 	/**
 	 * Specifies the position of the menu when opened.
 	 */
@@ -60,6 +66,8 @@ export class Dropdown extends BaseComponent {
 	protected static readonly templateName: string = 'dropdown-template';
 	protected static readonly forwardedAttributes: Array<keyof DropdownProps> = [
 		'class',
+
+		'open',
 		'placement',
 		'auto-close',
 		'strategy',
@@ -68,6 +76,7 @@ export class Dropdown extends BaseComponent {
 		'trigger',
 	];
 	protected static readonly defaultProperties: DropdownProps = {
+		'open': false,
 		'placement': 'bottom-left',
 		'auto-close': 'inside',
 		'strategy': 'absolute',
@@ -79,7 +88,7 @@ export class Dropdown extends BaseComponent {
 	protected baseClass: string;
 
 	protected root: HTMLElement | null = null;
-	protected toggle: HTMLElement | null = null;
+	protected toggleButton: HTMLElement | null = null;
 	protected menu: HTMLElement | null = null;
 
 	static get observedAttributes() {
@@ -91,7 +100,7 @@ export class Dropdown extends BaseComponent {
 
 		//	Save the reference to the menu and the toggle button
 		this.root = this.shadowRoot!.querySelector('.hs-dropdown');
-		this.toggle = this.shadowRoot!.querySelector<HTMLSlotElement>(
+		this.toggleButton = this.shadowRoot!.querySelector<HTMLSlotElement>(
 			'[name="toggle"]',
 		)!.assignedNodes()[0] as HTMLElement;
 		this.menu = this.shadowRoot!.querySelector('.hs-dropdown-menu');
@@ -100,12 +109,12 @@ export class Dropdown extends BaseComponent {
 		this.baseClass = this.menu!.className;
 
 		//	If the toggle button is not found, throw an error
-		if (!this.toggle) {
+		if (!this.toggleButton) {
 			throw new Error('No toggle button found');
 		}
 
 		//	Add the hs-dropdown-toggle class to the toggle button
-		this.toggle!.classList.add('hs-dropdown-toggle');
+		this.toggleButton!.classList.add('hs-dropdown-toggle');
 
 		//	Loop through each of the properties to initialize them as css variables
 		Dropdown.forwardedAttributes.forEach((property: string) => {
@@ -120,11 +129,22 @@ export class Dropdown extends BaseComponent {
 		super.connectedCallback();
 
 		//	Register this dropdown with the HSDropdown class
-		setTimeout(() => new HSDropdown(this.root as any), 1000);
+		setTimeout(() => {
+			new HSDropdown(this.root as any);
+			HSDropdown.on('open', this.root!, () => (this.open = true));
+			HSDropdown.on('close', this.root!, () => (this.open = false));
+		}, 1000);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		super.attributeChangedCallback(name, oldValue, newValue);
+
+		//	If the open attribute is changed, either open or close the dropdown
+		if (name === 'open') {
+			const { element } = HSDropdown.getInstance(this.root!, true) as ICollectionItem<HSDropdown>;
+			if (newValue === '') element.open();
+			else element.close();
+		}
 
 		//	If the attribute is part of the available properties, update the root element's css variables
 		if (Dropdown.forwardedAttributes.includes(name as any)) {
@@ -134,23 +154,9 @@ export class Dropdown extends BaseComponent {
 		}
 	}
 
-	open(): void {
-		// @ts-ignore
-		HSDropdown.getInstance(this.root!, true).element.open();
-	}
-
-	close(): void {
-		// @ts-ignore
-		HSDropdown.getInstance(this.root!, true).element.close();
-	}
-
-	toggleMenu(): void {
-		if (this.root!.classList.contains('open')) {
-			this.close();
-		} else {
-			this.open();
-		}
-	}
+	show = () => (this.open = true);
+	close = () => (this.open = false);
+	toggle = () => (this.open = !this.open);
 }
 
 customElements.define('ui-dropdown', Dropdown);

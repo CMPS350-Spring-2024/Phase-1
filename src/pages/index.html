@@ -6,6 +6,21 @@
 	}'
 >
 	<block name="app">
+		<ui-modal
+			class="w-[440px]"
+			title="Edit Profile"
+			description="Modify your account details"
+		>
+			<ui-button slot="toggle">
+				Top-Up Balance
+				<i
+					class="size-3.5"
+					data-lucide="wallet"
+				></i>
+			</ui-button>
+
+			test
+		</ui-modal>
 		<ui-dropdown class="w-60">
 			<ui-button
 				class="size-10 rounded-none text-secondary hover:bg-slate-100"
@@ -76,13 +91,6 @@
 			></i>
 			Back
 		</ui-button>
-		<ui-button>
-			Top-Up Balance
-			<i
-				class="size-3.5"
-				data-lucide="wallet"
-			></i>
-		</ui-button>
 		<div class="flex size-fit flex-col gap-12">
 			<div class="flex w-[440px] flex-col gap-2">
 				<h1 class="font-serif text-5xl font-bold tracking-wide text-title">Mavic 3 Pro</h1>
@@ -98,9 +106,10 @@
 					<p class="font-serif text-2xl font-bold tracking-tight text-title">3,889.00</p>
 				</div>
 				<ui-button
-					class="transition-gap group w-32 rounded-none font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6"
+					class="transition-gap group w-32 rounded-none font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6 focus-hover:bg-white"
 					fill="outline"
-					onclick="document.querySelector('ui-dropdown').toggleMenu(); document.querySelector('ui-avatar').randomizeColor()"
+					data-hs-overlay="test-modal"
+					onclick="document.querySelector('ui-dropdown').toggle(); document.querySelector('ui-avatar').randomizeColor(); document.querySelector('ui-modal').toggle();"
 				>
 					View
 					<i
