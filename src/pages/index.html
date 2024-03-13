@@ -7,6 +7,25 @@
 	}'
 >
 	<block name="app">
+		<form class="flex flex-col gap-4 p-4">
+			<ui-text-input placeholder="Enter full name...">
+				Full Name
+				<i
+					slot="left-icon"
+					data-lucide="user"
+				></i>
+			</ui-text-input>
+			<ui-text-input
+				type="email"
+				placeholder="Enter email address..."
+			>
+				Email Address
+				<i
+					slot="left-icon"
+					data-lucide="mail"
+				></i>
+			</ui-text-input>
+		</form>
 		<ui-modal
 			class="w-[440px]"
 			title="Edit Profile"
@@ -65,13 +84,13 @@
 		<ui-drone-viewer></ui-drone-viewer>
 
 		<h1
-			class="line pointer-events-none absolute -bottom-20 left-8 origin-top-left -rotate-90 font-display text-[128px] font-black uppercase leading-[128px] text-zinc-100"
+			class="line pointer-events-none absolute -bottom-20 left-8 -z-10 origin-top-left -rotate-90 font-display text-[128px] font-black uppercase leading-[128px] text-zinc-100"
 		>
 			DJI
 		</h1>
 
 		<h2
-			class="line pointer-events-none absolute right-8 top-8 origin-top-left text-right font-display text-[64px] font-black uppercase leading-[64px] text-zinc-100"
+			class="line pointer-events-none absolute right-8 top-8 -z-10 origin-top-left text-right font-display text-[64px] font-black uppercase leading-[64px] text-zinc-100"
 		>
 			Aerial
 			<br />
