@@ -1,5 +1,6 @@
 //	Package Imports
 import {
+	ChevronLeft,
 	ClipboardList,
 	LogOut,
 	MapPin,
@@ -18,6 +19,7 @@ import {
 export const convertIcons = () =>
 	createIcons({
 		icons: {
+			ChevronLeft,
 			ClipboardList,
 			LogOut,
 			MapPin,

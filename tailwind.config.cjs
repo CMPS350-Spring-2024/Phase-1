@@ -20,6 +20,9 @@ export default {
 				serif: ['"Source Serif Pro"', 'serif'],
 				display: ['"Montserrat"', 'sans-serif'],
 			},
+			borderRadius: {
+				sm: '4px',
+			},
 			strokeWidth: {
 				3: '3px',
 				4: '4px',

@@ -1,0 +1,79 @@
+ui-avatar {
+	/* Container */
+	&::part(root) {
+		@apply inline-flex items-center justify-center;
+		@apply rounded-full;
+		@apply text-white;
+		@apply font-display font-bold leading-none;
+
+		/* Color Variants */
+		&[color='black'] {
+			@apply bg-slate-800;
+		}
+		&[color='red'] {
+			@apply bg-red-500;
+		}
+		&[color='orange'] {
+			@apply bg-orange-500;
+		}
+		&[color='amber'] {
+			@apply bg-amber-500;
+		}
+		&[color='yellow'] {
+			@apply bg-yellow-500;
+		}
+		&[color='lime'] {
+			@apply bg-lime-500;
+		}
+		&[color='green'] {
+			@apply bg-green-500;
+		}
+		&[color='emerald'] {
+			@apply bg-emerald-500;
+		}
+		&[color='teal'] {
+			@apply bg-teal-500;
+		}
+		&[color='cyan'] {
+			@apply bg-cyan-500;
+		}
+		&[color='sky'] {
+			@apply bg-sky-500;
+		}
+		&[color='blue'] {
+			@apply bg-blue-500;
+		}
+		&[color='indigo'] {
+			@apply bg-indigo-500;
+		}
+		&[color='violet'] {
+			@apply bg-violet-500;
+		}
+		&[color='purple'] {
+			@apply bg-purple-500;
+		}
+		&[color='fuchsia'] {
+			@apply bg-fuchsia-500;
+		}
+		&[color='pink'] {
+			@apply bg-pink-500;
+		}
+		&[color='rose'] {
+			@apply bg-rose-500;
+		}
+
+		/* Size Variants */
+		&[size='xs'] {
+			@apply size-[46px] text-sm;
+		}
+		&[size='sm'] {
+			@apply size-[52px] text-base;
+		}
+		&[size='md'] {
+			@apply size-[64px] text-lg;
+		}
+		&[size='lg'] {
+			@apply size-[96px] text-xl;
+		}
+	}
+}

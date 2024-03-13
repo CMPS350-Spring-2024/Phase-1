@@ -3,8 +3,15 @@ import { BaseComponent } from '@/components/BaseComponent';
 
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
+import type { ICollectionItem } from 'preline';
 
+export interface Dropdown extends DropdownProps {}
 export interface DropdownProps extends BaseComponentProps {
+	/**
+	 * Should the dropdown be open?
+	 */
+	'open'?: boolean;
+
 	/**
 	 * Specifies the position of the menu when opened.
 	 */
@@ -16,13 +23,13 @@ export interface DropdownProps extends BaseComponentProps {
  */
 export class Dropdown extends BaseComponent {
 	protected static readonly templateName: string = 'dropdown-template';
-	protected static readonly forwardedProperties: Array<keyof DropdownProps> = ['class', 'placement'];
+  protected static readonly forwardedProperties: Array<keyof DropdownProps> = ['class', 'placement'];
 	protected static readonly defaultProperties: DropdownProps = {
 		placement: 'bottom-left',
 	};
 
 	protected root: HTMLElement | null = null;
-	protected toggle: HTMLElement | null = null;
+	protected toggleButton: HTMLElement | null = null;
 	protected menu: HTMLElement | null = null;
 
 	static get observedAttributes() {
@@ -46,6 +53,10 @@ export class Dropdown extends BaseComponent {
 		//	If the class was changed, forward it to the menu
 		if (name === 'class' && this.menu) this.menu.className = newValue;
 	}
+
+	show = () => (this.open = true);
+	close = () => (this.open = false);
+	toggle = () => (this.open = !this.open);
 }
 
 customElements.define('ui-dropdown', Dropdown);

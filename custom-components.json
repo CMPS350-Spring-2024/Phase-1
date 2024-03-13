@@ -9,6 +9,7 @@
 					"name": "data-lucide",
 					"description": "Specifies the name of the icon to display.",
 					"values": [
+						{ "name": "chevron-left" },
 						{ "name": "clipboard-list" },
 						{ "name": "log-out" },
 						{ "name": "map-pin" },
@@ -16,7 +17,7 @@
 						{ "name": "move-right" },
 						{ "name": "palette" },
 						{ "name": "plus" },
-						{ "name": "shopping-cart" },
+            { "name": "shopping-cart" },
 						{ "name": "search" },
 						{ "name": "user" },
 						{ "name": "wallet" }
@@ -27,6 +28,41 @@
 				{
 					"name": "Lucide Icon Library",
 					"url": "https://lucide.dev/icons"
+				}
+			]
+		},
+		{
+			"name": "ui-avatar",
+			"description": "Custom avatar component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "color",
+					"description": "The color of the avatar.",
+					"values": [
+						{ "name": "black" },
+						{ "name": "red" },
+						{ "name": "orange" },
+						{ "name": "amber" },
+						{ "name": "yellow" },
+						{ "name": "lime" },
+						{ "name": "green" },
+						{ "name": "emerald" },
+						{ "name": "teal" },
+						{ "name": "cyan" },
+						{ "name": "sky" },
+						{ "name": "blue" },
+						{ "name": "indigo" },
+						{ "name": "violet" },
+						{ "name": "purple" },
+						{ "name": "magenta" },
+						{ "name": "pink" },
+						{ "name": "rose" }
+					]
+				},
+				{
+					"name": "size",
+					"description": "The size of the avatar.",
+					"values": [{ "name": "xs" }, { "name": "sm" }, { "name": "md" }, { "name": "lg" }]
 				}
 			]
 		},
@@ -134,14 +170,33 @@
 				}
 			]
 		},
-		{
-			"name": "ui-navbar",
+    {
+      "name": "ui-navbar",
 			"description": "Custom navbar component based on the Preline UI design system.",
 			"attributes": [
 				{
 					"name": "type",
 					"description": "The type of the current page",
 					"values": [{ "name": "home" }, { "name": "customer" }, { "name": "admin" }]
+        }
+      ]
+    },
+		{
+			"name": "ui-modal",
+			"description": "Custom modal component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "open",
+					"description": "Is the modal currently open?",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "title",
+					"description": "The title of the modal, if none is provided, the header will not be displayed."
+				},
+				{
+					"name": "description",
+					"description": "The description of the modal"
 				}
 			]
 		},

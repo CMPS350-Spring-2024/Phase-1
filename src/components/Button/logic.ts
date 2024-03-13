@@ -4,16 +4,12 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
+export interface Button extends Omit<ButtonProps, 'onclick'> {}
 export interface ButtonProps extends BaseComponentProps {
 	/**
 	 * Passes a href to the button, this will wrap the button in an anchor tag.
 	 */
 	href?: string;
-
-	/**
-	 * Specifies the color of the button.
-	 */
-	color?: 'blue';
 
 	/**
 	 * Specifies the fill type of the button.
@@ -39,6 +35,11 @@ export interface ButtonProps extends BaseComponentProps {
 	 * Shows a loading spinner inside the button.
 	 */
 	loading?: boolean;
+
+	/**
+	 * The function to call when the button is clicked.
+	 */
+	onclick?: () => void;
 }
 
 /**
@@ -48,9 +49,9 @@ export class Button extends PrimitiveComponent {
 	protected static readonly templateName: string = 'button-template';
 	protected static readonly forwardedAttributes: Array<keyof ButtonProps> = [
 		'href',
+		'onclick',
 
 		'class',
-		'color',
 		'fill',
 		'size',
 		'round',
@@ -58,7 +59,6 @@ export class Button extends PrimitiveComponent {
 		'loading',
 	];
 	protected static readonly defaultProperties: ButtonProps = {
-		color: 'blue',
 		fill: 'outline',
 		size: 'sm',
 	};

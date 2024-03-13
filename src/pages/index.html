@@ -7,7 +7,91 @@
 	}'
 >
 	<block name="app">
+		<ui-modal
+			class="w-[440px]"
+			title="Edit Profile"
+			description="Modify your account details"
+		>
+			<ui-button slot="toggle">
+				Top-Up Balance
+				<i
+					class="size-3.5"
+					data-lucide="wallet"
+				></i>
+			</ui-button>
+
+			test
+		</ui-modal>
+		<ui-dropdown class="w-60">
+			<ui-button
+				class="size-10 rounded-none text-secondary hover:bg-slate-100"
+				fill="ghost"
+				slot="toggle"
+			>
+				<i
+					class="size-4"
+					data-lucide="user"
+				></i>
+			</ui-button>
+
+			<ui-button
+				class="ui-dropdown-item"
+				href="/customer/index.html#my_balance"
+			>
+				<i
+					class="size-4"
+					data-lucide="wallet"
+				></i>
+				My Balance
+			</ui-button>
+			<ui-button
+				class="ui-dropdown-item"
+				href="/customer/index.html#past_orders"
+			>
+				<i
+					class="size-4"
+					data-lucide="clipboard-list"
+				></i>
+				Past Orders
+			</ui-button>
+			<ui-button
+				class="ui-dropdown-item"
+				href="/customer/index.html#saved_address"
+			>
+				<i
+					class="size-4"
+					data-lucide="map-pin"
+				></i>
+				Saved Address
+			</ui-button>
+			<ui-button
+				class="ui-dropdown-item"
+				href="/customer/index.html#appearance"
+			>
+				<i
+					class="size-4"
+					data-lucide="palette"
+				></i>
+				Appearance
+			</ui-button>
+			<hr />
+			<ui-button class="ui-dropdown-item">
+				<i
+					class="size-4"
+					data-lucide="log-out"
+				></i>
+				Log Out
+			</ui-button>
+		</ui-dropdown>
 		<ui-numeric-input defaultValue="9"></ui-numeric-input>
+		<ui-avatar color="black">MF</ui-avatar>
+		<ui-button fill="ghost">
+			<i
+				class="size-3.5"
+				data-lucide="chevron-left"
+			></i>
+			Back
+		</ui-button>
 		<div class="flex size-fit flex-col gap-12">
 			<div class="flex w-[440px] flex-col gap-2">
 				<h1 class="font-serif text-5xl font-bold tracking-wide text-title">Mavic 3 Pro</h1>
@@ -20,9 +104,10 @@
 			<div class="inline-flex place-content-between">
 				<ui-price-display size="lg">3,889.00</ui-price-display>
 				<ui-button
-					class="transition-gap group w-32 rounded-none border-slate-300 font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6"
+					class="transition-gap group w-32 rounded-none font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6 focus-hover:bg-white"
 					fill="outline"
-					onclick="HSDropdown.getInstance('#dropdown', true).element.open()"
+					data-hs-overlay="test-modal"
+					onclick="document.querySelector('ui-dropdown').toggle(); document.querySelector('ui-avatar').randomizeColor(); document.querySelector('ui-modal').toggle();"
 				>
 					View
 					<i
