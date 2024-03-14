@@ -33,6 +33,11 @@ ui-button {
 			@apply text-secondary hover:bg-slate-50 hover:text-title;
 			@apply font-normal;
 		}
+		&[fill='link'] {
+			@apply rounded-none border-0 p-0 outline-none hover:border-b;
+			@apply text-blue-500 hover:border-b-blue-500 hover:bg-transparent;
+			@apply transition-all;
+		}
 
 		&[round] {
 			@apply rounded-full;

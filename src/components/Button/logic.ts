@@ -14,7 +14,7 @@ export interface ButtonProps extends BaseComponentProps {
 	/**
 	 * Specifies the fill type of the button.
 	 */
-	fill?: 'solid' | 'outline' | 'ghost';
+	fill?: 'solid' | 'outline' | 'ghost' | 'link';
 
 	/**
 	 * Specifies the size of the button.

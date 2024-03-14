@@ -83,7 +83,7 @@
 				{
 					"name": "fill",
 					"description": "Specifies the fill type of the button.",
-					"values": [{ "name": "solid" }, { "name": "outline" }, { "name": "ghost" }]
+					"values": [{ "name": "solid" }, { "name": "outline" }, { "name": "ghost" }, { "name": "link" }]
 				},
 				{
 					"name": "size",
