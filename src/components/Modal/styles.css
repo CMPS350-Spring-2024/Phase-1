@@ -30,7 +30,7 @@ ui-modal {
 
 	/* Description */
 	&::part(description) {
-		@apply text-sm font-light tracking-wide text-secondary;
+		@apply text-sm text-secondary;
 	}
 
 	/* Close Button */

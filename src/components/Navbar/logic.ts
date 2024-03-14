@@ -9,7 +9,7 @@ export interface NavbarProps extends BaseComponentProps {
 	/**
 	 * The type of the current page
 	 */
-	type?: 'home' | 'customer' | 'admin';
+	type?: 'hidden' | 'home' | 'customer' | 'admin';
 }
 
 /**
