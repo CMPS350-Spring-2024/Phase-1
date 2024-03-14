@@ -7,18 +7,19 @@
 	}'
 >
 	<block name="app">
-		<div class="flex h-screen w-screen flex-col place-content-center items-end px-40">
+		<link
+			rel="stylesheet"
+			href="/src/styles/auth.css"
+		/>
+
+		<div class="root">
 			<img
-				class="absolute left-0 top-0 -z-10 h-full w-full"
+				class="background-image"
 				src="/images/bg-photo-1.webp"
 			/>
-			<span
-				class="absolute left-0 top-0 h-full w-full bg-gradient-to-b from-transparent from-25% to-black opacity-40"
-			></span>
-			<form
-				class="flex max-h-[90vh] w-[480px] flex-col items-stretch gap-8 overflow-y-auto border border-border bg-white p-8 shadow-lg"
-			>
-				<span class="flex flex-row place-content-start">
+			<span class="background-overlay"></span>
+			<form class="panel">
+				<span class="back-container">
 					<ui-button
 						href="/login.html"
 						fill="ghost"
@@ -32,22 +33,21 @@
 				</span>
 
 				<!-- Logo -->
-				<span class="flex flex-row place-content-center">
+				<span class="logo-container">
 					<img
-						class="size-16"
 						alt="Image showing the logo of the company, DJI."
 						src="/DJI 1.svg"
 					/>
 				</span>
-				<div class="flex flex-col items-center gap-1 px-4 pb-4">
-					<h1 class="text-center font-serif text-xl font-extrabold text-title">Create a new DJI account</h1>
-					<p class="text-center text-sm font-light tracking-wide text-secondary">
-						Gain access to a suite of services offered by DJI, exclusive to registered accounts
-					</p>
+
+				<!-- Header -->
+				<div class="header section">
+					<h1>Create a new DJI account</h1>
+					<p>Gain access to a suite of services offered by DJI, exclusive to registered accounts</p>
 				</div>
 
 				<!-- Inputs -->
-				<div class="flex flex-col gap-4">
+				<div class="inputs section">
 					<ui-text-input placeholder="Enter full name...">
 						Full Name
 						<i
@@ -102,15 +102,10 @@
 				</div>
 
 				<!-- Login Prompt -->
-				<div class="flex flex-col gap-2">
-					<ui-button
-						class="self-stretch"
-						fill="solid"
-					>
-						Create Account
-					</ui-button>
-					<span class="flex flex-row place-content-center items-baseline gap-1">
-						<p class="text-center text-secondary">Already have an account?</p>
+				<div class="action section">
+					<ui-button fill="solid">Create Account</ui-button>
+					<span class="prompt">
+						<p>Already have an account?</p>
 						<ui-button
 							href="/login.html"
 							fill="link"
