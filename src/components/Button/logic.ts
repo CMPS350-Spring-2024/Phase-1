@@ -12,9 +12,14 @@ export interface ButtonProps extends BaseComponentProps {
 	href?: string;
 
 	/**
+	 * Specifies where to open the linked document.
+	 */
+	target?: '_self' | '_blank' | '_parent' | '_top';
+
+	/**
 	 * Specifies the fill type of the button.
 	 */
-	fill?: 'solid' | 'outline' | 'ghost';
+	fill?: 'solid' | 'outline' | 'ghost' | 'link';
 
 	/**
 	 * Specifies the size of the button.
@@ -49,6 +54,7 @@ export class Button extends PrimitiveComponent {
 	protected static readonly templateName: string = 'button-template';
 	protected static readonly forwardedAttributes: Array<keyof ButtonProps> = [
 		'href',
+		'target',
 		'onclick',
 
 		'class',
@@ -59,6 +65,7 @@ export class Button extends PrimitiveComponent {
 		'loading',
 	];
 	protected static readonly defaultProperties: ButtonProps = {
+		target: '_self',
 		fill: 'outline',
 		size: 'sm',
 	};
@@ -81,6 +88,7 @@ export class Button extends PrimitiveComponent {
 				//	Unwrap the button from the anchor tag
 				const button = this.element.firstElementChild!.cloneNode(true) as HTMLElement;
 				button.removeAttribute('tabIndex');
+				button.style.removeProperty('width');
 				this.element.insertAdjacentElement('afterend', button);
 				this.element.remove();
 				this.element = button;
@@ -90,10 +98,12 @@ export class Button extends PrimitiveComponent {
 				//	Clone the button and make it non-focusable
 				const button = this.element.cloneNode(true) as HTMLElement;
 				button.setAttribute('tabIndex', '-1');
+				button.style.width = '100%';
 
 				//	Wrap the button in an anchor tag
 				const anchor = this.element.ownerDocument!.createElement('a');
 				anchor.setAttribute('href', newValue);
+				anchor.setAttribute('target', this.getAttribute('target')!);
 				anchor.appendChild(button);
 				this.element.insertAdjacentElement('beforebegin', anchor);
 				this.element.remove();

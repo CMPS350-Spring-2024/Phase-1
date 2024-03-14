@@ -1,5 +1,6 @@
 //	Package Imports
 import * as THREE from 'three';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -57,6 +58,10 @@ export class DroneViewer extends PrimitiveComponent {
 
 		//	Load the drone model
 		const loader = new GLTFLoader();
+		const dracoLoader = new DRACOLoader();
+		dracoLoader.setDecoderConfig({ type: 'js' });
+		dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+		loader.setDRACOLoader(dracoLoader);
 		loader.load(
 			'/models/Mavic 3.glb',
 			async (gltf) => {

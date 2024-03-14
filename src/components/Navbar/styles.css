@@ -74,7 +74,7 @@ header.navbar {
 			@apply flex flex-row place-content-between;
 
 			p {
-				@apply text-sm font-light tracking-wide text-secondary;
+				@apply text-sm text-secondary;
 			}
 		}
 
@@ -85,6 +85,11 @@ header.navbar {
 
 	ui-dropdown.account::part(menu) {
 		@apply w-60;
+	}
+
+	/* Hide the navbar if the type is hidden */
+	&[type='hidden'] {
+		@apply hidden;
 	}
 
 	/* Add "Customer" next to the DJI logo */
