@@ -30,3 +30,28 @@
 		@apply text-[1em];
 	}
 }
+@layer components {
+	.company-title {
+		@apply flex justify-center;
+	}
+	.footer-components {
+		@apply m-1 box-border rounded-2xl bg-[#1f2937] text-white;
+	}
+
+	.bottom-bar {
+		@apply grid gap-4;
+		@apply justify-center;
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+		/* grid-template-columns:1fr 1fr ; */
+
+		margin: 2rem;
+
+		padding: 25px 30px;
+	}
+	.about-copyright > div {
+		@apply mr-2 flex flex-col
+		items-center
+		justify-center
+		p-2 text-center;
+	}
+}
