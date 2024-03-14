@@ -1,8 +1,11 @@
-export interface User {
+//	Package Imports
+import jsSHA from 'jssha';
+
+export interface IUser {
 	/**
 	 * The user's unique identifier, if the user is an admin, this will be 0
 	 */
-	// id: number;
+	id: number;
 
 	/**
 	 * The user's name as an object containing the first and last name
@@ -35,38 +38,32 @@ export interface User {
 	password: string;
 }
 
+export interface User extends IUser {}
 export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'password'> {}
 
 export class User {
 	protected static count: number = 0;
+	private _id: number;
 
 	constructor(userData: CreateUser) {
-		Object.assign(this, userData);
+		this.name = userData.name;
+		this.email = userData.email;
+		this.phone = userData.phone;
 
-		// Set the user's unique identifier
-		this.id = ++User.count;
+		//	Hasing the password using SHA-256
+		const hashObject = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' });
+		hashObject.update(userData.password);
+		this.password = hashObject.getHash('HEX');
+
+		//	Set the user's unique identifier
+		this._id = ++User.count;
 	}
 
-	/**
-	 * The user's unique identifier, if the user is an admin, this will be 0
-	 */
 	get id(): number {
-		return this.id;
-	}
-	private set id(value: number) {
-		this.id = value;
+		return this._id;
 	}
 
 	getName = (): string => this.name.first + (this.name.last ? ` ${this.name.last}` : '');
 	getFirstName = (): string => this.name.first;
 	getLastName = (): string => this.name.last || '';
 }
-
-const person = new User({
-	name: { first: 'John', last: 'Doe' },
-	email: 'johndoe@gmail.com',
-	phone: '+974-1234-5678',
-	password: 'password',
-});
-
-console.log(person);
