@@ -7,34 +7,34 @@
 	}'
 >
 	<block name="app">
-		<div
-			class="flex h-screen w-screen flex-col place-content-center items-center min-[480px]:px-16 lg:items-end xl:px-32 min-[1800px]:items-center"
-		>
+		<link
+			rel="stylesheet"
+			href="/src/styles/auth.css"
+		/>
+
+		<div class="root">
 			<img
-				class="absolute left-0 top-0 -z-10 hidden size-full object-cover object-center min-[480px]:block"
+				class="background-image"
 				src="/images/bg-photo-1.webp"
 			/>
-			<span
-				class="absolute left-0 top-0 hidden size-full bg-gradient-to-b from-transparent from-25% to-black opacity-40 min-[480px]:block"
-			></span>
-			<form
-				class="flex w-full flex-col items-stretch gap-8 overflow-y-auto border-border bg-white px-4 min-[480px]:max-h-[90vh] min-[480px]:w-[480px] min-[480px]:border min-[480px]:px-8 min-[480px]:py-12 min-[480px]:shadow-lg"
-			>
+			<span class="background-overlay"></span>
+			<form class="panel">
 				<!-- Logo -->
-				<span class="flex flex-row place-content-center">
+				<span class="logo-container">
 					<img
-						class="size-16"
 						alt="Image showing the logo of the company, DJI."
 						src="/DJI 1.svg"
 					/>
 				</span>
-				<div class="flex flex-col items-center gap-1 px-4 pb-4">
-					<h1 class="text-center font-serif text-xl font-extrabold text-title">Login to DJI</h1>
-					<p class="text-center text-secondary">Manage your account and access the platform dashboard</p>
+
+				<!-- Header -->
+				<div class="header section">
+					<h1>Login to DJI</h1>
+					<p>Manage your account and access the platform dashboard</p>
 				</div>
 
 				<!-- Inputs -->
-				<div class="flex flex-col gap-4">
+				<div class="inputs section">
 					<ui-text-input
 						name="email"
 						type="email"
@@ -60,17 +60,12 @@
 				</div>
 
 				<!-- Login Prompt -->
-				<div class="flex flex-col gap-2">
-					<ui-button
-						class="self-stretch"
-						fill="solid"
-					>
-						Login
-					</ui-button>
-					<span class="flex flex-row place-content-center items-baseline gap-1">
-						<p class="text-center text-secondary">Don't have an account?</p>
+				<div class="action section">
+					<ui-button fill="solid">Login</ui-button>
+					<span class="prompt">
+						<p>Don't have an account?</p>
 						<ui-button
-							href="/register.html"
+							href="/registration.html"
 							fill="link"
 						>
 							Create Account
@@ -79,18 +74,18 @@
 				</div>
 
 				<!-- Alternative Logins -->
-				<span
-					class="flex items-center before:me-6 before:flex-[1_1_0%] before:border-t before:border-gray-200 after:ms-6 after:flex-[1_1_0%] after:border-t after:border-gray-200"
-				>
-					<p class="font-serif text-2xs font-normal uppercase leading-none text-secondary">or</p>
+				<span class="divider">
+					<p>or</p>
 				</span>
-				<div class="flex flex-col items-stretch gap-2">
+				<div class="alternative section">
 					<ui-button
 						href="https://www.facebook.com"
 						target="_blank"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
+							width="14"
+							height="14"
 							viewBox="0 0 512 512"
 						>
 							<path
@@ -106,9 +101,9 @@
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							height="24"
+							width="14"
+							height="14"
 							viewBox="0 0 24 24"
-							width="24"
 						>
 							<path
 								d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

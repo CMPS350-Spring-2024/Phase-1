@@ -1,0 +1,120 @@
+<extends
+	src="../layouts/base.html"
+	locals='{
+		"title": "Vite + TS",
+		"type": "hidden",
+		"base_url": "../"
+	}'
+>
+	<block name="app">
+		<link
+			rel="stylesheet"
+			href="/src/styles/auth.css"
+		/>
+
+		<div class="root">
+			<img
+				class="background-image"
+				src="/images/bg-photo-1.webp"
+			/>
+			<span class="background-overlay"></span>
+			<form class="panel">
+				<span class="back-container">
+					<ui-button
+						href="/login.html"
+						fill="ghost"
+					>
+						<i
+							class="size-3.5"
+							data-lucide="chevron-left"
+						></i>
+						Back
+					</ui-button>
+				</span>
+
+				<!-- Logo -->
+				<span class="logo-container">
+					<img
+						alt="Image showing the logo of the company, DJI."
+						src="/DJI 1.svg"
+					/>
+				</span>
+
+				<!-- Header -->
+				<div class="header section">
+					<h1>Create a new DJI account</h1>
+					<p>Gain access to a suite of services offered by DJI, exclusive to registered accounts</p>
+				</div>
+
+				<!-- Inputs -->
+				<div class="inputs section">
+					<ui-text-input placeholder="Enter full name...">
+						Full Name
+						<i
+							slot="left-icon"
+							data-lucide="user"
+						></i>
+					</ui-text-input>
+					<ui-text-input
+						name="email"
+						type="email"
+						placeholder="Enter email address..."
+					>
+						<i
+							slot="left-icon"
+							data-lucide="mail"
+						></i>
+						Email Address
+					</ui-text-input>
+					<ui-text-input
+						name="phone"
+						type="tel"
+						placeholder="Enter phone number..."
+					>
+						<i
+							slot="left-icon"
+							data-lucide="phone"
+						></i>
+						Phone Number
+					</ui-text-input>
+					<ui-text-input
+						name="password"
+						type="password"
+						placeholder="Enter password..."
+					>
+						<i
+							slot="left-icon"
+							data-lucide="key-round"
+						></i>
+						Password
+					</ui-text-input>
+					<ui-text-input
+						name="confirm-password"
+						type="password"
+						placeholder="Confirm password..."
+					>
+						<i
+							slot="left-icon"
+							data-lucide="key-round"
+						></i>
+						Confirm Password
+					</ui-text-input>
+				</div>
+
+				<!-- Login Prompt -->
+				<div class="action section">
+					<ui-button fill="solid">Create Account</ui-button>
+					<span class="prompt">
+						<p>Already have an account?</p>
+						<ui-button
+							href="/login.html"
+							fill="link"
+						>
+							Login
+						</ui-button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</block>
+</extends>

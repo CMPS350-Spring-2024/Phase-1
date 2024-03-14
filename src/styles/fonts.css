@@ -5,6 +5,7 @@
 		local('Montserrat'),
 		url('/public/fonts/Montserrat-Bold.woff2') format('woff2');
 	font-family: montserrat;
+	font-display: fallback;
 }
 
 @font-face {
@@ -14,6 +15,7 @@
 		local('Montserrat'),
 		url('/public/fonts/Montserrat-Black.woff2') format('woff2');
 	font-family: montserrat;
+	font-display: fallback;
 }
 
 @font-face {
@@ -23,6 +25,7 @@
 		local('Source Sans Pro'),
 		url('/public/fonts/SourceSansPro-Regular.woff2') format('woff2');
 	font-family: source sans pro;
+	font-display: fallback;
 }
 
 @font-face {
@@ -32,6 +35,7 @@
 		local('Source Sans Pro'),
 		url('/public/fonts/SourceSansPro-Semibold.woff2') format('woff2');
 	font-family: source sans pro;
+	font-display: fallback;
 }
 
 @font-face {
@@ -41,6 +45,7 @@
 		local('Source Sans Pro'),
 		url('/public/fonts/SourceSansPro-Bold.woff2') format('woff2');
 	font-family: source sans pro;
+	font-display: fallback;
 }
 
 @font-face {
@@ -50,6 +55,7 @@
 		local('Source Sans Pro'),
 		url('/public/fonts/SourceSansPro-Black.woff2') format('woff2');
 	font-family: source sans pro;
+	font-display: fallback;
 }
 
 @font-face {
@@ -59,6 +65,7 @@
 		local('Source Serif Pro'),
 		url('/public/fonts/SourceSerifPro-Regular.woff2') format('woff2');
 	font-family: 'source serif pro';
+	font-display: fallback;
 }
 
 @font-face {
@@ -68,6 +75,7 @@
 		local('Source Serif Pro'),
 		url('/public/fonts/SourceSerifPro-Light.woff2') format('woff2');
 	font-family: 'source serif pro';
+	font-display: fallback;
 }
 
 @font-face {
@@ -77,6 +85,7 @@
 		local('Source Serif Pro'),
 		url('/public/fonts/SourceSerifPro-SemiBold.woff2') format('woff2');
 	font-family: 'source serif pro';
+	font-display: fallback;
 }
 
 @font-face {
@@ -86,6 +95,7 @@
 		local('Source Serif Pro'),
 		url('/public/fonts/SourceSerifPro-Bold.woff2') format('woff2');
 	font-family: 'source serif pro';
+	font-display: fallback;
 }
 
 @font-face {
@@ -95,4 +105,5 @@
 		local('Source Serif Pro'),
 		url('/public/fonts/SourceSerifPro-Black.woff2') format('woff2');
 	font-family: 'source serif pro';
+	font-display: fallback;
 }
