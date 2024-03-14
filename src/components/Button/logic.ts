@@ -17,6 +17,11 @@ export interface ButtonProps extends BaseComponentProps {
 	target?: '_self' | '_blank' | '_parent' | '_top';
 
 	/**
+	 * The type of the button.
+	 */
+	type?: 'button' | 'menu' | 'submit' | 'reset';
+
+	/**
 	 * Specifies the fill type of the button.
 	 */
 	fill?: 'solid' | 'outline' | 'ghost' | 'link';
@@ -55,6 +60,7 @@ export class Button extends PrimitiveComponent {
 	protected static readonly forwardedAttributes: Array<keyof ButtonProps> = [
 		'href',
 		'target',
+		'type',
 		'onclick',
 
 		'class',
@@ -66,6 +72,7 @@ export class Button extends PrimitiveComponent {
 	];
 	protected static readonly defaultProperties: ButtonProps = {
 		target: '_self',
+		type: 'button',
 		fill: 'outline',
 		size: 'sm',
 	};

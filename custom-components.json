@@ -83,6 +83,11 @@
 					"values": [{ "name": "_self" }, { "name": "_blank" }, { "name": "_parent" }, { "name": "_top" }]
 				},
 				{
+					"name": "type",
+					"description": "The type of the button.",
+					"values": [{ "name": "button" }, { "name": "menu" }, { "name": "submit" }, { "name": "reset" }]
+				},
+				{
 					"name": "color",
 					"description": "Specifies the color of the button.",
 					"values": [{ "name": "blue" }]
