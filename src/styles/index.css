@@ -25,7 +25,7 @@ body {
 
 /* Apply default styling to all paragraphs */
 p {
-	@apply text-sm font-light tracking-wide;
+	@apply text-sm;
 }
 
 @layer components {

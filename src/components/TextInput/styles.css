@@ -13,7 +13,6 @@ ui-text-input {
 
 	/* Label */
 	&::part(label) {
-		@apply text-sm font-light tracking-wide;
 		@apply text-title;
 	}
 
@@ -31,7 +30,7 @@ ui-text-input {
 		@apply m-0 p-0;
 		@apply border-0 ring-0;
 		@apply bg-transparent text-inherit;
-		@apply text-sm font-light tracking-wide;
+		@apply text-sm;
 	}
 
 	/* Icon */

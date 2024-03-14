@@ -27,24 +27,6 @@
 
 @font-face {
 	font-style: normal;
-	font-weight: 200;
-	src:
-		local('Source Sans Pro'),
-		url('/public/fonts/SourceSansPro-ExtraLight.woff2') format('woff2');
-	font-family: source sans pro;
-}
-
-@font-face {
-	font-style: normal;
-	font-weight: 300;
-	src:
-		local('Source Sans Pro'),
-		url('/public/fonts/SourceSansPro-Light.woff2') format('woff2');
-	font-family: source sans pro;
-}
-
-@font-face {
-	font-style: normal;
 	font-weight: 600;
 	src:
 		local('Source Sans Pro'),

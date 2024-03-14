@@ -74,7 +74,7 @@ header.navbar {
 			@apply flex flex-row place-content-between;
 
 			p {
-				@apply text-sm font-light tracking-wide text-secondary;
+				@apply text-sm text-secondary;
 			}
 		}
 
