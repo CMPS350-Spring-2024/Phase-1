@@ -1,7 +1,7 @@
 ui-text-input {
 	/* Form Input Container */
 	&::part(form-input) {
-		@apply flex flex-col;
+		@apply flex flex-col self-stretch;
 		@apply gap-1.5;
 	}
 

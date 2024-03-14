@@ -11,6 +11,7 @@
 					"values": [
 						{ "name": "chevron-left" },
 						{ "name": "clipboard-list" },
+						{ "name": "key-round" },
 						{ "name": "log-out" },
 						{ "name": "mail" },
 						{ "name": "map-pin" },
@@ -74,6 +75,11 @@
 				{
 					"name": "href",
 					"description": "Passes a href to the button, this will wrap the button in an anchor tag."
+				},
+				{
+					"name": "target",
+					"description": "Specifies where to open the linked document.",
+					"values": [{ "name": "_self" }, { "name": "_blank" }, { "name": "_parent" }, { "name": "_top" }]
 				},
 				{
 					"name": "color",

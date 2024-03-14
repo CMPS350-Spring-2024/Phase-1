@@ -2,6 +2,7 @@
 import {
 	ChevronLeft,
 	ClipboardList,
+	KeyRound,
 	LogOut,
 	Mail,
 	MapPin,
@@ -22,6 +23,7 @@ export const convertIcons = () =>
 		icons: {
 			ChevronLeft,
 			ClipboardList,
+			KeyRound,
 			LogOut,
 			Mail,
 			MapPin,

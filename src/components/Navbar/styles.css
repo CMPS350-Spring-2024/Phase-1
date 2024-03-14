@@ -87,6 +87,11 @@ header.navbar {
 		@apply w-60;
 	}
 
+	/* Hide the navbar if the type is hidden */
+	&[type='hidden'] {
+		@apply hidden;
+	}
+
 	/* Add "Customer" next to the DJI logo */
 	&[type='customer'] .logo h2::before {
 		content: 'Customer';
