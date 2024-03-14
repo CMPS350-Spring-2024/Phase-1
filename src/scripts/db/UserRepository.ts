@@ -1,5 +1,5 @@
 //	Type Imports
-import { User } from '../../models/User';
+import { User } from '../models/User';
 
 export class UserRepository {
 	private static numberOfUsers: number = 0;
