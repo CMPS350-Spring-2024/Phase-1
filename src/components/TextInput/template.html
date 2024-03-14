@@ -1,0 +1,12 @@
+<template id="text-input-template">
+	<div part="form-input">
+		<span part="label-container">
+			<p part="label"><slot></slot></p>
+		</span>
+		<label part="container">
+			<slot name="left-icon"></slot>
+			<input part="root" />
+			<slot name="right-icon"></slot>
+		</label>
+	</div>
+</template>

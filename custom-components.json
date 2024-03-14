@@ -1,0 +1,330 @@
+{
+	"version": 1.1,
+	"tags": [
+		{
+			"name": "i",
+			"description": "The i element is used to represent an icon. The icons used are from the Lucide icon set.",
+			"attributes": [
+				{
+					"name": "data-lucide",
+					"description": "Specifies the name of the icon to display.",
+					"values": [
+						{ "name": "chevron-left" },
+						{ "name": "clipboard-list" },
+						{ "name": "log-out" },
+						{ "name": "mail" },
+						{ "name": "map-pin" },
+						{ "name": "minus" },
+						{ "name": "move-right" },
+						{ "name": "palette" },
+						{ "name": "plus" },
+						{ "name": "shopping-cart" },
+						{ "name": "search" },
+						{ "name": "user" },
+						{ "name": "wallet" }
+					]
+				}
+			],
+			"references": [
+				{
+					"name": "Lucide Icon Library",
+					"url": "https://lucide.dev/icons"
+				}
+			]
+		},
+		{
+			"name": "ui-avatar",
+			"description": "Custom avatar component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "color",
+					"description": "The color of the avatar.",
+					"values": [
+						{ "name": "black" },
+						{ "name": "red" },
+						{ "name": "orange" },
+						{ "name": "amber" },
+						{ "name": "yellow" },
+						{ "name": "lime" },
+						{ "name": "green" },
+						{ "name": "emerald" },
+						{ "name": "teal" },
+						{ "name": "cyan" },
+						{ "name": "sky" },
+						{ "name": "blue" },
+						{ "name": "indigo" },
+						{ "name": "violet" },
+						{ "name": "purple" },
+						{ "name": "magenta" },
+						{ "name": "pink" },
+						{ "name": "rose" }
+					]
+				},
+				{
+					"name": "size",
+					"description": "The size of the avatar.",
+					"values": [{ "name": "xs" }, { "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+				}
+			]
+		},
+		{
+			"name": "ui-button",
+			"description": "Custom button component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "href",
+					"description": "Passes a href to the button, this will wrap the button in an anchor tag."
+				},
+				{
+					"name": "color",
+					"description": "Specifies the color of the button.",
+					"values": [{ "name": "blue" }]
+				},
+				{
+					"name": "fill",
+					"description": "Specifies the fill type of the button.",
+					"values": [{ "name": "solid" }, { "name": "outline" }, { "name": "ghost" }]
+				},
+				{
+					"name": "size",
+					"description": "Specifies the size of the button.",
+					"values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+				},
+				{
+					"name": "round",
+					"description": "Makes the button have rounded corners.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "disabled",
+					"description": "Disables the button and prevents user interaction.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "loading",
+					"description": "Shows a loading spinner inside the button.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				}
+			],
+			"references": [
+				{
+					"name": "Preline UI buttons",
+					"url": "https://preline.co/docs/buttons.html"
+				}
+			]
+		},
+		{
+			"name": "ui-drone-viewer",
+			"description": "Custom drone viewer which displays the 3D model of the current selected drone."
+		},
+		{
+			"name": "ui-dropdown",
+			"description": "Custom button component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "placement",
+					"description": "Specifies the position of the menu when opened.",
+					"values": [
+						{ "name": "top" },
+						{ "name": "top-left" },
+						{ "name": "top-right" },
+						{ "name": "bottom" },
+						{ "name": "bottom-left" },
+						{ "name": "bottom-right" },
+						{ "name": "right" },
+						{ "name": "right-top" },
+						{ "name": "right-bottom" },
+						{ "name": "left" },
+						{ "name": "left-top" },
+						{ "name": "left-bottom" }
+					]
+				},
+				{
+					"name": "auto-close",
+					"description": "Specifies the zone, when clicked, which will close the menu.",
+					"values": [{ "name": "true" }, { "name": "false" }, { "name": "inside" }, { "name": "outside" }]
+				},
+				{
+					"name": "fill",
+					"description": "Sets the position to absolute instead of fixed, and removes the transform styles to position the menu relative to the relative parent block.",
+					"values": [{ "name": "fixed" }, { "name": "absolute" }]
+				},
+				{
+					"name": "offset",
+					"description": "Sets the dropdown's bottom or top offset."
+				},
+				{
+					"name": "flip",
+					"description": "Flips the menu's placement when it starts to overlap its reference element.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "trigger",
+					"description": "Event to trigger a dropdown.",
+					"values": [{ "name": "click" }, { "name": "hover" }]
+				}
+			],
+			"references": [
+				{
+					"name": "Preline UI buttons",
+					"url": "https://preline.co/docs/buttons.html"
+				}
+			]
+		},
+		{
+			"name": "ui-navbar",
+			"description": "Custom navbar component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "type",
+					"description": "The type of the current page",
+					"values": [{ "name": "home" }, { "name": "customer" }, { "name": "admin" }]
+				}
+			]
+		},
+		{
+			"name": "ui-modal",
+			"description": "Custom modal component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "open",
+					"description": "Is the modal currently open?",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "title",
+					"description": "The title of the modal, if none is provided, the header will not be displayed."
+				},
+				{
+					"name": "description",
+					"description": "The description of the modal"
+				}
+			]
+		},
+		{
+			"name": "ui-numeric-input",
+			"description": "Custom numeric input component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "name",
+					"description": "The name of the input."
+				},
+				{
+					"name": "value",
+					"description": "The numeric value of the input."
+				},
+				{
+					"name": "defaultValue",
+					"description": "The default value of the input."
+				},
+				{
+					"name": "placeholder",
+					"description": "The placeholder text to display when the input is empty."
+				},
+				{
+					"name": "min",
+					"description": "The minimum value of the input."
+				},
+				{
+					"name": "max",
+					"description": "The maximum value of the input."
+				},
+				{
+					"name": "step",
+					"description": "The step value of the input."
+				},
+				{
+					"name": "autofocus",
+					"description": "Should this input be focused when the page loads?",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "disabled",
+					"description": "Disables the input.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "readonly",
+					"description": "Stops the user from being able to change the value of the input.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "required",
+					"description": "If this input is in a form, this property makes it required.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				}
+			],
+			"references": [
+				{
+					"name": "Preline UI numeric input",
+					"url": "https://preline.co/docs/input-number.html"
+				}
+			]
+		},
+		{
+			"name": "ui-price-display",
+			"description": "Custom price display component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "size",
+					"description": "Specifies the size of the price display.",
+					"values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+				}
+			]
+		},
+		{
+			"name": "ui-text-input",
+			"description": "Custom text input component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "name",
+					"description": "The name of the input."
+				},
+				{
+					"name": "type",
+					"description": "The type of the input.",
+					"values": [
+						{ "name": "text" },
+						{ "name": "password" },
+						{ "name": "email" },
+						{ "name": "search" },
+						{ "name": "tel" },
+						{ "name": "url" }
+					]
+				},
+				{
+					"name": "value",
+					"description": "The value of the input."
+				},
+				{
+					"name": "defaultValue",
+					"description": "The default value of the input."
+				},
+				{
+					"name": "placeholder",
+					"description": "The placeholder text to display when the input is empty."
+				},
+				{
+					"name": "autofocus",
+					"description": "Should this input be focused when the page loads?",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "disabled",
+					"description": "Disables the input.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "readonly",
+					"description": "Stops the user from being able to change the value of the input.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "required",
+					"description": "If this input is in a form, this property makes it required.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				}
+			]
+		}
+	]
+}

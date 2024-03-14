@@ -1,0 +1,27 @@
+ui-numeric-input {
+	/* Container */
+	&::part(root) {
+		@apply h-10;
+		@apply inline-flex items-center p-2;
+		@apply rounded-lg border;
+		@apply border-gray-200 bg-white;
+	}
+
+	/* Numeric Input Field */
+	&::part(input) {
+		@apply w-10;
+		@apply border-0 p-0 text-center;
+		@apply text-title;
+		@apply font-serif;
+		@apply placeholder-gray-300;
+		@apply focus:ring-0;
+	}
+
+	/* Increment and Decrement Buttons */
+	&::part(button) {
+		@apply size-6 p-0;
+		@apply rounded-md border-gray-200;
+		@apply bg-white text-secondary hover:bg-gray-50;
+		@apply shadow-sm;
+	}
+}

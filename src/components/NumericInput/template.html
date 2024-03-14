@@ -1,0 +1,55 @@
+<template id="numeric-input-template">
+	<div
+		part="root"
+		data-hs-input-number
+	>
+		<ui-button
+			fill="outline"
+			exportparts="root: button"
+			data-hs-input-number-decrement
+		>
+			<svg
+				class="lucide lucide-minus size-3.5"
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path d="M5 12h14" />
+			</svg>
+		</ui-button>
+		<input
+			class="[&::-webkit-inner-spin-button]:appearance-none"
+			part="input"
+			type="number"
+			value="0"
+			data-hs-input-number-input
+		/>
+		<ui-button
+			fill="outline"
+			exportparts="root: button"
+			data-hs-input-number-increment
+		>
+			<svg
+				class="lucide lucide-plus size-3.5"
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path d="M5 12h14" />
+				<path d="M12 5v14" />
+			</svg>
+		</ui-button>
+	</div>
+</template>

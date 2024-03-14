@@ -5,10 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@preline/accordion':
-    specifier: ^2.0.2
-    version: 2.0.2
-  '@preline/tooltip':
+  '@preline/input-number':
     specifier: ^2.0.2
     version: 2.0.2
   lucide:
@@ -1865,12 +1862,8 @@ packages:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
     dev: false
 
-  /@preline/accordion@2.0.2:
-    resolution: {integrity: sha512-b90J0hluneagH4nlCwoDzU4uay9Lp8tjJU7wuU5k17E18X1VF+iMAkJBWJTJM7UUqVM8v9s022Cs+STmyiK46w==}
-    dev: false
-
-  /@preline/tooltip@2.0.2:
-    resolution: {integrity: sha512-xfsuuxzccee3nI5Wn5u/aC/IWPdeyH3P78v8LHWAq2PeFkPTP0//plc3qwalXYIKThfl46MkjEXyq+kBBceFLg==}
+  /@preline/input-number@2.0.2:
+    resolution: {integrity: sha512-b1lr1J5wMkzv0eEZgjZiGdZNQBE5ZchIVVRRBbIaSMl2ApkrpjYlLhbeyoi6HlIgTw16yCbjz/9g5vaeKlhMIA==}
     dev: false
 
   /@rollup/rollup-android-arm-eabi@4.12.0:
