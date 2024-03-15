@@ -1,6 +1,9 @@
 //	Package Imports
 import jsSHA from 'jssha';
+import * as v from 'valibot';
 
+export interface User extends IUser {}
+export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'password'> {}
 export interface IUser {
 	/**
 	 * The user's unique identifier, if the user is an admin, this will be 0
@@ -38,11 +41,22 @@ export interface IUser {
 	password: string;
 }
 
-export interface User extends IUser {}
-export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'password'> {}
+export const LoginSchema = v.object({
+	email: v.string('Your email must be a string', [
+		v.minLength(1, 'Please enter your email'),
+		v.email('Your email must be a valid email address'),
+	]),
+	password: v.string('Your password must be a string', [
+		v.minLength(1, 'Please enter your password'),
+		v.minLength(8, 'Your password must be at least 8 characters long'),
+		v.regex(
+			/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+			'Your password must contain at least one uppercase letter, one lowercase letter, and one number',
+		),
+	]),
+});
 
 export class User {
-	protected static count: number = 0;
 	private _id: number;
 
 	constructor(userData: CreateUser) {
@@ -56,7 +70,7 @@ export class User {
 		this.password = hashObject.getHash('HEX');
 
 		//	Set the user's unique identifier
-		this._id = ++User.count;
+		this._id = crypto.getRandomValues(new Uint32Array(1))[0];
 	}
 
 	get id(): number {
