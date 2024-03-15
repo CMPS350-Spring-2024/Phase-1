@@ -13,7 +13,7 @@
 	span.background-overlay {
 		@apply absolute left-0 top-0 size-full;
 		@apply hidden min-[480px]:block;
-		@apply bg-gradient-to-b from-transparent from-25% to-black opacity-40;
+		@apply bg-gradient-to-b from-transparent from-25% to-black opacity-30;
 	}
 
 	form.panel {
