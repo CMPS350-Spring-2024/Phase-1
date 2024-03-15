@@ -51,7 +51,7 @@ export class User {
 		//	If we are only parsing the user data, keep it as is
 		if (userData.isParsing) {
 			this.password = userData.password;
-			this._id = userData._id || crypto.getRandomValues(new Uint32Array(1))[0];
+			this._id = userData._id === undefined ? crypto.getRandomValues(new Uint32Array(1))[0] : userData._id;
 		} else {
 			//	Hasing the password using SHA-256
 			const hashObject = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' });
