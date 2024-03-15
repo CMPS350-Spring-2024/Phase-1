@@ -33,8 +33,20 @@ ui-text-input {
 		@apply text-sm;
 	}
 
+	/* Visibility Toggle */
+	&::part(visibility-toggle) {
+		@apply hidden p-0;
+		@apply text-secondary focus-hover:bg-transparent;
+		@apply rounded-none border-0;
+	}
+
 	/* Icon */
 	svg {
 		@apply size-3.5 stroke-1;
+	}
+
+	/* Password Input */
+	&[isPassword]::part(visibility-toggle) {
+		@apply flex;
 	}
 }
