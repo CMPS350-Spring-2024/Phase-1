@@ -2,7 +2,7 @@
 import jsSHA from 'jssha';
 
 //	Type Imports
-import { LoginUser, User } from '@/scripts/models/User';
+import { CreateUser, LoginUser, RegisterUser, User } from '@/scripts/models/User';
 
 export type UserDictionary = Record<number, User>;
 export class UserRepository {
@@ -51,7 +51,7 @@ export class UserRepository {
 	/*                               // SECTION Add                               */
 	/* -------------------------------------------------------------------------- */
 
-	static addUser = (user: User): void => {
+	private static addUser = (user: User): void => {
 		if (UserRepository.users[user.id]) throw new Error(`User with id ${user.id} already exists`);
 		if (UserRepository.getUserByEmail(user.email)) throw new Error(`User with email ${user.email} already exists`);
 
@@ -83,6 +83,11 @@ export class UserRepository {
 	/* ------------------------------- // !SECTION ------------------------------ */
 	//#endregion
 
+	//#region Others
+	/* -------------------------------------------------------------------------- */
+	/*                              // SECTION Others                             */
+	/* -------------------------------------------------------------------------- */
+
 	/**
 	 * Uses the given user data to log in and find the user in the local storage if it exists.
 	 *
@@ -102,6 +107,29 @@ export class UserRepository {
 		//	Return the user if found, otherwise return null
 		return user || null;
 	};
+
+	static registerUser = (userData: RegisterUser): User => {
+		//	Format the user data
+		const formattedData: CreateUser = {
+			name: {
+				first: userData.firstName,
+				last: userData.lastName,
+			},
+			email: userData.email,
+			phone: userData.phone,
+			password: userData.password,
+		};
+
+		//	Create a new user and add it to the local storage
+		const newUser = new User(formattedData);
+		UserRepository.addUser(newUser);
+
+		//	Return the new user
+		return newUser;
+	};
+
+	/* ------------------------------- // !SECTION ------------------------------ */
+	//#endregion
 }
 
 //	Set the number of users to the number of users in the local storage whenever the local storage is updated

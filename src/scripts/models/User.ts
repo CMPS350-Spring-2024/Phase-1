@@ -3,10 +3,6 @@ import jsSHA from 'jssha';
 import * as v from 'valibot';
 
 export interface User extends IUser {}
-export interface LoginUser extends Pick<User, 'email' | 'password'> {}
-export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'password'> {
-	skipHash?: boolean;
-}
 export interface IUser {
 	/**
 	 * The user's unique identifier, if the user is an admin, this will be 0
@@ -93,12 +89,10 @@ export class User {
 	};
 }
 
+export interface LoginUser extends Pick<User, 'email' | 'password'> {}
 export const LoginSchema = v.object({
-	email: v.string('Your email must be a string', [
-		v.minLength(1, 'Please enter your email'),
-		v.email('Your email must be a valid email address'),
-	]),
-	password: v.string('Your password must be a string', [
+	email: v.string([v.minLength(1, 'Please enter your email'), v.email('Your email must be a valid email address')]),
+	password: v.string([
 		v.minLength(1, 'Please enter your password'),
 		v.minLength(8, 'Your password must be at least 8 characters long'),
 		v.regex(
@@ -107,3 +101,37 @@ export const LoginSchema = v.object({
 		),
 	]),
 });
+
+export interface RegisterUser extends Pick<User, 'email' | 'phone' | 'password'> {
+	firstName: string;
+	lastName: string;
+	confirmPassword: string;
+}
+export const RegistrationSchema = v.object(
+	{
+		firstName: v.string([v.minLength(1, 'Please enter your first name')]),
+		lastName: v.string([v.minLength(1, 'Please enter your last name')]),
+		email: v.string([
+			v.minLength(1, 'Please enter your email'),
+			v.email('Your email must be a valid email address'),
+		]),
+		phone: v.string([
+			v.minLength(1, 'Please enter your phone number'),
+			v.regex(/^\+974 \d{4} \d{4}$/, 'Your phone number must be in the format +974 XXXX XXXX'),
+		]),
+		password: v.string([
+			v.minLength(1, 'Please enter your password'),
+			v.minLength(8, 'Your password must be at least 8 characters long'),
+			v.regex(
+				/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+				'Your password must contain at least one uppercase letter, one lowercase letter, and one number',
+			),
+		]),
+		confirmPassword: v.string([v.minLength(1, 'Please confirm your password')]),
+	},
+	[v.custom(({ password, confirmPassword }) => password === confirmPassword, 'Your passwords do not match')],
+);
+
+export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'password'> {
+	skipHash?: boolean;
+}
