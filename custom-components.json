@@ -317,6 +317,10 @@
 					"description": "The placeholder text to display when the input is empty."
 				},
 				{
+					"name": "pattern",
+					"description": "The pattern the value must match to be valid, should be a valid Regex matcher."
+				},
+				{
 					"name": "autofocus",
 					"description": "Should this input be focused when the page loads?",
 					"values": [{ "name": "true" }, { "name": "false" }]

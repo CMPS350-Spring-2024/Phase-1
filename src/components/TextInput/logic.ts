@@ -32,6 +32,11 @@ export interface TextInputProps extends BaseComponentProps {
 	placeholder?: string;
 
 	/**
+	 * The pattern the value must match to be valid, should be a valid Regex matcher.
+	 */
+	pattern?: string;
+
+	/**
 	 * Should this input be focused when the page loads?
 	 */
 	autofocus?: boolean;
@@ -65,6 +70,7 @@ export class TextInput extends PrimitiveComponent {
 		'value',
 		'defaultValue',
 		'placeholder',
+		'pattern',
 		'autofocus',
 		'disabled',
 		'readonly',
@@ -139,6 +145,18 @@ export class TextInput extends PrimitiveComponent {
 	private handleValueChange = () => {
 		const value = (this.element as HTMLInputElement).value;
 		this.value = value === '' ? undefined : value;
+
+		//	If the input is a password input, check if the value is valid
+		if (this.type === 'password') {
+			const regex = new RegExp('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$');
+			(this.element as HTMLInputElement).setCustomValidity(
+				regex.test(value) ? '' : (
+					'Password must be at least 8 characters long and contain at least one letter and one number.'
+				),
+			);
+		}
+
+		//	Update the internals
 		this.updateInternals();
 	};
 
