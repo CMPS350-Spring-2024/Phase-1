@@ -64,7 +64,7 @@
 		.card {
 			@apply flex flex-1 flex-row items-center;
 			@apply px-6 py-5;
-			@apply border-[1px] border-border bg-white;
+			@apply border-[0.1px] border-slate-100 bg-white;
 
 			.group {
 				@apply flex flex-1 flex-col;
@@ -87,10 +87,14 @@
 	}
 
 	.percantage-group {
-		@apply mr-4 flex flex-row gap-x-1 rounded-sm bg-slate-50 px-1;
+		@apply mr-4  flex flex-row  gap-x-1 rounded-sm bg-slate-50 px-1;
 	}
 
 	.this-stat-group {
 		@apply flex flex-row items-baseline gap-2;
+	}
+
+	.duration {
+		@apply text-slate-400;
 	}
 }
