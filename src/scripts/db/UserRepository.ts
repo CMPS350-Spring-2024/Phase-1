@@ -177,6 +177,12 @@ export class UserRepository {
 		return newUser;
 	};
 
+	static logoutUser = (): void => {
+		Cookies.remove('user');
+		window.currentUser = null;
+		window.location.reload();
+	};
+
 	/* ------------------------------- // !SECTION ------------------------------ */
 	//#endregion
 }

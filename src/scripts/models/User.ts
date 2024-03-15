@@ -66,10 +66,14 @@ export class User {
 	get id(): number {
 		return this._id;
 	}
+	get isAdmin(): boolean {
+		return this.id === 0;
+	}
 
 	getName = (): string => this.name.first + (this.name.last ? ` ${this.name.last}` : '');
 	getFirstName = (): string => this.name.first;
 	getLastName = (): string => this.name.last || '';
+	getAcronym = (): string => this.name.first[0] + (this.name.last ? this.name.last[0] : '');
 
 	static parse = (data: Record<string, any>): User | null => {
 		try {

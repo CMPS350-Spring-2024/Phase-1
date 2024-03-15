@@ -36,7 +36,7 @@ export const handleLogin = (event: Event) => {
 		const user = UserRepository.loginUser(output);
 
 		//	Redirect to either the customer page or admin page
-		if (user.id === 0) window.location.assign('/admin/index.html');
+		if (user.isAdmin) window.location.assign('/admin/index.html');
 		else window.location.assign('/customer/index.html');
 	} catch (error) {
 		console.error(`Error logging in: ${error}`);

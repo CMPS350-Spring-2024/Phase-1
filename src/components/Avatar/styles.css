@@ -1,7 +1,7 @@
 ui-avatar {
 	/* Container */
 	&::part(root) {
-		@apply inline-flex items-center justify-center;
+		@apply inline-flex flex-shrink-0 items-center justify-center;
 		@apply rounded-full;
 		@apply text-white;
 		@apply font-display font-bold leading-none;
