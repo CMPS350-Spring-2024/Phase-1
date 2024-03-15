@@ -6,15 +6,26 @@ ui-price-display {
 
 	/* Unit */
 	&::part(unit) {
-		@apply text-base font-light text-secondary;
+		@apply text-base font-light leading-none text-secondary;
 	}
 
 	/* Value */
 	&::part(value) {
-		@apply font-serif text-xl font-bold tracking-tight text-title;
+		@apply font-serif text-xl font-bold leading-none tracking-tight text-title;
 	}
 
 	/* Size Variants */
+	&[size='xs'] {
+		&::part(root) {
+			@apply gap-0.5;
+		}
+		&::part(unit) {
+			@apply text-xs;
+		}
+		&::part(value) {
+			@apply font-sans text-sm font-semibold;
+		}
+	}
 	&[size='sm'] {
 		&::part(root) {
 			@apply gap-0.5;
