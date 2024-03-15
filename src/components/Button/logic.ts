@@ -117,6 +117,28 @@ export class Button extends PrimitiveComponent {
 				this.element = anchor;
 			}
 		}
+
+		//	If the type is a submit button and the button is inside a form, create a proxy submit button
+		if (name === 'type' && newValue === 'submit') {
+			const form = this.closest('form');
+			if (form) {
+				const proxyButton = this.element.ownerDocument!.createElement('button');
+				proxyButton.setAttribute('type', 'submit');
+				proxyButton.style.display = 'none';
+				form.appendChild(proxyButton);
+
+				//	When this button is clicked, click the proxy button
+				this.element.addEventListener('click', () => proxyButton.click());
+			}
+		} else if (name === 'type' && oldValue === 'submit') {
+			const form = this.closest('form');
+			if (form) {
+				const proxyButton = form.querySelector('button[type="submit"]');
+				if (proxyButton) {
+					proxyButton.remove();
+				}
+			}
+		}
 	}
 }
 
