@@ -4,6 +4,7 @@ import '@preline/tooltip';
 import './icons';
 
 //	Component Imports
+// import '@/admin/compnenets/bottomBar/logic';
 import '@/components/Avatar/logic';
 import '@/components/Button/logic';
 import '@/components/DroneViewer/logic';

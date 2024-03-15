@@ -1,0 +1,27 @@
+<extends
+	src="../../layouts/base.html"
+	locals='{
+		"title": "Vite + TS",
+		"base_url": "../../"
+	}'
+>
+	<block name="app">
+		<link rel="stylesheet" href="../../styles/admin.css"></link>
+        <script
+			type="module"
+			src="/src/scripts/index.ts"
+		></script>
+		<section class="statistics">
+			<div class="card">
+                <div class="group">
+                    <p class="label">My Balance</p>
+                    <h2 id="my-balance">3,889.00</h2>
+                </div>
+                <i class="icon" data-lucide="coins"></i>
+            </div>
+            <div class="card">test</div>
+            <div class="card">test</div>
+            <div class="card">test</div>
+		</section>
+	</block>
+</extends>
