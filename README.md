@@ -6,7 +6,7 @@
 
 <div align="center">
     <!-- TODO: update version number on every release -->
-    <img alt="Version number" src="https://img.shields.io/badge/version-v0.2.2-blue"/>
+    <img alt="Version number" src="https://img.shields.io/badge/version-v0.2.3-blue"/>
     <img alt="Project license" src="https://img.shields.io/badge/license-MIT-green"/>
 </div>
 
@@ -217,7 +217,7 @@ represents a route which has a colored indicator showing the performance of that
 <!-- BUNDLE_TABLE_START -->
 | | Size | Budget Used (`1 MB`) | 
 | --- | :---: | :---: | 
-| `total` | `385.98 kB` | 🟢 `38.60%` | 
+| `total` | `410.86 kB` | 🟡 `41.09%` | 
 
 <!-- BUNDLE_TABLE_END -->
 

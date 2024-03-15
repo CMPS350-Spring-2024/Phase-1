@@ -1,24 +1,18 @@
 <extends
-	src="../layouts/base.html"
-	locals='{
-		"title": "Vite + TS",
-		"type": "hidden",
-		"base_url": "../"
-	}'
+	src="../layouts/auth.html"
+	locals='{ "title": "Register – DJI Store" }'
 >
 	<block name="app">
-		<link
-			rel="stylesheet"
-			href="/src/styles/auth.css"
-		/>
-
 		<div class="root">
 			<img
 				class="background-image"
 				src="/images/bg-photo-1.webp"
 			/>
 			<span class="background-overlay"></span>
-			<form class="panel">
+			<form
+				class="panel"
+				id="registration_form"
+			>
 				<span class="back-container">
 					<ui-button
 						href="/login.html"
@@ -34,10 +28,12 @@
 
 				<!-- Logo -->
 				<span class="logo-container">
-					<img
-						alt="Image showing the logo of the company, DJI."
-						src="/DJI 1.svg"
-					/>
+					<ui-button href="/">
+						<img
+							alt="Image showing the logo of the company, DJI."
+							src="/DJI 1.svg"
+						/>
+					</ui-button>
 				</span>
 
 				<!-- Header -->
@@ -48,8 +44,23 @@
 
 				<!-- Inputs -->
 				<div class="inputs section">
-					<ui-text-input placeholder="Enter full name...">
-						Full Name
+					<ui-text-input
+						name="firstName"
+						placeholder="Enter first name..."
+						required
+					>
+						First Name
+						<i
+							slot="left-icon"
+							data-lucide="user"
+						></i>
+					</ui-text-input>
+					<ui-text-input
+						name="lastName"
+						placeholder="Enter last name..."
+						required
+					>
+						Last Name
 						<i
 							slot="left-icon"
 							data-lucide="user"
@@ -59,6 +70,7 @@
 						name="email"
 						type="email"
 						placeholder="Enter email address..."
+						required
 					>
 						<i
 							slot="left-icon"
@@ -70,6 +82,7 @@
 						name="phone"
 						type="tel"
 						placeholder="Enter phone number..."
+						required
 					>
 						<i
 							slot="left-icon"
@@ -81,6 +94,7 @@
 						name="password"
 						type="password"
 						placeholder="Enter password..."
+						required
 					>
 						<i
 							slot="left-icon"
@@ -89,9 +103,10 @@
 						Password
 					</ui-text-input>
 					<ui-text-input
-						name="confirm-password"
+						name="confirmPassword"
 						type="password"
 						placeholder="Confirm password..."
+						required
 					>
 						<i
 							slot="left-icon"
@@ -103,7 +118,12 @@
 
 				<!-- Login Prompt -->
 				<div class="action section">
-					<ui-button fill="solid">Create Account</ui-button>
+					<ui-button
+						fill="solid"
+						type="submit"
+					>
+						Create Account
+					</ui-button>
 					<span class="prompt">
 						<p>Already have an account?</p>
 						<ui-button

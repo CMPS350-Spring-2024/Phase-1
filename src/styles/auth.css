@@ -13,11 +13,11 @@
 	span.background-overlay {
 		@apply absolute left-0 top-0 size-full;
 		@apply hidden min-[480px]:block;
-		@apply bg-gradient-to-b from-transparent from-25% to-black opacity-40;
+		@apply bg-gradient-to-b from-transparent from-25% to-black opacity-30;
 	}
 
 	form.panel {
-		@apply w-full min-[480px]:max-h-[90vh] min-[480px]:w-[480px];
+		@apply w-full min-[480px]:max-h-[95vh] min-[480px]:w-[480px];
 		@apply flex flex-col items-stretch overflow-y-auto;
 		@apply gap-8 px-4 min-[480px]:px-8 min-[480px]:py-12;
 		@apply border-border bg-white min-[480px]:border min-[480px]:shadow-lg;
@@ -64,6 +64,10 @@
 
 		span.logo-container {
 			@apply flex flex-row place-content-center;
+
+			ui-button::part(root) {
+				@apply border-0 bg-transparent p-0 focus-hover:bg-transparent;
+			}
 
 			img {
 				@apply size-16;

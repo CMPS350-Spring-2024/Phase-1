@@ -33,11 +33,26 @@
 		<include src="{{ base_url }}/components/PriceDisplay/template.html"></include>
 		<include src="{{ base_url }}/components/TextInput/template.html"></include>
 
+		<!-- Model Scripts -->
+		<script
+			type="module"
+			src="/src/scripts/models/User.ts"
+		></script>
+
+		<!-- Repository Scripts -->
+		<script
+			type="module"
+			src="/src/scripts/db/UserRepository.ts"
+		></script>
+
 		<!-- Component Scripts -->
 		<script
 			type="module"
 			src="/src/scripts/index.ts"
 		></script>
+
+		<!-- Additional Resources -->
+		<block name="resources"></block>
 
 		<!-- Main Entrypoint -->
 		<ui-navbar type="{{ type }}"></ui-navbar>
