@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@convergence/throttle-utils':
+    specifier: ^0.1.0
+    version: 0.1.0
   js-cookie:
     specifier: ^3.0.5
     version: 3.0.5
@@ -1468,6 +1471,10 @@ packages:
     dependencies:
       chalk: 4.1.2
     dev: true
+
+  /@convergence/throttle-utils@0.1.0:
+    resolution: {integrity: sha512-oAqDtQvJl7owVhp6Fb0a7HVzG/Ae719Nc5Lv7R2b9ITJxyhJuhB98INw7M6N9EYKSgPsUjmUuUOid7P8gDos4Q==}
+    dev: false
 
   /@csstools/cascade-layer-name-parser@1.0.7(@csstools/css-parser-algorithms@2.5.0)(@csstools/css-tokenizer@2.2.3):
     resolution: {integrity: sha512-9J4aMRJ7A2WRjaRLvsMeWrL69FmEuijtiW1XlK/sG+V0UJiHVYUyvj9mY4WAXfU/hGIiGOgL8e0jJcRyaZTjDQ==}

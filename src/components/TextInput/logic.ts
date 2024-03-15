@@ -1,3 +1,6 @@
+//	Package Imports
+import { throttle } from '@convergence/throttle-utils';
+
 //	Component Imports
 import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
@@ -73,7 +76,6 @@ export class TextInput extends PrimitiveComponent {
 		'name',
 		'type',
 		'value',
-		'defaultValue',
 		'placeholder',
 		'pattern',
 		'autofocus',
@@ -126,8 +128,12 @@ export class TextInput extends PrimitiveComponent {
 		}
 
 		//	Add event listener to update the value property when the input changes
-		this.element.addEventListener('change', () => this.handleValueChange());
+		this.element.addEventListener(
+			'input',
+			throttle(() => this.handleValueChange(), 100),
+		);
 		this.visibilityToggle?.addEventListener('click', () => this.handleToggleVisibility());
+		this.element.addEventListener('keydown', (event) => this.handleFormSubmit(event));
 	}
 
 	connectedCallback(): void {
@@ -176,6 +182,10 @@ export class TextInput extends PrimitiveComponent {
 
 		//	Update the internals
 		this.updateInternals();
+	};
+
+	private handleFormSubmit = (event: KeyboardEvent) => {
+		if (event.key === 'Enter') this._internals.form?.requestSubmit();
 	};
 
 	private handleToggleVisibility = () => {
