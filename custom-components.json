@@ -19,7 +19,12 @@
 						{ "name": "plus" },
 						{ "name": "search" },
 						{ "name": "user" },
-						{ "name": "wallet" }
+						{ "name": "users" },
+						{ "name": "wallet" },
+						{ "name": "package-check" },
+						{ "name": "mouse-pointer-click" },
+						{ "name": "trending-up" },
+						{ "name": "trending-down" }
 					]
 				}
 			],
