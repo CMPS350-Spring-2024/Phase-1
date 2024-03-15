@@ -3,7 +3,7 @@ import plugin from 'tailwindcss/plugin';
 /** @type {import('tailwindcss').Config} */
 export default {
 	important: true,
-	content: ['./src/**/*.{html,js,ts}', 'node_modules/preline/dist/*.js'],
+	content: ['./src/**/*.{html,js,ts}'],
 	theme: {
 		extend: {
 			colors: {
@@ -36,7 +36,6 @@ export default {
 	},
 	plugins: [
 		require('@tailwindcss/forms'),
-		require('preline/plugin'),
 		plugin(({ addVariant }) => {
 			addVariant('focus-hover', ['&:focus', '&:hover']);
 			addVariant('group-focus-hover', [':merge(.group):focus &', ':merge(.group):hover &']);

@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@preline/input-number':
-    specifier: ^2.0.2
-    version: 2.0.2
   js-cookie:
     specifier: ^3.0.5
     version: 3.0.5
@@ -17,9 +14,6 @@ dependencies:
   lucide:
     specifier: ^0.343.0
     version: 0.343.0
-  preline:
-    specifier: ^2.0.3
-    version: 2.0.3
   three:
     specifier: ^0.162.0
     version: 0.162.0
@@ -1869,14 +1863,6 @@ packages:
   /@polka/url@1.0.0-next.24:
     resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
     dev: true
-
-  /@popperjs/core@2.11.8:
-    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
-    dev: false
-
-  /@preline/input-number@2.0.2:
-    resolution: {integrity: sha512-b1lr1J5wMkzv0eEZgjZiGdZNQBE5ZchIVVRRBbIaSMl2ApkrpjYlLhbeyoi6HlIgTw16yCbjz/9g5vaeKlhMIA==}
-    dev: false
 
   /@rollup/rollup-android-arm-eabi@4.12.0:
     resolution: {integrity: sha512-+ac02NL/2TCKRrJu2wffk1kZ+RyqxVUlbjSagNgPm94frxtr+XDL12E5Ll1enWskLrtrZ2r8L3wED1orIibV/w==}
@@ -4460,12 +4446,6 @@ packages:
       posthtml-parser: 0.11.0
       posthtml-render: 3.0.0
     dev: true
-
-  /preline@2.0.3:
-    resolution: {integrity: sha512-V/sLmRIHd23UCdvJNRKKszntgUqA0381erVzRpQ48NjjMOgI7DyFW4mr+lg387V0oeBc5Dx9Jxa5voppVoH9GA==}
-    dependencies:
-      '@popperjs/core': 2.11.8
-    dev: false
 
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
