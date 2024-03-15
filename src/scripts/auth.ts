@@ -1,5 +1,4 @@
 //	Package Imports
-import Cookies from 'js-cookie';
 import * as v from 'valibot';
 
 //	Repository Imports
@@ -31,27 +30,16 @@ export const handleLogin = (event: Event) => {
 	const formData = new FormData(loginForm);
 	const data = Object.fromEntries(formData.entries());
 
-	//	Validate the incoming data and show the errors if any
-	const { issues, output, success } = v.safeParse(LoginSchema, data);
-	if (!success) {
-		console.error(issues);
-	}
-
-	//	If the data is valid, try to log the user in
-	else {
+	//	Validate the incoming data and show the errors if any, then log the user in
+	try {
+		const output = v.parse(LoginSchema, data);
 		const user = UserRepository.loginUser(output);
 
-		//	If the user is not found, show an error
-		if (!user) {
-			console.error('User not found');
-		}
-
-		//	Else, save the user id in cookies and redirect to the customer page
-		else {
-			Cookies.set('user', user.id.toString(), { expires: 7 });
-			if (user.id === 0) window.location.assign('/admin/index.html');
-			else window.location.assign('/customer/index.html');
-		}
+		//	Redirect to either the customer page or admin page
+		if (user.id === 0) window.location.assign('/admin/index.html');
+		else window.location.assign('/customer/index.html');
+	} catch (error) {
+		console.error(`Error logging in: ${error}`);
 	}
 };
 
@@ -66,18 +54,12 @@ export const handleRegistration = (event: Event) => {
 	const formData = new FormData(registrationForm);
 	const data = Object.fromEntries(formData.entries());
 
-	//	Validate the incoming data and show the errors if any
-	const { issues, output, success } = v.safeParse(RegistrationSchema, data);
-	if (!success) {
-		console.error(issues);
-	}
-
-	//	If the data is valid, try to log the user in
-	else {
-		const user = UserRepository.registerUser(output);
-
-		//	Save the user id in cookies and redirect to the customer page
-		Cookies.set('user', user.id.toString(), { expires: 7 });
+	//	Validate the incoming data and show the errors if any, then register the user
+	try {
+		const output = v.parse(RegistrationSchema, data);
+		UserRepository.registerUser(output);
 		window.location.assign('/customer/index.html');
+	} catch (error) {
+		console.error(`Error registering user: ${error}`);
 	}
 };

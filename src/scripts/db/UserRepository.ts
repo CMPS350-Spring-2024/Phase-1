@@ -1,4 +1,5 @@
 //	Package Imports
+import Cookies from 'js-cookie';
 import jsSHA from 'jssha';
 
 //	Type Imports
@@ -93,7 +94,7 @@ export class UserRepository {
 	 *
 	 * **Note: The password should not be hashed when calling this function.**
 	 */
-	static loginUser = (userData: LoginUser): User | null => {
+	static loginUser = (userData: LoginUser): User => {
 		//	Transform the user data by hashing the password
 		const hashObject = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' });
 		hashObject.update(userData.password);
@@ -104,8 +105,30 @@ export class UserRepository {
 			(user) => user.email === userData.email && user.password === userData.password,
 		);
 
+		//	If the user is not found, throw an error
+		if (!user) throw new Error('User not found');
+
+		//	Save the user id in cookies if found
+		Cookies.set('user', user.id.toString(), { expires: 7 });
+
 		//	Return the user if found, otherwise return null
-		return user || null;
+		return user;
+	};
+
+	/**
+	 * Note: This function is only here for testing purposes
+	 */
+	static loginUserById = (id: number): User => {
+		const user = UserRepository.getUser(id);
+
+		//	If the user is not found, throw an error
+		if (!user) throw new Error('User not found');
+
+		//	Save the user id in cookies if found
+		Cookies.set('user', id.toString(), { expires: 7 });
+
+		//	Return the user if found, otherwise return null
+		return user;
 	};
 
 	static registerUser = (userData: RegisterUser): User => {
@@ -123,6 +146,9 @@ export class UserRepository {
 		//	Create a new user and add it to the local storage
 		const newUser = new User(formattedData);
 		UserRepository.addUser(newUser);
+
+		//	Save the user id in cookies
+		Cookies.set('user', newUser.id.toString(), { expires: 7 });
 
 		//	Return the new user
 		return newUser;

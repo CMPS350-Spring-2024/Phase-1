@@ -48,17 +48,19 @@ export class User {
 		this.email = userData.email;
 		this.phone = userData.phone;
 
-		//	Hasing the password using SHA-256
-		if (userData.skipHash) {
+		//	If we are only parsing the user data, keep it as is
+		if (userData.isParsing) {
 			this.password = userData.password;
+			this._id = userData._id || crypto.getRandomValues(new Uint32Array(1))[0];
 		} else {
+			//	Hasing the password using SHA-256
 			const hashObject = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' });
 			hashObject.update(userData.password);
 			this.password = hashObject.getHash('HEX');
-		}
 
-		//	Set the user's unique identifier
-		this._id = crypto.getRandomValues(new Uint32Array(1))[0];
+			//	Set the user's unique identifier
+			this._id = crypto.getRandomValues(new Uint32Array(1))[0];
+		}
 	}
 
 	get id(): number {
@@ -72,6 +74,7 @@ export class User {
 	static parse = (data: Record<string, any>): User | null => {
 		try {
 			const user = new User({
+				_id: data._id,
 				name: {
 					first: data.name.first,
 					last: data.name.last,
@@ -79,7 +82,7 @@ export class User {
 				email: data.email,
 				phone: data.phone,
 				password: data.password,
-				skipHash: true,
+				isParsing: true,
 			});
 			return user;
 		} catch (error) {
@@ -133,5 +136,9 @@ export const RegistrationSchema = v.object(
 );
 
 export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'password'> {
-	skipHash?: boolean;
+	/**
+	 * Only used when parsing the user data
+	 */
+	_id?: number;
+	isParsing?: boolean;
 }
