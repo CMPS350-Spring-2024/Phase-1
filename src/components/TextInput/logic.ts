@@ -75,15 +75,75 @@ export class TextInput extends PrimitiveComponent {
 		placeholder: 'Enter text...',
 	};
 
+	static formAssociated = true;
+	private _defaultValue: string | undefined;
+	private _internals: ElementInternals;
+
+	public get form(): HTMLFormElement | null {
+		return this._internals.form;
+	}
+	public get validity(): ValidityState {
+		return this._internals.validity;
+	}
+	public get willValidate(): boolean {
+		return this._internals.willValidate;
+	}
+	public get validationMessage(): string {
+		return this._internals.validationMessage;
+	}
+
 	constructor() {
 		super({
 			elementName: 'input',
 			defaultProperties: TextInput.defaultProperties,
 		});
 
+		//	Set private properties
+		this._defaultValue = this.value;
+		this._internals = this.attachInternals();
+
 		//	Add event listener to update the value property when the input changes
-		this.element.addEventListener('change', () => (this.value = (this.element as HTMLInputElement).value));
+		this.element.addEventListener('change', () => this.handleValueChange());
 	}
+
+	connectedCallback(): void {
+		super.connectedCallback();
+
+		//	Initialize validation
+		this.updateInternals();
+	}
+
+	formDisabledCallback(disabled: boolean): void {
+		this.disabled = disabled;
+	}
+
+	formResetCallback(): void {
+		this.value = this._defaultValue;
+		this.updateInternals();
+	}
+
+	formStateRestoreCallback(state: string): void {
+		this.value = state;
+		this.updateInternals();
+	}
+
+	private updateInternals(): void {
+		this._internals.setFormValue(this.value || null);
+		this._internals.setValidity(
+			(this.element as HTMLInputElement).validity,
+			(this.element as HTMLInputElement).validationMessage,
+			this.element,
+		);
+	}
+
+	private handleValueChange = () => {
+		const value = (this.element as HTMLInputElement).value;
+		this.value = value === '' ? undefined : value;
+		this.updateInternals();
+	};
+
+	public checkValidity = () => this._internals.checkValidity();
+	public reportValidity = () => this._internals.reportValidity();
 }
 
 customElements.define('ui-text-input', TextInput);
