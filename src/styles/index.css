@@ -82,4 +82,7 @@
 			}
 		}
 	}
+	.balance {
+		@apply font-extrabold;
+	}
 }
