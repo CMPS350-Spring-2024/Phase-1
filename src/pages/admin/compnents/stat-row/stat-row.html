@@ -8,24 +8,106 @@
 	<block name="app">
 		<link
 			rel="stylesheet"
-			href="../../styles/admin.css"
+			href="../../../../styles/index.css"
 		/>
-		type="module" src="/src/scripts/index.ts"
-
+		<script
+			type="module"
+			src="../../../../../src/scripts/index.ts"
+		></script>
 		<section class="statistics">
 			<div class="card">
 				<div class="group">
 					<p class="label">My Balance</p>
-					<h2 id="my-balance">3,889.00</h2>
+					<div class="flex flex-row items-start gap-1">
+						<h2 class="currncy text-gray-600">USD</h2>
+						<h2 class="balance text-xl">3,889.00</h2>
+					</div>
+					<div class="flex flex-row">
+						<div class="mr-4 flex flex-row gap-x-1 rounded-sm bg-slate-200 px-1">
+							<i
+								class="icon"
+								data-lucide="coins"
+							></i>
+							<h2 class="percantage">37.3%</h2>
+						</div>
+						<div><h2 class="duration">last 30 days</h2></div>
+					</div>
 				</div>
 				<i
 					class="icon"
 					data-lucide="coins"
 				></i>
 			</div>
-			<div class="card">test</div>
-			<div class="card">test</div>
-			<div class="card">test</div>
+			<div class="card">
+				<div class="group">
+					<p class="label">Product Sold</p>
+					<div class="flex flex-row items-start gap-1">
+						<h2 class="balance text-xl">41,321</h2>
+
+						<h2 class="currncy text-gray-600">Drones</h2>
+					</div>
+					<div class="flex flex-row">
+						<div class="mr-4 flex flex-row gap-x-1 rounded-sm bg-slate-200 px-1">
+							<i
+								class="icon"
+								data-lucide="coins"
+							></i>
+							<h2 class="percantage">37.3%</h2>
+						</div>
+						<div><h2 class="duration">last 30 days</h2></div>
+					</div>
+				</div>
+				<i
+					class="icon"
+					data-lucide="coins"
+				></i>
+			</div>
+			<div class="card">
+				<div class="group">
+					<p class="label">Total users</p>
+					<div class="flex flex-row items-start gap-1">
+						<h2 class="balance text-xl">412,031</h2>
+						<h2 class="currncy text-gray-600">Users</h2>
+					</div>
+					<div class="flex flex-row">
+						<div class="mr-4 flex flex-row gap-x-1 rounded-sm bg-slate-200 px-1">
+							<i
+								class="icon"
+								data-lucide="coins"
+							></i>
+							<h2 class="percantage">37.3%</h2>
+						</div>
+						<div><h2 class="duration">last 30 days</h2></div>
+					</div>
+				</div>
+				<i
+					class="icon"
+					data-lucide="coins"
+				></i>
+			</div>
+			<div class="card">
+				<div class="group">
+					<p class="label">My Balance</p>
+					<div class="flex flex-row items-start gap-1">
+						<h2 class="balance text-xl">48.54%</h2>
+						<h2 class="currncy text-gray-600">click Rate</h2>
+					</div>
+					<div class="flex flex-row">
+						<div class="mr-4 flex flex-row gap-x-1 rounded-sm bg-slate-200 px-1">
+							<i
+								class="icon"
+								data-lucide="coins"
+							></i>
+							<h2 class="percantage">37.3%</h2>
+						</div>
+						<div><h2 class="duration">last 30 days</h2></div>
+					</div>
+				</div>
+				<i
+					class="icon"
+					data-lucide="coins"
+				></i>
+			</div>
 		</section>
 	</block>
 </extends>

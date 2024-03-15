@@ -56,22 +56,24 @@
 	}
 }
 @layer components {
-	.bottom-bar {
-		@apply w-[1200px];
+	.statistics {
+		/* @apply w-[1200px]; */
 		@apply flex flex-row;
-		@apply rounded-md border border-border bg-white;
+		@apply rounded-md border-2 border-border bg-white;
 
 		.card {
 			@apply flex flex-1 flex-row items-center;
-			@apply gap-2 px-6 py-5;
+			@apply px-6 py-5;
+			@apply border-2 border-border bg-white;
 
 			.group {
 				@apply flex flex-1 flex-col;
-				@apply gap-1;
+
+				@apply m-5 gap-1;
 
 				.label {
-					/* @apply text-xs font-light tracking-wide text-secondary; */
-					font-size: 12px;
+					@apply text-xs font-light tracking-wide text-secondary;
+					/* font-size: 12px; */
 				}
 			}
 
