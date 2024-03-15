@@ -1,0 +1,20 @@
+<extends
+	src="../../layouts/base.html"
+	locals='{
+		"title": "{{ title }}",
+		"type": "customer",
+		"base_url": "../../"
+	}'
+>
+	<block name="resources">
+		<script
+			type="module"
+			src="/src/scripts/customer.ts"
+		></script>
+		<link
+			rel="stylesheet"
+			href="/src/styles/customer.css"
+		/>
+	</block>
+	<block name="app"></block>
+</extends>

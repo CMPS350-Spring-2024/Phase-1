@@ -161,12 +161,3 @@ export class UserRepository {
 //	Set the number of users to the number of users in the local storage whenever the local storage is updated
 UserRepository.updateUsersList();
 window.addEventListener('storage', UserRepository.updateUsersList);
-
-// const person = new User({
-// 	name: { first: 'John', last: 'Doe' },
-// 	email: 'test@gmail.com',
-// 	phone: '+974-1234-5678',
-// 	password: 'Test.123',
-// });
-// UserRepository.addUser(person);
-// console.log(person);
