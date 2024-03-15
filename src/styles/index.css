@@ -98,3 +98,40 @@
 		@apply text-slate-400;
 	}
 }
+/* navigations top bar styles */
+@layer components {
+	nav {
+		@apply relative flex flex-nowrap justify-center;
+	}
+
+	nav > a {
+		@apply text-center no-underline;
+	}
+
+	.nav-center-group > nav > a {
+		@apply mx-2 h-7 w-24 rounded-sm bg-slate-50 py-2 text-center text-[0.4rem] text-slate-500;
+	}
+	/* responsive */
+	.nav-center-group {
+		@apply hidden md:block;
+	}
+	.page-title {
+		@apply font-sans text-sm font-extrabold text-slate-500;
+	}
+	/* .nav-end-group {
+} */
+
+	.navbar {
+		@apply flex flex-nowrap items-center  justify-between;
+		@apply border-[1px] border-slate-100 bg-white px-4;
+	}
+	.nav-icon {
+		@apply size-4;
+	}
+	.nav-end-group > nav > a {
+		@apply m-2   text-[gray];
+	}
+	.nav-start-group {
+		@apply m-2 flex flex-row flex-nowrap items-center;
+	}
+}
