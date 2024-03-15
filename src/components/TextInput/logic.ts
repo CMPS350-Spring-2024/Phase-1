@@ -166,11 +166,11 @@ export class TextInput extends PrimitiveComponent {
 
 		//	If the input is a password input, check if the value is valid
 		if (this.isPassword) {
-			const regex = new RegExp('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$');
+			const regex = new RegExp('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$');
 			(this.element as HTMLInputElement).setCustomValidity(
-				regex.test(value) ? '' : (
-					'Password must be at least 8 characters long and contain at least one letter and one number.'
-				),
+				!regex.test(value) ?
+					'Password must be at least 8 characters long and must contain at least one uppercase letter, one lowercase letter, and one number.'
+				:	'',
 			);
 		}
 

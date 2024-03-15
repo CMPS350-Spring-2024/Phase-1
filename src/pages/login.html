@@ -7,6 +7,10 @@
 	}'
 >
 	<block name="app">
+		<script
+			type="module"
+			src="/src/scripts/auth.ts"
+		></script>
 		<link
 			rel="stylesheet"
 			href="/src/styles/auth.css"
@@ -18,7 +22,10 @@
 				src="/images/bg-photo-1.webp"
 			/>
 			<span class="background-overlay"></span>
-			<form class="panel">
+			<form
+				class="panel"
+				id="login_form"
+			>
 				<!-- Logo -->
 				<span class="logo-container">
 					<ui-button href="/">
@@ -41,6 +48,7 @@
 						name="email"
 						type="email"
 						placeholder="Enter email address..."
+						required
 					>
 						<i
 							slot="left-icon"
@@ -52,6 +60,7 @@
 						name="password"
 						type="password"
 						placeholder="Enter password..."
+						required
 					>
 						<i
 							slot="left-icon"
@@ -63,7 +72,12 @@
 
 				<!-- Login Prompt -->
 				<div class="action section">
-					<ui-button fill="solid">Login</ui-button>
+					<ui-button
+						fill="solid"
+						type="submit"
+					>
+						Login
+					</ui-button>
 					<span class="prompt">
 						<p>Don't have an account?</p>
 						<ui-button

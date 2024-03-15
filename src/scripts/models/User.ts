@@ -3,7 +3,10 @@ import jsSHA from 'jssha';
 import * as v from 'valibot';
 
 export interface User extends IUser {}
-export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'password'> {}
+export interface LoginUser extends Pick<User, 'email' | 'password'> {}
+export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'password'> {
+	skipHash?: boolean;
+}
 export interface IUser {
 	/**
 	 * The user's unique identifier, if the user is an admin, this will be 0
@@ -41,6 +44,55 @@ export interface IUser {
 	password: string;
 }
 
+export class User {
+	private _id: number;
+
+	constructor(userData: CreateUser) {
+		this.name = userData.name;
+		this.email = userData.email;
+		this.phone = userData.phone;
+
+		//	Hasing the password using SHA-256
+		if (userData.skipHash) {
+			this.password = userData.password;
+		} else {
+			const hashObject = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' });
+			hashObject.update(userData.password);
+			this.password = hashObject.getHash('HEX');
+		}
+
+		//	Set the user's unique identifier
+		this._id = crypto.getRandomValues(new Uint32Array(1))[0];
+	}
+
+	get id(): number {
+		return this._id;
+	}
+
+	getName = (): string => this.name.first + (this.name.last ? ` ${this.name.last}` : '');
+	getFirstName = (): string => this.name.first;
+	getLastName = (): string => this.name.last || '';
+
+	static parse = (data: Record<string, any>): User | null => {
+		try {
+			const user = new User({
+				name: {
+					first: data.name.first,
+					last: data.name.last,
+				},
+				email: data.email,
+				phone: data.phone,
+				password: data.password,
+				skipHash: true,
+			});
+			return user;
+		} catch (error) {
+			console.error(`Error parsing user data: ${error}`);
+			return null;
+		}
+	};
+}
+
 export const LoginSchema = v.object({
 	email: v.string('Your email must be a string', [
 		v.minLength(1, 'Please enter your email'),
@@ -55,29 +107,3 @@ export const LoginSchema = v.object({
 		),
 	]),
 });
-
-export class User {
-	private _id: number;
-
-	constructor(userData: CreateUser) {
-		this.name = userData.name;
-		this.email = userData.email;
-		this.phone = userData.phone;
-
-		//	Hasing the password using SHA-256
-		const hashObject = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' });
-		hashObject.update(userData.password);
-		this.password = hashObject.getHash('HEX');
-
-		//	Set the user's unique identifier
-		this._id = crypto.getRandomValues(new Uint32Array(1))[0];
-	}
-
-	get id(): number {
-		return this._id;
-	}
-
-	getName = (): string => this.name.first + (this.name.last ? ` ${this.name.last}` : '');
-	getFirstName = (): string => this.name.first;
-	getLastName = (): string => this.name.last || '';
-}
