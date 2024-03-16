@@ -68,6 +68,7 @@ export class UserRepository {
 	};
 
 	static addDefaultAdmin = (): void => {
+		//	@ts-ignore
 		const admin = new User({
 			...DefaultAdmin,
 			_id: 0,

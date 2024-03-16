@@ -100,9 +100,12 @@ export class Navbar extends PrimitiveComponent {
 			this.loggedInContent.classList.add('hidden');
 		} else {
 			this.accountAvatar.innerText = window.currentUser.getAcronym();
-			this.accountAvatar.randomizeColor();
+			this.accountAvatar.color = window.currentUser.avatarColor;
 			this.accountName.innerText = window.currentUser.getName();
-			this.accountBalance.innerText = '3,889.00';
+			this.accountBalance.innerText = new Intl.NumberFormat('en-US', {
+				minimumFractionDigits: 2,
+			}).format(window.currentUser.balance);
+			console.log(window.currentUser.avatarColor);
 
 			//	If the user is an admin, show the admin links and change the account button
 			if (window.currentUser.isAdmin) {
