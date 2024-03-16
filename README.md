@@ -6,7 +6,7 @@
 
 <div align="center">
     <!-- TODO: update version number on every release -->
-    <img alt="Version number" src="https://img.shields.io/badge/version-v0.2.3-blue"/>
+    <img alt="Version number" src="https://img.shields.io/badge/version-v0.2.4-blue"/>
     <img alt="Project license" src="https://img.shields.io/badge/license-MIT-green"/>
 </div>
 
