@@ -1,7 +1,7 @@
 ui-alert {
 	/* Container */
 	&::part(root) {
-		@apply flex gap-3 p-4;
+		@apply hidden gap-3 p-4;
 		@apply rounded-sm border;
 	}
 
@@ -23,6 +23,15 @@ ui-alert {
 	/* List Messages */
 	ul {
 		@apply list-disc space-y-1 ps-5;
+
+		&:has(li:only-child) {
+			@apply list-none ps-0;
+		}
+	}
+
+	/* Visibility */
+	&[show]::part(root) {
+		@apply flex;
 	}
 
 	/* Info Variant */
