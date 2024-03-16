@@ -12,9 +12,19 @@ export interface ButtonProps extends BaseComponentProps {
 	href?: string;
 
 	/**
+	 * Specifies where to open the linked document.
+	 */
+	target?: '_self' | '_blank' | '_parent' | '_top';
+
+	/**
+	 * The type of the button.
+	 */
+	type?: 'button' | 'menu' | 'submit' | 'reset';
+
+	/**
 	 * Specifies the fill type of the button.
 	 */
-	fill?: 'solid' | 'outline' | 'ghost';
+	fill?: 'solid' | 'outline' | 'ghost' | 'link';
 
 	/**
 	 * Specifies the size of the button.
@@ -49,6 +59,8 @@ export class Button extends PrimitiveComponent {
 	protected static readonly templateName: string = 'button-template';
 	protected static readonly forwardedAttributes: Array<keyof ButtonProps> = [
 		'href',
+		'target',
+		'type',
 		'onclick',
 
 		'class',
@@ -59,6 +71,8 @@ export class Button extends PrimitiveComponent {
 		'loading',
 	];
 	protected static readonly defaultProperties: ButtonProps = {
+		target: '_self',
+		type: 'button',
 		fill: 'outline',
 		size: 'sm',
 	};
@@ -81,6 +95,7 @@ export class Button extends PrimitiveComponent {
 				//	Unwrap the button from the anchor tag
 				const button = this.element.firstElementChild!.cloneNode(true) as HTMLElement;
 				button.removeAttribute('tabIndex');
+				button.style.removeProperty('width');
 				this.element.insertAdjacentElement('afterend', button);
 				this.element.remove();
 				this.element = button;
@@ -90,14 +105,38 @@ export class Button extends PrimitiveComponent {
 				//	Clone the button and make it non-focusable
 				const button = this.element.cloneNode(true) as HTMLElement;
 				button.setAttribute('tabIndex', '-1');
+				button.style.width = '100%';
 
 				//	Wrap the button in an anchor tag
 				const anchor = this.element.ownerDocument!.createElement('a');
 				anchor.setAttribute('href', newValue);
+				anchor.setAttribute('target', this.getAttribute('target')!);
 				anchor.appendChild(button);
 				this.element.insertAdjacentElement('beforebegin', anchor);
 				this.element.remove();
 				this.element = anchor;
+			}
+		}
+
+		//	If the type is a submit button and the button is inside a form, create a proxy submit button
+		if (name === 'type' && newValue === 'submit') {
+			const form = this.closest('form');
+			if (form) {
+				const proxyButton = this.element.ownerDocument!.createElement('button');
+				proxyButton.setAttribute('type', 'submit');
+				proxyButton.style.display = 'none';
+				form.appendChild(proxyButton);
+
+				//	When this button is clicked, click the proxy button
+				this.element.addEventListener('click', () => proxyButton.click());
+			}
+		} else if (name === 'type' && oldValue === 'submit') {
+			const form = this.closest('form');
+			if (form) {
+				const proxyButton = form.querySelector('button[type="submit"]');
+				if (proxyButton) {
+					proxyButton.remove();
+				}
 			}
 		}
 	}

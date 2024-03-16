@@ -9,7 +9,11 @@
 		<link
 			rel="icon"
 			type="image/svg+xml"
-			href="/vite.svg"
+			href="/icons/DJI Favicon.svg"
+		/>
+		<link
+			rel="stylesheet"
+			href="/src/styles/fonts.css"
 		/>
 		<link
 			rel="stylesheet"
@@ -19,6 +23,7 @@
 	</head>
 	<body id="app">
 		<!-- Component Templates -->
+		<include src="{{ base_url }}/components/Alert/template.html"></include>
 		<include src="{{ base_url }}/components/Avatar/template.html"></include>
 		<include src="{{ base_url }}/components/Button/template.html"></include>
 		<include src="{{ base_url }}/components/DroneViewer/template.html"></include>
@@ -29,11 +34,34 @@
 		<include src="{{ base_url }}/components/PriceDisplay/template.html"></include>
 		<include src="{{ base_url }}/components/TextInput/template.html"></include>
 
+		<!-- Model Scripts -->
+		<script
+			type="module"
+			src="/src/scripts/models/User.ts"
+		></script>
+
+		<!-- Repository Scripts -->
+		<script
+			type="module"
+			src="/src/scripts/db/UserRepository.ts"
+		></script>
+
 		<!-- Component Scripts -->
+		<script
+			type="module"
+			src="/src/scripts/icons.ts"
+		></script>
 		<script
 			type="module"
 			src="/src/scripts/index.ts"
 		></script>
+		<script
+			type="module"
+			src="/src/scripts/components.ts"
+		></script>
+
+		<!-- Additional Resources -->
+		<block name="resources"></block>
 
 		<!-- Main Entrypoint -->
 		<ui-navbar type="{{ type }}"></ui-navbar>

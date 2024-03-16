@@ -1,7 +1,3 @@
-//	Package Imports
-import '@preline/input-number';
-import { HSInputNumber } from 'preline';
-
 //	Component Imports
 import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
@@ -19,11 +15,6 @@ export interface NumericInputProps extends BaseComponentProps {
 	 * The numeric value of the input.
 	 */
 	value?: number;
-
-	/**
-	 * The default value of the input.
-	 */
-	defaultValue?: number;
 
 	/**
 	 * The placeholder text to display when the input is empty.
@@ -76,7 +67,6 @@ export class NumericInput extends PrimitiveComponent {
 
 		'name',
 		'value',
-		'defaultValue',
 		'placeholder',
 		'min',
 		'max',
@@ -99,31 +89,95 @@ export class NumericInput extends PrimitiveComponent {
 	protected decrement: HTMLButtonElement | null = null;
 	protected increment: HTMLButtonElement | null = null;
 
+	static formAssociated = true;
+	private _defaultValue: number | undefined;
+	private _internals: ElementInternals;
+
+	public get valueAsNumber(): number {
+		return Number(this.value!);
+	}
+	public get form(): HTMLFormElement | null {
+		return this._internals.form;
+	}
+	public get validity(): ValidityState {
+		return this._internals.validity;
+	}
+	public get willValidate(): boolean {
+		return this._internals.willValidate;
+	}
+	public get validationMessage(): string {
+		return this._internals.validationMessage;
+	}
+
 	constructor() {
 		super({
 			elementName: 'input',
 			defaultProperties: NumericInput.defaultProperties,
 		});
 
-		//	Save the reference to the root element and the buttons
-		this.root = this.shadowRoot!.querySelector('[data-hs-input-number]');
-		this.input = this.shadowRoot!.querySelector<HTMLInputElement>('[data-hs-input-number-input]');
-		this.decrement = this.shadowRoot!.querySelector<HTMLButtonElement>('[data-hs-input-number-decrement]');
-		this.increment = this.shadowRoot!.querySelector<HTMLButtonElement>('[data-hs-input-number-increment]');
+		//	Allow the input to be associated with a form
+		this._defaultValue = this.valueAsNumber;
+		this._internals = this.attachInternals();
 
-		//	Add event listener to update the value property when the input changes
-		this.root!.addEventListener('change', () => (this.value = this.input!.valueAsNumber));
+		//	Save the reference to the root element and the buttons
+		this.root = this.shadowRoot!.querySelector('[part="root"]');
+		this.decrement = this.shadowRoot!.querySelector<HTMLButtonElement>('#decrement-button');
+		this.increment = this.shadowRoot!.querySelector<HTMLButtonElement>('#increment-button');
+
+		//	Add event listener to update the value property when the input changes and to increment/decrement the value
+		this.element.addEventListener('change', () => this.handleValueChange());
+		this.decrement?.addEventListener('click', () => this.handleDecrement());
+		this.increment?.addEventListener('click', () => this.handleIncrement());
 	}
 
 	connectedCallback(): void {
 		super.connectedCallback();
 
-		//	If there is a default value, set it
-		if (this.defaultValue) this.value = this.defaultValue;
-
-		//	When everything is loaded, initialize the dropdown
-		setTimeout(() => new HSInputNumber(this.root as any), 1000);
+		//	Initialize validation
+		this.updateInternals();
 	}
+
+	formDisabledCallback(disabled: boolean): void {
+		this.disabled = disabled;
+	}
+
+	formResetCallback(): void {
+		this.value = this._defaultValue;
+		this.updateInternals();
+	}
+
+	formStateRestoreCallback(state: string): void {
+		this.value = Number(state);
+		this.updateInternals();
+	}
+
+	private updateInternals(): void {
+		this._internals.setFormValue(this.value?.toString() || null);
+		this._internals.setValidity(
+			(this.element as HTMLInputElement).validity,
+			(this.element as HTMLInputElement).validationMessage,
+			this.element!,
+		);
+	}
+
+	private handleValueChange = () => {
+		const value = (this.element as HTMLInputElement).valueAsNumber;
+		this.value = value;
+		this.updateInternals();
+	};
+
+	private handleDecrement = () => {
+		(this.element as HTMLInputElement).stepDown();
+		this.updateInternals();
+	};
+
+	private handleIncrement = () => {
+		(this.element as HTMLInputElement).stepUp();
+		this.updateInternals();
+	};
+
+	public checkValidity = () => this._internals.checkValidity();
+	public reportValidity = () => this._internals.reportValidity();
 }
 
 customElements.define('ui-numeric-input', NumericInput);

@@ -81,6 +81,10 @@ export class Avatar extends PrimitiveComponent {
 		const randomColor = Avatar.colors[Math.floor(Math.random() * Avatar.colors.length)];
 		this.color = randomColor;
 	}
+
+	static getRandomizedColor(): AvatarProps['color'] {
+		return Avatar.colors[Math.floor(Math.random() * Avatar.colors.length)];
+	}
 }
 
 customElements.define('ui-avatar', Avatar);

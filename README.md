@@ -6,7 +6,7 @@
 
 <div align="center">
     <!-- TODO: update version number on every release -->
-    <img alt="Version number" src="https://img.shields.io/badge/version-v0.2.0-blue"/>
+    <img alt="Version number" src="https://img.shields.io/badge/version-v0.2.4-blue"/>
     <img alt="Project license" src="https://img.shields.io/badge/license-MIT-green"/>
 </div>
 
@@ -52,8 +52,9 @@ platform both buyers and sellers to manage their accounts, view their transactio
     -   [Merging new changes](#5-merging-new-changes)
 -   [📦 Bundle Size](#-bundle-size)
 -   [📚 Tech Stack](#-tech-stack)
--   [🧩 Components](#-components)
+-   [🧱 Components](#-components)
     -   [Creating a new component](#creating-a-new-component)
+-   [🧬 Entity Relationship Diagram](#-entity-relationship-diagram)
 
 ## 💻 Getting Started
 
@@ -217,7 +218,7 @@ represents a route which has a colored indicator showing the performance of that
 <!-- BUNDLE_TABLE_START -->
 | | Size | Budget Used (`1 MB`) | 
 | --- | :---: | :---: | 
-| `total` | `377.24 kB` | 🟢 `37.72%` | 
+| `total` | `368.82 kB` | 🟢 `36.88%` | 
 
 <!-- BUNDLE_TABLE_END -->
 
@@ -233,7 +234,7 @@ represents a route which has a colored indicator showing the performance of that
 -   **Three.js** - A 3D library that provides a set of tools to create and render 3D scenes in the browser. This was
     used to render 3D models of drones in the application.
 
-## 🧩 Components
+## 🧱 Components
 
 The components used in this application are built using the new Web Components API. This allows for the creation of
 custom native-elements that are simpler and more performant than traditional frameworks like React or Vue. We also had
@@ -280,3 +281,9 @@ Within the component folder there are 3 main files:
 6. Then, import the script inside `src/scripts/index.ts`, the styles inside `src/styles/index.css`, and the template
    inside `src/layouts/base.html`.
 7. Finally, add the component to `custom-components.json` to allow for auto-completion and type checking in the editor.
+
+## 🧬 Entity Relationship Diagram
+
+The below diagram shows the entities and their relationships in the application.
+
+![Entity relationshop diagram](./uml_diagram/dji-diagram.svg)

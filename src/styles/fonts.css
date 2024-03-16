@@ -1,0 +1,131 @@
+@font-face {
+	font-style: normal;
+	font-weight: 700;
+	src:
+		local('Montserrat'),
+		url('/fonts/Montserrat-Bold.woff2') format('woff2');
+	font-family: montserrat;
+	font-display: fallback;
+	unicode-range: U+A, U+20, U+22, U+25-29, U+2B-3E, U+41-59, U+61-7A, U+F3, U+3A4, U+2014, U+2019, U+201C, U+201D,
+		U+2020, U+2021, U+2026, U+20AC, U+2190, U+F8FF, U+1F426, U+1F4D7, U+1F4F0, U+1F525;
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 900;
+	src:
+		local('Montserrat'),
+		url('/fonts/Montserrat-Black.woff2') format('woff2');
+	font-family: montserrat;
+	font-display: fallback;
+	unicode-range: U+A, U+20, U+22, U+25-29, U+2B-3E, U+41-59, U+61-7A, U+F3, U+3A4, U+2014, U+2019, U+201C, U+201D,
+		U+2020, U+2021, U+2026, U+20AC, U+2190, U+F8FF, U+1F426, U+1F4D7, U+1F4F0, U+1F525;
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 400;
+	src:
+		local('Source Sans Pro'),
+		url('/fonts/SourceSansPro-Regular.woff2') format('woff2');
+	font-family: source sans pro;
+	font-display: fallback;
+	unicode-range: U+0000-00A0, U+00A2-00A9, U+00AC-00AE, U+00B0-00B7, U+00B9-00BA, U+00BC-00BE, U+00D7, U+00F7,
+		U+2000-206F, U+2074, U+20AC, U+2122, U+2190-21BB, U+2212, U+2215, U+F8FF, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 600;
+	src:
+		local('Source Sans Pro'),
+		url('/fonts/SourceSansPro-Semibold.woff2') format('woff2');
+	font-family: source sans pro;
+	font-display: fallback;
+	unicode-range: U+0000-00A0, U+00A2-00A9, U+00AC-00AE, U+00B0-00B7, U+00B9-00BA, U+00BC-00BE, U+00D7, U+00F7,
+		U+2000-206F, U+2074, U+20AC, U+2122, U+2190-21BB, U+2212, U+2215, U+F8FF, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 700;
+	src:
+		local('Source Sans Pro'),
+		url('/fonts/SourceSansPro-Bold.woff2') format('woff2');
+	font-family: source sans pro;
+	font-display: fallback;
+	unicode-range: U+0000-00A0, U+00A2-00A9, U+00AC-00AE, U+00B0-00B7, U+00B9-00BA, U+00BC-00BE, U+00D7, U+00F7,
+		U+2000-206F, U+2074, U+20AC, U+2122, U+2190-21BB, U+2212, U+2215, U+F8FF, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 900;
+	src:
+		local('Source Sans Pro'),
+		url('/fonts/SourceSansPro-Black.woff2') format('woff2');
+	font-family: source sans pro;
+	font-display: fallback;
+	unicode-range: U+0000-00A0, U+00A2-00A9, U+00AC-00AE, U+00B0-00B7, U+00B9-00BA, U+00BC-00BE, U+00D7, U+00F7,
+		U+2000-206F, U+2074, U+20AC, U+2122, U+2190-21BB, U+2212, U+2215, U+F8FF, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 400;
+	src:
+		local('Source Serif Pro'),
+		url('/fonts/SourceSerifPro-Regular.woff2') format('woff2');
+	font-family: 'source serif pro';
+	font-display: fallback;
+	unicode-range: U+0000-00A0, U+00A2-00A9, U+00AC-00AE, U+00B0-00B7, U+00B9-00BA, U+00BC-00BE, U+00D7, U+00F7,
+		U+2000-206F, U+2074, U+20AC, U+2122, U+2190-21BB, U+2212, U+2215, U+F8FF, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 300;
+	src:
+		local('Source Serif Pro'),
+		url('/fonts/SourceSerifPro-Light.woff2') format('woff2');
+	font-family: 'source serif pro';
+	font-display: fallback;
+	unicode-range: U+0000-00A0, U+00A2-00A9, U+00AC-00AE, U+00B0-00B7, U+00B9-00BA, U+00BC-00BE, U+00D7, U+00F7,
+		U+2000-206F, U+2074, U+20AC, U+2122, U+2190-21BB, U+2212, U+2215, U+F8FF, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 600;
+	src:
+		local('Source Serif Pro'),
+		url('/fonts/SourceSerifPro-SemiBold.woff2') format('woff2');
+	font-family: 'source serif pro';
+	font-display: fallback;
+	unicode-range: U+0000-00A0, U+00A2-00A9, U+00AC-00AE, U+00B0-00B7, U+00B9-00BA, U+00BC-00BE, U+00D7, U+00F7,
+		U+2000-206F, U+2074, U+20AC, U+2122, U+2190-21BB, U+2212, U+2215, U+F8FF, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 700;
+	src:
+		local('Source Serif Pro'),
+		url('/fonts/SourceSerifPro-Bold.woff2') format('woff2');
+	font-family: 'source serif pro';
+	font-display: fallback;
+	unicode-range: U+0000-00A0, U+00A2-00A9, U+00AC-00AE, U+00B0-00B7, U+00B9-00BA, U+00BC-00BE, U+00D7, U+00F7,
+		U+2000-206F, U+2074, U+20AC, U+2122, U+2190-21BB, U+2212, U+2215, U+F8FF, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 900;
+	src:
+		local('Source Serif Pro'),
+		url('/fonts/SourceSerifPro-Black.woff2') format('woff2');
+	font-family: 'source serif pro';
+	font-display: fallback;
+	unicode-range: U+0000-00A0, U+00A2-00A9, U+00AC-00AE, U+00B0-00B7, U+00B9-00BA, U+00BC-00BE, U+00D7, U+00F7,
+		U+2000-206F, U+2074, U+20AC, U+2122, U+2190-21BB, U+2212, U+2215, U+F8FF, U+FEFF, U+FFFD;
+}

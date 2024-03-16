@@ -29,7 +29,7 @@ header.navbar {
 			@apply flex-none;
 
 			a {
-				@apply flex items-center gap-x-0;
+				@apply flex items-center gap-x-0 opacity-80 transition-opacity duration-300 hover:opacity-100;
 
 				img {
 					@apply h-10;
@@ -44,16 +44,16 @@ header.navbar {
 
 		/* Holds the navigation tabs on the admin version */
 		&.tabs {
-			@apply hidden flex-none gap-x-2 lg:gap-x-4;
+			@apply hidden flex-none gap-x-1 overflow-hidden lg:rounded-sm lg:bg-slate-100 lg:p-1;
 
 			ui-button::part(root) {
-				@apply h-8 px-4 lg:px-8;
-				@apply rounded-[4px];
+				@apply h-7 px-4 lg:px-8;
+				@apply rounded-none;
 				@apply text-secondary focus-hover:bg-slate-50;
 				@apply text-xs font-normal;
 
 				&.active {
-					@apply bg-slate-100 focus-hover:bg-slate-200;
+					@apply bg-slate-100 focus-hover:bg-slate-200 lg:rounded-sm lg:bg-white lg:focus-hover:bg-slate-50;
 				}
 			}
 		}
@@ -69,12 +69,13 @@ header.navbar {
 		}
 	}
 
-	ui-dropdown {
+	/* Cart Dropdown */
+	ui-dropdown.cart {
 		.price-label {
 			@apply flex flex-row place-content-between;
 
 			p {
-				@apply text-sm font-light tracking-wide text-secondary;
+				@apply text-sm text-secondary;
 			}
 		}
 
@@ -83,8 +84,31 @@ header.navbar {
 		}
 	}
 
-	ui-dropdown.account::part(menu) {
-		@apply w-60;
+	/* Account Dropdown */
+	ui-dropdown.account {
+		.user-details {
+			&::part(root) {
+				@apply flex w-full flex-row gap-2;
+			}
+
+			.info {
+				@apply flex flex-grow flex-col items-start overflow-hidden;
+
+				h3 {
+					@apply w-full text-base text-title;
+					@apply overflow-hidden text-ellipsis whitespace-nowrap break-all text-left leading-none tracking-tight;
+				}
+			}
+		}
+
+		&::part(menu) {
+			@apply w-60 gap-2 overflow-hidden;
+		}
+	}
+
+	/* Hide the navbar if the type is hidden */
+	&[type='hidden'] {
+		@apply hidden;
 	}
 
 	/* Add "Customer" next to the DJI logo */
@@ -110,10 +134,10 @@ header.navbar {
 
 		/* Move the tabs to the next row on mobile screens */
 		.row:first-child .tabs {
-			@apply md:flex;
+			@apply lg:flex;
 		}
 		.row:last-child {
-			@apply flex md:hidden;
+			@apply flex lg:hidden;
 		}
 	}
 }

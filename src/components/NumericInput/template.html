@@ -1,18 +1,13 @@
 <template id="numeric-input-template">
-	<div
-		part="root"
-		data-hs-input-number
-	>
+	<div part="root">
 		<ui-button
+			id="decrement-button"
 			fill="outline"
 			exportparts="root: button"
-			data-hs-input-number-decrement
 		>
 			<svg
-				class="lucide lucide-minus size-3.5"
+				class="lucide lucide-minus"
 				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
 				viewBox="0 0 24 24"
 				fill="none"
 				stroke="currentColor"
@@ -28,18 +23,15 @@
 			part="input"
 			type="number"
 			value="0"
-			data-hs-input-number-input
 		/>
 		<ui-button
+			id="increment-button"
 			fill="outline"
 			exportparts="root: button"
-			data-hs-input-number-increment
 		>
 			<svg
-				class="lucide lucide-plus size-3.5"
+				class="lucide lucide-plus"
 				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
 				viewBox="0 0 24 24"
 				fill="none"
 				stroke="currentColor"

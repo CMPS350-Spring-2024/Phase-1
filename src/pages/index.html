@@ -7,6 +7,11 @@
 	}'
 >
 	<block name="app">
+		<script
+			type="module"
+			src="/src/scripts/home.ts"
+		></script>
+
 		<form class="flex flex-col gap-4 p-4">
 			<ui-text-input placeholder="Enter full name...">
 				Full Name
@@ -41,7 +46,7 @@
 
 			test
 		</ui-modal>
-		<ui-numeric-input defaultValue="9"></ui-numeric-input>
+		<ui-numeric-input value="9"></ui-numeric-input>
 		<ui-avatar color="black">MF</ui-avatar>
 		<ui-button fill="ghost">
 			<i
@@ -53,7 +58,7 @@
 		<div class="flex size-fit flex-col gap-12">
 			<div class="flex w-[440px] flex-col gap-2">
 				<h1 class="font-serif text-5xl font-bold tracking-wide text-title">Mavic 3 Pro</h1>
-				<p class="font-light tracking-wide text-secondary">
+				<p class="leading-relaxed tracking-wide text-secondary">
 					The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and
 					extensive range, ideal for photographers and filmmakers in diverse settings.
 				</p>
@@ -84,13 +89,13 @@
 		<ui-drone-viewer></ui-drone-viewer>
 
 		<h1
-			class="line pointer-events-none absolute -bottom-20 left-8 -z-10 origin-top-left -rotate-90 font-display text-[128px] font-black uppercase leading-[128px] text-zinc-100"
+			class="line pointer-events-none absolute -bottom-20 left-8 origin-top-left -rotate-90 font-display text-[128px] font-black uppercase leading-[128px] text-zinc-100"
 		>
 			DJI
 		</h1>
 
 		<h2
-			class="line pointer-events-none absolute right-8 top-8 -z-10 origin-top-left text-right font-display text-[64px] font-black uppercase leading-[64px] text-zinc-100"
+			class="line pointer-events-none absolute right-8 top-8 origin-top-left text-right font-display text-[64px] font-black uppercase leading-[64px] text-zinc-100"
 		>
 			Aerial
 			<br />
