@@ -2,6 +2,9 @@
 import Cookies from 'js-cookie';
 import jsSHA from 'jssha';
 
+//	Data Imports
+import DefaultAdmin from '@/scripts/data/default_admin.json';
+
 //	Type Imports
 import { CreateUser, LoginUser, RegisterUser, User } from '@/scripts/models/User';
 
@@ -64,6 +67,16 @@ export class UserRepository {
 		UserRepository.numberOfUsers++;
 	};
 
+	static addDefaultAdmin = (): void => {
+		//	@ts-ignore
+		const admin = new User({
+			...DefaultAdmin,
+			_id: 0,
+			isParsing: true,
+		});
+		UserRepository.addUser(admin);
+	};
+
 	/* ------------------------------- // !SECTION ------------------------------ */
 	//#endregion
 
@@ -115,10 +128,7 @@ export class UserRepository {
 		return user;
 	};
 
-	/**
-	 * Note: This function is only here for testing purposes
-	 */
-	static loginUserById = (id: number): User => {
+	private static loginUserById = (id: number): User => {
 		const user = UserRepository.getUser(id);
 
 		//	If the user is not found, throw an error
@@ -129,6 +139,20 @@ export class UserRepository {
 
 		//	Return the user if found, otherwise return null
 		return user;
+	};
+
+	static loginFromCookies = (): User | null => {
+		const userId = Cookies.get('user');
+		if (userId) {
+			try {
+				const user = UserRepository.loginUserById(Number(userId));
+				window.currentUser = user;
+				return user;
+			} catch (error) {
+				Cookies.remove('user');
+			}
+		}
+		return null;
 	};
 
 	static registerUser = (userData: RegisterUser): User => {
@@ -154,10 +178,12 @@ export class UserRepository {
 		return newUser;
 	};
 
+	static logoutUser = (): void => {
+		Cookies.remove('user');
+		window.currentUser = null;
+		window.location.reload();
+	};
+
 	/* ------------------------------- // !SECTION ------------------------------ */
 	//#endregion
 }
-
-//	Set the number of users to the number of users in the local storage whenever the local storage is updated
-UserRepository.updateUsersList();
-window.addEventListener('storage', UserRepository.updateUsersList);

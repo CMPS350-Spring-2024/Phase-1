@@ -134,46 +134,36 @@
 			"description": "Custom button component based on the Preline UI design system.",
 			"attributes": [
 				{
+					"name": "offset",
+					"description": "The offset of the menu from the toggle button, applied on the main axis."
+				},
+				{
 					"name": "placement",
 					"description": "Specifies the position of the menu when opened.",
 					"values": [
+						{ "name": "auto" },
 						{ "name": "top" },
-						{ "name": "top-left" },
-						{ "name": "top-right" },
+						{ "name": "top-start" },
+						{ "name": "top-end" },
 						{ "name": "bottom" },
-						{ "name": "bottom-left" },
-						{ "name": "bottom-right" },
+						{ "name": "bottom-start" },
+						{ "name": "bottom-end" },
 						{ "name": "right" },
-						{ "name": "right-top" },
-						{ "name": "right-bottom" },
+						{ "name": "right-start" },
+						{ "name": "right-end" },
 						{ "name": "left" },
-						{ "name": "left-top" },
-						{ "name": "left-bottom" }
+						{ "name": "left-start" },
+						{ "name": "left-end" }
 					]
 				},
 				{
-					"name": "auto-close",
-					"description": "Specifies the zone, when clicked, which will close the menu.",
-					"values": [{ "name": "true" }, { "name": "false" }, { "name": "inside" }, { "name": "outside" }]
-				},
-				{
-					"name": "fill",
-					"description": "Sets the position to absolute instead of fixed, and removes the transform styles to position the menu relative to the relative parent block.",
-					"values": [{ "name": "fixed" }, { "name": "absolute" }]
-				},
-				{
-					"name": "offset",
-					"description": "Sets the dropdown's bottom or top offset."
+					"name": "screenPadding",
+					"description": "Specifies the minimum distance from the edge of the screen."
 				},
 				{
 					"name": "flip",
-					"description": "Flips the menu's placement when it starts to overlap its reference element.",
+					"description": "Should the dropdown flip when it reaches the edge of the screen? Cannot be used when `placement` is set to `auto`.",
 					"values": [{ "name": "true" }, { "name": "false" }]
-				},
-				{
-					"name": "trigger",
-					"description": "Event to trigger a dropdown.",
-					"values": [{ "name": "click" }, { "name": "hover" }]
 				}
 			],
 			"references": [
@@ -280,7 +270,7 @@
 				{
 					"name": "size",
 					"description": "Specifies the size of the price display.",
-					"values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+					"values": [{ "name": "xs" }, { "name": "sm" }, { "name": "md" }, { "name": "lg" }]
 				}
 			]
 		},

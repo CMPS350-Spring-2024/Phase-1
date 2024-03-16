@@ -8,7 +8,7 @@ export interface PriceDisplayProps extends BaseComponentProps {
 	/**
 	 * Specifies the size of the price display.
 	 */
-	size?: 'sm' | 'md' | 'lg';
+	size?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
 /**

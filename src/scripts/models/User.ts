@@ -2,6 +2,9 @@
 import jsSHA from 'jssha';
 import * as v from 'valibot';
 
+//	Type Imports
+import { Avatar, type AvatarProps } from '@/components/Avatar/logic';
+
 export interface User extends IUser {}
 export interface IUser {
 	/**
@@ -38,6 +41,16 @@ export interface IUser {
 	 * The user's password
 	 */
 	password: string;
+
+	/**
+	 * The color to use for the avatar
+	 */
+	avatarColor: AvatarProps['color'];
+
+	/**
+	 * Amount of money the user has
+	 */
+	balance: number;
 }
 
 export class User {
@@ -51,8 +64,13 @@ export class User {
 		//	If we are only parsing the user data, keep it as is
 		if (userData.isParsing) {
 			this.password = userData.password;
-			this._id = userData._id || crypto.getRandomValues(new Uint32Array(1))[0];
+			this._id = userData._id === undefined ? crypto.getRandomValues(new Uint32Array(1))[0] : userData._id;
+			this.avatarColor = userData.avatarColor || 'black';
+			this.balance = userData.balance || 0;
 		} else {
+			this.avatarColor = Avatar.getRandomizedColor();
+			this.balance = 0;
+
 			//	Hasing the password using SHA-256
 			const hashObject = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' });
 			hashObject.update(userData.password);
@@ -66,10 +84,14 @@ export class User {
 	get id(): number {
 		return this._id;
 	}
+	get isAdmin(): boolean {
+		return this.id === 0;
+	}
 
 	getName = (): string => this.name.first + (this.name.last ? ` ${this.name.last}` : '');
 	getFirstName = (): string => this.name.first;
 	getLastName = (): string => this.name.last || '';
+	getAcronym = (): string => this.name.first[0] + (this.name.last ? this.name.last[0] : '');
 
 	static parse = (data: Record<string, any>): User | null => {
 		try {
@@ -82,6 +104,8 @@ export class User {
 				email: data.email,
 				phone: data.phone,
 				password: data.password,
+				avatarColor: data.avatarColor,
+				balance: data.balance,
 				isParsing: true,
 			});
 			return user;
@@ -141,4 +165,6 @@ export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'pas
 	 */
 	_id?: number;
 	isParsing?: boolean;
+	avatarColor?: AvatarProps['color'];
+	balance?: number;
 }

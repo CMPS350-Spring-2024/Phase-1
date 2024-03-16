@@ -23,5 +23,9 @@ ui-numeric-input {
 		@apply rounded-md border-gray-200;
 		@apply bg-white text-secondary hover:bg-gray-50;
 		@apply shadow-sm;
+
+		svg {
+			@apply size-3.5;
+		}
 	}
 }

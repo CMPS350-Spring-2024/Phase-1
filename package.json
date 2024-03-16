@@ -1,6 +1,6 @@
 {
 	"name": "phase-1",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"packageManager": "pnpm@8.7.4",
 	"type": "module",
 	"scripts": {
@@ -10,11 +10,11 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
-		"@preline/input-number": "^2.0.2",
+		"@convergence/throttle-utils": "^0.1.0",
+		"@floating-ui/dom": "^1.6.3",
 		"js-cookie": "^3.0.5",
 		"jssha": "^3.3.1",
 		"lucide": "^0.343.0",
-		"preline": "^2.0.3",
 		"three": "^0.162.0",
 		"valibot": "^0.30.0"
 	},

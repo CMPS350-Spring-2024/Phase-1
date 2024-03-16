@@ -9,7 +9,7 @@
 		<link
 			rel="icon"
 			type="image/svg+xml"
-			href="/vite.svg"
+			href="/icons/DJI Favicon.svg"
 		/>
 		<link
 			rel="stylesheet"
@@ -23,6 +23,7 @@
 	</head>
 	<body id="app">
 		<!-- Component Templates -->
+		<include src="{{ base_url }}/components/Alert/template.html"></include>
 		<include src="{{ base_url }}/components/Avatar/template.html"></include>
 		<include src="{{ base_url }}/components/Button/template.html"></include>
 		<include src="{{ base_url }}/components/DroneViewer/template.html"></include>
@@ -48,7 +49,15 @@
 		<!-- Component Scripts -->
 		<script
 			type="module"
+			src="/src/scripts/icons.ts"
+		></script>
+		<script
+			type="module"
 			src="/src/scripts/index.ts"
+		></script>
+		<script
+			type="module"
+			src="/src/scripts/components.ts"
 		></script>
 
 		<!-- Additional Resources -->

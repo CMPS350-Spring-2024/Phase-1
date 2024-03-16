@@ -6,9 +6,10 @@ ui-dropdown {
 
 	/* Menu */
 	&::part(menu) {
+		@apply absolute;
 		@apply pointer-events-none;
 		@apply gap-2 p-2.5;
-		@apply absolute flex flex-col;
+		@apply flex flex-col;
 		@apply rounded-md border border-border;
 		@apply bg-white shadow-sm;
 		@apply transition-[opacity,margin] duration-150;
@@ -23,10 +24,5 @@ ui-dropdown {
 		@apply border-none;
 		@apply text-secondary hover:bg-slate-100;
 		@apply font-light;
-	}
-
-	/* Align end */
-	&[placement='bottom-right']::part(menu) {
-		@apply end-0;
 	}
 }
