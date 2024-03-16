@@ -1,0 +1,14 @@
+<template id="alert-template">
+	<div
+		part="root"
+		role="alert"
+	>
+		<div part="icon"></div>
+		<div>
+			<h3 part="title"><slot></slot></h3>
+			<div part="message">
+				<slot name="message"></slot>
+			</div>
+		</div>
+	</div>
+</template>

@@ -1,4 +1,5 @@
 //	Component Imports
+import '@/components/Alert/logic';
 import '@/components/Avatar/logic';
 import '@/components/Button/logic';
 import '@/components/Dropdown/logic';

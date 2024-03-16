@@ -1,0 +1,91 @@
+ui-alert {
+	/* Container */
+	&::part(root) {
+		@apply flex gap-3 p-4;
+		@apply rounded-sm border;
+	}
+
+	/* Icon */
+	&::part(icon) {
+		@apply mt-0.5 size-4 flex-shrink-0;
+	}
+
+	/* Title */
+	&::part(title) {
+		@apply text-sm font-semibold;
+	}
+
+	/* Message */
+	&::part(message) {
+		@apply mt-2 text-sm;
+	}
+
+	/* List Messages */
+	ul {
+		@apply list-disc space-y-1 ps-5;
+	}
+
+	/* Info Variant */
+	&[type='info'] {
+		&::part(root) {
+			@apply border-blue-300 bg-blue-50;
+		}
+		&::part(icon) {
+			@apply text-blue-800;
+		}
+		&::part(title) {
+			@apply text-blue-800;
+		}
+		&::part(message) {
+			@apply text-blue-700;
+		}
+	}
+
+	/* Success Variant */
+	&[type='success'] {
+		&::part(root) {
+			@apply border-green-300 bg-green-50;
+		}
+		&::part(icon) {
+			@apply text-green-800;
+		}
+		&::part(title) {
+			@apply text-green-800;
+		}
+		&::part(message) {
+			@apply text-green-700;
+		}
+	}
+
+	/* Warning Variant */
+	&[type='warning'] {
+		&::part(root) {
+			@apply border-yellow-300 bg-yellow-50;
+		}
+		&::part(icon) {
+			@apply text-yellow-800;
+		}
+		&::part(title) {
+			@apply text-yellow-800;
+		}
+		&::part(message) {
+			@apply text-yellow-700;
+		}
+	}
+
+	/* Error Variant */
+	&[type='error'] {
+		&::part(root) {
+			@apply border-red-300 bg-red-50;
+		}
+		&::part(icon) {
+			@apply text-red-800;
+		}
+		&::part(title) {
+			@apply text-red-800;
+		}
+		&::part(message) {
+			@apply text-red-700;
+		}
+	}
+}
