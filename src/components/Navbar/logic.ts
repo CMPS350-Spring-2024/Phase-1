@@ -105,7 +105,6 @@ export class Navbar extends PrimitiveComponent {
 			this.accountBalance.innerText = new Intl.NumberFormat('en-US', {
 				minimumFractionDigits: 2,
 			}).format(window.currentUser.balance);
-			console.log(window.currentUser.avatarColor);
 
 			//	If the user is an admin, show the admin links and change the account button
 			if (window.currentUser.isAdmin) {

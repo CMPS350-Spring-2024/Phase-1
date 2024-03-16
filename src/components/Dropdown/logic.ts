@@ -1,8 +1,12 @@
+//	Package Imports
+import { autoPlacement, autoUpdate, computePosition, flip, offset, shift, size } from '@floating-ui/dom';
+
 //	Component Imports
 import { BaseComponent } from '@/components/BaseComponent';
 
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
+import type { Placement } from '@floating-ui/dom';
 
 export interface Dropdown extends DropdownProps {}
 export interface DropdownProps extends BaseComponentProps {
@@ -12,9 +16,24 @@ export interface DropdownProps extends BaseComponentProps {
 	open?: boolean;
 
 	/**
+	 * The offset of the menu from the toggle button, applied on the main axis.
+	 */
+	offset?: number;
+
+	/**
 	 * Specifies the position of the menu when opened.
 	 */
-	placement?: 'bottom-left' | 'bottom-right';
+	placement?: 'auto' | Placement;
+
+	/**
+	 * Specifies the minimum distance from the edge of the screen.
+	 */
+	screenPadding?: number;
+
+	/**
+	 * Should the dropdown flip when it reaches the edge of the screen? Cannot be used when `placement` is set to `auto`.
+	 */
+	flip?: boolean;
 }
 
 /**
@@ -22,10 +41,21 @@ export interface DropdownProps extends BaseComponentProps {
  */
 export class Dropdown extends BaseComponent {
 	protected static readonly templateName: string = 'dropdown-template';
-	protected static readonly forwardedProperties: Array<keyof DropdownProps> = ['class', 'placement'];
+	protected static readonly forwardedProperties: Array<keyof DropdownProps> = [
+		'class',
+		'offset',
+		'placement',
+		'screenPadding',
+		'flip',
+	];
 	protected static readonly defaultProperties: DropdownProps = {
-		placement: 'bottom-left',
+		offset: 4,
+		placement: 'auto',
+		screenPadding: 8,
+		flip: true,
 	};
+
+	protected _cleanupFloating: () => void;
 
 	protected root: HTMLElement | null = null;
 	protected toggleButton: HTMLElement | null = null;
@@ -44,6 +74,38 @@ export class Dropdown extends BaseComponent {
 			'[name="toggle"]',
 		)!.assignedNodes()[0] as HTMLElement;
 		this.menu = this.shadowRoot!.querySelector('[part="menu"]');
+
+		//	Make sure the menu fits in the screen
+		this._cleanupFloating = autoUpdate(this.root!, this.menu!, () => {
+			computePosition(this.root!, this.menu!, {
+				strategy: 'absolute',
+				middleware: [
+					offset(Number(this.offset)),
+					this.placement !== 'auto' && this.flip && flip(),
+					this.placement === 'auto' && autoPlacement(),
+					shift({ padding: Number(this.screenPadding) }),
+					size({
+						apply: ({ availableWidth, availableHeight }) => {
+							Object.assign(this.menu!.style, {
+								maxWidth: `${availableWidth}px`,
+								maxHeight: `${availableHeight}px`,
+							});
+						},
+					}),
+				],
+				...(this.placement !== 'auto' && { placement: this.placement }),
+			}).then(({ x, y }) => {
+				const roundByDPR = (value: number) => {
+					const dpr = window.devicePixelRatio || 1;
+					return Math.round(value * dpr) / dpr;
+				};
+				Object.assign(this.menu!.style, {
+					left: '0',
+					top: '0',
+					transform: `translate(${roundByDPR(x)}px,${roundByDPR(y)}px)`,
+				});
+			});
+		});
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -51,6 +113,11 @@ export class Dropdown extends BaseComponent {
 
 		//	If the class was changed, forward it to the menu
 		if (name === 'class' && this.menu) this.menu.className = newValue;
+	}
+
+	disconnectedCallback(): void {
+		super.disconnectedCallback();
+		this._cleanupFloating();
 	}
 
 	show = () => (this.open = true);
