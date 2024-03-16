@@ -1,7 +1,9 @@
 //	Package Imports
 import {
+	CheckCircle,
 	ChevronLeft,
 	ClipboardList,
+	Clock3,
 	Coins,
 	LogOut,
 	MapPin,
@@ -43,6 +45,8 @@ export const convertIcons = () =>
 			TrendingDown,
 			MousePointerClick,
 			PackageCheck,
+			CheckCircle,
+			Clock3,
 		},
 	});
 

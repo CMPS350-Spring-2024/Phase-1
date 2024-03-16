@@ -135,3 +135,49 @@
 		@apply m-2 flex flex-row flex-nowrap items-center;
 	}
 }
+/* History/Sale Table Styling */
+
+@layer components {
+	.order-table {
+		/* @apply min-w-full divide-gray-200 dark:divide-gray-700; */
+
+		@apply min-w-full rounded-md border-[0.5px] border-[solid] border-slate-400;
+		@apply m-4;
+	}
+	.table-head {
+		@apply border-b-[1px] border-[solid] border-slate-200;
+	}
+
+	.table-head > tr > th {
+		@apply px-6 py-3  text-start text-xs font-medium uppercase
+		text-gray-500;
+	}
+	/* .table-body {
+		@apply  divide-gray-200 dark:divide-gray-700;
+	} */
+	.table-body > tr > td {
+		@apply px-6 py-3  text-start text-xs font-medium uppercase;
+	}
+	.order-number {
+		@apply text-blue-600 underline;
+	}
+	.status-delivered > div {
+		@apply bg-slate-50  py-2 align-baseline text-slate-400;
+	}
+
+	.status-waiting > div {
+		@apply bg-blue-50  py-2 align-baseline text-blue-400;
+	}
+	.order-status > div {
+		@apply flex flex-row justify-around gap-0 rounded-md;
+		.icon {
+			@apply size-4;
+		}
+	}
+	.order-amount {
+		@apply flex flex-row justify-around gap-0;
+		.currency {
+			@apply text-slate-500;
+		}
+	}
+}
