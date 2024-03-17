@@ -193,7 +193,8 @@
 	}
 
 	.image-prev {
-		@apply mx-[100px] my-[10px] size-[300px];
+		@apply mx-[80px] my-[-50px] size-[350px];
+		/* @apply mx-[100px] my-[10px] size-[300px]; */
 	}
 	.middle-section,
 	.image-container {
