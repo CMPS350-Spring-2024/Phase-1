@@ -253,3 +253,54 @@
 		@apply w-[100%]  items-center rounded-b border-l-[0.5px] border-slate-100  py-3 text-center text-lg font-semibold hover:bg-blue-600;
 	}
 }
+
+@layer components {
+	.item-description > section {
+		@apply my-[0.1rem];
+	}
+	.image-prev {
+		@apply size-52;
+	}
+	.item-detialed {
+		@apply m-8 flex flex-col text-center;
+		@apply items-center;
+	}
+	.item-type {
+		@apply text-slate-400;
+	}
+
+	.item-name {
+		@apply text-[30px] font-bold;
+	}
+	.item-disc::after {
+		@apply absolute block w-24 border-b-[2px] border-b-slate-200 py-2;
+		left: calc(50% - 96px / 2);
+		content: '';
+	}
+	.item-disc {
+		@apply w-[110ch];
+
+		@apply my-4 pb-3;
+	}
+	.ratings {
+		.stars {
+			@apply w-28;
+		}
+	}
+
+	.ratings,
+	.price {
+		@apply flex flex-row;
+	}
+
+	.price {
+		@apply flex flex-row items-baseline justify-between gap-2 border-b-[lightblue_1px_solid];
+		.amount {
+			@apply text-[30px] font-bold;
+		}
+
+		.currency {
+			@apply text-lg text-slate-400;
+		}
+	}
+}

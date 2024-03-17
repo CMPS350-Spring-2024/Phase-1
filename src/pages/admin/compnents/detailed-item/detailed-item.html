@@ -1,0 +1,77 @@
+<extends
+	src="../../../../layouts/base.html"
+	locals='{
+		"title": "Vite + TS",
+		"base_url": "../../../../"
+	}'
+>
+	<block name="app">
+		<link
+			rel="stylesheet"
+			href="../....//../styles/admin.css"
+		/>
+		<script
+			type="module"
+			src="../../../../../src/scripts/index.ts"
+		></script>
+
+		<section class="item-detialed">
+			<section>
+				<img
+					class="image-prev"
+					alt="image-removebg-preview-1"
+					src="../../../../../public/images/prev-1.png"
+				/>
+			</section>
+			<section>
+				<div class="item-type"><h3>Aerial Photography</h3></div>
+				<div class="item-name"><h2>DJI Mavic 3</h2></div>
+			</section>
+
+			<section class="ratings">
+				<div class="stars">
+					<i
+						class="star filled"
+						alt="star"
+						data-lucide="star"
+					></i>
+					<i
+						class="star filled"
+						alt="star"
+						data-lucide="star"
+					></i>
+					<i
+						class="star filled"
+						alt="star"
+						data-lucide="star"
+					></i>
+					<i
+						class="star"
+						alt="star"
+						data-lucide="star"
+					></i>
+					<i
+						class="star"
+						alt="star"
+						data-lucide="star"
+					></i>
+				</div>
+				<section>3.0 (5,051 reviews)</section>
+			</section>
+			<section class="item-disc">
+				<article>
+					The DJI Mavic 3 Pro is a flagship drone that combines powerful performance, stunning imaging, and
+					long-range transmission. It features a tri-camera system with multiple focal lengths, a 4/3 CMOS
+					Hasselblad camera, and a 1TB SSD. Whether you are a photography enthusiast, a professional
+					photographer, or a film/television producer, the Mavic 3 Pro can help you create stunning works in
+					various scenarios.
+				</article>
+			</section>
+
+			<div class="price">
+				<p class="currency">USD</p>
+				<p class="amount">3,889.00</p>
+			</div>
+		</section>
+	</block>
+</extends>

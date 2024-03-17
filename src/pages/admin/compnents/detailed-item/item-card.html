@@ -1,0 +1,91 @@
+<extends
+	src="../../../../layouts/base.html"
+	locals='{
+		"title": "Vite + TS",
+		"base_url": "../../../../"
+	}'
+>
+	<block name="app">
+		<link
+			rel="stylesheet"
+			href="../....//../styles/admin.css"
+		/>
+		<script
+			type="module"
+			src="../../../../../src/scripts/index.ts"
+		></script>
+
+		<section class="product-prv">
+			<section class="image-container">
+				<img
+					class="image-prev"
+					alt="image-removebg-preview-1"
+					src="../../../../../public/images/prev-1.png"
+				/>
+			</section>
+			<section class="middle-section">
+				<section class="ratings">
+					<div class="stars">
+						<i
+							class="star filled"
+							alt="star"
+							data-lucide="star"
+						></i>
+						<i
+							class="star filled"
+							alt="star"
+							data-lucide="star"
+						></i>
+						<i
+							class="star"
+							alt="star"
+							data-lucide="star"
+						></i>
+						<i
+							class="star"
+							alt="star"
+							data-lucide="star"
+						></i>
+						<i
+							class="star"
+							alt="star"
+							data-lucide="star"
+						></i>
+					</div>
+					<div class="reviews">3.0 (5,051 reviews)</div>
+				</section>
+
+				<section class="title-price">
+					<div class="title"><p>DJI Mavic 3</p></div>
+
+					<div class="price">
+						<p class="currency">USD</p>
+						<p class="amount">3,889.00</p>
+					</div>
+				</section>
+			</section>
+			<section class="end-section">
+				<div class="in-stock-row">
+					<p>In Stock</p>
+					<p>461 drones</p>
+				</div>
+				<div class="quantity-row">
+					<p>Quantity Sold</p>
+					<p>5,159 drones</p>
+				</div>
+				<div class="orders-row">
+					<p>Ongoing Orders</p>
+					<p>89 orders</p>
+				</div>
+				<div class="package-row">
+					<p>Package Weight</p>
+					<p>958g</p>
+				</div>
+			</section>
+			<section class="bottom-buttons">
+				<button type="button">Edit Product</button>
+				<button type="button">View Details</button>
+			</section>
+		</section>
+	</block>
+</extends>
