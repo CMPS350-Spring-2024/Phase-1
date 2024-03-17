@@ -185,19 +185,19 @@
 
 @layer components {
 	.product-prv {
-		@apply m-8 rounded border-2 border-slate-200;
+		@apply m-8 rounded-lg border-2 border-slate-200;
 	}
 
 	.product-prv {
 		@apply grid w-[-moz-fit-content] w-[fit-content] items-center justify-center;
 	}
 
-	.product-prv > section {
-		@apply border-b border-slate-200;
-	}
-
 	.image-prev {
-		@apply m-[88px] size-[200px];
+		@apply mx-[88px] my-[10px] size-[200px];
+	}
+	.middle-section,
+	.image-container {
+		@apply border-b border-slate-200;
 	}
 
 	.ratings {
@@ -242,8 +242,10 @@
 	.end-section > div {
 		@apply m-4 flex flex-row justify-between text-lg;
 	}
+
 	.bottom-buttons {
 		@apply grid grid-cols-[1fr_1fr];
+		@apply border-t border-slate-200;
 	}
 
 	.bottom-buttons > button {
