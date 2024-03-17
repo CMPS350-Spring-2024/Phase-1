@@ -181,3 +181,72 @@
 		}
 	}
 }
+/* item card stylingh */
+
+@layer components {
+	.product-prv {
+		@apply m-8 rounded border-2 border-slate-200;
+	}
+
+	.product-prv {
+		@apply grid w-[-moz-fit-content] w-[fit-content] items-center justify-center;
+	}
+
+	.product-prv > section {
+		@apply border-b border-slate-200;
+	}
+
+	.image-prev {
+		@apply m-[88px] size-[200px];
+	}
+
+	.ratings {
+		@apply mx-2 my-4 flex flex-row gap-4;
+	}
+	.stars {
+		@apply flex flex-row;
+	}
+	.star {
+		@apply fill-slate-400 text-slate-400;
+	}
+	.filled {
+		@apply fill-[#FFEA00] text-[#FFEA00];
+	}
+	.reviews {
+		@apply text-[15pt] text-slate-500;
+	}
+
+	.price {
+		@apply flex flex-row justify-between gap-1 border-b-[lightblue_1px_solid];
+	}
+
+	.title-price {
+		@apply m-4 flex flex-row justify-between gap-1;
+
+		.title {
+			@apply text-[30px] font-bold;
+		}
+
+		.price {
+			@apply flex flex-row items-baseline justify-between gap-2 border-b-[lightblue_1px_solid];
+			.amount {
+				@apply text-[30px] font-bold;
+			}
+
+			.currency {
+				@apply text-lg text-slate-400;
+			}
+		}
+	}
+
+	.end-section > div {
+		@apply m-4 flex flex-row justify-between text-lg;
+	}
+	.bottom-buttons {
+		@apply grid grid-cols-[1fr_1fr];
+	}
+
+	.bottom-buttons > button {
+		@apply w-[100%]  items-center rounded-b border-l-[0.5px] border-slate-100  py-3 text-center text-lg font-semibold hover:bg-blue-600;
+	}
+}

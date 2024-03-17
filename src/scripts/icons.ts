@@ -15,6 +15,7 @@ import {
 	Plus,
 	Search,
 	ShoppingCart,
+	Star,
 	TrendingDown,
 	TrendingUp,
 	User,
@@ -47,6 +48,7 @@ export const convertIcons = () =>
 			PackageCheck,
 			CheckCircle,
 			Clock3,
+			Star,
 		},
 	});
 
