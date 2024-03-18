@@ -29,14 +29,26 @@ export class DroneViewer extends PrimitiveComponent {
 
 		//	Create and setup a new scene
 		const scene = new THREE.Scene();
-		scene.background = new THREE.Color(0xffffff);
-		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		const camera = new THREE.PerspectiveCamera(
+			75,
+			(this.element as HTMLCanvasElement).clientWidth / (this.element as HTMLCanvasElement).clientHeight,
+			0.1,
+			1000,
+		);
 		camera.position.set(-1.8, 0.9, 2.7);
 
 		//	Create and setup a new renderer
-		const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: this.element as HTMLCanvasElement });
+		const renderer = new THREE.WebGLRenderer({
+			alpha: true,
+			antialias: true,
+			canvas: this.element as HTMLCanvasElement,
+		});
 		renderer.setPixelRatio(window.devicePixelRatio);
-		renderer.setSize(window.innerWidth * 0.75, window.innerHeight * 0.75);
+		renderer.setClearColor(0xffffff, 0);
+		renderer.setSize(
+			(this.element as HTMLCanvasElement).clientWidth,
+			(this.element as HTMLCanvasElement).clientHeight,
+		);
 
 		//	Add a light to the scene
 		const ambientLight = new THREE.AmbientLight(0xffffff, 2);

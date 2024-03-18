@@ -1,105 +1,40 @@
 <extends
-	src="../layouts/base.html"
-	locals='{
-		"title": "Vite + TS",
-		"type": "home",
-		"base_url": "../"
-	}'
+	src="../layouts/home.html"
+	locals='{ "title": "DJI Store" }'
 >
 	<block name="app">
-		<script
-			type="module"
-			src="/src/scripts/home.ts"
-		></script>
-
-		<form class="flex flex-col gap-4 p-4">
-			<ui-text-input placeholder="Enter full name...">
-				Full Name
-				<i
-					slot="left-icon"
-					data-lucide="user"
-				></i>
-			</ui-text-input>
-			<ui-text-input
-				type="email"
-				placeholder="Enter email address..."
-			>
-				Email Address
-				<i
-					slot="left-icon"
-					data-lucide="mail"
-				></i>
-			</ui-text-input>
-		</form>
-		<ui-modal
-			class="w-[440px]"
-			title="Edit Profile"
-			description="Modify your account details"
-		>
-			<ui-button slot="toggle">
-				Top-Up Balance
-				<i
-					class="size-3.5"
-					data-lucide="wallet"
-				></i>
-			</ui-button>
-
-			test
-		</ui-modal>
-		<ui-numeric-input value="9"></ui-numeric-input>
-		<ui-avatar color="black">MF</ui-avatar>
-		<ui-button fill="ghost">
-			<i
-				class="size-3.5"
-				data-lucide="chevron-left"
-			></i>
-			Back
-		</ui-button>
-		<div class="flex size-fit flex-col gap-12">
-			<div class="flex w-[440px] flex-col gap-2">
-				<h1 class="font-serif text-5xl font-bold tracking-wide text-title">Mavic 3 Pro</h1>
-				<p class="leading-relaxed tracking-wide text-secondary">
-					The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and
-					extensive range, ideal for photographers and filmmakers in diverse settings.
-				</p>
+		<div class="model-viewer">
+			<div class="product-description">
+				<div class="label">
+					<h1 class="title">Mavic 3 Pro</h1>
+					<p class="description">
+						The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and
+						extensive range, ideal for photographers and filmmakers in diverse settings.
+					</p>
+				</div>
+				<hr />
+				<span class="action">
+					<ui-price-display size="lg">3,889.00</ui-price-display>
+					<ui-button
+						class="cta group"
+						fill="outline"
+					>
+						View
+						<i data-lucide="move-right"></i>
+						<span class="left streak"></span>
+						<span class="right streak"></span>
+					</ui-button>
+				</span>
 			</div>
-			<hr class="w-12 rounded-full border-border" />
-			<div class="inline-flex place-content-between">
-				<ui-price-display size="lg">3,889.00</ui-price-display>
-				<ui-button
-					class="transition-gap group w-32 rounded-none font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6 focus-hover:bg-white"
-					fill="outline"
-					data-hs-overlay="test-modal"
-					onclick="document.querySelector('ui-dropdown').toggle(); document.querySelector('ui-avatar').randomizeColor(); document.querySelector('ui-modal').toggle();"
-				>
-					View
-					<i
-						class="size-4 stroke-1"
-						data-lucide="move-right"
-					></i>
-					<span
-						class="absolute -left-4 box-content h-[1px] w-6 translate-x-3 scale-x-0 border-y-8 border-white bg-slate-300 opacity-0 transition-all duration-500 group-focus-hover:translate-x-0 group-focus-hover:scale-x-100 group-focus-hover:opacity-100"
-					></span>
-					<span
-						class="absolute -right-4 box-content h-[1px] w-6 -translate-x-3 scale-x-0 border-y-8 border-white bg-slate-300 opacity-0 transition-all duration-500 group-focus-hover:translate-x-0 group-focus-hover:scale-x-100 group-focus-hover:opacity-100"
-					></span>
-				</ui-button>
-			</div>
+			<ui-drone-viewer></ui-drone-viewer>
+
+			<h1 class="lg bg-text">DJI</h1>
+
+			<h1 class="md bg-text">
+				Aerial
+				<br />
+				Photography
+			</h1>
 		</div>
-		<ui-drone-viewer></ui-drone-viewer>
-
-		<h1
-			class="line pointer-events-none absolute -bottom-20 left-8 origin-top-left -rotate-90 font-display text-[128px] font-black uppercase leading-[128px] text-zinc-100"
-		>
-			DJI
-		</h1>
-
-		<h2
-			class="line pointer-events-none absolute right-8 top-8 origin-top-left text-right font-display text-[64px] font-black uppercase leading-[64px] text-zinc-100"
-		>
-			Aerial
-			<br />
-			Photography
-		</h2>
 	</block>
 </extends>

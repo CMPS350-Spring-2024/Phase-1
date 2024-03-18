@@ -1,0 +1,93 @@
+main {
+	@apply flex flex-row p-3;
+	height: calc(100vh - 56px);
+
+	div.model-viewer {
+		@apply flex flex-1 flex-row place-content-center items-center gap-32;
+		@apply border border-border bg-opacity-50 bg-gradient-to-br from-[#fff5ffaa] via-white via-50% to-[#f9fbffaa];
+		@apply rounded-lg;
+
+		div.product-description {
+			@apply flex size-fit flex-col gap-16 pb-16;
+
+			div.label {
+				@apply flex w-[400px] flex-col gap-3;
+
+				h1.title {
+					@apply font-serif text-5xl font-black tracking-wide text-title;
+				}
+
+				p.description {
+					@apply text-pretty leading-loose tracking-wide text-secondary;
+				}
+			}
+
+			hr {
+				@apply w-12 rounded-full border-border;
+			}
+
+			span.action {
+				@apply inline-flex place-content-between;
+
+				ui-button.cta {
+					&::part(root) {
+						@apply w-36 rounded-none;
+						@apply font-serif text-xs uppercase tracking-[0.15rem];
+						@apply text-secondary ring-blue-400 ring-offset-4 focus:ring focus-hover:gap-x-6 focus-hover:bg-slate-50;
+						@apply transition-[column-gap] duration-300;
+					}
+
+					svg {
+						@apply stroke-1;
+					}
+
+					.streak {
+						@apply absolute box-content h-[1px] w-6;
+						@apply border-y-8 border-slate-50 bg-slate-300;
+						@apply opacity-0;
+						@apply transition-all duration-500;
+						@apply scale-x-0;
+
+						&.left {
+							@apply -left-4 translate-x-3;
+						}
+
+						&.right {
+							@apply -right-4 -translate-x-3;
+						}
+					}
+				}
+			}
+		}
+
+		ui-drone-viewer::part(root) {
+			@apply h-[640px] w-[640px];
+		}
+
+		h1.bg-text {
+			@apply pointer-events-none;
+			@apply absolute;
+			@apply text-zinc-100;
+			@apply font-display font-black uppercase;
+
+			&.lg {
+				@apply -bottom-20 left-8;
+				@apply text-[128px] leading-[128px];
+				@apply origin-top-left -rotate-90;
+			}
+
+			&.md {
+				@apply right-8 top-8;
+				@apply text-right text-[64px] leading-[64px];
+			}
+		}
+	}
+}
+
+/* This has to be outside due to a bug with nested CSS and group selectors */
+.group:focus span.streak,
+.group:hover span.streak {
+	--tw-translate-x: 0 !important;
+	--tw-scale-x: 1 !important;
+	opacity: 1 !important;
+}
