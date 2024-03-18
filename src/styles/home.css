@@ -8,17 +8,17 @@ main {
 		@apply rounded-lg;
 
 		div.product-description {
-			@apply flex size-fit flex-col gap-16 pb-16;
+			@apply flex size-fit flex-col gap-12 pb-16;
 
 			div.label {
-				@apply flex w-[400px] flex-col gap-3;
+				@apply flex w-[400px] flex-col;
 
 				h1.title {
 					@apply font-serif text-5xl font-black tracking-wide text-title;
 				}
 
 				p.description {
-					@apply text-pretty leading-loose tracking-wide text-secondary;
+					@apply mt-4 text-pretty leading-loose tracking-wide text-secondary;
 				}
 			}
 
@@ -33,7 +33,7 @@ main {
 					&::part(root) {
 						@apply w-36 rounded-none;
 						@apply font-serif text-xs uppercase tracking-[0.15rem];
-						@apply text-secondary ring-blue-400 ring-offset-4 focus:ring focus-hover:gap-x-6 focus-hover:bg-slate-50;
+						@apply text-secondary ring-blue-400 ring-offset-4 focus:ring focus-hover:gap-x-6 focus-hover:bg-white;
 						@apply transition-[column-gap] duration-300;
 					}
 
@@ -43,7 +43,7 @@ main {
 
 					.streak {
 						@apply absolute box-content h-[1px] w-6;
-						@apply border-y-8 border-slate-50 bg-slate-300;
+						@apply border-y-8 border-white bg-slate-300;
 						@apply opacity-0;
 						@apply transition-all duration-500;
 						@apply scale-x-0;
@@ -62,6 +62,89 @@ main {
 
 		ui-drone-viewer::part(root) {
 			@apply h-[640px] w-[640px];
+		}
+
+		ui-button.arrow-btn {
+			&::part(root) {
+				@apply absolute px-6;
+				@apply rounded-none border-0 focus-hover:bg-transparent;
+				@apply transition-opacity;
+			}
+
+			svg {
+				@apply size-8 stroke-1 text-slate-300;
+				@apply translate-x-0;
+				@apply transition-all duration-500;
+			}
+
+			p {
+				@apply text-slate-300;
+				@apply font-serif text-3xl uppercase tracking-widest;
+				@apply transition-transform duration-500;
+			}
+
+			&.left {
+				&::part(root) {
+					@apply left-0;
+				}
+
+				p {
+					@apply -translate-x-6 -rotate-90;
+				}
+			}
+
+			&.right {
+				&::part(root) {
+					@apply right-0 flex-row-reverse;
+				}
+
+				p {
+					@apply translate-x-6 rotate-90;
+				}
+			}
+		}
+
+		div.carousel {
+			@apply absolute bottom-8;
+			@apply flex flex-row items-center gap-2;
+
+			hr {
+				@apply w-2 rounded-full border-border;
+			}
+
+			ui-button::part(root) {
+				@apply size-3 p-0 focus-hover:mx-1;
+				@apply rounded-[2px] border-border;
+				@apply rotate-45;
+				@apply transition-all duration-500;
+
+				&.series {
+					@apply size-3 border-2;
+				}
+				&.drone {
+					@apply size-2 border border-slate-400;
+
+					&.active {
+						@apply border-blue-400;
+					}
+				}
+			}
+
+			span.series-container {
+				@apply flex flex-row place-content-center items-center;
+				@apply gap-3 px-2 pb-2 pt-8;
+				@apply border-x border-border;
+				@apply -translate-y-3;
+
+				hr {
+					@apply w-4;
+				}
+
+				p.label {
+					@apply absolute top-0;
+					@apply font-serif text-xs uppercase tracking-wide text-secondary opacity-70;
+				}
+			}
 		}
 
 		h1.bg-text {
@@ -85,9 +168,35 @@ main {
 }
 
 /* This has to be outside due to a bug with nested CSS and group selectors */
-.group:focus span.streak,
-.group:hover span.streak {
-	--tw-translate-x: 0 !important;
-	--tw-scale-x: 1 !important;
-	opacity: 1 !important;
+.group:focus,
+.group:hover {
+	/* Main CTA button */
+	&.cta span.streak {
+		--tw-translate-x: 0 !important;
+		--tw-scale-x: 1 !important;
+		opacity: 1 !important;
+	}
+
+	/* Arrow Buttons */
+	&.arrow-btn {
+		opacity: 0.75;
+
+		&.left {
+			svg {
+				--tw-translate-x: -12px !important;
+			}
+			p {
+				--tw-translate-x: -28px !important;
+			}
+		}
+
+		&.right {
+			svg {
+				--tw-translate-x: 12px !important;
+			}
+			p {
+				--tw-translate-x: 28px !important;
+			}
+		}
+	}
 }
