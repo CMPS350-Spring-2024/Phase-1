@@ -3,12 +3,14 @@ main {
 	height: calc(100vh - 56px);
 
 	div.model-viewer {
-		@apply flex flex-1 flex-row place-content-center items-center gap-32;
+		@apply flex flex-1 flex-row place-content-center items-center gap-8 xl:gap-32;
 		@apply border border-border bg-opacity-50 bg-gradient-to-br from-[#fff5ffaa] via-white via-50% to-[#f9fbffaa];
 		@apply rounded-lg;
 
 		div.product-description {
-			@apply flex size-fit flex-col gap-12 pb-16;
+			@apply flex size-fit flex-col;
+			@apply gap-8 pb-16 xl:gap-12;
+			z-index: 1;
 
 			div.label {
 				@apply flex w-[400px] flex-col;
@@ -61,7 +63,8 @@ main {
 		}
 
 		ui-drone-viewer::part(root) {
-			@apply h-[640px] w-[640px];
+			@apply -mx-8 size-[480px] xl:size-[640px];
+			@apply translate-y-4;
 		}
 
 		ui-button.arrow-btn {
@@ -69,6 +72,7 @@ main {
 				@apply absolute px-6;
 				@apply rounded-none border-0 focus-hover:bg-transparent;
 				@apply transition-opacity;
+				@apply z-10;
 			}
 
 			svg {
@@ -113,7 +117,7 @@ main {
 			}
 
 			ui-button::part(root) {
-				@apply size-3 p-0 focus-hover:mx-1;
+				@apply size-3 p-0 focus-hover:mx-0.5;
 				@apply rounded-[2px] border-border;
 				@apply rotate-45;
 				@apply transition-all duration-500;
