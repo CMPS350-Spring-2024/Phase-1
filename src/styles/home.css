@@ -151,6 +151,19 @@ main {
 			}
 		}
 
+		ui-button.github {
+			&::part(root) {
+				@apply absolute left-12 top-12;
+				@apply size-8 p-0;
+				@apply rounded-none border-0 outline-0;
+				@apply transition-all duration-500;
+			}
+
+			svg {
+				@apply size-full fill-slate-200;
+			}
+		}
+
 		h1.bg-text {
 			@apply pointer-events-none;
 			@apply absolute;
