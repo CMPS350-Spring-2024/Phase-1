@@ -1,9 +1,10 @@
 ui-drone-viewer {
 	&::part(container) {
 		@apply relative;
-		@apply size-[480px] xl:size-[640px];
+		@apply h-[480px] w-full xl:size-[640px];
 		@apply flex flex-col place-content-center items-center;
 	}
+
 	&::part(root) {
 		@apply size-full;
 		@apply -mx-8;

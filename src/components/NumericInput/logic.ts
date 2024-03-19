@@ -115,6 +115,11 @@ export class NumericInput extends PrimitiveComponent {
 			defaultProperties: NumericInput.defaultProperties,
 		});
 
+		//	Set the default value to within the min/max range
+		if (this.value! < this.min!) this.value = this.min!;
+		else if (this.value! > this.max!) this.value = this.max!;
+		this.element.setAttribute('value', this.value!.toString());
+
 		//	Allow the input to be associated with a form
 		this._defaultValue = this.valueAsNumber;
 		this._internals = this.attachInternals();
