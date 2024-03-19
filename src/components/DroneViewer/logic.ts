@@ -32,6 +32,8 @@ export class DroneViewer extends PrimitiveComponent {
 	static SHADOW_DARKNESS = 1;
 	static SHADOW_BLUR = 3;
 
+	container: HTMLElement | null = null;
+	helper: HTMLElement | null = null;
 	clock: THREE.Clock = new THREE.Clock();
 	scene: THREE.Scene = new THREE.Scene();
 	camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera();
@@ -52,6 +54,15 @@ export class DroneViewer extends PrimitiveComponent {
 			defaultProperties: DroneViewer.defaultProperties,
 		});
 
+		//	Find the container element
+		this.container = this.shadowRoot!.querySelector('[part="container"]') as HTMLElement;
+		this.helper = this.shadowRoot!.querySelector('[part="helper"]') as HTMLElement;
+
+		//	Show the helper based on the session storage
+		if (window.sessionStorage.getItem('hideHelper') !== 'true') {
+			this.helper!.classList.remove('opacity-0');
+		}
+
 		//	Setup the scene
 		this.setupScene();
 
@@ -63,6 +74,15 @@ export class DroneViewer extends PrimitiveComponent {
 
 		//	Start the animation loop
 		this.animateFrame();
+
+		//	Handle window resize events
+		window.addEventListener('resize', () => this.handleWindowResize());
+
+		//	Hide helper when the canvas is clicked
+		this.element.addEventListener('mousedown', () => {
+			this.helper!.classList.add('opacity-0');
+			window.sessionStorage.setItem('hideHelper', 'true');
+		});
 	}
 
 	/**
@@ -126,7 +146,7 @@ export class DroneViewer extends PrimitiveComponent {
 		this.controls = controls;
 
 		//	Append the renderer to this component
-		this.shadowRoot!.appendChild(renderer.domElement);
+		this.container!.appendChild(renderer.domElement);
 		this.render();
 	};
 
@@ -265,6 +285,16 @@ export class DroneViewer extends PrimitiveComponent {
 		this.renderer.render(this.blurPlane, this.shadowCamera);
 
 		this.blurPlane.visible = false;
+	};
+
+	/**
+	 * Function to handle the resize event
+	 */
+	private handleWindowResize = () => {
+		this.camera.aspect = this.container!.clientWidth / this.container!.clientHeight;
+		this.camera.updateProjectionMatrix();
+		this.renderer.setSize(this.container!.clientWidth, this.container!.clientHeight);
+		this.render();
 	};
 
 	/**

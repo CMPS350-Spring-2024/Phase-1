@@ -1,0 +1,92 @@
+ui-drone-viewer {
+	&::part(container) {
+		@apply relative;
+		@apply size-[480px] xl:size-[640px];
+		@apply flex flex-col place-content-center items-center;
+	}
+	&::part(root) {
+		@apply cursor-pointer;
+		@apply size-full;
+		@apply -mx-8;
+		@apply translate-y-4;
+	}
+
+	&::part(caption) {
+		@apply pointer-events-none;
+		@apply absolute bottom-16;
+		@apply flex flex-row place-content-center items-center;
+		@apply gap-2 pb-1;
+		@apply border-b border-border;
+		@apply text-secondary;
+		@apply z-10 opacity-75;
+		border: 0px solid;
+		border-bottom-width: 1px;
+		border-image-source: linear-gradient(
+			to right,
+			transparent 0%,
+			rgb(218, 218, 218) 40%,
+			rgb(218, 218, 218) 60%,
+			transparent 100%
+		);
+		border-image-slice: 1;
+	}
+
+	&::part(helper) {
+		@apply pointer-events-none;
+		@apply absolute;
+		@apply size-5;
+		@apply text-title;
+		@apply z-10;
+		@apply transition-opacity duration-300;
+		animation: orbit-helper 2000ms ease-in-out infinite forwards;
+	}
+
+	/* Show the correct hand icon based on the animation */
+	&::part(hand-helper) {
+		@apply absolute size-full;
+		animation: hand-helper 2000ms ease-in-out infinite forwards;
+	}
+	&::part(grab-helper) {
+		@apply absolute size-full;
+		animation: grab-helper 2000ms ease-in-out infinite forwards;
+	}
+}
+
+@keyframes orbit-helper {
+	30% {
+		transform: translateX(0px);
+	}
+	100% {
+		transform: translateX(64px);
+	}
+}
+
+@keyframes hand-helper {
+	0% {
+		opacity: 1;
+	}
+	30% {
+		opacity: 1;
+	}
+	31% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes grab-helper {
+	0% {
+		opacity: 0;
+	}
+	30% {
+		opacity: 0;
+	}
+	31% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+}
