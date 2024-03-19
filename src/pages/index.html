@@ -4,6 +4,7 @@
 >
 	<block name="app">
 		<div class="model-viewer">
+			<!-- Drone Description -->
 			<div class="product-description">
 				<div class="label">
 					<h1 class="title">Mavic 3 Pro</h1>
@@ -15,7 +16,10 @@
 				<hr />
 				<span class="action">
 					<ui-price-display size="lg">3,889.00</ui-price-display>
-					<ui-button class="cta group">
+					<ui-button
+						class="cta group"
+						onclick="document.querySelector('main').classList.add('product-overview');"
+					>
 						View
 						<i data-lucide="move-right"></i>
 						<span class="left streak"></span>
@@ -23,18 +27,30 @@
 					</ui-button>
 				</span>
 			</div>
+
+			<!-- 3D Drone Model -->
 			<ui-drone-viewer></ui-drone-viewer>
 
+			<!-- Back Button -->
+			<ui-button
+				class="back-btn group"
+				onclick="document.querySelector('main').classList.remove('product-overview');"
+			>
+				<i data-lucide="move-left"></i>
+				<p>Back</p>
+			</ui-button>
+
+			<!-- Previous and Next Arrows -->
 			<ui-button class="left arrow-btn group">
 				<i data-lucide="move-left"></i>
 				<p>Avata</p>
 			</ui-button>
-
 			<ui-button class="right arrow-btn group">
 				<i data-lucide="move-right"></i>
 				<p>Air 2</p>
 			</ui-button>
 
+			<!-- Drone Carousel Control -->
 			<div class="carousel">
 				<ui-button class="series"></ui-button>
 				<hr />
@@ -60,6 +76,7 @@
 				<ui-button class="series"></ui-button>
 			</div>
 
+			<!-- GitHub Link -->
 			<ui-button
 				class="github"
 				target="_blank"
@@ -77,6 +94,8 @@
 					/>
 				</svg>
 			</ui-button>
+
+			<!-- Decorative Text -->
 			<h1 class="lg bg-text">DJI</h1>
 			<h1 class="md bg-text">
 				Aerial
@@ -84,5 +103,6 @@
 				Photography
 			</h1>
 		</div>
+		<div class="product-details"></div>
 	</block>
 </extends>

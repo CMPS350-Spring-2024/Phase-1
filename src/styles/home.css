@@ -3,7 +3,8 @@ main {
 	height: calc(100vh - 56px);
 
 	div.model-viewer {
-		@apply flex flex-1 flex-row place-content-center items-center gap-8 xl:gap-32;
+		@apply flex flex-1 flex-row place-content-center items-center;
+		@apply gap-8 overflow-hidden xl:gap-32;
 		@apply border border-border bg-opacity-50 bg-gradient-to-br from-[#fff5ffaa] via-white via-50% to-[#f9fbffaa];
 		@apply rounded-lg;
 
@@ -62,11 +63,31 @@ main {
 			}
 		}
 
+		ui-button.back-btn {
+			&::part(root) {
+				@apply absolute left-0 top-16 hidden;
+				@apply gap-2.5 py-2.5 pl-6 pr-5;
+				@apply rounded-lg rounded-s-none border-l-0 bg-white text-secondary outline-none;
+				@apply -translate-x-2;
+				@apply transition-all duration-500;
+			}
+
+			svg {
+				@apply size-3.5;
+				@apply translate-x-0;
+				@apply transition-all duration-500;
+			}
+
+			p {
+				@apply font-serif text-sm font-semibold uppercase tracking-[2px];
+			}
+		}
+
 		ui-button.arrow-btn {
 			&::part(root) {
 				@apply absolute px-6;
-				@apply rounded-none border-0 focus-hover:bg-transparent;
-				@apply transition-opacity;
+				@apply rounded-none border-0 outline-none focus-hover:bg-transparent;
+				@apply transition-all;
 				@apply z-10;
 			}
 
@@ -167,15 +188,45 @@ main {
 			@apply font-display font-black uppercase;
 
 			&.lg {
-				@apply -bottom-20 left-8;
-				@apply text-[128px] leading-[128px];
+				@apply -bottom-16 left-8;
+				@apply text-[100px] leading-[100px];
 				@apply origin-top-left -rotate-90;
 			}
 
 			&.md {
 				@apply right-8 top-8;
-				@apply text-right text-[64px] leading-[64px];
+				@apply text-right text-[48px] leading-[48px];
 			}
+		}
+	}
+
+	div.product-details {
+		@apply hidden flex-1;
+	}
+
+	/* When the product details window is open */
+	&.product-overview {
+		div.model-viewer {
+			@apply max-w-[1000px] bg-none;
+
+			div.product-description {
+				@apply hidden;
+			}
+
+			ui-drone-viewer::part(container) {
+				@apply w-full;
+			}
+
+			ui-button.back-btn::part(root) {
+				@apply flex;
+			}
+
+			ui-button.github {
+				@apply hidden;
+			}
+		}
+		div.product-details {
+			@apply flex;
 		}
 	}
 }
@@ -188,6 +239,16 @@ main {
 		--tw-translate-x: 0 !important;
 		--tw-scale-x: 1 !important;
 		opacity: 1 !important;
+	}
+
+	/* Back Button */
+	&.back-btn {
+		&::part(root) {
+			--tw-translate-x: 0 !important;
+		}
+		svg {
+			--tw-translate-x: -4px !important;
+		}
 	}
 
 	/* Arrow Buttons */

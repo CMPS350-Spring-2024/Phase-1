@@ -30,6 +30,11 @@ p {
 	@apply text-sm;
 }
 
+/* Make the main element flow as a column by default */
+main {
+	@apply flex flex-col;
+}
+
 @layer components {
 	/* Primitive web components should only display their contents */
 	[component] {

@@ -59,8 +59,8 @@ export class DroneViewer extends PrimitiveComponent {
 		this.helper = this.shadowRoot!.querySelector('[part="helper"]') as HTMLElement;
 
 		//	Show the helper based on the session storage
-		if (window.sessionStorage.getItem('hideHelper') !== 'true') {
-			this.helper!.classList.remove('opacity-0');
+		if (window.sessionStorage.getItem('hideHelper') === 'true') {
+			this.helper!.classList.add('opacity-0');
 		}
 
 		//	Setup the scene
@@ -75,8 +75,10 @@ export class DroneViewer extends PrimitiveComponent {
 		//	Start the animation loop
 		this.animateFrame();
 
-		//	Handle window resize events
+		//	Handle resize events when the window changes or canvas is resized
 		window.addEventListener('resize', () => this.handleWindowResize());
+		const resizeObserver = new ResizeObserver(() => this.handleWindowResize());
+		resizeObserver.observe(this.element);
 
 		//	Hide helper when the canvas is clicked
 		this.element.addEventListener('mousedown', () => {

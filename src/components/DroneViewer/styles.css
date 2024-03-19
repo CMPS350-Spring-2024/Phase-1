@@ -5,7 +5,6 @@ ui-drone-viewer {
 		@apply flex flex-col place-content-center items-center;
 	}
 	&::part(root) {
-		@apply cursor-pointer;
 		@apply size-full;
 		@apply -mx-8;
 		@apply translate-y-4;
