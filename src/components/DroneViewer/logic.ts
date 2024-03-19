@@ -32,9 +32,11 @@ export class DroneViewer extends PrimitiveComponent {
 	static SHADOW_DARKNESS = 1;
 	static SHADOW_BLUR = 3;
 
+	clock: THREE.Clock = new THREE.Clock();
 	scene: THREE.Scene = new THREE.Scene();
 	camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera();
 	renderer: THREE.WebGLRenderer = new THREE.WebGLRenderer();
+	controls: OrbitControls = new OrbitControls(this.camera, this.renderer.domElement);
 	renderTarget: THREE.WebGLRenderTarget = new THREE.WebGLRenderTarget(512, 512);
 	renderTargetBlur: THREE.WebGLRenderTarget = new THREE.WebGLRenderTarget(512, 512);
 	plane: THREE.Mesh = new THREE.Mesh();
@@ -107,18 +109,21 @@ export class DroneViewer extends PrimitiveComponent {
 
 		//	Setup the orbit controls
 		const controls = new OrbitControls(camera, renderer.domElement);
-		controls.addEventListener('change', () => this.render());
-		controls.minPolarAngle = 20 * (Math.PI / 180);
+		controls.minPolarAngle = 70 * (Math.PI / 180);
 		controls.maxPolarAngle = 90 * (Math.PI / 180);
+		controls.autoRotate = true;
+		controls.autoRotateSpeed = 0.5;
 		controls.enablePan = false;
 		controls.enableZoom = false;
+		controls.enableDamping = true;
+		controls.dampingFactor = 0.05;
 		controls.target.set(0, 0, 0);
-		controls.update();
 
 		//	Store the scene, camera, and renderer
 		this.scene = scene;
 		this.camera = camera;
 		this.renderer = renderer;
+		this.controls = controls;
 
 		//	Append the renderer to this component
 		this.shadowRoot!.appendChild(renderer.domElement);
@@ -287,12 +292,14 @@ export class DroneViewer extends PrimitiveComponent {
 		this.renderer.setClearAlpha(initialClearAlpha);
 		this.scene.background = initialBackground;
 
-		//	Render the scene
+		//	Render the scene and update the controls
 		this.render();
+		this.updateControls();
 	};
 
 	add = (object: THREE.Object3D) => this.scene.add(object);
 	render = (shadow: boolean = false) => this.renderer.render(this.scene, shadow ? this.shadowCamera : this.camera);
+	updateControls = () => this.controls.update(this.clock.getDelta());
 }
 
 customElements.define('ui-drone-viewer', DroneViewer);
