@@ -26,13 +26,18 @@ export class DroneViewer extends PrimitiveComponent {
 	static MODEL_SCALE = 7.5;
 	static PLANE_WIDTH = 10;
 	static PLANE_HEIGHT = 10;
-	static SHADOW_CAMERA_HEIGHT = 5;
+	static SHADOW_CAMERA_HEIGHT = 0.5;
+
+	static SHADOW_OPACITY = 1;
+	static SHADOW_DARKNESS = 1;
+	static SHADOW_BLUR = 3;
 
 	scene: THREE.Scene = new THREE.Scene();
 	camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera();
 	renderer: THREE.WebGLRenderer = new THREE.WebGLRenderer();
 	renderTarget: THREE.WebGLRenderTarget = new THREE.WebGLRenderTarget(512, 512);
 	renderTargetBlur: THREE.WebGLRenderTarget = new THREE.WebGLRenderTarget(512, 512);
+	plane: THREE.Mesh = new THREE.Mesh();
 	blurPlane: THREE.Mesh = new THREE.Mesh();
 	shadowCamera: THREE.OrthographicCamera = new THREE.OrthographicCamera();
 	depthMaterial: THREE.MeshDepthMaterial = new THREE.MeshDepthMaterial();
@@ -103,8 +108,8 @@ export class DroneViewer extends PrimitiveComponent {
 		//	Setup the orbit controls
 		const controls = new OrbitControls(camera, renderer.domElement);
 		controls.addEventListener('change', () => this.render());
-		controls.minPolarAngle = Math.PI * (1 / 4);
-		controls.maxPolarAngle = Math.PI * (3 / 4);
+		controls.minPolarAngle = 20 * (Math.PI / 180);
+		controls.maxPolarAngle = 90 * (Math.PI / 180);
 		controls.enablePan = false;
 		controls.enableZoom = false;
 		controls.target.set(0, 0, 0);
@@ -135,6 +140,7 @@ export class DroneViewer extends PrimitiveComponent {
 			async (gltf) => {
 				const model = gltf.scene;
 				model.scale.set(DroneViewer.MODEL_SCALE, DroneViewer.MODEL_SCALE, DroneViewer.MODEL_SCALE);
+				model.rotateX(-4 * (Math.PI / 180));
 				await this.renderer.compileAsync(model, this.camera, this.scene);
 				this.add(model);
 				this.render();
@@ -147,7 +153,7 @@ export class DroneViewer extends PrimitiveComponent {
 	};
 
 	/**
-	 * Sets up the contact shadow for the drone model.
+	 * Sets up the contact shadow for the drone model by creating the necessary planes and cameras.
 	 */
 	private setupContactShadow = () => {
 		//	Create a group to hold the contact shadow
@@ -166,7 +172,7 @@ export class DroneViewer extends PrimitiveComponent {
 		const planeGeometry = new THREE.PlaneGeometry(DroneViewer.PLANE_WIDTH, DroneViewer.PLANE_HEIGHT);
 		const planeMaterial = new THREE.MeshBasicMaterial({
 			map: renderTarget.texture,
-			opacity: 1,
+			opacity: DroneViewer.SHADOW_OPACITY,
 			transparent: true,
 			depthWrite: false,
 		});
@@ -194,16 +200,12 @@ export class DroneViewer extends PrimitiveComponent {
 		shadowGroup.add(plane);
 		shadowGroup.add(blurPlane);
 		shadowGroup.add(shadowCamera);
-
-		//	Add a helper to visualize the shadow camera, and add the shadow group to the scene
-		const cameraHelper = new THREE.CameraHelper(shadowCamera);
 		this.add(shadowGroup);
-		this.add(cameraHelper);
 
 		//	Create a new material for the shadow plane
 		const depthMaterial = new THREE.MeshDepthMaterial();
-		depthMaterial.userData.darkness.value = 1;
-		depthMaterial.onBeforeCompile = function (shader) {
+		depthMaterial.userData.darkness = { value: DroneViewer.SHADOW_DARKNESS };
+		depthMaterial.onBeforeCompile = (shader) => {
 			shader.uniforms.darkness = depthMaterial.userData.darkness;
 			shader.fragmentShader = /* glsl */ `
 						uniform float darkness;
@@ -225,6 +227,7 @@ export class DroneViewer extends PrimitiveComponent {
 		//	Store the needed variables
 		this.renderTarget = renderTarget;
 		this.renderTargetBlur = renderTargetBlur;
+		this.plane = plane;
 		this.blurPlane = blurPlane;
 		this.shadowCamera = shadowCamera;
 		this.depthMaterial = depthMaterial;
@@ -238,19 +241,21 @@ export class DroneViewer extends PrimitiveComponent {
 	private blurShadow = (amount: number) => {
 		this.blurPlane.visible = true;
 
-		// blur horizontally and draw in the renderTargetBlur
+		//	Blur horizontally and draw in the renderTargetBlur
 		this.blurPlane.material = this.horizontalBlurMaterial;
-		this.blurPlane.material.uniforms.tDiffuse.value = this.renderTarget.texture;
+		(this.blurPlane.material as any).uniforms.tDiffuse.value = this.renderTarget.texture;
 		this.horizontalBlurMaterial.uniforms.h.value = (amount * 1) / 256;
 
+		//	Render to the blur render target
 		this.renderer.setRenderTarget(this.renderTargetBlur);
 		this.renderer.render(this.blurPlane, this.shadowCamera);
 
-		// blur vertically and draw in the main renderTarget
+		//	Blur vertically and draw in the main renderTarget
 		this.blurPlane.material = this.verticalBlurMaterial;
-		this.blurPlane.material.uniforms.tDiffuse.value = this.renderTargetBlur.texture;
+		(this.blurPlane.material as any).uniforms.tDiffuse.value = this.renderTargetBlur.texture;
 		this.verticalBlurMaterial.uniforms.v.value = (amount * 1) / 256;
 
+		//	Render to the main render target
 		this.renderer.setRenderTarget(this.renderTarget);
 		this.renderer.render(this.blurPlane, this.shadowCamera);
 
@@ -273,8 +278,8 @@ export class DroneViewer extends PrimitiveComponent {
 		this.render(true);
 
 		//	Blur the shadow with two passes to get rid of artifacts
-		this.blurShadow(3.5);
-		this.blurShadow(3.5 * 0.4);
+		this.blurShadow(DroneViewer.SHADOW_BLUR);
+		this.blurShadow(DroneViewer.SHADOW_BLUR * 0.4);
 
 		//	Then return the scene to its original state
 		this.scene.overrideMaterial = null;
