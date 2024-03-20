@@ -1,0 +1,347 @@
+main {
+	@apply flex flex-col gap-4 p-3 xl:h-[calc(100vh-56px)] xl:flex-row xl:gap-0;
+
+	div.product-description {
+		@apply flex-col;
+
+		div.label {
+			@apply flex flex-col;
+
+			h1.title {
+				@apply font-serif text-2xl font-black text-title xl:text-3xl;
+			}
+
+			p.description {
+				@apply text-pretty leading-loose text-secondary;
+			}
+		}
+
+		hr {
+			@apply w-12 rounded-full border-border;
+		}
+	}
+
+	div.model-viewer {
+		@apply flex flex-1 flex-col-reverse place-content-center items-center xl:flex-row;
+		@apply gap-8 overflow-hidden pb-0 md:pb-24 xl:pb-0 2xl:gap-32;
+		@apply border border-border bg-opacity-50 bg-none from-[#fff5ffaa] via-white via-50% to-[#f9fbffaa] xl:bg-gradient-to-br;
+		@apply rounded-lg;
+
+		div.product-description {
+			@apply hidden size-fit xl:flex;
+			@apply gap-8 pb-16 xl:gap-12;
+			z-index: 1;
+
+			div.label {
+				@apply w-[400px] items-start;
+
+				h1.title {
+					@apply text-5xl tracking-wide;
+				}
+
+				p.description {
+					@apply mt-4 tracking-wide;
+				}
+			}
+
+			span.action {
+				@apply inline-flex place-content-between;
+
+				ui-button.cta {
+					&::part(root) {
+						@apply w-36 rounded-none;
+						@apply font-serif text-xs uppercase tracking-[0.15rem];
+						@apply text-secondary ring-blue-400 ring-offset-4 focus:ring focus-hover:gap-x-6 focus-hover:bg-white;
+						@apply transition-[column-gap] duration-300;
+					}
+
+					svg {
+						@apply stroke-1;
+					}
+
+					.streak {
+						@apply absolute box-content h-[1px] w-6;
+						@apply border-y-8 border-white bg-slate-300;
+						@apply opacity-0;
+						@apply transition-all duration-500;
+						@apply scale-x-0;
+
+						&.left {
+							@apply -left-4 translate-x-3;
+						}
+
+						&.right {
+							@apply -right-4 -translate-x-3;
+						}
+					}
+				}
+			}
+		}
+
+		ui-button.back-btn {
+			&::part(root) {
+				@apply absolute left-0 top-16 hidden;
+				@apply gap-2.5 py-2.5 pl-6 pr-5;
+				@apply rounded-lg rounded-s-none border-l-0 bg-white text-secondary outline-none;
+				@apply -translate-x-2;
+				@apply transition-all duration-500;
+			}
+
+			svg {
+				@apply size-3.5;
+				@apply translate-x-0;
+				@apply transition-all duration-500;
+			}
+
+			p {
+				@apply font-serif text-sm font-semibold uppercase tracking-[2px];
+			}
+		}
+
+		ui-button.arrow-btn {
+			&::part(root) {
+				@apply absolute bottom-3 px-6 md:bottom-auto;
+				@apply rounded-none border-0 outline-none focus-hover:bg-transparent;
+				@apply transition-all;
+				@apply z-10;
+			}
+
+			svg {
+				@apply size-5 text-slate-300 md:size-8 md:stroke-1;
+				@apply translate-x-0;
+				@apply transition-all duration-500;
+			}
+
+			p {
+				@apply text-slate-300;
+				@apply font-serif text-xl uppercase tracking-widest md:text-3xl;
+				@apply transition-transform duration-500;
+			}
+
+			&.left {
+				&::part(root) {
+					@apply left-0;
+				}
+
+				p {
+					@apply translate-x-0 md:-translate-x-6 md:-rotate-90;
+				}
+			}
+
+			&.right {
+				&::part(root) {
+					@apply right-0 flex-row-reverse;
+				}
+
+				p {
+					@apply translate-x-0 md:translate-x-6 md:rotate-90;
+				}
+			}
+		}
+
+		div.carousel {
+			@apply absolute bottom-8;
+			@apply hidden flex-row items-center gap-2 md:flex;
+
+			hr {
+				@apply w-2 rounded-full border-border;
+			}
+
+			ui-button::part(root) {
+				@apply size-3 p-0 focus-hover:mx-0.5;
+				@apply rounded-[2px] border-border;
+				@apply rotate-45;
+				@apply transition-all duration-500;
+
+				&.series {
+					@apply size-3 border-2;
+				}
+				&.drone {
+					@apply size-2 border border-slate-400;
+
+					&.active {
+						@apply border-blue-400;
+					}
+				}
+			}
+
+			span.series-container {
+				@apply flex flex-row place-content-center items-center;
+				@apply gap-3 px-2 pb-2 pt-8;
+				@apply border-x border-border;
+				@apply -translate-y-3;
+
+				hr {
+					@apply w-4;
+				}
+
+				p.label {
+					@apply absolute top-0;
+					@apply font-serif text-xs uppercase tracking-wide text-secondary opacity-70;
+				}
+			}
+		}
+
+		ui-button.github {
+			&::part(root) {
+				@apply absolute left-8 top-8 md:left-12 md:top-12;
+				@apply size-6 p-0;
+				@apply rounded-none border-0 outline-0;
+				@apply opacity-10 focus-hover:opacity-50;
+				@apply transition-opacity duration-300;
+			}
+
+			svg {
+				@apply size-full fill-title;
+			}
+		}
+
+		h1.bg-text {
+			@apply pointer-events-none;
+			@apply absolute;
+			@apply text-zinc-100;
+			@apply font-display font-black uppercase;
+
+			&.lg {
+				@apply -bottom-12 left-6 md:-bottom-16;
+				@apply text-7xl leading-none md:text-8xl;
+				@apply origin-top-left -rotate-90;
+			}
+
+			&.md {
+				@apply right-8 top-8;
+				@apply text-right text-4xl leading-none md:text-5xl;
+			}
+		}
+	}
+
+	div.product-details {
+		@apply flex flex-1 flex-col items-stretch py-4 xl:hidden xl:py-0;
+
+		span.spacer {
+			@apply xl:flex-1;
+		}
+
+		div.product-description {
+			@apply flex items-center;
+			@apply gap-4 px-2;
+
+			div.label {
+				@apply items-center;
+
+				max-width: 90%;
+				@media (min-width: 768px) {
+					max-width: min(640px, 70%);
+				}
+
+				h1.title {
+					@apply text-center;
+				}
+
+				p.description {
+					@apply text-center;
+				}
+			}
+
+			span.action {
+				@apply flex flex-row items-center gap-2 xl:pt-4;
+
+				ui-button.cta {
+					&::part(root) {
+						@apply h-10 w-[200px] px-5;
+					}
+				}
+			}
+		}
+	}
+
+	/* When the product details window is open */
+	@media (min-width: 1280px) {
+		&.product-overview {
+			div.model-viewer {
+				@apply max-w-[1000px] bg-none;
+
+				div.product-description {
+					@apply hidden;
+				}
+
+				ui-drone-viewer::part(container) {
+					@apply w-full;
+				}
+
+				ui-button.back-btn::part(root) {
+					@apply flex;
+				}
+
+				ui-button.github {
+					@apply hidden;
+				}
+			}
+			div.product-details {
+				@apply flex;
+			}
+		}
+	}
+}
+
+/* This has to be outside due to a bug with nested CSS and group selectors */
+.group:focus,
+.group:hover {
+	/* Main CTA button */
+	&.cta span.streak {
+		--tw-translate-x: 0 !important;
+		--tw-scale-x: 1 !important;
+		opacity: 1 !important;
+	}
+
+	/* Back Button */
+	&.back-btn {
+		&::part(root) {
+			--tw-translate-x: 0 !important;
+		}
+		svg {
+			--tw-translate-x: -4px !important;
+		}
+	}
+
+	/* Arrow Buttons */
+	&.arrow-btn {
+		opacity: 0.75;
+
+		&.left {
+			svg {
+				--tw-translate-x: -12px !important;
+			}
+			p {
+				--tw-translate-x: -4px !important;
+			}
+		}
+		&.right {
+			svg {
+				--tw-translate-x: 12px !important;
+			}
+			p {
+				--tw-translate-x: 4px !important;
+			}
+		}
+
+		@media (min-width: 768px) {
+			&.left {
+				svg {
+					--tw-translate-x: -12px !important;
+				}
+				p {
+					--tw-translate-x: -28px !important;
+				}
+			}
+			&.right {
+				svg {
+					--tw-translate-x: 12px !important;
+				}
+				p {
+					--tw-translate-x: 28px !important;
+				}
+			}
+		}
+	}
+}

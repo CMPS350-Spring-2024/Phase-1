@@ -29,7 +29,7 @@ header.navbar {
 			@apply flex-none;
 
 			a {
-				@apply flex items-center gap-x-0 opacity-80 transition-opacity duration-300 hover:opacity-100;
+				@apply flex items-center gap-x-0 opacity-60 transition-opacity duration-300 hover:opacity-100;
 
 				img {
 					@apply h-10;

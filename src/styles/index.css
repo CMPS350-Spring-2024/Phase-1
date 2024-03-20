@@ -1,6 +1,7 @@
 @import url('/src/components/Alert/styles.css') layer(components);
 @import url('/src/components/Avatar/styles.css') layer(components);
 @import url('/src/components/Button/styles.css') layer(components);
+@import url('/src/components/DroneViewer/styles.css') layer(components);
 @import url('/src/components/Dropdown/styles.css') layer(components);
 @import url('/src/components/Modal/styles.css') layer(components);
 @import url('/src/components/Navbar/styles.css') layer(components);
@@ -27,6 +28,11 @@ body {
 /* Apply default styling to all paragraphs */
 p {
 	@apply text-sm;
+}
+
+/* Make the main element flow as a column by default */
+main {
+	@apply flex flex-col;
 }
 
 @layer components {

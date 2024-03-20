@@ -49,6 +49,7 @@ export class Dropdown extends BaseComponent {
 		'flip',
 	];
 	protected static readonly defaultProperties: DropdownProps = {
+		open: false,
 		offset: 4,
 		placement: 'auto',
 		screenPadding: 8,

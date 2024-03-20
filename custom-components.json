@@ -16,6 +16,7 @@
 						{ "name": "mail" },
 						{ "name": "map-pin" },
 						{ "name": "minus" },
+						{ "name": "move-left" },
 						{ "name": "move-right" },
 						{ "name": "palette" },
 						{ "name": "phone" },

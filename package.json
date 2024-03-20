@@ -1,6 +1,6 @@
 {
 	"name": "phase-1",
-	"version": "0.2.4",
+	"version": "0.3.1",
 	"packageManager": "pnpm@8.7.4",
 	"type": "module",
 	"scripts": {
@@ -339,4 +339,3 @@
 		}
 	}
 }
-
