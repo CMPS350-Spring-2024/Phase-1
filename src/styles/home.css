@@ -23,7 +23,7 @@ main {
 
 	div.model-viewer {
 		@apply flex flex-1 flex-col-reverse place-content-center items-center xl:flex-row;
-		@apply gap-8 overflow-hidden pb-24 xl:pb-0 2xl:gap-32;
+		@apply gap-8 overflow-hidden pb-0 md:pb-24 xl:pb-0 2xl:gap-32;
 		@apply border border-border bg-opacity-50 bg-none from-[#fff5ffaa] via-white via-50% to-[#f9fbffaa] xl:bg-gradient-to-br;
 		@apply rounded-lg;
 

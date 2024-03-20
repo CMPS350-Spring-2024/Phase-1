@@ -6,7 +6,7 @@
 
 <div align="center">
     <!-- TODO: update version number on every release -->
-    <img alt="Version number" src="https://img.shields.io/badge/version-v0.2.4-blue"/>
+    <img alt="Version number" src="https://img.shields.io/badge/version-v0.3.1-blue"/>
     <img alt="Project license" src="https://img.shields.io/badge/license-MIT-green"/>
 </div>
 
@@ -216,9 +216,10 @@ The below table shows the total bundle size of the application, broken down into
 represents a route which has a colored indicator showing the performance of that particular route.
 
 <!-- BUNDLE_TABLE_START -->
-| | Size | Budget Used (`1 MB`) | 
-| --- | :---: | :---: | 
-| `total` | `368.82 kB` | 🟢 `36.88%` | 
+
+|         |    Size     | Budget Used (`1 MB`) |
+| ------- | :---------: | :------------------: |
+| `total` | `368.82 kB` |     🟢 `36.88%`      |
 
 <!-- BUNDLE_TABLE_END -->
 
