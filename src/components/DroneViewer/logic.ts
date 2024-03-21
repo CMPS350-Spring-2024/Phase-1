@@ -81,11 +81,25 @@ export class DroneViewer extends PrimitiveComponent {
 		resizeObserver.observe(this.element);
 
 		//	Hide helper when the canvas is clicked
-		this.element.addEventListener('mousedown', () => {
-			this.helper!.classList.add('opacity-0');
-			window.sessionStorage.setItem('hideHelper', 'true');
-		});
+		this.element.addEventListener('mousedown', () => this.handleCanvasClick());
+		this.element.addEventListener('touchstart', () => this.handleCanvasClick());
 	}
+
+	private handleWindowResize = () => {
+		this.camera.aspect = this.container!.clientWidth / this.container!.clientHeight;
+		this.camera.updateProjectionMatrix();
+		this.renderer.setSize(this.container!.clientWidth, this.container!.clientHeight);
+		this.render();
+	};
+
+	private handleCanvasClick = () => {
+		this.helper!.classList.add('opacity-0');
+		window.sessionStorage.setItem('hideHelper', 'true');
+	};
+
+	add = (object: THREE.Object3D) => this.scene.add(object);
+	render = (shadow: boolean = false) => this.renderer.render(this.scene, shadow ? this.shadowCamera : this.camera);
+	updateControls = () => this.controls.update(this.clock.getDelta());
 
 	/**
 	 * Initializes the scene by creating a new scene, camera, and renderer.
@@ -290,16 +304,6 @@ export class DroneViewer extends PrimitiveComponent {
 	};
 
 	/**
-	 * Function to handle the resize event
-	 */
-	private handleWindowResize = () => {
-		this.camera.aspect = this.container!.clientWidth / this.container!.clientHeight;
-		this.camera.updateProjectionMatrix();
-		this.renderer.setSize(this.container!.clientWidth, this.container!.clientHeight);
-		this.render();
-	};
-
-	/**
 	 * Function to trigger a single render frame
 	 */
 	private animateFrame = () => {
@@ -328,10 +332,6 @@ export class DroneViewer extends PrimitiveComponent {
 		this.render();
 		this.updateControls();
 	};
-
-	add = (object: THREE.Object3D) => this.scene.add(object);
-	render = (shadow: boolean = false) => this.renderer.render(this.scene, shadow ? this.shadowCamera : this.camera);
-	updateControls = () => this.controls.update(this.clock.getDelta());
 }
 
 customElements.define('ui-drone-viewer', DroneViewer);
