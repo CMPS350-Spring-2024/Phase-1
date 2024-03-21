@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		<title>{{ title }}</title>
 		<meta charset="UTF-8" />
 		<meta
 			name="viewport"
@@ -12,14 +13,41 @@
 			href="/icons/DJI Favicon.svg"
 		/>
 		<link
-			rel="stylesheet"
+			rel="preload"
 			href="/src/styles/fonts.css"
+			onload="this.rel = 'stylesheet'"
+			as="style"
 		/>
 		<link
-			rel="stylesheet"
+			rel="preload"
 			href="/src/styles/index.css"
+			onload="this.rel = 'stylesheet'"
+			as="style"
 		/>
-		<title>{{ title }}</title>
+		<noscript>
+			<link
+				rel="stylesheet"
+				href="/src/styles/fonts.css"
+			/>
+			<link
+				rel="stylesheet"
+				href="/src/styles/index.css"
+			/>
+		</noscript>
+
+		<!-- Prerender all routes on this website -->
+		<script type="speculationrules">
+			{
+				"prerender": [
+					{
+						"where": {
+							"href_matches": "*"
+						},
+						"eagerness": "moderate"
+					}
+				]
+			}
+		</script>
 	</head>
 	<body id="app">
 		<!-- Component Templates -->
