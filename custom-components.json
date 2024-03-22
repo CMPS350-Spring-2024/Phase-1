@@ -277,6 +277,34 @@
 			]
 		},
 		{
+			"name": "ui-rating",
+			"description": "Custom rating component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "value",
+					"description": "The rating value.",
+					"values": [
+						{ "name": "0" },
+						{ "name": "0.5" },
+						{ "name": "1" },
+						{ "name": "1.5" },
+						{ "name": "2" },
+						{ "name": "2.5" },
+						{ "name": "3" },
+						{ "name": "3.5" },
+						{ "name": "4" },
+						{ "name": "4.5" },
+						{ "name": "5" }
+					]
+				},
+				{
+					"name": "editable",
+					"description": "Allows the user to change the value of the rating.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				}
+			]
+		},
+		{
 			"name": "ui-text-input",
 			"description": "Custom text input component based on the Preline UI design system.",
 			"attributes": [
