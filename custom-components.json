@@ -10,6 +10,7 @@
 					"description": "Specifies the name of the icon to display.",
 					"values": [
 						{ "name": "chevron-left" },
+						{ "name": "chevron-right" },
 						{ "name": "clipboard-list" },
 						{ "name": "key-round" },
 						{ "name": "log-out" },
@@ -272,6 +273,34 @@
 					"name": "size",
 					"description": "Specifies the size of the price display.",
 					"values": [{ "name": "xs" }, { "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+				}
+			]
+		},
+		{
+			"name": "ui-rating",
+			"description": "Custom rating component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "value",
+					"description": "The rating value.",
+					"values": [
+						{ "name": "0" },
+						{ "name": "0.5" },
+						{ "name": "1" },
+						{ "name": "1.5" },
+						{ "name": "2" },
+						{ "name": "2.5" },
+						{ "name": "3" },
+						{ "name": "3.5" },
+						{ "name": "4" },
+						{ "name": "4.5" },
+						{ "name": "5" }
+					]
+				},
+				{
+					"name": "editable",
+					"description": "Allows the user to change the value of the rating.",
+					"values": [{ "name": "true" }, { "name": "false" }]
 				}
 			]
 		},

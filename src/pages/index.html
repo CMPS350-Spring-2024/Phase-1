@@ -3,11 +3,24 @@
 	locals='{ "title": "DJI Store" }'
 >
 	<block name="app">
+		<!-- Back Button -->
+		<ui-button
+			class="back-btn group"
+			id="back-btn"
+		>
+			<i data-lucide="move-left"></i>
+			<p>Back</p>
+		</ui-button>
+
 		<div class="model-viewer">
 			<!-- Drone Description -->
 			<div class="product-description">
 				<div class="label">
 					<h1 class="title">Mavic 3 Pro</h1>
+					<span class="product-rating">
+						<ui-rating value="3.5"></ui-rating>
+						<p>3.5 (5,051 reviews)</p>
+					</span>
 					<p class="description">
 						The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and
 						extensive range, ideal for photographers and filmmakers in diverse settings.
@@ -18,7 +31,7 @@
 					<ui-price-display size="lg">3,889.00</ui-price-display>
 					<ui-button
 						class="cta group"
-						onclick="document.querySelector('main').classList.add('product-overview');"
+						id="view-details-cta"
 					>
 						View
 						<i data-lucide="move-right"></i>
@@ -30,15 +43,6 @@
 
 			<!-- 3D Drone Model -->
 			<ui-drone-viewer></ui-drone-viewer>
-
-			<!-- Back Button -->
-			<ui-button
-				class="back-btn group"
-				onclick="document.querySelector('main').classList.remove('product-overview');"
-			>
-				<i data-lucide="move-left"></i>
-				<p>Back</p>
-			</ui-button>
 
 			<!-- Previous and Next Arrows -->
 			<ui-button class="left arrow-btn group">
@@ -84,6 +88,8 @@
 			>
 				<svg
 					viewBox="0 0 17 16"
+					width="17"
+					height="16"
 					xmlns="http://www.w3.org/2000/svg"
 				>
 					<path
@@ -104,10 +110,16 @@
 			</h1>
 		</div>
 		<div class="product-details">
-			<span class="spacer"></span>
+			<!-- Product Description -->
+			<span class="top spacer"></span>
 			<div class="product-description">
 				<div class="label">
+					<h2 class="subtitle">DJI</h2>
 					<h1 class="title">Mavic 3 Pro</h1>
+					<span class="product-rating">
+						<ui-rating value="3.5"></ui-rating>
+						<p>3.5 (5,051 reviews)</p>
+					</span>
 					<p class="description">
 						The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and
 						extensive range, ideal for photographers and filmmakers in diverse settings.
@@ -126,7 +138,53 @@
 					</ui-button>
 				</span>
 			</div>
-			<span class="spacer"></span>
+
+			<!-- Mobile Tabs -->
+			<span class="tab-selector">
+				<ui-button class="left tab-arrow-btn">
+					<i data-lucide="chevron-left"></i>
+				</ui-button>
+				<h3 class="tab-title">Features</h3>
+				<ui-button class="right tab-arrow-btn">
+					<i data-lucide="chevron-right"></i>
+				</ui-button>
+			</span>
+
+			<!-- Features Tab -->
+			<section class="active tab-content">
+				<h3 class="tab-title">Features</h3>
+				test1
+			</section>
+
+			<!-- What's Inside Tab -->
+			<section class="tab-content">
+				<h3 class="tab-title">In The Box</h3>
+				test2
+			</section>
+
+			<!-- Reviews Tab -->
+			<section class="tab-content">
+				<h3 class="tab-title">Reviews</h3>
+				test3
+			</section>
+
+			<!-- FAQ Tab -->
+			<section class="tab-content">
+				<h3 class="tab-title">Frequently Asked Questions</h3>
+				test4
+			</section>
+
+			<!-- Desktop Tabs -->
+			<span class="bottom spacer"></span>
+			<span class="tab-list">
+				<ui-button class="active tab">Features</ui-button>
+				<hr />
+				<ui-button class="tab">What's Inside?</ui-button>
+				<hr />
+				<ui-button class="tab">Reviews</ui-button>
+				<hr />
+				<ui-button class="tab">FAQ</ui-button>
+			</span>
 		</div>
 	</block>
 </extends>

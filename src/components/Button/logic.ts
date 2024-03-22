@@ -104,7 +104,6 @@ export class Button extends PrimitiveComponent {
 
 				//	Clone the button and make it non-focusable
 				const button = this.element.cloneNode(true) as HTMLElement;
-				button.style.width = '100%';
 
 				//	Wrap the button in an anchor tag
 				const anchor = this.element.ownerDocument!.createElement('a');

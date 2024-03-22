@@ -12,9 +12,17 @@
 			src="/src/scripts/admin.ts"
 		></script>
 		<link
-			rel="stylesheet"
+			rel="preload"
 			href="/src/styles/admin.css"
+			onload="this.rel = 'stylesheet'"
+			as="style"
 		/>
+		<noscript>
+			<link
+				rel="stylesheet"
+				href="/src/styles/admin.css"
+			/>
+		</noscript>
 	</block>
 	<block name="app"></block>
 </extends>

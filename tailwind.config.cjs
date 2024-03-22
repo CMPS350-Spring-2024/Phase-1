@@ -10,6 +10,7 @@ export default {
 				title: '#1F2937',
 				secondary: '#6B7280',
 				border: '#E5E7EB',
+				rating: '#EAB308',
 			},
 			fontSize: {
 				'2xs': '.625rem',

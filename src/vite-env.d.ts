@@ -11,4 +11,8 @@ declare global {
 		 */
 		currentUser: User | null;
 	}
+
+	interface Document {
+		startViewTransition(callback: () => void): void;
+	}
 }

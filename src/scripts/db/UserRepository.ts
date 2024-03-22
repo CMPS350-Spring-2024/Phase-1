@@ -114,25 +114,31 @@ export class UserRepository {
 		userData.password = hashObject.getHash('HEX');
 
 		//	Find user in the local storage with matching email and password
-		const user = Object.values(UserRepository.users).find(
-			(user) => user.email === userData.email && user.password === userData.password,
-		);
+		let userExists = false;
+		const user = Object.values(UserRepository.users).find((user) => {
+			const userFound = user.email === userData.email;
+			const correctPassword = user.password === userData.password;
+			if (!userExists && userFound) userExists = true;
+			if (userFound && correctPassword) return true;
+			return false;
+		});
 
 		//	If the user is not found, throw an error
-		if (!user) throw new Error('User not found');
+		if (!userExists) throw new Error(`No account exists with the email ${userData.email}`);
+		if (userExists && user === undefined) throw new Error('Your password is incorrect. Please try again.');
 
 		//	Save the user id in cookies if found
-		Cookies.set('user', user.id.toString(), { expires: 7 });
+		Cookies.set('user', user!.id.toString(), { expires: 7 });
 
 		//	Return the user if found, otherwise return null
-		return user;
+		return user!;
 	};
 
 	private static loginUserById = (id: number): User => {
 		const user = UserRepository.getUser(id);
 
 		//	If the user is not found, throw an error
-		if (!user) throw new Error('User not found');
+		if (!user) throw new Error(`No account exists with the id ${id}`);
 
 		//	Save the user id in cookies if found
 		Cookies.set('user', id.toString(), { expires: 7 });
