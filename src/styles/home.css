@@ -235,7 +235,12 @@ main {
 		view-transition-name: product-details;
 
 		span.spacer {
-			@apply xl:flex-1;
+			&.top {
+				@apply flex-[2];
+			}
+			&.bottom {
+				@apply flex-[3];
+			}
 		}
 
 		div.product-description {
@@ -260,11 +265,59 @@ main {
 			}
 
 			span.action {
-				@apply flex flex-row items-center gap-2 xl:pt-4;
+				@apply flex flex-row items-center gap-2 xl:pt-2;
 
 				ui-button.cta {
 					&::part(root) {
 						@apply h-10 w-[200px] px-5;
+					}
+				}
+			}
+		}
+
+		section.tab-content {
+			@apply hidden flex-col items-center;
+			@apply mt-12 gap-4 px-4;
+
+			&.active {
+				@apply flex;
+			}
+
+			h3.tab-title {
+				@apply text-center font-serif text-lg font-semibold;
+				@apply text-secondary;
+			}
+		}
+
+		span.tab-list {
+			@apply flex flex-row place-content-center items-center self-stretch;
+			@apply px-4 pb-2;
+
+			hr {
+				@apply h-auto w-px self-stretch border-0 border-l border-border;
+			}
+
+			ui-button.tab::part(root) {
+				@apply flex-1;
+				@apply border-0;
+				@apply text-xs uppercase text-secondary focus-hover:bg-white;
+
+				&::after {
+					@apply content-[''];
+					@apply absolute bottom-0;
+					@apply h-0.5 w-full;
+					@apply bg-border;
+					@apply scale-x-0 focus-hover:scale-x-[0.2];
+					@apply transition-transform duration-300;
+				}
+
+				&.active {
+					@apply text-blue-500;
+					@apply font-semibold;
+
+					&::after {
+						@apply scale-x-[0.4] focus-hover:scale-x-[0.3];
+						@apply bg-blue-500;
 					}
 				}
 			}
