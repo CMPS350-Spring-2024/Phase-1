@@ -16,19 +16,32 @@
 			<section class="user-profile">
 				<ui-avatar
 					color="black"
-					size="md"
+					size="lg"
 				>
 					MK
 				</ui-avatar>
-				<h4>Muhammad Fauzan</h4>
-				<p>Aristya Putra</p>
-				<!-- to put the little pencil icon we may flex the p and the icon -->
-				<button>pencil</button>
+
+				<div class="account-name">
+					<h3>Muhammad Fauzan</h3>
+					<p>Aristya Putra</p>
+					<!-- to put the little pencil icon we may flex the p and the icon -->
+					<ui-button>
+						<i data-lucide="pencil"></i>
+					</ui-button>
+				</div>
 
 				<!-- phone icon -->
-				<p>+974 0000-0000</p>
-				<!-- mail icon -->
-				<p>mp2104747@qu.edu.qa</p>
+				<div class="colflex">
+					<div class="rowflex">
+						<i data-lucide="phone"></i>
+						<p>+974 0000-0000</p>
+					</div>
+					<div class="rowflex">
+						<!-- mail icon -->
+						<i data-lucide="mail"></i>
+						<p>mp2104747@qu.edu.qa</p>
+					</div>
+				</div>
 			</section>
 		</div>
 	</block>

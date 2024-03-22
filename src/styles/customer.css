@@ -5,6 +5,57 @@ main {
 		object-position: center;
 	}
 	.dashboard {
+		.user-profile {
+			@apply flex;
+			@apply gap-4;
+			@apply flex-col;
+			@apply items-center;
+
+			ui-avatar::part(root) {
+				@apply absolute -top-[40px];
+				@apply border-white;
+				@apply border-4;
+			}
+			.account-name {
+				@apply mt-[72px];
+				@apply flex flex-col items-center;
+
+				h3 {
+					@apply font-serif;
+					@apply text-title;
+					@apply text-xl;
+					@apply font-semibold;
+				}
+				p {
+					@apply font-serif;
+					@apply text-secondary;
+					@apply text-base;
+					@apply font-semibold;
+				}
+				ui-button::part(root) {
+					@apply p-0;
+					@apply size-7;
+					@apply absolute -right-[60px] top-[50%] -translate-y-1/2;
+				}
+			}
+			.colflex {
+				@apply flex flex-col items-center gap-2 md:flex-row;
+				@apply font-normal;
+				@apply text-secondary;
+				.rowflex {
+					@apply flex flex-row items-center gap-3;
+					@apply bg-slate-50;
+					@apply h-8 w-80 md:w-auto;
+					@apply md:px-4;
+					@apply justify-center;
+					@apply rounded-sm;
+					svg {
+						@apply stroke-1;
+						@apply size-3.5;
+					}
+				}
+			}
+		}
 	}
 }
 

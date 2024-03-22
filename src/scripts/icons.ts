@@ -10,6 +10,7 @@ import {
 	MoveLeft,
 	MoveRight,
 	Palette,
+	Pencil,
 	Phone,
 	Plus,
 	Search,
@@ -39,8 +40,10 @@ export const convertIcons = () =>
 			Search,
 			User,
 			Wallet,
+			Pencil,
 		},
 	});
 
 //	Convert all icons on page load
 document.addEventListener('DOMContentLoaded', convertIcons);
+

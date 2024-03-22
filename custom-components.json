@@ -24,7 +24,8 @@
 						{ "name": "shopping-cart" },
 						{ "name": "search" },
 						{ "name": "user" },
-						{ "name": "wallet" }
+						{ "name": "wallet" },
+						{ "name": "pencil" }
 					]
 				}
 			],
@@ -335,3 +336,4 @@
 		}
 	]
 }
+
