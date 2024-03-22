@@ -3,6 +3,7 @@ ui-drone-viewer {
 		@apply relative;
 		@apply h-[480px] w-full xl:size-[640px];
 		@apply flex flex-col place-content-center items-center;
+		view-transition-name: drone-viewer-expanded;
 	}
 
 	&::part(root) {
@@ -88,5 +89,39 @@ ui-drone-viewer {
 	}
 	100% {
 		opacity: 1;
+	}
+}
+
+/* Drone viewer view transitions */
+@supports (view-transition-name: none) {
+	@keyframes drone-viewer-show {
+		0% {
+			opacity: 0;
+		}
+		25% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+	@keyframes drone-viewer-hide {
+		0% {
+			opacity: 1;
+		}
+		10% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 0;
+		}
+	}
+	::view-transition-new(drone-viewer-expanded),
+	::view-transition-new(drone-viewer-collapsed) {
+		animation: 1000ms linear drone-viewer-show forwards;
+	}
+	::view-transition-old(drone-viewer-expanded),
+	::view-transition-old(drone-viewer-collapsed) {
+		animation: 1000ms linear drone-viewer-hide forwards;
 	}
 }

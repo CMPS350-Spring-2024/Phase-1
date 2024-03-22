@@ -3,6 +3,15 @@
 	locals='{ "title": "DJI Store" }'
 >
 	<block name="app">
+		<!-- Back Button -->
+		<ui-button
+			class="back-btn group"
+			id="back-btn"
+		>
+			<i data-lucide="move-left"></i>
+			<p>Back</p>
+		</ui-button>
+
 		<div class="model-viewer">
 			<!-- Drone Description -->
 			<div class="product-description">
@@ -18,7 +27,7 @@
 					<ui-price-display size="lg">3,889.00</ui-price-display>
 					<ui-button
 						class="cta group"
-						onclick="document.querySelector('main').classList.add('product-overview');"
+						id="view-details-cta"
 					>
 						View
 						<i data-lucide="move-right"></i>
@@ -30,15 +39,6 @@
 
 			<!-- 3D Drone Model -->
 			<ui-drone-viewer></ui-drone-viewer>
-
-			<!-- Back Button -->
-			<ui-button
-				class="back-btn group"
-				onclick="document.querySelector('main').classList.remove('product-overview');"
-			>
-				<i data-lucide="move-left"></i>
-				<p>Back</p>
-			</ui-button>
 
 			<!-- Previous and Next Arrows -->
 			<ui-button class="left arrow-btn group">
