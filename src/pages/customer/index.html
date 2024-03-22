@@ -3,6 +3,34 @@
 	locals='{ "title": "Customer Dashboard – DJI Store" }'
 >
 	<block name="app">
-		<ui-drone-viewer></ui-drone-viewer>
+		<!-- reusable header goes here -->
+
+		<!-- TODO: image and the centered profile picture -->
+		<img
+			class="bg-image"
+			src="/images/bg-photo-1.webp"
+			alt=""
+		/>
+
+		<div class="dashboard">
+			<section class="user-profile">
+				<ui-avatar
+					color="black"
+					size="md"
+				>
+					MK
+				</ui-avatar>
+				<h4>Muhammad Fauzan</h4>
+				<p>Aristya Putra</p>
+				<!-- to put the little pencil icon we may flex the p and the icon -->
+				<button>pencil</button>
+
+				<!-- phone icon -->
+				<p>+974 0000-0000</p>
+				<!-- mail icon -->
+				<p>mp2104747@qu.edu.qa</p>
+			</section>
+		</div>
 	</block>
 </extends>
+
