@@ -231,15 +231,16 @@ main {
 	}
 
 	div.product-details {
-		@apply flex flex-1 flex-col items-stretch py-4 xl:hidden xl:py-0;
+		@apply flex flex-1 flex-col items-center xl:hidden;
+		@apply gap-8 py-4 xl:gap-0 xl:py-0;
 		view-transition-name: product-details;
 
 		span.spacer {
 			&.top {
-				@apply flex-[2];
+				@apply hidden xl:flex xl:flex-[2];
 			}
 			&.bottom {
-				@apply flex-[3];
+				@apply hidden xl:flex xl:flex-[3];
 			}
 		}
 
@@ -277,20 +278,36 @@ main {
 
 		section.tab-content {
 			@apply hidden flex-col items-center;
-			@apply mt-12 gap-4 px-4;
+			@apply gap-4 px-4 xl:mt-12;
 
 			&.active {
 				@apply flex;
 			}
 
 			h3.tab-title {
+				@apply hidden xl:block;
 				@apply text-center font-serif text-lg font-semibold;
 				@apply text-secondary;
 			}
 		}
 
+		span.tab-selector {
+			@apply w-full max-w-[600px];
+			@apply flex flex-row place-content-between items-center xl:hidden;
+
+			ui-button.tab-arrow-btn::part(root) {
+				@apply size-8 p-0;
+				@apply border-0;
+			}
+
+			h3.tab-title {
+				@apply text-center font-serif text-sm font-semibold uppercase tracking-[2px];
+				@apply text-title;
+			}
+		}
+
 		span.tab-list {
-			@apply flex flex-row place-content-center items-center self-stretch;
+			@apply hidden flex-row place-content-center items-center self-stretch xl:flex;
 			@apply px-4 pb-2;
 
 			hr {

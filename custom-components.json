@@ -10,6 +10,7 @@
 					"description": "Specifies the name of the icon to display.",
 					"values": [
 						{ "name": "chevron-left" },
+						{ "name": "chevron-right" },
 						{ "name": "clipboard-list" },
 						{ "name": "key-round" },
 						{ "name": "log-out" },
