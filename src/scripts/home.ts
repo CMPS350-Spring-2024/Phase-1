@@ -13,7 +13,8 @@ let tabButtons: NodeListOf<Button>;
 let tabContents: NodeListOf<HTMLElement>;
 
 document.addEventListener('DOMContentLoaded', () => {
-	document.querySelector('main')!.classList.add('product-overview');
+	// document.querySelector('main')!.classList.add('product-overview');
+
 	viewDetailsButton = document.querySelector('#view-details-cta') as HTMLButtonElement;
 	backButton = document.querySelector('#back-btn') as HTMLButtonElement;
 	tabSelectorLabel = document.querySelector('.tab-selector .tab-title') as HTMLHeadingElement;

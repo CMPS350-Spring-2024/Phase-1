@@ -7,12 +7,18 @@ main {
 		div.label {
 			@apply flex flex-col;
 
+			h2.subtitle {
+				@apply hidden md:block;
+				@apply text-base font-semibold text-secondary;
+			}
+
 			h1.title {
 				@apply font-serif text-2xl font-black text-title xl:text-3xl;
+				@apply md:mb-1 xl:mb-2;
 			}
 
 			p.description {
-				@apply text-pretty leading-loose text-secondary;
+				@apply mt-4 text-pretty leading-loose text-secondary;
 			}
 		}
 
@@ -292,7 +298,7 @@ main {
 		}
 
 		span.tab-selector {
-			@apply w-full max-w-[600px];
+			@apply w-full max-w-[480px];
 			@apply flex flex-row place-content-between items-center xl:hidden;
 
 			ui-button.tab-arrow-btn::part(root) {
