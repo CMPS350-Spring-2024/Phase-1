@@ -10,23 +10,12 @@ import { UserRepository } from '@/scripts/db/UserRepository';
 //	Schema Imports
 import { LoginSchema, RegistrationSchema } from '@/scripts/models/User';
 
-let alert: Alert;
-let loginForm: HTMLFormElement;
-let registrationForm: HTMLFormElement;
-
-//	When the DOM is ready add event listeners
-document.addEventListener('DOMContentLoaded', () => {
-	alert = document.querySelector('ui-alert') as Alert;
-	loginForm = document.querySelector('#login_form') as HTMLFormElement;
-	registrationForm = document.querySelector('#registration_form') as HTMLFormElement;
-
-	loginForm?.addEventListener('submit', handleLogin);
-	registrationForm?.addEventListener('submit', handleRegistration);
-});
+const alert = document.querySelector('ui-alert') as Alert;
+const loginForm = document.querySelector('#login_form') as HTMLFormElement;
+const registrationForm = document.querySelector('#registration_form') as HTMLFormElement;
 
 /**
  * Handles the form submission, logs the user in
- * TODO show toast messages for errors and success
  */
 export const handleLogin = (event: Event) => {
 	event.preventDefault();
@@ -70,3 +59,7 @@ export const handleRegistration = (event: Event) => {
 		alert.displayError('There was an error registering the user. Please try again.', error);
 	}
 };
+
+//	Add event listeners to the forms
+loginForm.addEventListener('submit', handleLogin);
+registrationForm.addEventListener('submit', handleRegistration);

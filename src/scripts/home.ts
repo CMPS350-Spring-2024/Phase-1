@@ -4,33 +4,13 @@ import '@/components/DroneViewer/logic';
 
 let currentTab: number = 0;
 
-let viewDetailsButton: HTMLButtonElement;
-let backButton: HTMLButtonElement;
-let tabSelectorLabel: HTMLHeadingElement;
-let leftTabButton: Button;
-let rightTabButton: Button;
-let tabButtons: NodeListOf<Button>;
-let tabContents: NodeListOf<HTMLElement>;
-
-document.addEventListener('DOMContentLoaded', () => {
-	// document.querySelector('main')!.classList.add('product-overview');
-
-	viewDetailsButton = document.querySelector('#view-details-cta') as HTMLButtonElement;
-	backButton = document.querySelector('#back-btn') as HTMLButtonElement;
-	tabSelectorLabel = document.querySelector('.tab-selector .tab-title') as HTMLHeadingElement;
-	leftTabButton = document.querySelector('.left.tab-arrow-btn') as Button;
-	rightTabButton = document.querySelector('.right.tab-arrow-btn') as Button;
-	tabButtons = document.querySelectorAll('.tab-list .tab');
-	tabContents = document.querySelectorAll('.tab-content');
-
-	viewDetailsButton.addEventListener('click', handleViewDetails);
-	backButton.addEventListener('click', handleBack);
-	leftTabButton.addEventListener('touchend', () => handleChangeTab(currentTab - 1));
-	rightTabButton.addEventListener('touchend', () => handleChangeTab(currentTab + 1));
-	tabButtons.forEach((button, index) => {
-		button.addEventListener('click', () => handleChangeTab(index));
-	});
-});
+const viewDetailsButton = document.querySelector('#view-details-cta') as HTMLButtonElement;
+const backButton = document.querySelector('#back-btn') as HTMLButtonElement;
+const tabSelectorLabel = document.querySelector('.tab-selector .tab-title') as HTMLHeadingElement;
+const leftTabButton = document.querySelector('.left.tab-arrow-btn') as Button;
+const rightTabButton = document.querySelector('.right.tab-arrow-btn') as Button;
+const tabButtons = document.querySelectorAll('.tab-list .tab');
+const tabContents = document.querySelectorAll('.tab-content');
 
 const startViewTransition = (callback: () => void) => {
 	//	If the browser doesnt support view transitions
@@ -71,3 +51,12 @@ const handleChangeTab = (index: number) => {
 	//	Update the tab selector label
 	tabSelectorLabel.textContent = tabButtons[index].textContent;
 };
+
+//	Add event listeners
+viewDetailsButton.addEventListener('click', handleViewDetails);
+backButton.addEventListener('click', handleBack);
+leftTabButton.addEventListener('touchend', () => handleChangeTab(currentTab - 1));
+rightTabButton.addEventListener('touchend', () => handleChangeTab(currentTab + 1));
+tabButtons.forEach((button, index) => {
+	button.addEventListener('click', () => handleChangeTab(index));
+});
