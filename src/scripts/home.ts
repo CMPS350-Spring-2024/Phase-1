@@ -54,9 +54,14 @@ const handleChangeTab = (index: number) => {
 
 //	Add event listeners
 viewDetailsButton.addEventListener('click', handleViewDetails);
+viewDetailsButton.addEventListener('touchend', handleViewDetails);
 backButton.addEventListener('click', handleBack);
+backButton.addEventListener('touchend', handleBack);
+leftTabButton.addEventListener('click', () => handleChangeTab(currentTab - 1));
 leftTabButton.addEventListener('touchend', () => handleChangeTab(currentTab - 1));
+rightTabButton.addEventListener('click', () => handleChangeTab(currentTab + 1));
 rightTabButton.addEventListener('touchend', () => handleChangeTab(currentTab + 1));
 tabButtons.forEach((button, index) => {
 	button.addEventListener('click', () => handleChangeTab(index));
+	button.addEventListener('touchend', () => handleChangeTab(index));
 });
