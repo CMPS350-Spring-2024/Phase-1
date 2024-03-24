@@ -64,7 +64,7 @@ export class User {
 		//	If we are only parsing the user data, keep it as is
 		if (userData.isParsing) {
 			this.password = userData.password;
-			this._id = userData._id === undefined ? crypto.getRandomValues(new Uint32Array(1))[0] : userData._id;
+			this._id = userData._id ?? crypto.getRandomValues(new Uint32Array(1))[0];
 			this.avatarColor = userData.avatarColor || 'black';
 			this.balance = userData.balance || 0;
 		} else {
