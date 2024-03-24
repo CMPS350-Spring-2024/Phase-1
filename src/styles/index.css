@@ -136,13 +136,56 @@
 	}
 }
 /* History/Sale Table Styling */
+@layer components {
+	main {
+		@apply m-4;
+	}
+}
+/* search bar */
+@layer components {
+	.search-bar {
+		@apply mx-auto;
+		input {
+			@apply block w-96 rounded-lg border-gray-700 px-4 py-2 ps-11 text-sm shadow-sm placeholder:text-gray-500  focus:border-gray-900 focus:ring-gray-600 md:w-96;
+		}
+		.search-icon {
+			@apply absolute inset-y-0 start-0 z-20 flex items-center ps-4;
+		}
 
+		.clear-icon {
+			@apply absolute inset-y-0 start-[21rem] z-20 flex items-center ps-4;
+		}
+	}
+	.search-filter {
+		@apply flex flex-row justify-between;
+
+		div {
+			@apply m-0 items-center;
+		}
+	}
+	.filter-buttons {
+		@apply flex flex-row gap-4;
+		button {
+			/* @apply flex flex-row items-end gap-4 border border-slate-300 p-5; */
+
+			@apply inline-flex h-4 w-auto items-center  justify-center gap-x-2  rounded-lg border px-4 py-3  text-sm  font-semibold hover:bg-blue-700 hover:text-slate-50;
+
+			.icon {
+				@apply size-4;
+			}
+		}
+
+		.add-product-button {
+			@apply bg-gray-500 text-slate-50  hover:bg-slate-50 hover:text-blue-700;
+		}
+	}
+}
 @layer components {
 	.order-table {
 		/* @apply min-w-full divide-gray-200 dark:divide-gray-700; */
 
 		@apply min-w-full rounded-md border-[0.5px] border-[solid] border-slate-400;
-		@apply m-4;
+		@apply my-4;
 	}
 	.table-head {
 		@apply border-b-[1px] border-[solid] border-slate-200;

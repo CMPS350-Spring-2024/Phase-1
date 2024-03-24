@@ -1,10 +1,13 @@
 //	Package Imports
 import {
+	ArrowDownUp,
 	CheckCircle,
 	ChevronLeft,
 	ClipboardList,
 	Clock3,
 	Coins,
+	Delete,
+	ListFilter,
 	LogOut,
 	MapPin,
 	Minus,
@@ -13,6 +16,7 @@ import {
 	PackageCheck,
 	Palette,
 	Plus,
+	PlusCircle,
 	Search,
 	ShoppingCart,
 	Star,
@@ -49,6 +53,10 @@ export const convertIcons = () =>
 			CheckCircle,
 			Clock3,
 			Star,
+			Delete,
+			ArrowDownUp,
+			ListFilter,
+			PlusCircle,
 		},
 	});
 

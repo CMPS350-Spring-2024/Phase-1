@@ -14,96 +14,171 @@
 			type="module"
 			src="../../../../../src/scripts/index.ts"
 		></script>
-		<section>
-			<table class="order-table">
-				<thead class="table-head">
-					<tr>
-						<th scope="col">
-							<div>
-								<input
-									id="checkbox-all"
-									type="checkbox"
-								/>
-								<label for="checkbox-all"></label>
-							</div>
-						</th>
-						<th scope="col"><p>order</p></th>
-						<th scope="col"><p>Date</p></th>
-						<th scope="col"><p>item</p></th>
-						<th scope="col"><p>Status</p></th>
-						<th scope="col"><p>Address</p></th>
-						<th scope="col"><p>Quantity</p></th>
-						<th scope="col"><p>Amount</p></th>
-					</tr>
-				</thead>
-				<tbody class="table-body">
-					<tr>
-						<td>
-							<div>
-								<input
-									id="checkbox-1"
-									type="checkbox"
-								/>
-								<label for="checkbox-1"></label>
-							</div>
-						</td>
-						<td class="order-number"><p>#123456</p></td>
-						<td class="order-date"><p>Mar 9, 2024</p></td>
-						<td class="order-name"><p>DJI Mavic 3 Pro</p></td>
+		<main>
+			<section>
+				<div>
+					<div><h2>Search history</h2></div>
+					<div><p>Keep track of all past orders and view their status</p></div>
+				</div>
 
-						<td class="order-status status-delivered">
-							<div>
+				<div class="search-filter">
+					<div class="search-bar">
+						<label
+							class="sr-only"
+							for="icon"
+						>
+							Search
+						</label>
+						<div>
+							<div class="search-icon">
 								<i
-									class="icon"
-									data-lucide="check-circle"
+									class="nav-icon"
+									alt="search-icon"
+									data-lucide="search"
 								></i>
-								<p>Delivered</p>
 							</div>
-						</td>
-						<td class="order-address"><p>Street 1234, Qatar University, Doha, Qatar</p></td>
+							<input
+								class=""
+								id="icon"
+								name="icon"
+								type="text"
+								placeholder="Search"
+							/>
+						</div>
 
-						<td class="order-quantity"><p>2x</p></td>
+						<div class="clear-icon">
+							<i
+								class="nav-icon"
+								alt="search-icon"
+								data-lucide="Delete"
+							></i>
+						</div>
+					</div>
 
-						<td class="order-amount">
-							<p class="currency">USD</p>
-							<p class="amount">3,889.00</p>
-						</td>
-					</tr>
+					<div class="filter-buttons">
+						<button type="button">
+							<p>sort</p>
+							<i
+								class="icon"
+								alt="search-icon"
+								data-lucide="arrow-down-up"
+							></i>
+						</button>
+						<button type="button">
+							<p>filter</p>
+							<i
+								class="icon"
+								alt="search-icon"
+								data-lucide="list-filter"
+							></i>
+						</button>
 
-					<tr>
-						<td>
-							<div>
-								<input
-									id="checkbox-2"
-									type="checkbox"
-								/>
-								<label for="checkbox-2"></label>
-							</div>
-						</td>
-						<td class="order-number"><p>#123456</p></td>
-						<td class="order-date"><p>Mar 9, 2024</p></td>
-						<td class="order-name"><p>DJI Mavic 3 Pro</p></td>
+						<button
+							class="add-product-button"
+							type="button"
+						>
+							<p>Add Product</p>
+							<i
+								class="icon"
+								alt="add-icon"
+								data-lucide="plus"
+							></i>
+						</button>
+					</div>
+				</div>
+			</section>
 
-						<td class="order-status status-waiting">
-							<div>
-								<i
-									class="icon"
-									data-lucide="clock3"
-								></i>
-								<p>ETA 3 DAYS</p>
-							</div>
-						</td>
-						<td class="order-address"><p>Street 1234, Qatar University, Doha, Qatar</p></td>
+			<section>
+				<table class="order-table">
+					<thead class="table-head">
+						<tr>
+							<th scope="col">
+								<div>
+									<input
+										id="checkbox-all"
+										type="checkbox"
+									/>
+									<label for="checkbox-all"></label>
+								</div>
+							</th>
+							<th scope="col"><p>order</p></th>
+							<th scope="col"><p>Date</p></th>
+							<th scope="col"><p>item</p></th>
+							<th scope="col"><p>Status</p></th>
+							<th scope="col"><p>Address</p></th>
+							<th scope="col"><p>Quantity</p></th>
+							<th scope="col"><p>Amount</p></th>
+						</tr>
+					</thead>
+					<tbody class="table-body">
+						<tr>
+							<td>
+								<div>
+									<input
+										id="checkbox-1"
+										type="checkbox"
+									/>
+									<label for="checkbox-1"></label>
+								</div>
+							</td>
+							<td class="order-number"><p>#123456</p></td>
+							<td class="order-date"><p>Mar 9, 2024</p></td>
+							<td class="order-name"><p>DJI Mavic 3 Pro</p></td>
 
-						<td class="order-quantity"><p>2x</p></td>
+							<td class="order-status status-delivered">
+								<div>
+									<i
+										class="icon"
+										data-lucide="check-circle"
+									></i>
+									<p>Delivered</p>
+								</div>
+							</td>
+							<td class="order-address"><p>Street 1234, Qatar University, Doha, Qatar</p></td>
 
-						<td class="order-amount">
-							<p class="currency">USD</p>
-							<p class="amount">3,889.00</p>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</section>
+							<td class="order-quantity"><p>2x</p></td>
+
+							<td class="order-amount">
+								<p class="currency">USD</p>
+								<p class="amount">3,889.00</p>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<div>
+									<input
+										id="checkbox-2"
+										type="checkbox"
+									/>
+									<label for="checkbox-2"></label>
+								</div>
+							</td>
+							<td class="order-number"><p>#123456</p></td>
+							<td class="order-date"><p>Mar 9, 2024</p></td>
+							<td class="order-name"><p>DJI Mavic 3 Pro</p></td>
+
+							<td class="order-status status-waiting">
+								<div>
+									<i
+										class="icon"
+										data-lucide="clock3"
+									></i>
+									<p>ETA 3 DAYS</p>
+								</div>
+							</td>
+							<td class="order-address"><p>Street 1234, Qatar University, Doha, Qatar</p></td>
+
+							<td class="order-quantity"><p>2x</p></td>
+
+							<td class="order-amount">
+								<p class="currency">USD</p>
+								<p class="amount">3,889.00</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+		</main>
 	</block>
 </extends>
