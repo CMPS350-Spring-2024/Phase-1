@@ -6,10 +6,12 @@ import { PriceDisplay } from '@/components/PriceDisplay/logic';
 import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
 //	Repository Imports
-import { UserRepository } from '@/scripts/db/UserRepository';
 
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
+
+//	Utility Imports
+import { formatNumber } from '@/scripts/utils';
 
 export interface Navbar extends NavbarProps {}
 export interface NavbarProps extends BaseComponentProps {
@@ -68,7 +70,7 @@ export class Navbar extends PrimitiveComponent {
 		}
 
 		//	Add event listener to log out button
-		if (this.logoutButton) this.logoutButton.addEventListener('click', UserRepository.logoutUser);
+		if (this.logoutButton) this.logoutButton.addEventListener('click', window.UserRepository.logoutUser);
 	}
 
 	connectedCallback(): void {
@@ -102,9 +104,7 @@ export class Navbar extends PrimitiveComponent {
 			this.accountAvatar.innerText = window.currentUser.getAcronym();
 			this.accountAvatar.color = window.currentUser.avatarColor;
 			this.accountName.innerText = window.currentUser.getName();
-			this.accountBalance.innerText = new Intl.NumberFormat('en-US', {
-				minimumFractionDigits: 2,
-			}).format(window.currentUser.balance);
+			this.accountBalance.innerText = formatNumber(window.currentUser.balance);
 
 			//	If the user is an admin, show the admin links and change the account button
 			if (window.currentUser.isAdmin) {

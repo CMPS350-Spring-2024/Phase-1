@@ -4,14 +4,15 @@ import * as v from 'valibot';
 //	Component Imports
 import { Alert } from '@/components/Alert/logic';
 
-//	Repository Imports
-
 //	Schema Imports
 import { LoginSchema, RegistrationSchema } from '@/scripts/models/User';
 
-const alert = document.querySelector('ui-alert') as Alert;
-const loginForm = document.querySelector('#login_form') as HTMLFormElement;
-const registrationForm = document.querySelector('#registration_form') as HTMLFormElement;
+//	Utility Imports
+import { find } from '@/scripts/utils';
+
+const alert = find('ui-alert') as Alert;
+const loginForm = find('#login_form') as HTMLFormElement;
+const registrationForm = find('#registration_form') as HTMLFormElement;
 
 /**
  * Handles the form submission, logs the user in

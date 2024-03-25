@@ -4,6 +4,9 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
+//	Utility Imports
+import { clamp } from '@/scripts/utils';
+
 export interface Rating extends Omit<RatingProps, 'onclick'> {}
 export interface RatingProps extends BaseComponentProps {
 	/**
@@ -92,6 +95,10 @@ export class Rating extends PrimitiveComponent {
 			});
 		}
 	}
+
+	setRating = (value: number) => {
+		this.value = (Math.round(clamp(value * 2, 0, 10)) / 2).toString().replace('.0', '') as RatingProps['value'];
+	};
 }
 
 customElements.define('ui-rating', Rating);

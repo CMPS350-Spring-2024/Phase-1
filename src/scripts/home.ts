@@ -1,6 +1,8 @@
 //	Component Imports
 import { Button } from '@/components/Button/logic';
 import '@/components/DroneViewer/logic';
+//	Utility Imports
+import { find, findAll, formatNumber, startViewTransition } from '@/scripts/utils';
 
 let currentTab: number = 0;
 
@@ -11,24 +13,16 @@ const leftTabButton = document.querySelector('.left.tab-arrow-btn') as Button;
 const rightTabButton = document.querySelector('.right.tab-arrow-btn') as Button;
 const tabButtons = document.querySelectorAll('.tab-list .tab');
 const tabContents = document.querySelectorAll('.tab-content');
-
-const startViewTransition = (callback: () => void) => {
-	//	If the browser doesnt support view transitions
-	if (!document.startViewTransition) {
-		callback();
-		return;
-	}
-	document.startViewTransition(callback);
 };
 
 const handleViewDetails = () =>
 	startViewTransition(() => {
-		document.querySelector('main')!.classList.add('product-overview');
+		find('main')!.classList.add('product-overview');
 	});
 
 const handleBack = () =>
 	startViewTransition(() => {
-		document.querySelector('main')!.classList.remove('product-overview');
+		find('main')!.classList.remove('product-overview');
 	});
 
 const handleChangeTab = (index: number) => {
