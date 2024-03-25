@@ -61,5 +61,5 @@ export const handleRegistration = (event: Event) => {
 };
 
 //	Add event listeners to the forms
-loginForm.addEventListener('submit', handleLogin);
-registrationForm.addEventListener('submit', handleRegistration);
+if (loginForm) loginForm.addEventListener('submit', handleLogin);
+if (registrationForm) registrationForm.addEventListener('submit', handleRegistration);
