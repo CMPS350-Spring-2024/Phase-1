@@ -37,7 +37,9 @@ export class ProductRepository extends BaseRepository<Product> {
 
 	addProduct = (product: Product): void => this.addItem(product);
 	addDefaultData = (): void => {
-		if (this.getNumberOfProducts() > 0) return;
+		const isDev = import.meta.env.DEV;
+		if (isDev) this.products = [];
+		if (!isDev && this.getNumberOfProducts() > 0) return;
 		DefaultProductList.forEach((productData) => {
 			//	@ts-ignore
 			const product = new Product({
