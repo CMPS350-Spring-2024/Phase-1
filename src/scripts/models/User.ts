@@ -2,6 +2,9 @@
 import jsSHA from 'jssha';
 import * as v from 'valibot';
 
+//	Repository Imports
+import { UserRepository } from '@/scripts/db/UserRepository';
+
 //	Type Imports
 import { Avatar, type AvatarProps } from '@/components/Avatar/logic';
 
@@ -61,13 +64,18 @@ export class User {
 		this.email = userData.email;
 		this.phone = userData.phone;
 
+		//	Generate a random id which is not already in use
+		let newId = 0;
+		while (newId === 0 || UserRepository.getUser(newId)) newId = crypto.getRandomValues(new Uint32Array(1))[0];
+
 		//	If we are only parsing the user data, keep it as is
 		if (userData.isParsing) {
 			this.password = userData.password;
-			this._id = userData._id ?? crypto.getRandomValues(new Uint32Array(1))[0];
-			this.avatarColor = userData.avatarColor || 'black';
-			this.balance = userData.balance || 0;
+			this._id = userData._id ?? newId;
+			this.avatarColor = userData._avatarColor || 'black';
+			this.balance = userData._balance || 0;
 		} else {
+			this._id = newId;
 			this.avatarColor = Avatar.getRandomizedColor();
 			this.balance = 0;
 
@@ -75,9 +83,6 @@ export class User {
 			const hashObject = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' });
 			hashObject.update(userData.password);
 			this.password = hashObject.getHash('HEX');
-
-			//	Set the user's unique identifier
-			this._id = crypto.getRandomValues(new Uint32Array(1))[0];
 		}
 	}
 
@@ -96,7 +101,6 @@ export class User {
 	static parse = (data: Record<string, any>): User | null => {
 		try {
 			const user = new User({
-				_id: data._id,
 				name: {
 					first: data.name.first,
 					last: data.name.last,
@@ -104,9 +108,11 @@ export class User {
 				email: data.email,
 				phone: data.phone,
 				password: data.password,
-				avatarColor: data.avatarColor,
-				balance: data.balance,
+
 				isParsing: true,
+				_id: data._id,
+				_avatarColor: data.avatarColor,
+				_balance: data.balance,
 			});
 			return user;
 		} catch (error) {
@@ -163,8 +169,8 @@ export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'pas
 	/**
 	 * Only used when parsing the user data
 	 */
-	_id?: number;
 	isParsing?: boolean;
-	avatarColor?: AvatarProps['color'];
-	balance?: number;
+	_id?: number;
+	_avatarColor?: AvatarProps['color'];
+	_balance?: number;
 }

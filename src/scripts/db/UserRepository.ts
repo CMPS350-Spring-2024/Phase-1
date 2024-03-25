@@ -18,11 +18,11 @@ export class UserRepository {
 	/*                               // SECTION Get                               */
 	/* -------------------------------------------------------------------------- */
 
-	static getUsers = (): UserDictionary => {
-		const currentUsers = JSON.parse(window.localStorage.getItem('users') || '{}');
-
-		//	Transform each object in local storage to a User object
+	static getAllUsers = (): UserDictionary => {
+		let currentUsers: UserDictionary = {};
 		try {
+			//	Transform each object in local storage to a User object
+			currentUsers = JSON.parse(window.localStorage.getItem('users') || '{}');
 			const parsedUsers = Object.values(currentUsers).reduce((acc: UserDictionary, user: any) => {
 				const userObject = User.parse(user);
 				if (!userObject) throw new Error(`User object is not valid: ${user}`);
@@ -32,7 +32,12 @@ export class UserRepository {
 			return parsedUsers as UserDictionary;
 		} catch (error) {
 			console.error(`Error parsing users from local storage: ${error}`);
-			return {};
+
+			//	Reinitialize the users in local storage
+			console.warn('Reinitializing users in local storage, previous data will be lost');
+			UserRepository.users = {};
+			UserRepository.initialize();
+			return UserRepository.users;
 		}
 	};
 
@@ -86,7 +91,7 @@ export class UserRepository {
 	/* -------------------------------------------------------------------------- */
 
 	static updateUsersList = (): void => {
-		UserRepository.users = UserRepository.getUsers();
+		UserRepository.users = UserRepository.getAllUsers();
 		UserRepository.updateNumberOfUsers();
 	};
 
@@ -101,6 +106,13 @@ export class UserRepository {
 	/* -------------------------------------------------------------------------- */
 	/*                              // SECTION Others                             */
 	/* -------------------------------------------------------------------------- */
+
+	/**
+	 * Initializes the user repository by adding the default admin user.
+	 */
+	static initialize = (): void => {
+		if (!UserRepository.getUser(0)) UserRepository.addDefaultAdmin();
+	};
 
 	/**
 	 * Uses the given user data to log in and find the user in the local storage if it exists.
