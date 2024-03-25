@@ -2,19 +2,15 @@
 import jsSHA from 'jssha';
 import * as v from 'valibot';
 
-//	Repository Imports
-
-//	Type Imports
-import { Avatar, type AvatarProps } from '@/components/Avatar/logic';
+//	Model Imports
+import { Avatar } from '@/components/Avatar/logic';
 import { BaseModel } from '@/scripts/models/BaseModel';
 
-export interface User extends IUser {}
-export interface IUser extends BaseModel {
-	/**
-	 * The user's unique identifier, if the user is an admin, this will be 0
-	 */
-	id: number;
+//	Type Imports
+import type { AvatarProps } from '@/components/Avatar/logic';
 
+export interface User extends IUser {}
+export interface IUser {
 	/**
 	 * The user's name as an object containing the first and last name
 	 */
@@ -56,27 +52,22 @@ export interface IUser extends BaseModel {
 	balance: number;
 }
 
-export class User {
-	private _id: number;
+export class User extends BaseModel {
+	protected static readonly repositoryKey: string = 'UserRepository';
 
 	constructor(userData: CreateUser) {
+		super(userData);
+
 		this.name = userData.name;
 		this.email = userData.email;
 		this.phone = userData.phone;
 
-		//	Generate a random id which is not already in use
-		let newId = 0;
-		while (newId === 0 || window.UserRepository.getUser(newId))
-			newId = crypto.getRandomValues(new Uint32Array(1))[0];
-
 		//	If we are only parsing the user data, keep it as is
 		if (userData.isParsing) {
 			this.password = userData.password;
-			this._id = userData._id ?? newId;
 			this.avatarColor = userData._avatarColor || 'black';
 			this.balance = userData._balance || 0;
 		} else {
-			this._id = newId;
 			this.avatarColor = Avatar.getRandomizedColor();
 			this.balance = 0;
 
@@ -87,9 +78,6 @@ export class User {
 		}
 	}
 
-	get id(): number {
-		return this._id;
-	}
 	get isAdmin(): boolean {
 		return this.id === 0;
 	}

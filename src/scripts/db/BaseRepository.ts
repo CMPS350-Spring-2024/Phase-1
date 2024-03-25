@@ -5,7 +5,7 @@ import { BaseModel } from '@/scripts/models/BaseModel';
 
 export type BaseDictionary<Model extends BaseModel> = Record<number, Model>;
 export abstract class BaseRepository<Model extends BaseModel> {
-	protected abstract storageKey: string;
+	protected abstract readonly storageKey: string;
 	protected numberOfItems: number = 0;
 	protected items: BaseDictionary<Model> = {};
 

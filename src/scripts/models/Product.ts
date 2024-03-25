@@ -1,19 +1,14 @@
+//	Repository Imports
+
+//	Model Imports
+import { BaseModel } from '@/scripts/models/BaseModel';
+
 export interface Product extends IProduct {}
 export interface IProduct {
-	/**
-	 * The product's unique identifier
-	 */
-	id: number;
-
 	/**
 	 * The product's name, for example "Mavic 3 Pro"
 	 */
 	name: string;
-
-	/**
-	 * The overall rating of the product, out of 5
-	 */
-	rating: number;
 
 	/**
 	 * A short description of the product
@@ -39,6 +34,26 @@ export interface IProduct {
 	 * The weight of the product in grams
 	 */
 	weight: number;
+
+	/**
+	 * The overall rating of the product, out of 5
+	 */
+	rating: number;
+
+	/**
+	 * The number of reviews
+	 */
+	numberOfReviews: number;
+
+	/**
+	 * The number of sales
+	 */
+	numberOfSales: number;
+
+	/**
+	 * The number of ongoing orders
+	 */
+	numberOfOngoingOrders: number;
 
 	/**
 	 * Data on the series of the drone, for example "Mavic" or "Phantom"
@@ -110,10 +125,12 @@ export interface ISeries extends Pick<Product, 'series'> {}
 export interface IFeature extends Pick<Product, 'features'> {}
 export interface IIncludedItem extends Pick<Product, 'includedItems'> {}
 
-export class Product {
-	private _id: number;
+export class Product extends BaseModel {
+	protected static readonly repositoryKey: string = 'ProductRepository';
 
 	constructor(productData: CreateProduct) {
+		super(productData);
+
 		this.name = productData.name;
 		this.description = productData.description;
 		this.modelUrl = productData.modelUrl;
@@ -125,18 +142,13 @@ export class Product {
 		this.includedItems = productData.includedItems;
 		this.faqs = productData.faqs;
 
-		//	If we are only parsing the user data, keep it as is
+		//	If we are only parsing the product data, keep it as is
 		if (productData.isParsing) {
-			this._id = productData._id ?? crypto.getRandomValues(new Uint32Array(1))[0];
-			this.rating = productData.rating || 0;
-		} else {
-			this._id = crypto.getRandomValues(new Uint32Array(1))[0];
-			this.rating = 0;
-		}
-	}
-
-	get id(): number {
-		return this._id;
+			this.rating = productData._rating || 0;
+			this.numberOfReviews = productData._numberOfReviews || 0;
+			this.numberOfSales = productData._numberOfSales || 0;
+			this.numberOfOngoingOrders = productData._numberOfOngoingOrders || 0;
+		} else this.rating = 0;
 	}
 
 	getNumberOfReviews = () => {};
@@ -166,7 +178,10 @@ export interface CreateProduct
 	/**
 	 * Only used when parsing the product data
 	 */
-	_id?: number;
 	isParsing?: boolean;
-	rating?: number;
+	_id?: number;
+	_rating?: number;
+	_numberOfReviews?: number;
+	_numberOfSales?: number;
+	_numberOfOngoingOrders?: number;
 }

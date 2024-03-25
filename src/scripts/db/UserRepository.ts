@@ -13,7 +13,7 @@ import { CreateUser, LoginUser, RegisterUser, User } from '@/scripts/models/User
 
 export type UserDictionary = Record<number, User>;
 export class UserRepository extends BaseRepository<User> {
-	protected storageKey: string = 'users';
+	protected readonly storageKey: string = 'users';
 
 	private get users(): UserDictionary {
 		return this.getAllUsers();
@@ -50,7 +50,6 @@ export class UserRepository extends BaseRepository<User> {
 	};
 
 	addUser = (user: User): void => this.addItem(user);
-
 	addDefaultData = (): void => {
 		if (this.getUser(0)) return;
 		//	@ts-ignore

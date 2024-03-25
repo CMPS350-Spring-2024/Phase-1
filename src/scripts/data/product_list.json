@@ -1,0 +1,22 @@
+[
+	{
+		"_id": 558374522,
+		"name": "DJI Mavic 3 Pro",
+		"description": "The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and extensive range, ideal for photographers and filmmakers in diverse settings.",
+		"modelUrl": "https://github.com/CMPS350-Spring-2024/Phase-1/raw/dev/public/models/Mavic%203.glb",
+		"price": 3889,
+		"quantity": 1043,
+		"weight": 998,
+		"rating": 3.6,
+		"numberOfReviews": 12,
+		"numberOfSales": 1050,
+		"numberOfOngoingOrders": 6,
+		"series": {
+			"name": "Mavic",
+			"description": "Aerial Photography"
+		},
+		"features": [],
+		"includedItems": [],
+		"faqs": []
+	}
+]
