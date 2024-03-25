@@ -3,13 +3,13 @@ import jsSHA from 'jssha';
 import * as v from 'valibot';
 
 //	Repository Imports
-import { UserRepository } from '@/scripts/db/UserRepository';
 
 //	Type Imports
 import { Avatar, type AvatarProps } from '@/components/Avatar/logic';
+import { BaseModel } from '@/scripts/models/BaseModel';
 
 export interface User extends IUser {}
-export interface IUser {
+export interface IUser extends BaseModel {
 	/**
 	 * The user's unique identifier, if the user is an admin, this will be 0
 	 */
@@ -66,7 +66,8 @@ export class User {
 
 		//	Generate a random id which is not already in use
 		let newId = 0;
-		while (newId === 0 || UserRepository.getUser(newId)) newId = crypto.getRandomValues(new Uint32Array(1))[0];
+		while (newId === 0 || window.UserRepository.getUser(newId))
+			newId = crypto.getRandomValues(new Uint32Array(1))[0];
 
 		//	If we are only parsing the user data, keep it as is
 		if (userData.isParsing) {
@@ -97,29 +98,6 @@ export class User {
 	getFirstName = (): string => this.name.first;
 	getLastName = (): string => this.name.last || '';
 	getAcronym = (): string => this.name.first[0] + (this.name.last ? this.name.last[0] : '');
-
-	static parse = (data: Record<string, any>): User | null => {
-		try {
-			const user = new User({
-				name: {
-					first: data.name.first,
-					last: data.name.last,
-				},
-				email: data.email,
-				phone: data.phone,
-				password: data.password,
-
-				isParsing: true,
-				_id: data._id,
-				_avatarColor: data.avatarColor,
-				_balance: data.balance,
-			});
-			return user;
-		} catch (error) {
-			console.error(`Error parsing user data: ${error}`);
-			return null;
-		}
-	};
 }
 
 export interface LoginUser extends Pick<User, 'email' | 'password'> {}

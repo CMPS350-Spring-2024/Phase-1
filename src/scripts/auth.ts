@@ -5,7 +5,6 @@ import * as v from 'valibot';
 import { Alert } from '@/components/Alert/logic';
 
 //	Repository Imports
-import { UserRepository } from '@/scripts/db/UserRepository';
 
 //	Schema Imports
 import { LoginSchema, RegistrationSchema } from '@/scripts/models/User';
@@ -27,7 +26,7 @@ export const handleLogin = (event: Event) => {
 	//	Validate the incoming data and show the errors if any, then log the user in
 	try {
 		const output = v.parse(LoginSchema, data);
-		const user = UserRepository.loginUser(output);
+		const user = window.UserRepository.loginUser(output);
 
 		//	Redirect to either the customer page or admin page
 		if (user.isAdmin) window.location.assign('/admin/index.html');
@@ -52,7 +51,7 @@ export const handleRegistration = (event: Event) => {
 	//	Validate the incoming data and show the errors if any, then register the user
 	try {
 		const output = v.parse(RegistrationSchema, data);
-		UserRepository.registerUser(output);
+		window.UserRepository.registerUser(output);
 		window.location.assign('/customer/index.html');
 	} catch (error: unknown) {
 		console.error(`Error registering user: ${error}`);
