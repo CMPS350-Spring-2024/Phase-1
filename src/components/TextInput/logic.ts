@@ -146,9 +146,7 @@ export class TextInput extends PrimitiveComponent {
 		//	If this is a password input, find the visibility toggle button and add the isPassword attribute
 		if (this.type === 'password') {
 			this.isPassword = true;
-			this.visibilityToggle = this.shadowRoot?.querySelector(
-				'[exportparts="root: visibility-toggle"]',
-			) as HTMLButtonElement;
+			this.visibilityToggle = this.find('[exportparts="root: visibility-toggle"]') as HTMLButtonElement;
 		}
 
 		//	Add event listener to update the value property when the input changes

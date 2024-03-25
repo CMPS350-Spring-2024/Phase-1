@@ -55,8 +55,8 @@ export class DroneViewer extends PrimitiveComponent {
 		});
 
 		//	Find the container element
-		this.container = this.shadowRoot!.querySelector('[part="container"]') as HTMLElement;
-		this.helper = this.shadowRoot!.querySelector('[part="helper"]') as HTMLElement;
+		this.container = this.find('[part="container"]') as HTMLElement;
+		this.helper = this.find('[part="helper"]') as HTMLElement;
 
 		//	Show the helper based on the session storage
 		if (window.sessionStorage.getItem('hideHelper') === 'true') {
@@ -82,7 +82,7 @@ export class DroneViewer extends PrimitiveComponent {
 
 		//	Hide helper when the canvas is clicked
 		this.element.addEventListener('mousedown', () => this.handleCanvasClick());
-		this.element.addEventListener('touchstart', () => this.handleCanvasClick());
+		this.element.addEventListener('touchstart', () => this.handleCanvasClick(), { passive: true });
 	}
 
 	private handleWindowResize = () => {

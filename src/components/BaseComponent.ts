@@ -96,4 +96,7 @@ export class BaseComponent extends HTMLElement {
 	attributeChangedCallback(name: string, oldValue: string, newValue: string) {
 		if (this.debug) console.log(`Attribute ${name} changed from ${oldValue} to ${newValue}.`);
 	}
+
+	find = <E extends Element>(q: string) => this.shadowRoot!.querySelector<E>(q);
+	findAll = <E extends Element>(q: string) => Array.from(this.shadowRoot!.querySelectorAll<E>(q));
 }

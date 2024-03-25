@@ -125,9 +125,9 @@ export class NumericInput extends PrimitiveComponent {
 		this._internals = this.attachInternals();
 
 		//	Save the reference to the root element and the buttons
-		this.root = this.shadowRoot!.querySelector('[part="root"]');
-		this.decrement = this.shadowRoot!.querySelector<HTMLButtonElement>('#decrement-button');
-		this.increment = this.shadowRoot!.querySelector<HTMLButtonElement>('#increment-button');
+		this.root = this.find('[part="root"]');
+		this.decrement = this.find<HTMLButtonElement>('#decrement-button');
+		this.increment = this.find<HTMLButtonElement>('#increment-button');
 
 		//	Add event listener to update the value property when the input changes and to increment/decrement the value
 		this.element.addEventListener('change', () => this.handleValueChange());

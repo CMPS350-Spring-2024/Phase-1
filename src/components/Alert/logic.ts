@@ -68,12 +68,10 @@ export class Alert extends BaseComponent {
 		super({ defaultProperties: Alert.defaultProperties });
 
 		//	Save the reference to the menu and the toggle button
-		this.root = this.shadowRoot!.querySelector('[part="root"]');
-		this.icon = this.shadowRoot!.querySelector('[part="icon"]');
-		this.titleElement = this.shadowRoot!.querySelector<HTMLSlotElement>('[part="title"] slot')!.assignedNodes()[0];
-		this.messageElement = this.shadowRoot!.querySelector<HTMLSlotElement>(
-			'[part="message"] slot',
-		)!.assignedNodes()[0] as HTMLElement;
+		this.root = this.find('[part="root"]');
+		this.icon = this.find('[part="icon"]');
+		this.titleElement = this.find<HTMLSlotElement>('[part="title"] slot')!.assignedNodes()[0];
+		this.messageElement = this.find<HTMLSlotElement>('[part="message"] slot')!.assignedNodes()[0] as HTMLElement;
 
 		//	Update the icon
 		this.updateIcon();
