@@ -94,6 +94,12 @@ export class Rating extends PrimitiveComponent {
 				star.disabled = !this.editable;
 			});
 		}
+
+		//	Whenever the value is changed, update the checked value.
+		if (name === 'value') {
+			const index = this.valueToIndexMap[this.value ?? '0'];
+			this.stars[index].checked = true;
+		}
 	}
 
 	setRating = (value: number) => {
