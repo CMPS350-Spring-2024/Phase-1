@@ -45,11 +45,17 @@
 			<ui-drone-viewer></ui-drone-viewer>
 
 			<!-- Previous and Next Arrows -->
-			<ui-button class="left arrow-btn group">
+			<ui-button
+				class="left arrow-btn group"
+				id="left-arrow-carousel"
+			>
 				<i data-lucide="move-left"></i>
 				<p>Avata</p>
 			</ui-button>
-			<ui-button class="right arrow-btn group">
+			<ui-button
+				class="right arrow-btn group"
+				id="right-arrow-carousel"
+			>
 				<i data-lucide="move-right"></i>
 				<p>Air 2</p>
 			</ui-button>
@@ -103,7 +109,10 @@
 
 			<!-- Decorative Text -->
 			<h1 class="lg bg-text">DJI</h1>
-			<h1 class="md bg-text">
+			<h1
+				class="md bg-text"
+				id="series-description"
+			>
 				Aerial
 				<br />
 				Photography
@@ -141,11 +150,22 @@
 
 			<!-- Mobile Tabs -->
 			<span class="tab-selector">
-				<ui-button class="left tab-arrow-btn">
+				<ui-button
+					class="left tab-arrow-btn"
+					id="left-arrow-tab"
+				>
 					<i data-lucide="chevron-left"></i>
 				</ui-button>
-				<h3 class="tab-title">Features</h3>
-				<ui-button class="right tab-arrow-btn">
+				<h3
+					class="tab-title"
+					id="mobile-tab-label"
+				>
+					Features
+				</h3>
+				<ui-button
+					class="right tab-arrow-btn"
+					id="right-arrow-tab"
+				>
 					<i data-lucide="chevron-right"></i>
 				</ui-button>
 			</span>

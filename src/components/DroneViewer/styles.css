@@ -1,7 +1,7 @@
 ui-drone-viewer {
 	&::part(container) {
 		@apply relative;
-		@apply h-[480px] w-full xl:size-[640px];
+		@apply h-[480px] w-full xl:size-[560px] 2xl:size-[640px];
 		@apply flex flex-col place-content-center items-center;
 		view-transition-name: drone-viewer-expanded;
 	}

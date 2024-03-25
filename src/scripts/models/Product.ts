@@ -16,11 +16,6 @@ export interface IProduct {
 	description: string;
 
 	/**
-	 * The 3D model to display for the product
-	 */
-	modelUrl: string;
-
-	/**
 	 * The product's price
 	 */
 	price: number;
@@ -54,6 +49,44 @@ export interface IProduct {
 	 * The number of ongoing orders
 	 */
 	numberOfOngoingOrders: number;
+
+	/**
+	 * The 3D model to display for the product
+	 */
+	model: {
+		/**
+		 * The URL of the model
+		 */
+		url: string;
+
+		/**
+		 * The position of the model in the scene
+		 */
+		position: {
+			x: number;
+			y: number;
+			z: number;
+		};
+
+		/**
+		 * The rotation of the model in degrees in the z-axis
+		 */
+		rotation: number;
+
+		/**
+		 * The scale to display the model at
+		 */
+		scale: number;
+
+		/**
+		 * The initial position of the camera
+		 */
+		cameraPosition: {
+			x: number;
+			y: number;
+			z: number;
+		};
+	};
 
 	/**
 	 * Data on the series of the drone, for example "Mavic" or "Phantom"
@@ -121,9 +154,10 @@ export interface IProduct {
 	}>;
 }
 
-export interface ISeries extends Pick<Product, 'series'> {}
-export interface IFeature extends Pick<Product, 'features'> {}
-export interface IIncludedItem extends Pick<Product, 'includedItems'> {}
+export type IModel = Product['model'];
+export type ISeries = Product['series'];
+export type IFeature = Product['features'];
+export type IIncludedItem = Product['includedItems'];
 
 export class Product extends BaseModel {
 	protected static readonly repositoryKey: string = 'ProductRepository';
@@ -133,7 +167,7 @@ export class Product extends BaseModel {
 
 		this.name = productData.name;
 		this.description = productData.description;
-		this.modelUrl = productData.modelUrl;
+		this.model = productData.model;
 		this.price = productData.price;
 		this.quantity = productData.quantity;
 		this.weight = productData.weight;
@@ -166,7 +200,7 @@ export interface CreateProduct
 		Product,
 		| 'name'
 		| 'description'
-		| 'modelUrl'
+		| 'model'
 		| 'price'
 		| 'quantity'
 		| 'weight'

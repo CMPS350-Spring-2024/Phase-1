@@ -66,7 +66,7 @@ export class ProductRepository extends BaseRepository<Product> {
 				_id: data._id,
 				name: data.name,
 				description: data.description,
-				modelUrl: data.modelUrl,
+				model: data.model,
 				price: data.price,
 				quantity: data.quantity,
 				weight: data.weight,

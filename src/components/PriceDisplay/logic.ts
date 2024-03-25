@@ -4,6 +4,9 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
+//	Utility Imports
+import { formatNumber } from '@/scripts/utils';
+
 export interface PriceDisplayProps extends BaseComponentProps {
 	/**
 	 * Specifies the size of the price display.
@@ -21,12 +24,19 @@ export class PriceDisplay extends PrimitiveComponent {
 		size: 'sm',
 	};
 
+	protected valueElement: HTMLParagraphElement;
+
 	constructor() {
 		super({
 			elementName: 'span',
 			defaultProperties: PriceDisplay.defaultProperties,
 		});
+		this.valueElement = this.find('[part="value"]')!;
 	}
+
+	setPrice = (price: number) => {
+		this.valueElement.textContent = formatNumber(price);
+	};
 }
 
 customElements.define('ui-price-display', PriceDisplay);

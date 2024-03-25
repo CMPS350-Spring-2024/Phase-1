@@ -3,8 +3,22 @@
 		"_id": 0,
 		"name": "DJI Mavic 3 Pro",
 		"description": "The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and extensive range, ideal for photographers and filmmakers in diverse settings.",
-		"modelUrl": "https://github.com/CMPS350-Spring-2024/Phase-1/raw/dev/public/models/Mavic%203.glb",
-		"price": 3889,
+		"model": {
+			"url": "https://raw.githubusercontent.com/CMPS350-Spring-2024/Phase-1/dev/public/models/Mavic%203.glb",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"rotation": -0.06981317007977318,
+			"scale": 7.5,
+			"cameraPosition": {
+				"x": 1.5,
+				"y": 0,
+				"z": 2.8
+			}
+		},
+		"price": 3999,
 		"quantity": 1043,
 		"weight": 998,
 		"rating": 3.6,
@@ -13,6 +27,40 @@
 		"numberOfOngoingOrders": 6,
 		"series": {
 			"name": "Mavic",
+			"description": "Aerial Photography"
+		},
+		"features": [],
+		"includedItems": [],
+		"faqs": []
+	},
+	{
+		"_id": 1,
+		"name": "DJI Mini 4 Pro",
+		"description": "The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and extensive range, ideal for photographers and filmmakers in diverse settings.",
+		"model": {
+			"url": "/models/Mini 4.glb",
+			"position": {
+				"x": 0,
+				"y": 0.14,
+				"z": 0
+			},
+			"scale": 0.125,
+			"rotation": 0.225,
+			"cameraPosition": {
+				"x": -1.5,
+				"y": 0.1,
+				"z": -2.8
+			}
+		},
+		"price": 959,
+		"quantity": 1043,
+		"weight": 249,
+		"rating": 3.6,
+		"numberOfReviews": 12,
+		"numberOfSales": 1050,
+		"numberOfOngoingOrders": 6,
+		"series": {
+			"name": "Mini",
 			"description": "Aerial Photography"
 		},
 		"features": [],
