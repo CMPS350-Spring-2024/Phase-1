@@ -40,7 +40,14 @@ export class ProductRepository extends BaseRepository<Product> {
 		if (this.getNumberOfProducts() > 0) return;
 		DefaultProductList.forEach((productData) => {
 			//	@ts-ignore
-			const product = new Product({ ...productData, isParsing: true });
+			const product = new Product({
+				...productData,
+				isParsing: true,
+				_rating: productData.rating,
+				_numberOfReviews: productData.numberOfReviews,
+				_numberOfSales: productData.numberOfSales,
+				_numberOfOngoingOrders: productData.numberOfOngoingOrders,
+			});
 			this.addItem(product);
 		});
 	};
