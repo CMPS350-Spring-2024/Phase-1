@@ -341,6 +341,30 @@
 					"description": "The pattern the value must match to be valid, should be a valid Regex matcher."
 				},
 				{
+					"name": "autocomplete",
+					"description": "The type of autocomplete to use for the input.",
+					"values": [
+						{ "name": "on" },
+						{ "name": "off" },
+						{ "name": "name" },
+						{ "name": "given-name" },
+						{ "name": "additional-name" },
+						{ "name": "family-name" },
+						{ "name": "nickname" },
+						{ "name": "email" },
+						{ "name": "username" },
+						{ "name": "current-password" },
+						{ "name": "new-password" },
+						{ "name": "street-address" },
+						{ "name": "address-line1" },
+						{ "name": "address-line2" },
+						{ "name": "address-line3" },
+						{ "name": "country-name" },
+						{ "name": "tel" },
+						{ "name": "url" }
+					]
+				},
+				{
 					"name": "autofocus",
 					"description": "Should this input be focused when the page loads?",
 					"values": [{ "name": "true" }, { "name": "false" }]
