@@ -69,9 +69,13 @@ export interface IProduct {
 		};
 
 		/**
-		 * The rotation of the model in degrees in the z-axis
+		 * The rotation of the model in degrees
 		 */
-		rotation: number;
+		rotation: {
+			x: number;
+			y: number;
+			z: number;
+		};
 
 		/**
 		 * The scale to display the model at

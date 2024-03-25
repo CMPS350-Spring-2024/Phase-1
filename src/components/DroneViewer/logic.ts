@@ -185,7 +185,9 @@ export class DroneViewer extends PrimitiveComponent {
 					const model = gltf.scene;
 					model.name = 'Drone';
 					model.position.set(position.x, position.y, position.z);
-					model.rotateX(rotation);
+					model.rotateX(rotation.x);
+					model.rotateY(rotation.y);
+					model.rotateZ(rotation.z);
 					model.scale.set(scale, scale, scale);
 					this.camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
 					await this.renderer.compileAsync(model, this.camera, this.scene);
