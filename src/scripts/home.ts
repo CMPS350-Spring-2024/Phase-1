@@ -9,7 +9,7 @@ import { Rating } from '@/components/Rating/logic';
 // import { Product } from '@/scripts/models/Product';
 
 //	Utility Imports
-import { clamp, find, findAll, formatNumber, startViewTransition } from '@/scripts/utils';
+import { clamp, find, findAll, formatNumber, startViewTransition } from '@/scripts/_utils';
 
 let currentTab: number = 0;
 let currentDrone: number = 0;

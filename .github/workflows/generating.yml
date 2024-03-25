@@ -28,7 +28,7 @@ jobs:
               with:
                   timeout_minutes: 10
                   max_attempts: 2
-                  command: pnpm run build && node ./src/scripts/buildAnalyzer.mjs
+                  command: pnpm run build && node ./src/scripts/_buildAnalyzer.mjs
 
             - name: Commit bundle analysis
               uses: stefanzweifel/git-auto-commit-action@v4

@@ -5,7 +5,7 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
 //	Utility Imports
-import { clamp } from '@/scripts/utils';
+import { clamp } from '@/scripts/_utils';
 
 export interface Rating extends Omit<RatingProps, 'onclick'> {}
 export interface RatingProps extends BaseComponentProps {

@@ -5,7 +5,7 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
 //	Utility Imports
-import { formatNumber } from '@/scripts/utils';
+import { formatNumber } from '@/scripts/_utils';
 
 export interface PriceDisplayProps extends BaseComponentProps {
 	/**

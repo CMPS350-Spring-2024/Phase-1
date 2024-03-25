@@ -8,7 +8,7 @@ import { Alert } from '@/components/Alert/logic';
 import { LoginSchema, RegistrationSchema } from '@/scripts/models/User';
 
 //	Utility Imports
-import { find } from '@/scripts/utils';
+import { find } from '@/scripts/_utils';
 
 const alert = find('ui-alert') as Alert;
 const loginForm = find('#login_form') as HTMLFormElement;
