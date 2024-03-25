@@ -137,7 +137,7 @@ main {
 				}
 
 				p {
-					@apply translate-x-0 md:-translate-x-6 md:-rotate-90;
+					@apply translate-x-0 md:rotate-180 md:[writing-mode:vertical-lr];
 				}
 			}
 
@@ -148,7 +148,7 @@ main {
 				}
 
 				p {
-					@apply translate-x-0 md:translate-x-6 md:rotate-90;
+					@apply translate-x-0 md:[writing-mode:vertical-lr];
 				}
 			}
 		}
@@ -416,25 +416,6 @@ main {
 			}
 			p {
 				--tw-translate-x: 4px !important;
-			}
-		}
-
-		@media (min-width: 768px) {
-			&.left {
-				svg {
-					--tw-translate-x: -12px !important;
-				}
-				p {
-					--tw-translate-x: -28px !important;
-				}
-			}
-			&.right {
-				svg {
-					--tw-translate-x: 12px !important;
-				}
-				p {
-					--tw-translate-x: 28px !important;
-				}
 			}
 		}
 	}
