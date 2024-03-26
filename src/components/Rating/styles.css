@@ -48,7 +48,7 @@ input:checked {
 }
 
 span.product-rating {
-	@apply flex flex-row items-center gap-2;
+	@apply inline-flex flex-row items-center gap-2;
 
 	p {
 		@apply font-serif text-sm;

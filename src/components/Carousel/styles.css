@@ -6,17 +6,18 @@ ui-carousel {
 		@apply rounded-none border-0 outline-none focus-hover:bg-transparent;
 		@apply z-10;
 
-		@apply animate-[fade-slide-from-right];
 		animation-duration: 1400ms;
 		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 		animation-fill-mode: forwards;
 	}
 	&::part(left-arrow) {
 		@apply left-0;
+		animation-name: fade-slide-from-left;
 		view-transition-name: left-arrow-btn;
 	}
 	&::part(right-arrow) {
 		@apply right-0 flex-row-reverse;
+		animation-name: fade-slide-from-right;
 		view-transition-name: right-arrow-btn;
 	}
 
@@ -47,22 +48,10 @@ ui-carousel {
 		@apply absolute bottom-4;
 		@apply hidden flex-row items-center gap-2 md:flex;
 		view-transition-name: carousel;
-
-		span.series-container {
-			@apply flex flex-row place-content-center items-center;
-			@apply gap-3 px-2 pb-2 pt-8;
-			@apply border-x border-border;
-			@apply -translate-y-3;
-
-			hr {
-				@apply w-4;
-			}
-
-			p.label {
-				@apply absolute top-0;
-				@apply font-serif text-xs uppercase tracking-wide text-secondary opacity-70;
-			}
-		}
+		animation-duration: 1400ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-slide-from-bottom;
 	}
 
 	/* Carousel Series Container */
@@ -122,11 +111,23 @@ ui-carousel {
 
 /* When the page is loading a different drone */
 main.loading {
-	ui-carousel::part(left-arrow),
+	ui-carousel::part(left-arrow) {
+		animation-name: fade-slide-to-left;
+	}
 	ui-carousel::part(right-arrow) {
-		@apply animate-[fade-slide-to-right];
-		animation-duration: 1400ms;
-		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-		animation-fill-mode: forwards;
+		animation-name: fade-slide-to-right;
+	}
+	ui-carousel::part(carousel) {
+		animation-name: fade-slide-to-bottom;
+	}
+}
+main.paused {
+	ui-carousel::part(left-arrow) {
+		transform: translateX(-100%);
+		opacity: 0;
+	}
+	ui-carousel::part(right-arrow) {
+		transform: translateX(100%);
+		opacity: 0;
 	}
 }

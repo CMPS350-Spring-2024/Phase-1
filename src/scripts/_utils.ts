@@ -8,6 +8,9 @@ export const formatNumber = (value: number, decimals: number = 2) =>
 		minimumFractionDigits: decimals,
 	}).format(value);
 
+export const revealWrapper = (text: string, index: number = 0, secondary: boolean = false) =>
+	index === 0 ? `<span class="text-reveal ${secondary ? 'secondary' : ''}">${text}</span>` : text;
+
 export const startViewTransition = (callback: () => void) => {
 	//	If the browser doesnt support view transitions
 	if (!document.startViewTransition) {

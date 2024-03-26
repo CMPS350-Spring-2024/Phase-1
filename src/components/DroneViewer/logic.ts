@@ -167,7 +167,7 @@ export class DroneViewer extends PrimitiveComponent {
 	/**
 	 * Loads the drone model and adds it to the scene.
 	 */
-	loadDrone = ({ url, position, rotation, scale, cameraPosition }: IModel) => {
+	loadDrone = ({ url, position, rotation, scale, cameraPosition }: IModel, onLoadCallback?: Function) => {
 		try {
 			//	Remove all the current drone models if there are duplicates
 			let droneModel = this.scene.getObjectByName('Drone');
@@ -186,6 +186,7 @@ export class DroneViewer extends PrimitiveComponent {
 			loader.load(
 				url,
 				async (gltf) => {
+					//	Setup the drone model
 					const model = gltf.scene;
 					model.name = 'Drone';
 					model.position.set(position.x, position.y, position.z);
@@ -193,10 +194,17 @@ export class DroneViewer extends PrimitiveComponent {
 					model.rotateY(rotation.y);
 					model.rotateZ(rotation.z);
 					model.scale.set(scale, scale, scale);
-					this.camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
 					await this.renderer.compileAsync(model, this.camera, this.scene);
+
+					//	Setup the camera position
+					this.camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+
+					//	Add the drone model to the scene and render
 					this.add(model);
 					this.render();
+
+					//	Call the onLoadCallback if it exists
+					onLoadCallback?.();
 				},
 				undefined,
 				(error) => {

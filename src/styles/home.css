@@ -4,6 +4,11 @@ main {
 	div.product-description {
 		@apply flex-col;
 
+		animation-duration: 600ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-in;
+
 		div.label {
 			@apply flex flex-col;
 
@@ -17,6 +22,10 @@ main {
 				@apply md:mb-1 xl:mb-2;
 			}
 
+			.product-rating {
+				@apply overflow-hidden;
+			}
+
 			p.description {
 				@apply mt-4 text-pretty leading-loose text-secondary;
 			}
@@ -24,6 +33,10 @@ main {
 
 		hr {
 			@apply w-12 rounded-full border-border;
+		}
+
+		span.action {
+			@apply inline-flex flex-row;
 		}
 	}
 
@@ -69,16 +82,18 @@ main {
 				@apply w-[400px] items-start;
 
 				h1.title {
+					@apply overflow-hidden;
 					@apply text-5xl tracking-wide;
 				}
 
 				p.description {
+					@apply overflow-hidden;
 					@apply mt-4 tracking-wide;
 				}
 			}
 
 			span.action {
-				@apply inline-flex place-content-between;
+				@apply place-content-between;
 
 				ui-button.cta {
 					&::part(root) {
@@ -127,25 +142,44 @@ main {
 			}
 		}
 
-		h1.bg-text {
-			@apply pointer-events-none;
+		.bg-text {
+			/* @apply pointer-events-none; */
 			@apply absolute;
 			@apply text-zinc-100;
 			@apply font-display font-black uppercase;
 
 			&.lg {
-				view-transition-name: bg-text-lg;
-
 				@apply -bottom-12 left-6 md:-bottom-16;
 				@apply text-7xl leading-none md:text-8xl;
 				@apply origin-top-left -rotate-90;
+				view-transition-name: bg-text-lg;
 			}
 
 			&.md {
-				view-transition-name: bg-text-md;
-
 				@apply right-8 top-8;
 				@apply text-right text-4xl leading-none md:text-5xl;
+				@apply overflow-hidden;
+				view-transition-name: bg-text-md;
+
+				h1 {
+					animation-duration: 2000ms;
+					animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+					animation-fill-mode: forwards;
+					animation-name: fade-slide-from-right;
+
+					&.loading {
+						animation-name: fade-slide-to-right;
+
+						&:last-child {
+							animation-delay: 100ms;
+						}
+					}
+
+					&.paused {
+						transform: translateX(100%);
+						opacity: 0;
+					}
+				}
 			}
 		}
 	}
@@ -186,7 +220,7 @@ main {
 			}
 
 			span.action {
-				@apply flex flex-row items-center gap-2 xl:pt-2;
+				@apply items-center gap-2 xl:pt-2;
 
 				ui-button.cta {
 					&::part(root) {
@@ -263,6 +297,11 @@ main {
 
 	/* When the page is loading a different drone */
 	&.loading {
+		div.model-viewer {
+			div.product-description {
+				animation-name: fade-out;
+			}
+		}
 	}
 
 	/* When the product details window is open */
@@ -331,29 +370,29 @@ main {
 	}
 
 	::view-transition-new(back-btn) {
-		@apply animate-[fade-slide-from-left-delayed];
 		animation-duration: 1000ms;
 		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 		animation-fill-mode: forwards;
+		animation-name: fade-slide-from-left-delayed;
 	}
 	::view-transition-old(back-btn) {
-		@apply animate-[fade-slide-to-left-delayed];
 		animation-duration: 1000ms;
 		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 		animation-fill-mode: forwards;
+		animation-name: fade-slide-to-left-delayed;
 	}
 
 	::view-transition-new(product-details) {
-		@apply animate-[fade-slide-from-right];
 		animation-duration: 1400ms;
 		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 		animation-fill-mode: forwards;
+		animation-name: fade-slide-from-right;
 	}
 	::view-transition-old(product-details) {
-		@apply animate-[fade-slide-to-right];
 		animation-duration: 1400ms;
 		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 		animation-fill-mode: forwards;
+		animation-name: fade-slide-to-right;
 	}
 
 	@keyframes new-model-viewer-expanded {

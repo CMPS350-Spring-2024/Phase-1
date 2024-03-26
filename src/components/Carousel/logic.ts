@@ -10,7 +10,7 @@ import type { BaseComponentProps } from '@/components/BaseComponent';
 import type { ISeries, Product } from '@/scripts/models/Product';
 
 //	Utility Imports
-import { clamp, find, findAll, formatNumber } from '@/scripts/_utils';
+import { clamp, find, findAll, formatNumber, revealWrapper } from '@/scripts/_utils';
 
 export interface Carousel extends CarouselProps {}
 export interface CarouselProps extends BaseComponentProps {
@@ -56,7 +56,11 @@ export class Carousel extends BaseComponent {
 	}
 	set currentDrone(value: number) {
 		this.drone = value;
-		find('main')?.classList.add('loading');
+		this.showLoading();
+		setTimeout(() => {
+			this.renderCarousel();
+			this.renderDrone();
+		}, 700);
 	}
 
 	static get observedAttributes() {
@@ -91,8 +95,11 @@ export class Carousel extends BaseComponent {
 
 	connectedCallback(): void {
 		super.connectedCallback();
-		this.renderCarousel();
-		setTimeout(() => this.renderDrone(), 1000);
+		this.showLoading();
+		setTimeout(() => {
+			this.renderCarousel();
+			this.renderDrone();
+		}, 500);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -101,6 +108,21 @@ export class Carousel extends BaseComponent {
 		//	If the drone attribute has changed, update the drone to display
 		if (name === 'drone' && oldValue !== newValue) this.handleChangeDrone(newValue as unknown as number);
 	}
+
+	showLoading = () => {
+		find('main')?.classList.add('loading');
+		setTimeout(() => find('main')?.classList.add('paused'), 500);
+		this.seriesDescription.querySelectorAll('h1').forEach((element) => element.classList.add('loading'));
+	};
+
+	hideLoading = () => {
+		find('main')?.classList.remove('loading');
+		find('main')?.classList.remove('paused');
+		this.seriesDescription.querySelectorAll('h1').forEach((element) => {
+			element.classList.remove('loading');
+			element.classList.remove('paused');
+		});
+	};
 
 	renderCarousel = () => {
 		//	Figure out which series should be open
@@ -162,10 +184,6 @@ export class Carousel extends BaseComponent {
 		const previousDrone = this.getPreviousDrone();
 		const nextDrone = this.getNextDrone();
 
-		//	Update the model viewer UI
-		this.droneViewer.loadDrone(drone.model);
-		this.seriesDescription.innerHTML = drone.series.description.replace(' ', '<br/>');
-
 		//	If there are no previous or next drones, hide the arrows, otherwise show them and update the text
 		if (!previousDrone) this.leftArrow.classList.add('hidden');
 		else {
@@ -182,15 +200,32 @@ export class Carousel extends BaseComponent {
 				nextDrone.series.name === drone.series.name ? nextDrone.series.model : nextDrone.series.name;
 		}
 
-		//	Update the product details UI
-		this.titles.forEach((title) => (title.textContent = drone.name));
+		//	Update the series description
+		this.seriesDescription.innerHTML = drone.series.description
+			.split(' ')
+			.map((text) => `<h1 class="loading paused">${text}</h1>`)
+			.join('');
+
+		//	Update rating value
 		this.ratings.forEach((rating) => rating.setRating(drone.rating));
-		this.ratingTexts.forEach(
-			(ratingText) =>
-				(ratingText.textContent = `${drone.rating} (${formatNumber(drone.numberOfReviews, 0)} reviews)`),
-		);
-		this.descriptions.forEach((description) => (description.textContent = drone.description));
+
+		//	Update all text elements with reveal animation
 		this.prices.forEach((price) => price.setPrice(drone.price));
+		this.titles.forEach((title, index) => (title.innerHTML = revealWrapper(drone.name, index)));
+		this.descriptions.forEach(
+			(description, index) => (description.innerHTML = revealWrapper(drone.description, index, true)),
+		);
+		this.ratingTexts.forEach(
+			(ratingText, index) =>
+				(ratingText.innerHTML = revealWrapper(
+					`${drone.rating} (${formatNumber(drone.numberOfReviews, 0)} reviews)`,
+					index,
+				)),
+		);
+
+		//	Load the new drone, if the drone viewer isnt ready, wait for it to be ready
+		if (this.droneViewer.loadDrone) this.droneViewer.loadDrone(drone.model, () => this.hideLoading());
+		else setTimeout(() => this.droneViewer.loadDrone(drone.model, () => this.hideLoading()), 1000);
 	};
 
 	getDrone = (index = this.currentDrone) => window.ProductRepository.getProduct(index);
@@ -201,11 +236,7 @@ export class Carousel extends BaseComponent {
 
 	handlePreviousDrone = () => this.handleChangeDrone(this.currentDrone - 1);
 	handleNextDrone = () => this.handleChangeDrone(this.currentDrone + 1);
-	handleChangeDrone = (index: number) => {
-		this.currentDrone = clamp(index, 0, this.getLastIndex());
-		this.renderCarousel();
-		this.renderDrone();
-	};
+	handleChangeDrone = (index: number) => (this.currentDrone = clamp(index, 0, this.getLastIndex()));
 
 	handleSetSeries = (event: Event) => {
 		const target = event.target as HTMLElement;
