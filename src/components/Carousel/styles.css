@@ -1,0 +1,122 @@
+ui-carousel {
+	/* Arrow Buttons */
+	&::part(left-arrow),
+	&::part(right-arrow) {
+		@apply absolute bottom-3 px-6 md:bottom-auto;
+		@apply rounded-none border-0 outline-none focus-hover:bg-transparent;
+		@apply z-10;
+	}
+	&::part(left-arrow) {
+		@apply left-0;
+		view-transition-name: left-arrow-btn;
+	}
+	&::part(right-arrow) {
+		@apply right-0 flex-row-reverse;
+		view-transition-name: right-arrow-btn;
+	}
+
+	/* Arrow Button Text */
+	&::part(left-arrow-text),
+	&::part(right-arrow-text) {
+		@apply text-slate-300;
+		@apply font-serif text-xl uppercase tracking-widest md:text-3xl;
+		@apply transition-transform duration-500;
+	}
+	&::part(left-arrow-text) {
+		@apply translate-x-0 md:rotate-180 md:[writing-mode:vertical-lr];
+	}
+	&::part(right-arrow-text) {
+		@apply translate-x-0 md:[writing-mode:vertical-lr];
+	}
+
+	/* Arrow Icons */
+	&::part(left-arrow-icon),
+	&::part(right-arrow-icon) {
+		@apply size-5 text-slate-300 md:size-8 md:stroke-1;
+		@apply translate-x-0;
+		@apply transition-all duration-500;
+	}
+
+	/* Carousel */
+	&::part(carousel) {
+		@apply absolute bottom-4;
+		@apply hidden flex-row items-center gap-2 md:flex;
+		view-transition-name: carousel;
+
+		span.series-container {
+			@apply flex flex-row place-content-center items-center;
+			@apply gap-3 px-2 pb-2 pt-8;
+			@apply border-x border-border;
+			@apply -translate-y-3;
+
+			hr {
+				@apply w-4;
+			}
+
+			p.label {
+				@apply absolute top-0;
+				@apply font-serif text-xs uppercase tracking-wide text-secondary opacity-70;
+			}
+		}
+	}
+
+	/* Carousel Series Container */
+	&::part(series-container) {
+		@apply flex flex-row place-content-center items-center;
+		@apply gap-3 px-2 pb-2 pt-8;
+		@apply border-x border-border;
+		@apply -translate-y-3;
+	}
+	&::part(series-label) {
+		@apply absolute top-0;
+		@apply font-serif text-xs uppercase tracking-wide text-secondary opacity-70;
+	}
+
+	/* Carousel Series Dot */
+	&::part(series) {
+		@apply size-3 p-0 focus-hover:mx-0.5;
+		@apply rounded-[2px] border-2 border-border;
+		@apply rotate-45;
+		@apply transition-all duration-500;
+	}
+
+	/* Carousel Drone Dot */
+	&::part(drone) {
+		@apply size-2 p-0 focus-hover:mx-0.5;
+		@apply rounded-[2px] border border-slate-400;
+		@apply rotate-45;
+		@apply transition-all duration-500;
+
+		/* &.active {
+			@apply border-blue-400;
+		} */
+	}
+
+	/* Carousel Dividers */
+	&::part(divider) {
+		@apply w-2 rounded-full border-border;
+	}
+	&::part(series-divider) {
+		@apply w-4 rounded-full border-border;
+	}
+}
+
+/* This has to be outside due to a bug with nested CSS and group selectors */
+.group:focus,
+.group:hover {
+	&.carousel-arrow {
+		opacity: 0.75;
+	}
+	[part='left-arrow-text'] {
+		--tw-translate-x: -4px !important;
+	}
+	[part='right-arrow-text'] {
+		--tw-translate-x: 4px !important;
+	}
+	[part='left-arrow-icon'] {
+		--tw-translate-x: -12px !important;
+	}
+	[part='right-arrow-icon'] {
+		--tw-translate-x: 12px !important;
+	}
+}

@@ -102,6 +102,11 @@ export interface IProduct {
 		name: string;
 
 		/**
+		 * The model number of the series, for example "3 Pro"
+		 */
+		model: string;
+
+		/**
 		 * A one or two word description of the series, for example "Aerial Photography"
 		 */
 		description: string;

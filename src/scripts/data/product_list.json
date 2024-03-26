@@ -1,7 +1,7 @@
 [
 	{
 		"_id": 0,
-		"name": "DJI Mavic 3 Pro",
+		"name": "Mavic 3 Pro",
 		"description": "The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and extensive range, ideal for photographers and filmmakers in diverse settings.",
 		"model": {
 			"url": "/models/Mavic 3 Pro.glb",
@@ -31,6 +31,7 @@
 		"numberOfOngoingOrders": 6,
 		"series": {
 			"name": "Mavic",
+			"model": "3 Pro",
 			"description": "Aerial Photography"
 		},
 		"features": [],
@@ -39,7 +40,7 @@
 	},
 	{
 		"_id": 1,
-		"name": "DJI Mavic 3 Classic",
+		"name": "Mavic 3 Classic",
 		"description": "The DJI Air 3 is an advanced all-around drone equipped with dual cameras. It strikes a balance between performance and portability, making it an excellent choice for aerial photography and videography.",
 		"model": {
 			"url": "/models/Mavic 3 Classic.glb",
@@ -69,6 +70,7 @@
 		"numberOfOngoingOrders": 6,
 		"series": {
 			"name": "Mavic",
+			"model": "3 Classic",
 			"description": "Aerial Photography"
 		},
 		"features": [],
@@ -77,7 +79,7 @@
 	},
 	{
 		"_id": 2,
-		"name": "DJI Mini 4 Pro",
+		"name": "Mini 4 Pro",
 		"description": "The DJI Mini 4 Pro is a lightweight drone under 249g with advanced features like 4K/60fps HDR video, omnidirectional obstacle sensing, and up to 45 minutes of flight time, designed for easy portability and enhanced aerial photography.",
 		"model": {
 			"url": "/models/Mini 4.glb",
@@ -107,6 +109,7 @@
 		"numberOfOngoingOrders": 6,
 		"series": {
 			"name": "Mini",
+			"model": "4 Pro",
 			"description": "Aerial Photography"
 		},
 		"features": [],
