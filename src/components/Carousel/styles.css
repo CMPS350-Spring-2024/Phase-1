@@ -5,6 +5,11 @@ ui-carousel {
 		@apply absolute bottom-3 px-6 md:bottom-auto;
 		@apply rounded-none border-0 outline-none focus-hover:bg-transparent;
 		@apply z-10;
+
+		@apply animate-[fade-slide-from-right];
+		animation-duration: 1400ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
 	}
 	&::part(left-arrow) {
 		@apply left-0;
@@ -112,5 +117,16 @@ ui-carousel {
 	}
 	[part='right-arrow-icon'] {
 		--tw-translate-x: 12px !important;
+	}
+}
+
+/* When the page is loading a different drone */
+main.loading {
+	ui-carousel::part(left-arrow),
+	ui-carousel::part(right-arrow) {
+		@apply animate-[fade-slide-to-right];
+		animation-duration: 1400ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
 	}
 }

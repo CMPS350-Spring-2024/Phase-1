@@ -56,6 +56,7 @@ export class Carousel extends BaseComponent {
 	}
 	set currentDrone(value: number) {
 		this.drone = value;
+		find('main')?.classList.add('loading');
 	}
 
 	static get observedAttributes() {

@@ -261,6 +261,10 @@ main {
 		}
 	}
 
+	/* When the page is loading a different drone */
+	&.loading {
+	}
+
 	/* When the product details window is open */
 	@media (min-width: 1280px) {
 		&.product-overview {
@@ -326,39 +330,30 @@ main {
 		animation-direction: forwards;
 	}
 
-	@keyframes btn-slide-from-left {
-		0% {
-			transform: translateX(-100%);
-			opacity: 0;
-		}
-		50% {
-			transform: translateX(-100%);
-			opacity: 0;
-		}
-		100% {
-			transform: translateX(0);
-			opacity: 1;
-		}
-	}
-	@keyframes btn-slide-to-left {
-		0% {
-			transform: translateX(0%);
-			opacity: 1;
-		}
-		50% {
-			transform: translateX(-100%);
-			opacity: 1;
-		}
-		100% {
-			transform: translateX(-100%);
-			opacity: 0;
-		}
-	}
 	::view-transition-new(back-btn) {
-		animation: 1000ms cubic-bezier(0.075, 0.82, 0.165, 1) btn-slide-from-left forwards;
+		@apply animate-[fade-slide-from-left-delayed];
+		animation-duration: 1000ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
 	}
 	::view-transition-old(back-btn) {
-		animation: 1000ms cubic-bezier(0.075, 0.82, 0.165, 1) btn-slide-to-left forwards;
+		@apply animate-[fade-slide-to-left-delayed];
+		animation-duration: 1000ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+	}
+
+	::view-transition-new(product-details) {
+		@apply animate-[fade-slide-from-right];
+		animation-duration: 1400ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+	}
+	::view-transition-old(product-details) {
+		@apply animate-[fade-slide-to-right];
+		animation-duration: 1400ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
 	}
 
 	@keyframes new-model-viewer-expanded {
@@ -424,24 +419,5 @@ main {
 	::view-transition-old(model-viewer-collapsed) {
 		transform-origin: left;
 		animation: 1400ms cubic-bezier(0.075, 0.82, 0.165, 1) old-model-viewer-collapsed forwards;
-	}
-
-	@keyframes details-slide-from-right {
-		from {
-			transform: translateX(100%);
-			opacity: 0;
-		}
-	}
-	@keyframes details-slide-to-right {
-		to {
-			transform: translateX(100%);
-			opacity: 0;
-		}
-	}
-	::view-transition-new(product-details) {
-		animation: 1400ms cubic-bezier(0.075, 0.82, 0.165, 1) details-slide-from-right forwards;
-	}
-	::view-transition-old(product-details) {
-		animation: 1400ms cubic-bezier(0.075, 0.82, 0.165, 1) details-slide-to-right forwards;
 	}
 }

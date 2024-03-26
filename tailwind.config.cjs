@@ -33,6 +33,60 @@ export default {
 			boxShadow: {
 				sm: '0px 6px 12px 0px rgba(0, 0, 0, 0.03)',
 			},
+			keyframes: {
+				'fade-slide-from-left': {
+					from: {
+						opacity: '0',
+						transform: 'translateX(-100%)',
+					},
+				},
+				'fade-slide-from-right': {
+					from: {
+						opacity: '0',
+						transform: 'translateX(100%)',
+					},
+				},
+				'fade-slide-to-left': {
+					to: {
+						opacity: '0',
+						transform: 'translateX(-100%)',
+					},
+				},
+				'fade-slide-to-right': {
+					to: {
+						opacity: '0',
+						transform: 'translateX(100%)',
+					},
+				},
+				'fade-slide-from-left-delayed': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateX(-100%)',
+					},
+					'50%': {
+						opacity: '0',
+						transform: 'translateX(-100%)',
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateX(0)',
+					},
+				},
+				'fade-slide-to-left-delayed': {
+					'0%': {
+						opacity: '1',
+						transform: 'translateX(0)',
+					},
+					'50%': {
+						opacity: '0',
+						transform: 'translateX(-100%)',
+					},
+					'100%': {
+						opacity: '0',
+						transform: 'translateX(-100%)',
+					},
+				},
+			},
 		},
 	},
 	plugins: [
