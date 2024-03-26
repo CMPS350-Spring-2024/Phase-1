@@ -93,6 +93,8 @@ export class NumericInput extends PrimitiveComponent {
 	private _defaultValue: number | undefined;
 	private _internals: ElementInternals;
 
+	private mouseHoldInterval: number | undefined;
+
 	public get valueAsNumber(): number {
 		return Number(this.value!);
 	}
@@ -131,8 +133,14 @@ export class NumericInput extends PrimitiveComponent {
 
 		//	Add event listener to update the value property when the input changes and to increment/decrement the value
 		this.element.addEventListener('change', () => this.handleValueChange());
-		this.decrement?.addEventListener('click', () => this.handleDecrement());
-		this.increment?.addEventListener('click', () => this.handleIncrement());
+		this.decrement?.addEventListener('mousedown', () => this.handleDecrement());
+		this.increment?.addEventListener('mousedown', () => this.handleIncrement());
+		this.decrement?.addEventListener('touchstart', () => this.handleDecrement());
+		this.increment?.addEventListener('touchstart', () => this.handleIncrement());
+		this.decrement?.addEventListener('mouseup', () => clearInterval(this.mouseHoldInterval));
+		this.increment?.addEventListener('mouseup', () => clearInterval(this.mouseHoldInterval));
+		this.decrement?.addEventListener('touchend', () => clearInterval(this.mouseHoldInterval));
+		this.increment?.addEventListener('touchend', () => clearInterval(this.mouseHoldInterval));
 	}
 
 	connectedCallback(): void {
@@ -174,11 +182,27 @@ export class NumericInput extends PrimitiveComponent {
 	private handleDecrement = () => {
 		(this.element as HTMLInputElement).stepDown();
 		this.updateInternals();
+
+		//	Repeat the decrement action while the button is held down
+		this.mouseHoldInterval = setTimeout(() => {
+			this.mouseHoldInterval = setInterval(() => {
+				(this.element as HTMLInputElement).stepDown();
+				this.updateInternals();
+			}, 75);
+		}, 400);
 	};
 
 	private handleIncrement = () => {
 		(this.element as HTMLInputElement).stepUp();
 		this.updateInternals();
+
+		//	Repeat the increment action while the button is held down
+		this.mouseHoldInterval = setTimeout(() => {
+			this.mouseHoldInterval = setInterval(() => {
+				(this.element as HTMLInputElement).stepUp();
+				this.updateInternals();
+			}, 75);
+		}, 400);
 	};
 
 	public checkValidity = () => this._internals.checkValidity();
