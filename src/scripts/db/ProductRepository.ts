@@ -1,6 +1,3 @@
-//	Data Imports
-import DefaultProductList from '@/scripts/data/product_list.json';
-
 //	Repository Imports
 import { BaseRepository } from '@/scripts/db/BaseRepository';
 
@@ -10,6 +7,7 @@ import { ISeries, Product } from '@/scripts/models/Product';
 export type ProductDictionary = Record<number, Product>;
 export class ProductRepository extends BaseRepository<Product> {
 	protected readonly storageKey: string = 'products';
+	protected readonly repositoryName: string = 'ProductRepository';
 
 	private get products(): ProductDictionary {
 		return this.getAllProducts();
@@ -46,11 +44,15 @@ export class ProductRepository extends BaseRepository<Product> {
 	/* -------------------------------------------------------------------------- */
 
 	addProduct = (product: Product): void => this.addItem(product);
-	addDefaultData = (): void => {
+	addDefaultData = async () => {
+		//	Add default data if there are no products or if in development mode
 		const isDev = import.meta.env.DEV;
 		if (isDev) this.products = [];
 		if (!isDev && this.getNumberOfProducts() > 0) return;
-		DefaultProductList.forEach((productData) => {
+
+		//	Fetch default product list and add each product to the repository
+		const defaultProductList = await fetch('/data/product_list.json').then((response) => response.json());
+		defaultProductList.forEach((productData: any) => {
 			//	@ts-ignore
 			const product = new Product({
 				...productData,

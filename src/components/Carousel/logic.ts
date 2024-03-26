@@ -180,9 +180,12 @@ export class Carousel extends BaseComponent {
 	};
 
 	renderDrone = () => {
-		const drone = this.getDrone() || this.getDrone(0)!;
+		const drone = this.getDrone();
 		const previousDrone = this.getPreviousDrone();
 		const nextDrone = this.getNextDrone();
+
+		//	If the drone is not found, return
+		if (!drone) return window.ProductRepository.listen('initialize', () => this.renderDrone());
 
 		//	If there are no previous or next drones, hide the arrows, otherwise show them and update the text
 		if (!previousDrone) this.leftArrow.classList.add('hidden');

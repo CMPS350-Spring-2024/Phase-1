@@ -2,9 +2,6 @@
 import Cookies from 'js-cookie';
 import jsSHA from 'jssha';
 
-//	Data Imports
-import DefaultAdmin from '@/scripts/data/default_admin.json';
-
 //	Repository Imports
 import { BaseRepository } from '@/scripts/db/BaseRepository';
 
@@ -14,6 +11,7 @@ import { CreateUser, LoginUser, RegisterUser, User } from '@/scripts/models/User
 export type UserDictionary = Record<number, User>;
 export class UserRepository extends BaseRepository<User> {
 	protected readonly storageKey: string = 'users';
+	protected readonly repositoryName: string = 'UserRepository';
 
 	private get users(): UserDictionary {
 		return this.getAllUsers();
@@ -50,11 +48,12 @@ export class UserRepository extends BaseRepository<User> {
 	};
 
 	addUser = (user: User): void => this.addItem(user);
-	addDefaultData = (): void => {
+	addDefaultData = async () => {
 		if (this.getUser(0)) return;
+		const defaultAdmin = await fetch('/data/default_admin.json').then((response) => response.json());
 		//	@ts-ignore
 		const admin = new User({
-			...DefaultAdmin,
+			...defaultAdmin,
 			_id: 0,
 			isParsing: true,
 		});

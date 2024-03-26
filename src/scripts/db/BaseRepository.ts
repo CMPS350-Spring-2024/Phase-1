@@ -6,8 +6,10 @@ import { BaseModel } from '@/scripts/models/BaseModel';
 export type BaseDictionary<Model extends BaseModel> = Record<number, Model>;
 export abstract class BaseRepository<Model extends BaseModel> {
 	protected abstract readonly storageKey: string;
+	protected abstract readonly repositoryName: string;
 	protected numberOfItems: number = 0;
 	protected items: BaseDictionary<Model> = {};
+	protected onInitialize: Array<Function> = [];
 
 	//#region Get
 	/* -------------------------------------------------------------------------- */
@@ -60,7 +62,7 @@ export abstract class BaseRepository<Model extends BaseModel> {
 		this.numberOfItems = Object.keys(this.items).length;
 	};
 
-	abstract addDefaultData(): void;
+	abstract addDefaultData(): Promise<void>;
 
 	/* ------------------------------- // !SECTION ------------------------------ */
 	//#endregion
@@ -87,17 +89,24 @@ export abstract class BaseRepository<Model extends BaseModel> {
 	/*                              // SECTION Others                             */
 	/* -------------------------------------------------------------------------- */
 
-	initialize = (): void => {
+	listen = (event: 'initialize', func: Function): void => {
+		if (event === 'initialize') this.onInitialize.push(func);
+	};
+
+	initialize = async () => {
 		//	Add this object to the window object for global access
 		//	@ts-ignore
-		window[(this as Object).constructor.name] = this;
-
-		//	Initialize the items in local storage
-		this.updateItemsList();
-		this.addDefaultData();
+		window[this.repositoryName] = this;
 
 		//	Subscribe to the storage event to update the items list
 		window.addEventListener('storage', this.updateItemsList);
+
+		//	Initialize the items in local storage
+		this.updateItemsList();
+		await this.addDefaultData();
+
+		//	Call all onInitialize functions
+		this.onInitialize.forEach((func) => func());
 	};
 
 	/**
