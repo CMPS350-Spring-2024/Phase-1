@@ -57,7 +57,7 @@ export abstract class BaseRepository<Model extends BaseModel> {
 		//	Add the item to the local storage and update the number of items
 		this.items[item.id] = item;
 		window.localStorage.setItem(this.storageKey, JSON.stringify(this.items));
-		this.numberOfItems++;
+		this.numberOfItems = Object.keys(this.items).length;
 	};
 
 	abstract addDefaultData(): void;
