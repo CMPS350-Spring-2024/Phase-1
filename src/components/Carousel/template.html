@@ -1,0 +1,53 @@
+<template id="carousel-template">
+	<!-- Previous and Next Arrows -->
+	<ui-button
+		class="carousel-arrow group hidden"
+		exportparts="root: left-arrow"
+	>
+		<svg
+			class="lucide lucide-move-left"
+			part="left-arrow-icon"
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<path d="M6 8L2 12L6 16" />
+			<path d="M2 12H22" />
+		</svg>
+		<p part="left-arrow-text"></p>
+	</ui-button>
+	<ui-button
+		class="carousel-arrow group hidden"
+		exportparts="root: right-arrow"
+	>
+		<svg
+			class="lucide lucide-move-right"
+			part="right-arrow-icon"
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<path d="M18 8L22 12L18 16" />
+			<path d="M2 12H22" />
+		</svg>
+		<p part="right-arrow-text"></p>
+	</ui-button>
+
+	<!-- Drone Carousel Control -->
+	<section
+		role="navigation"
+		part="carousel"
+	></section>
+</template>

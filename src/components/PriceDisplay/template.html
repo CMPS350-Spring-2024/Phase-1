@@ -1,8 +1,10 @@
 <template id="price-display-template">
 	<span part="root">
-		<p part="unit">USD</p>
+		<p part="unit"><span>USD</span></p>
 		<p part="value">
-			<slot></slot>
+			<span>
+				<slot></slot>
+			</span>
 		</p>
 	</span>
 </template>

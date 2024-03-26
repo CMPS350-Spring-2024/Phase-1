@@ -1,12 +1,14 @@
 //	Package Imports
 import {
 	ChevronLeft,
+	ChevronRight,
 	ClipboardList,
 	KeyRound,
 	LogOut,
 	Mail,
 	MapPin,
 	Minus,
+	MoveLeft,
 	MoveRight,
 	Palette,
 	Phone,
@@ -23,12 +25,14 @@ export const convertIcons = () =>
 	createIcons({
 		icons: {
 			ChevronLeft,
+			ChevronRight,
 			ClipboardList,
 			KeyRound,
 			LogOut,
 			Mail,
 			MapPin,
 			Minus,
+			MoveLeft,
 			MoveRight,
 			Palette,
 			Phone,
@@ -41,4 +45,4 @@ export const convertIcons = () =>
 	});
 
 //	Convert all icons on page load
-document.addEventListener('DOMContentLoaded', convertIcons);
+convertIcons();

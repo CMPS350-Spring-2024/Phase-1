@@ -49,6 +49,7 @@ export class Dropdown extends BaseComponent {
 		'flip',
 	];
 	protected static readonly defaultProperties: DropdownProps = {
+		open: false,
 		offset: 4,
 		placement: 'auto',
 		screenPadding: 8,
@@ -69,11 +70,9 @@ export class Dropdown extends BaseComponent {
 		super({ defaultProperties: Dropdown.defaultProperties });
 
 		//	Save the reference to the menu and the toggle button
-		this.root = this.shadowRoot!.querySelector('[part="root"]');
-		this.toggleButton = this.shadowRoot!.querySelector<HTMLSlotElement>(
-			'[name="toggle"]',
-		)!.assignedNodes()[0] as HTMLElement;
-		this.menu = this.shadowRoot!.querySelector('[part="menu"]');
+		this.root = this.find('[part="root"]');
+		this.toggleButton = this.find<HTMLSlotElement>('[name="toggle"]')!.assignedNodes()[0] as HTMLElement;
+		this.menu = this.find('[part="menu"]');
 
 		//	Make sure the menu fits in the screen
 		this._cleanupFloating = autoUpdate(this.root!, this.menu!, () => {

@@ -1,0 +1,462 @@
+main {
+	@apply flex flex-col gap-4 p-3 xl:h-[calc(100vh-56px)] xl:flex-row xl:gap-0;
+
+	div.product-description {
+		@apply flex-col;
+
+		animation-duration: 600ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-in;
+
+		div.label {
+			@apply flex flex-col;
+
+			h2.subtitle {
+				@apply hidden md:block;
+				@apply text-base font-semibold text-secondary;
+			}
+
+			h1.title {
+				@apply font-serif text-2xl font-black text-title xl:text-3xl;
+				@apply md:mb-1 xl:mb-2;
+			}
+
+			.product-rating {
+				@apply overflow-hidden;
+			}
+
+			p.description {
+				@apply mt-4 text-pretty leading-loose text-secondary;
+			}
+		}
+
+		hr {
+			@apply w-12 rounded-full border-border;
+		}
+
+		span.action {
+			@apply inline-flex flex-row;
+		}
+	}
+
+	ui-button.back-btn {
+		&::part(root) {
+			view-transition-name: back-btn;
+
+			@apply absolute left-0 top-16 hidden;
+			@apply gap-2.5 py-2.5 pl-6 pr-5;
+			@apply rounded-lg rounded-s-none border-l-0 bg-white text-secondary outline-none;
+			@apply -translate-x-2.5;
+			@apply transition-all duration-500;
+			z-index: 1;
+		}
+
+		svg {
+			@apply size-3.5;
+			@apply translate-x-0;
+			@apply transition-all duration-500;
+		}
+
+		p {
+			@apply font-serif text-sm font-semibold uppercase tracking-[2px];
+		}
+	}
+
+	div.model-viewer {
+		@apply flex flex-1 flex-col-reverse place-content-center items-center xl:flex-row;
+		@apply gap-8 overflow-hidden pb-0 md:pb-24 xl:pb-0 2xl:gap-32;
+		@apply border border-border;
+		/* @apply bg-opacity-50 bg-none from-[#fff5ffaa] via-white via-50% to-[#f9fbffaa] xl:bg-gradient-to-br; */
+		@apply rounded-lg;
+		view-transition-name: model-viewer-expanded;
+
+		div.product-description {
+			view-transition-name: product-description;
+
+			@apply hidden size-fit xl:flex;
+			@apply gap-8 pb-16 xl:gap-12;
+			z-index: 1;
+
+			div.label {
+				@apply w-[400px] items-start;
+
+				h1.title {
+					@apply overflow-hidden;
+					@apply text-5xl tracking-wide;
+				}
+
+				p.description {
+					@apply overflow-hidden;
+					@apply mt-4 tracking-wide;
+				}
+			}
+
+			span.action {
+				@apply place-content-between;
+
+				ui-button.cta {
+					&::part(root) {
+						@apply w-36 rounded-none;
+						@apply font-serif text-xs uppercase tracking-[0.15rem];
+						@apply text-secondary ring-blue-400 ring-offset-4 focus:ring focus-hover:gap-x-6 focus-hover:bg-white;
+						@apply transition-[column-gap] duration-300;
+					}
+
+					svg {
+						@apply stroke-1;
+					}
+
+					.streak {
+						@apply absolute box-content h-[1px] w-6;
+						@apply border-y-8 border-white bg-slate-300;
+						@apply opacity-0;
+						@apply transition-all duration-500;
+						@apply scale-x-0;
+
+						&.left {
+							@apply -left-4 translate-x-3;
+						}
+
+						&.right {
+							@apply -right-4 -translate-x-3;
+						}
+					}
+				}
+			}
+		}
+
+		ui-button.github {
+			&::part(root) {
+				view-transition-name: github;
+
+				@apply absolute left-8 top-8 md:left-12 md:top-12;
+				@apply size-6 p-0;
+				@apply rounded-none border-0 outline-0;
+				@apply opacity-10 focus-hover:opacity-50;
+				@apply transition-opacity duration-300;
+			}
+
+			svg {
+				@apply size-full fill-title;
+			}
+		}
+
+		.bg-text {
+			/* @apply pointer-events-none; */
+			@apply absolute;
+			@apply text-zinc-100;
+			@apply font-display font-black uppercase;
+
+			&.lg {
+				@apply -bottom-12 left-6 md:-bottom-16;
+				@apply text-7xl leading-none md:text-8xl;
+				@apply origin-top-left -rotate-90;
+				view-transition-name: bg-text-lg;
+			}
+
+			&.md {
+				@apply right-8 top-8;
+				@apply text-right text-4xl leading-none md:text-5xl;
+				@apply overflow-hidden;
+				view-transition-name: bg-text-md;
+
+				h1 {
+					animation-duration: 2000ms;
+					animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+					animation-fill-mode: forwards;
+					animation-name: fade-slide-from-right;
+
+					&.loading {
+						animation-name: fade-slide-to-right;
+
+						&:last-child {
+							animation-delay: 100ms;
+						}
+					}
+
+					&.paused {
+						transform: translateX(100%);
+						opacity: 0;
+					}
+				}
+			}
+		}
+	}
+
+	div.product-details {
+		@apply flex flex-1 flex-col items-center xl:hidden;
+		@apply gap-8 py-4 xl:gap-0 xl:py-0;
+		view-transition-name: product-details;
+
+		span.spacer {
+			&.top {
+				@apply hidden xl:flex xl:flex-[2];
+			}
+			&.bottom {
+				@apply hidden xl:flex xl:flex-[3];
+			}
+		}
+
+		div.product-description {
+			@apply flex items-center;
+			@apply gap-4 px-2;
+
+			div.label {
+				@apply items-center;
+
+				max-width: 90%;
+				@media (min-width: 768px) {
+					max-width: min(640px, 70%);
+				}
+
+				h1.title {
+					@apply text-center;
+				}
+
+				p.description {
+					@apply text-center;
+				}
+			}
+
+			span.action {
+				@apply items-center gap-2 xl:pt-2;
+
+				ui-button.cta {
+					&::part(root) {
+						@apply h-10 w-[200px] px-5;
+					}
+				}
+			}
+		}
+
+		section.tab-content {
+			@apply hidden flex-col items-center;
+			@apply gap-4 px-4 xl:mt-12;
+
+			&.active {
+				@apply flex;
+			}
+
+			h3.tab-title {
+				@apply hidden xl:block;
+				@apply text-center font-serif text-lg font-semibold;
+				@apply text-secondary;
+			}
+		}
+
+		span.tab-selector {
+			@apply w-full max-w-[480px];
+			@apply flex flex-row place-content-between items-center xl:hidden;
+
+			ui-button.tab-arrow-btn::part(root) {
+				@apply size-8 p-0;
+				@apply border-0;
+			}
+
+			h3.tab-title {
+				@apply text-center font-serif text-sm font-semibold uppercase tracking-[2px];
+				@apply text-title;
+			}
+		}
+
+		span.tab-list {
+			@apply hidden flex-row place-content-center items-center self-stretch xl:flex;
+			@apply px-4 pb-2;
+
+			hr {
+				@apply h-auto w-px self-stretch border-0 border-l border-border;
+			}
+
+			ui-button.tab::part(root) {
+				@apply flex-1;
+				@apply border-0;
+				@apply text-xs uppercase text-secondary focus-hover:bg-white;
+
+				&::after {
+					@apply content-[''];
+					@apply absolute bottom-0;
+					@apply h-0.5 w-full;
+					@apply bg-border;
+					@apply scale-x-0 focus-hover:scale-x-[0.2];
+					@apply transition-transform duration-300;
+				}
+
+				&.active {
+					@apply text-blue-500;
+					@apply font-semibold;
+
+					&::after {
+						@apply scale-x-[0.4] focus-hover:scale-x-[0.3];
+						@apply bg-blue-500;
+					}
+				}
+			}
+		}
+	}
+
+	/* When the page is loading a different drone */
+	&.loading {
+		div.model-viewer {
+			div.product-description {
+				animation-name: fade-out;
+			}
+		}
+	}
+
+	/* When the product details window is open */
+	@media (min-width: 1280px) {
+		&.product-overview {
+			ui-button.back-btn::part(root) {
+				@apply flex;
+			}
+			div.model-viewer {
+				@apply bg-none;
+				view-transition-name: model-viewer-collapsed;
+
+				div.product-description {
+					@apply hidden;
+				}
+
+				ui-drone-viewer::part(container) {
+					@apply w-full;
+					view-transition-name: drone-viewer-collapsed;
+				}
+
+				ui-button.github {
+					@apply hidden;
+				}
+			}
+			div.product-details {
+				@apply flex;
+				view-transition-name: product-details;
+			}
+		}
+	}
+}
+
+/* This has to be outside due to a bug with nested CSS and group selectors */
+.group:focus,
+.group:hover {
+	/* Main CTA button */
+	&.cta span.streak {
+		--tw-translate-x: 0 !important;
+		--tw-scale-x: 1 !important;
+		opacity: 1 !important;
+	}
+
+	/* Back Button */
+	&.back-btn {
+		&::part(root) {
+			--tw-translate-x: 0 !important;
+		}
+		svg {
+			--tw-translate-x: -4px !important;
+		}
+	}
+}
+
+/* Product details tab animations */
+@supports (view-transition-name: none) {
+	::view-transition-group(carousel),
+	::view-transition-group(left-arrow-btn),
+	::view-transition-group(right-arrow-btn),
+	::view-transition-group(bg-text-lg),
+	::view-transition-group(bg-text-md) {
+		z-index: 10;
+		animation-duration: 1400ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-direction: forwards;
+	}
+
+	::view-transition-new(back-btn) {
+		animation-duration: 1000ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-slide-from-left-delayed;
+	}
+	::view-transition-old(back-btn) {
+		animation-duration: 1000ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-slide-to-left-delayed;
+	}
+
+	::view-transition-new(product-details) {
+		animation-duration: 1400ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-slide-from-right;
+	}
+	::view-transition-old(product-details) {
+		animation-duration: 1400ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-slide-to-right;
+	}
+
+	@keyframes new-model-viewer-expanded {
+		0% {
+			opacity: 0;
+		}
+		99% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+	@keyframes old-model-viewer-expanded {
+		0% {
+			transform: scaleX(1);
+			opacity: 1;
+		}
+		99% {
+			transform: scaleX(0.5);
+			opacity: 1;
+		}
+		100% {
+			transform: scaleX(0.5);
+			opacity: 0;
+		}
+	}
+	@keyframes new-model-viewer-collapsed {
+		0% {
+			opacity: 0;
+		}
+		99% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+	@keyframes old-model-viewer-collapsed {
+		0% {
+			transform: scaleX(1);
+			opacity: 1;
+		}
+		99% {
+			transform: scaleX(2);
+			opacity: 1;
+		}
+		100% {
+			transform: scaleX(2);
+			opacity: 0;
+		}
+	}
+	::view-transition-new(model-viewer-expanded) {
+		animation: 1400ms cubic-bezier(0.075, 0.82, 0.165, 1) new-model-viewer-expanded forwards;
+	}
+	::view-transition-old(model-viewer-expanded) {
+		transform-origin: left;
+		animation: 1400ms cubic-bezier(0.075, 0.82, 0.165, 1) old-model-viewer-expanded forwards;
+	}
+	::view-transition-new(model-viewer-collapsed) {
+		animation: 1400ms cubic-bezier(0.075, 0.82, 0.165, 1) new-model-viewer-collapsed forwards;
+	}
+	::view-transition-old(model-viewer-collapsed) {
+		transform-origin: left;
+		animation: 1400ms cubic-bezier(0.075, 0.82, 0.165, 1) old-model-viewer-collapsed forwards;
+	}
+}

@@ -1,105 +1,166 @@
 <extends
-	src="../layouts/base.html"
-	locals='{
-		"title": "Vite + TS",
-		"type": "home",
-		"base_url": "../"
-	}'
+	src="../layouts/home.html"
+	locals='{ "title": "DJI Store" }'
 >
 	<block name="app">
-		<script
-			type="module"
-			src="/src/scripts/home.ts"
-		></script>
-
-		<form class="flex flex-col gap-4 p-4">
-			<ui-text-input placeholder="Enter full name...">
-				Full Name
-				<i
-					slot="left-icon"
-					data-lucide="user"
-				></i>
-			</ui-text-input>
-			<ui-text-input
-				type="email"
-				placeholder="Enter email address..."
-			>
-				Email Address
-				<i
-					slot="left-icon"
-					data-lucide="mail"
-				></i>
-			</ui-text-input>
-		</form>
-		<ui-modal
-			class="w-[440px]"
-			title="Edit Profile"
-			description="Modify your account details"
+		<!-- Back Button -->
+		<ui-button
+			class="back-btn group"
+			id="back-btn"
 		>
-			<ui-button slot="toggle">
-				Top-Up Balance
-				<i
-					class="size-3.5"
-					data-lucide="wallet"
-				></i>
+			<i data-lucide="move-left"></i>
+			<p>Back</p>
+		</ui-button>
+
+		<div class="model-viewer">
+			<!-- Drone Description -->
+			<div class="product-description">
+				<div class="label">
+					<h1 class="title"></h1>
+					<span class="product-rating">
+						<ui-rating value="3.5"></ui-rating>
+						<p></p>
+					</span>
+					<p class="description"></p>
+				</div>
+				<hr />
+				<span class="action">
+					<ui-price-display
+						size="lg"
+						textreveal
+					></ui-price-display>
+					<ui-button
+						class="cta group"
+						id="view-details-cta"
+					>
+						View
+						<i data-lucide="move-right"></i>
+						<span class="left streak"></span>
+						<span class="right streak"></span>
+					</ui-button>
+				</span>
+			</div>
+
+			<!-- 3D Drone Model -->
+			<ui-drone-viewer></ui-drone-viewer>
+
+			<!-- Carousel -->
+			<ui-carousel></ui-carousel>
+
+			<!-- GitHub Link -->
+			<ui-button
+				class="github"
+				target="_blank"
+				href="https://github.com/CMPS350-Spring-2024/Phase-1"
+			>
+				<svg
+					viewBox="0 0 17 16"
+					width="17"
+					height="16"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						d="M8.53128 0C4.11355 0 0.53125 3.67233 0.53125 8.20251C0.53125 11.8267 2.8235 14.9013 6.00218 15.9859C6.40198 16.0618 6.54879 15.808 6.54879 15.5913C6.54879 15.3957 6.54133 14.7495 6.53794 14.0642C4.31226 14.5603 3.84263 13.0964 3.84263 13.0964C3.47872 12.1483 2.95438 11.8962 2.95438 11.8962C2.22857 11.3871 3.00909 11.3975 3.00909 11.3975C3.81245 11.4554 4.23546 12.2428 4.23546 12.2428C4.94898 13.4968 6.10696 13.1343 6.56348 12.9247C6.63525 12.3945 6.84262 12.0327 7.07138 11.8279C5.2945 11.6204 3.42652 10.9171 3.42652 7.77413C3.42652 6.87865 3.73904 6.14688 4.25084 5.57247C4.16776 5.36584 3.89395 4.5316 4.32832 3.40175C4.32832 3.40175 5.00011 3.18129 6.5289 4.24256C7.167 4.06076 7.8514 3.96967 8.53128 3.96658C9.21116 3.96967 9.89606 4.06076 10.5354 4.24256C12.0624 3.18129 12.7332 3.40175 12.7332 3.40175C13.1687 4.5316 12.8947 5.36584 12.8117 5.57247C13.3246 6.14688 13.635 6.87858 13.635 7.77413C13.635 10.9245 11.7635 11.6183 9.98209 11.8213C10.269 12.0759 10.5247 12.5751 10.5247 13.3403C10.5247 14.4378 10.5154 15.3211 10.5154 15.5913C10.5154 15.8096 10.6594 16.0654 11.065 15.9848C14.2419 14.899 16.5312 11.8254 16.5312 8.20251C16.5312 3.67233 12.9494 0 8.53128 0Z"
+					/>
+					<path
+						d="M3.5275 11.6847C3.50993 11.7255 3.44732 11.7377 3.39041 11.7098C3.33237 11.683 3.29975 11.6274 3.31857 11.5865C3.33582 11.5446 3.39844 11.5329 3.45635 11.561C3.51451 11.5877 3.54764 11.6438 3.5275 11.6847ZM3.92103 12.0447C3.88288 12.081 3.80828 12.0642 3.75764 12.0069C3.70532 11.9497 3.69553 11.8732 3.73424 11.8364C3.77358 11.8002 3.84592 11.8171 3.89838 11.8743C3.9507 11.9322 3.96087 12.0081 3.92096 12.0448M4.19101 12.5054C4.14194 12.5403 4.06176 12.5075 4.01225 12.4346C3.96325 12.3617 3.96325 12.2742 4.01332 12.2392C4.06301 12.2041 4.14194 12.2356 4.19214 12.308C4.24108 12.3822 4.24108 12.4696 4.19095 12.5054M4.64753 13.0388C4.60367 13.0884 4.51031 13.0751 4.44192 13.0075C4.37202 12.9413 4.35251 12.8475 4.39649 12.7979C4.44085 12.7482 4.53478 12.7622 4.60367 12.8293C4.67312 12.8953 4.69427 12.9898 4.64753 13.0388ZM5.23756 13.219C5.2183 13.2832 5.12832 13.3124 5.03772 13.2851C4.94725 13.257 4.88802 13.1817 4.90628 13.1168C4.9251 13.0522 5.01545 13.0217 5.10674 13.0509C5.19709 13.0789 5.25638 13.1536 5.23756 13.219ZM5.90916 13.2953C5.91142 13.363 5.83456 13.4191 5.73944 13.4203C5.64376 13.4225 5.5664 13.3677 5.56539 13.3012C5.56539 13.2329 5.6405 13.1773 5.73612 13.1757C5.83123 13.1738 5.90916 13.2281 5.90916 13.2953ZM6.56884 13.2694C6.58026 13.3354 6.51413 13.4032 6.4197 13.4212C6.32684 13.4386 6.24088 13.3979 6.22902 13.3325C6.21748 13.2648 6.28486 13.197 6.37754 13.1795C6.47215 13.1626 6.55679 13.2023 6.56884 13.2694Z"
+					/>
+				</svg>
 			</ui-button>
 
-			test
-		</ui-modal>
-		<ui-numeric-input value="9"></ui-numeric-input>
-		<ui-avatar color="black">MF</ui-avatar>
-		<ui-button fill="ghost">
-			<i
-				class="size-3.5"
-				data-lucide="chevron-left"
-			></i>
-			Back
-		</ui-button>
-		<div class="flex size-fit flex-col gap-12">
-			<div class="flex w-[440px] flex-col gap-2">
-				<h1 class="font-serif text-5xl font-bold tracking-wide text-title">Mavic 3 Pro</h1>
-				<p class="leading-relaxed tracking-wide text-secondary">
-					The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and
-					extensive range, ideal for photographers and filmmakers in diverse settings.
-				</p>
-			</div>
-			<hr class="w-12 rounded-full border-border" />
-			<div class="inline-flex place-content-between">
-				<ui-price-display size="lg">3,889.00</ui-price-display>
-				<ui-button
-					class="transition-gap group w-32 rounded-none font-serif text-xs uppercase tracking-[0.15rem] text-secondary ring-blue-400 ring-offset-4 transition-[column-gap] duration-300 focus:ring focus-hover:gap-x-6 focus-hover:bg-white"
-					fill="outline"
-					data-hs-overlay="test-modal"
-					onclick="document.querySelector('ui-dropdown').toggle(); document.querySelector('ui-avatar').randomizeColor(); document.querySelector('ui-modal').toggle();"
-				>
-					View
-					<i
-						class="size-4 stroke-1"
-						data-lucide="move-right"
-					></i>
-					<span
-						class="absolute -left-4 box-content h-[1px] w-6 translate-x-3 scale-x-0 border-y-8 border-white bg-slate-300 opacity-0 transition-all duration-500 group-focus-hover:translate-x-0 group-focus-hover:scale-x-100 group-focus-hover:opacity-100"
-					></span>
-					<span
-						class="absolute -right-4 box-content h-[1px] w-6 -translate-x-3 scale-x-0 border-y-8 border-white bg-slate-300 opacity-0 transition-all duration-500 group-focus-hover:translate-x-0 group-focus-hover:scale-x-100 group-focus-hover:opacity-100"
-					></span>
-				</ui-button>
-			</div>
+			<!-- Decorative Text -->
+			<h1 class="lg bg-text">DJI</h1>
+			<span
+				class="md bg-text"
+				id="series-description"
+			></span>
 		</div>
-		<ui-drone-viewer></ui-drone-viewer>
+		<div class="product-details">
+			<!-- Product Description -->
+			<span class="top spacer"></span>
+			<div class="product-description">
+				<div class="label">
+					<h2 class="subtitle">DJI</h2>
+					<h1 class="title">Mavic 3 Pro</h1>
+					<span class="product-rating">
+						<ui-rating value="3.5"></ui-rating>
+						<p>3.5 (5,051 reviews)</p>
+					</span>
+					<p class="description">
+						<span class="text-reveal secondary"></span>
+					</p>
+				</div>
+				<hr />
+				<ui-price-display size="lg">3,889.00</ui-price-display>
+				<span class="action">
+					<ui-numeric-input min="1"></ui-numeric-input>
+					<ui-button
+						class="cta"
+						fill="solid"
+					>
+						Add to Cart
+						<i data-lucide="plus"></i>
+					</ui-button>
+				</span>
+			</div>
 
-		<h1
-			class="line pointer-events-none absolute -bottom-20 left-8 origin-top-left -rotate-90 font-display text-[128px] font-black uppercase leading-[128px] text-zinc-100"
-		>
-			DJI
-		</h1>
+			<!-- Mobile Tabs -->
+			<span class="tab-selector">
+				<ui-button
+					class="left tab-arrow-btn"
+					id="left-arrow-tab"
+				>
+					<i data-lucide="chevron-left"></i>
+				</ui-button>
+				<h3
+					class="tab-title"
+					id="mobile-tab-label"
+				>
+					Features
+				</h3>
+				<ui-button
+					class="right tab-arrow-btn"
+					id="right-arrow-tab"
+				>
+					<i data-lucide="chevron-right"></i>
+				</ui-button>
+			</span>
 
-		<h2
-			class="line pointer-events-none absolute right-8 top-8 origin-top-left text-right font-display text-[64px] font-black uppercase leading-[64px] text-zinc-100"
-		>
-			Aerial
-			<br />
-			Photography
-		</h2>
+			<!-- Features Tab -->
+			<section class="active tab-content">
+				<h3 class="tab-title">Features</h3>
+				test1
+			</section>
+
+			<!-- What's Inside Tab -->
+			<section class="tab-content">
+				<h3 class="tab-title">In The Box</h3>
+				test2
+			</section>
+
+			<!-- Reviews Tab -->
+			<section class="tab-content">
+				<h3 class="tab-title">Reviews</h3>
+				test3
+			</section>
+
+			<!-- FAQ Tab -->
+			<section class="tab-content">
+				<h3 class="tab-title">Frequently Asked Questions</h3>
+				test4
+			</section>
+
+			<!-- Desktop Tabs -->
+			<span class="bottom spacer"></span>
+			<span class="tab-list">
+				<ui-button class="active tab">Features</ui-button>
+				<hr />
+				<ui-button class="tab">What's Inside?</ui-button>
+				<hr />
+				<ui-button class="tab">Reviews</ui-button>
+				<hr />
+				<ui-button class="tab">FAQ</ui-button>
+			</span>
+		</div>
 	</block>
 </extends>

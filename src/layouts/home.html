@@ -1,27 +1,27 @@
 <extends
-	src="../../layouts/base.html"
+	src="../layouts/base.html"
 	locals='{
 		"title": "{{ title }}",
-		"type": "admin",
-		"base_url": "../../"
+		"type": "home",
+		"base_url": "../"
 	}'
 >
 	<block name="app"></block>
 	<block name="resources">
 		<script
 			type="module"
-			src="/src/scripts/admin.ts"
+			src="/src/scripts/home.ts"
 		></script>
 		<link
 			rel="preload"
-			href="/src/styles/admin.css"
+			href="/src/styles/home.css"
 			onload="this.rel = 'stylesheet'"
 			as="style"
 		/>
 		<noscript>
 			<link
 				rel="stylesheet"
-				href="/src/styles/admin.css"
+				href="/src/styles/home.css"
 			/>
 		</noscript>
 	</block>

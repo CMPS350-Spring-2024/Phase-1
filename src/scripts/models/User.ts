@@ -2,16 +2,15 @@
 import jsSHA from 'jssha';
 import * as v from 'valibot';
 
+//	Model Imports
+import { Avatar } from '@/components/Avatar/logic';
+import { BaseModel } from '@/scripts/models/BaseModel';
+
 //	Type Imports
-import { Avatar, type AvatarProps } from '@/components/Avatar/logic';
+import type { AvatarProps } from '@/components/Avatar/logic';
 
 export interface User extends IUser {}
 export interface IUser {
-	/**
-	 * The user's unique identifier, if the user is an admin, this will be 0
-	 */
-	id: number;
-
 	/**
 	 * The user's name as an object containing the first and last name
 	 */
@@ -53,10 +52,12 @@ export interface IUser {
 	balance: number;
 }
 
-export class User {
-	private _id: number;
+export class User extends BaseModel {
+	protected static readonly repositoryKey: string = 'UserRepository';
 
 	constructor(userData: CreateUser) {
+		super(userData);
+
 		this.name = userData.name;
 		this.email = userData.email;
 		this.phone = userData.phone;
@@ -64,9 +65,8 @@ export class User {
 		//	If we are only parsing the user data, keep it as is
 		if (userData.isParsing) {
 			this.password = userData.password;
-			this._id = userData._id === undefined ? crypto.getRandomValues(new Uint32Array(1))[0] : userData._id;
-			this.avatarColor = userData.avatarColor || 'black';
-			this.balance = userData.balance || 0;
+			this.avatarColor = userData._avatarColor || 'black';
+			this.balance = userData._balance || 0;
 		} else {
 			this.avatarColor = Avatar.getRandomizedColor();
 			this.balance = 0;
@@ -75,15 +75,9 @@ export class User {
 			const hashObject = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' });
 			hashObject.update(userData.password);
 			this.password = hashObject.getHash('HEX');
-
-			//	Set the user's unique identifier
-			this._id = crypto.getRandomValues(new Uint32Array(1))[0];
 		}
 	}
 
-	get id(): number {
-		return this._id;
-	}
 	get isAdmin(): boolean {
 		return this.id === 0;
 	}
@@ -92,28 +86,6 @@ export class User {
 	getFirstName = (): string => this.name.first;
 	getLastName = (): string => this.name.last || '';
 	getAcronym = (): string => this.name.first[0] + (this.name.last ? this.name.last[0] : '');
-
-	static parse = (data: Record<string, any>): User | null => {
-		try {
-			const user = new User({
-				_id: data._id,
-				name: {
-					first: data.name.first,
-					last: data.name.last,
-				},
-				email: data.email,
-				phone: data.phone,
-				password: data.password,
-				avatarColor: data.avatarColor,
-				balance: data.balance,
-				isParsing: true,
-			});
-			return user;
-		} catch (error) {
-			console.error(`Error parsing user data: ${error}`);
-			return null;
-		}
-	};
 }
 
 export interface LoginUser extends Pick<User, 'email' | 'password'> {}
@@ -163,8 +135,8 @@ export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'pas
 	/**
 	 * Only used when parsing the user data
 	 */
-	_id?: number;
 	isParsing?: boolean;
-	avatarColor?: AvatarProps['color'];
-	balance?: number;
+	_id?: number;
+	_avatarColor?: AvatarProps['color'];
+	_balance?: number;
 }

@@ -10,12 +10,14 @@
 					"description": "Specifies the name of the icon to display.",
 					"values": [
 						{ "name": "chevron-left" },
+						{ "name": "chevron-right" },
 						{ "name": "clipboard-list" },
 						{ "name": "key-round" },
 						{ "name": "log-out" },
 						{ "name": "mail" },
 						{ "name": "map-pin" },
 						{ "name": "minus" },
+						{ "name": "move-left" },
 						{ "name": "move-right" },
 						{ "name": "palette" },
 						{ "name": "phone" },
@@ -275,6 +277,34 @@
 			]
 		},
 		{
+			"name": "ui-rating",
+			"description": "Custom rating component based on the Preline UI design system.",
+			"attributes": [
+				{
+					"name": "value",
+					"description": "The rating value.",
+					"values": [
+						{ "name": "0" },
+						{ "name": "0.5" },
+						{ "name": "1" },
+						{ "name": "1.5" },
+						{ "name": "2" },
+						{ "name": "2.5" },
+						{ "name": "3" },
+						{ "name": "3.5" },
+						{ "name": "4" },
+						{ "name": "4.5" },
+						{ "name": "5" }
+					]
+				},
+				{
+					"name": "editable",
+					"description": "Allows the user to change the value of the rating.",
+					"values": [{ "name": "true" }, { "name": "false" }]
+				}
+			]
+		},
+		{
 			"name": "ui-text-input",
 			"description": "Custom text input component based on the Preline UI design system.",
 			"attributes": [
@@ -309,6 +339,30 @@
 				{
 					"name": "pattern",
 					"description": "The pattern the value must match to be valid, should be a valid Regex matcher."
+				},
+				{
+					"name": "autocomplete",
+					"description": "The type of autocomplete to use for the input.",
+					"values": [
+						{ "name": "on" },
+						{ "name": "off" },
+						{ "name": "name" },
+						{ "name": "given-name" },
+						{ "name": "additional-name" },
+						{ "name": "family-name" },
+						{ "name": "nickname" },
+						{ "name": "email" },
+						{ "name": "username" },
+						{ "name": "current-password" },
+						{ "name": "new-password" },
+						{ "name": "street-address" },
+						{ "name": "address-line1" },
+						{ "name": "address-line2" },
+						{ "name": "address-line3" },
+						{ "name": "country-name" },
+						{ "name": "tel" },
+						{ "name": "url" }
+					]
 				},
 				{
 					"name": "autofocus",
