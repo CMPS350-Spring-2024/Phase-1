@@ -4,6 +4,9 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
+//	Utility Imports
+import { clamp } from '@/scripts/_utils';
+
 export interface Rating extends Omit<RatingProps, 'onclick'> {}
 export interface RatingProps extends BaseComponentProps {
 	/**
@@ -91,7 +94,17 @@ export class Rating extends PrimitiveComponent {
 				star.disabled = !this.editable;
 			});
 		}
+
+		//	Whenever the value is changed, update the checked value.
+		if (name === 'value') {
+			const index = this.valueToIndexMap[this.value ?? '0'];
+			this.stars[index].checked = true;
+		}
 	}
+
+	setRating = (value: number) => {
+		this.value = (Math.round(clamp(value * 2, 0, 10)) / 2).toString().replace('.0', '') as RatingProps['value'];
+	};
 }
 
 customElements.define('ui-rating', Rating);

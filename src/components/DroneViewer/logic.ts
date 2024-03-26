@@ -11,6 +11,7 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
+import { IModel } from '@/scripts/models/Product';
 
 export interface DroneViewer extends DroneViewerProps {}
 export interface DroneViewerProps extends BaseComponentProps {}
@@ -23,7 +24,7 @@ export class DroneViewer extends PrimitiveComponent {
 	protected static readonly forwardedAttributes: Array<keyof DroneViewerProps> = ['class'];
 	protected static readonly defaultProperties: DroneViewerProps = {};
 
-	static MODEL_SCALE = 7.5;
+	static MODEL_SCALE = 5;
 	static PLANE_WIDTH = 10;
 	static PLANE_HEIGHT = 10;
 	static SHADOW_CAMERA_HEIGHT = 0.5;
@@ -55,8 +56,8 @@ export class DroneViewer extends PrimitiveComponent {
 		});
 
 		//	Find the container element
-		this.container = this.shadowRoot!.querySelector('[part="container"]') as HTMLElement;
-		this.helper = this.shadowRoot!.querySelector('[part="helper"]') as HTMLElement;
+		this.container = this.find('[part="container"]') as HTMLElement;
+		this.helper = this.find('[part="helper"]') as HTMLElement;
 
 		//	Show the helper based on the session storage
 		if (window.sessionStorage.getItem('hideHelper') === 'true') {
@@ -65,9 +66,6 @@ export class DroneViewer extends PrimitiveComponent {
 
 		//	Setup the scene
 		this.setupScene();
-
-		//	Load the drone model
-		this.loadDrone();
 
 		//	Setup the contact shadow
 		this.setupContactShadow();
@@ -82,7 +80,7 @@ export class DroneViewer extends PrimitiveComponent {
 
 		//	Hide helper when the canvas is clicked
 		this.element.addEventListener('mousedown', () => this.handleCanvasClick());
-		this.element.addEventListener('touchstart', () => this.handleCanvasClick());
+		this.element.addEventListener('touchstart', () => this.handleCanvasClick(), { passive: true });
 	}
 
 	private handleWindowResize = () => {
@@ -123,7 +121,7 @@ export class DroneViewer extends PrimitiveComponent {
 			canvas: this.element as HTMLCanvasElement,
 		});
 		renderer.toneMapping = THREE.ReinhardToneMapping;
-		renderer.toneMappingExposure = 1.6;
+		renderer.toneMappingExposure = 2;
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setClearColor(0xffffff, 0);
 		renderer.setSize(
@@ -134,8 +132,8 @@ export class DroneViewer extends PrimitiveComponent {
 		//	Add some lights to the scene
 		const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff);
 		const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-		const spotLight = new THREE.SpotLight(0xffffff, 0.5, 0, 0.1, 1);
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
+		const spotLight = new THREE.SpotLight(0xffffff, 0.75, 0, 0.1, 1);
 		directionalLight.position.set(1, 1, 2);
 		spotLight.position.set(10, 15, 10);
 		spotLight.castShadow = true;
@@ -169,28 +167,53 @@ export class DroneViewer extends PrimitiveComponent {
 	/**
 	 * Loads the drone model and adds it to the scene.
 	 */
-	private loadDrone = () => {
-		//	Load the drone model
-		const loader = new GLTFLoader();
-		const dracoLoader = new DRACOLoader();
-		dracoLoader.setDecoderConfig({ type: 'js' });
-		dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-		loader.setDRACOLoader(dracoLoader);
-		loader.load(
-			'/models/Mavic 3.glb',
-			async (gltf) => {
-				const model = gltf.scene;
-				model.scale.set(DroneViewer.MODEL_SCALE, DroneViewer.MODEL_SCALE, DroneViewer.MODEL_SCALE);
-				model.rotateX(-4 * (Math.PI / 180));
-				await this.renderer.compileAsync(model, this.camera, this.scene);
-				this.add(model);
-				this.render();
-			},
-			undefined,
-			(error) => {
-				console.error(error);
-			},
-		);
+	loadDrone = ({ url, position, rotation, scale, cameraPosition }: IModel, onLoadCallback?: Function) => {
+		try {
+			//	Remove all the current drone models if there are duplicates
+			let droneModel = this.scene.getObjectByName('Drone');
+			while (droneModel) {
+				this.scene.remove(droneModel);
+				droneModel = this.scene.getObjectByName('Drone');
+			}
+
+			//	Load the drone model
+			const loader = new GLTFLoader();
+			const dracoLoader = new DRACOLoader();
+			dracoLoader.setDecoderConfig({ type: 'js' });
+			dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+			loader.setDRACOLoader(dracoLoader);
+			loader.setCrossOrigin('anonymous');
+			loader.load(
+				url,
+				async (gltf) => {
+					//	Setup the drone model
+					const model = gltf.scene;
+					model.name = 'Drone';
+					model.position.set(position.x, position.y, position.z);
+					model.rotateX(rotation.x);
+					model.rotateY(rotation.y);
+					model.rotateZ(rotation.z);
+					model.scale.set(scale, scale, scale);
+					await this.renderer.compileAsync(model, this.camera, this.scene);
+
+					//	Setup the camera position
+					this.camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+
+					//	Add the drone model to the scene and render
+					this.add(model);
+					this.render();
+
+					//	Call the onLoadCallback if it exists
+					onLoadCallback?.();
+				},
+				undefined,
+				(error) => {
+					console.error(error);
+				},
+			);
+		} catch (error) {
+			console.error(`There was an error loading the drone: ${error}`);
+		}
 	};
 
 	/**

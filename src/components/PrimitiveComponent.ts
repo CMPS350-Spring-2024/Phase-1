@@ -26,7 +26,7 @@ export class PrimitiveComponent extends BaseComponent {
 		this.setAttribute('primitive', '');
 
 		//	Find the primitive element inside the template's shadow dom
-		this.element = this.shadowRoot!.querySelector(elementName)!;
+		this.element = this.find(elementName)!;
 
 		//	Store the base class of the element
 		this.baseClass = this.element.className;

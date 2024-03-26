@@ -40,6 +40,29 @@ export interface TextInputProps extends BaseComponentProps {
 	pattern?: string;
 
 	/**
+	 * The type of autocomplete to use for the input.
+	 */
+	autocomplete?:
+		| 'on'
+		| 'off'
+		| 'name'
+		| 'given-name'
+		| 'additional-name'
+		| 'family-name'
+		| 'nickname'
+		| 'email'
+		| 'username'
+		| 'current-password'
+		| 'new-password'
+		| 'street-address'
+		| 'address-line1'
+		| 'address-line2'
+		| 'address-line3'
+		| 'country-name'
+		| 'tel'
+		| 'url';
+
+	/**
 	 * Should this input be focused when the page loads?
 	 */
 	autofocus?: boolean;
@@ -78,6 +101,7 @@ export class TextInput extends PrimitiveComponent {
 		'value',
 		'placeholder',
 		'pattern',
+		'autocomplete',
 		'autofocus',
 		'disabled',
 		'readonly',
@@ -122,9 +146,7 @@ export class TextInput extends PrimitiveComponent {
 		//	If this is a password input, find the visibility toggle button and add the isPassword attribute
 		if (this.type === 'password') {
 			this.isPassword = true;
-			this.visibilityToggle = this.shadowRoot?.querySelector(
-				'[exportparts="root: visibility-toggle"]',
-			) as HTMLButtonElement;
+			this.visibilityToggle = this.find('[exportparts="root: visibility-toggle"]') as HTMLButtonElement;
 		}
 
 		//	Add event listener to update the value property when the input changes

@@ -1,9 +1,13 @@
 ui-drone-viewer {
 	&::part(container) {
 		@apply relative;
-		@apply h-[480px] w-full xl:size-[640px];
+		@apply h-[480px] w-full xl:size-[560px] 2xl:size-[640px];
 		@apply flex flex-col place-content-center items-center;
 		view-transition-name: drone-viewer-expanded;
+		animation-duration: 200ms;
+		animation-timing-function: linear;
+		animation-fill-mode: forwards;
+		animation-name: fade-in;
 	}
 
 	&::part(root) {
@@ -50,6 +54,14 @@ ui-drone-viewer {
 	&::part(grab-helper) {
 		@apply absolute size-full;
 		animation: grab-helper 2000ms ease-in-out infinite forwards;
+	}
+}
+
+main.loading {
+	ui-drone-viewer {
+		&::part(container) {
+			animation-name: fade-out;
+		}
 	}
 }
 

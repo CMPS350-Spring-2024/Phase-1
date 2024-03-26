@@ -20,6 +20,12 @@
 		/>
 		<link
 			rel="preload"
+			href="/src/styles/keyframes.css"
+			onload="this.rel = 'stylesheet'"
+			as="style"
+		/>
+		<link
+			rel="preload"
 			href="/src/styles/index.css"
 			onload="this.rel = 'stylesheet'"
 			as="style"
@@ -28,6 +34,10 @@
 			<link
 				rel="stylesheet"
 				href="/src/styles/fonts.css"
+			/>
+			<link
+				rel="stylesheet"
+				href="/src/styles/keyframes.css"
 			/>
 			<link
 				rel="stylesheet"
@@ -54,6 +64,7 @@
 		<include src="{{ base_url }}/components/Alert/template.html"></include>
 		<include src="{{ base_url }}/components/Avatar/template.html"></include>
 		<include src="{{ base_url }}/components/Button/template.html"></include>
+		<include src="{{ base_url }}/components/Carousel/template.html"></include>
 		<include src="{{ base_url }}/components/DroneViewer/template.html"></include>
 		<include src="{{ base_url }}/components/Dropdown/template.html"></include>
 		<include src="{{ base_url }}/components/Modal/template.html"></include>
@@ -66,6 +77,10 @@
 		<!-- Model Scripts -->
 		<script
 			type="module"
+			src="/src/scripts/models/Product.ts"
+		></script>
+		<script
+			type="module"
 			src="/src/scripts/models/User.ts"
 		></script>
 
@@ -74,23 +89,16 @@
 			type="module"
 			src="/src/scripts/db/UserRepository.ts"
 		></script>
+		<script
+			type="module"
+			src="/src/scripts/_repos.ts"
+		></script>
 
 		<!-- Component Scripts -->
 		<script
 			type="module"
-			src="/src/scripts/icons.ts"
+			src="/src/scripts/_components.ts"
 		></script>
-		<script
-			type="module"
-			src="/src/scripts/index.ts"
-		></script>
-		<script
-			type="module"
-			src="/src/scripts/components.ts"
-		></script>
-
-		<!-- Additional Resources -->
-		<block name="resources"></block>
 
 		<!-- Main Entrypoint -->
 		<ui-navbar type="{{ type }}"></ui-navbar>
@@ -99,5 +107,16 @@
 		</main>
 
 		<!-- Scripts -->
+		<script
+			type="module"
+			src="/src/scripts/_icons.ts"
+		></script>
+		<script
+			type="module"
+			src="/src/scripts/_index.ts"
+		></script>
+
+		<!-- Additional Resources -->
+		<block name="resources"></block>
 	</body>
 </html>

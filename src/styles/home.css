@@ -4,6 +4,11 @@ main {
 	div.product-description {
 		@apply flex-col;
 
+		animation-duration: 600ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-in;
+
 		div.label {
 			@apply flex flex-col;
 
@@ -17,6 +22,10 @@ main {
 				@apply md:mb-1 xl:mb-2;
 			}
 
+			.product-rating {
+				@apply overflow-hidden;
+			}
+
 			p.description {
 				@apply mt-4 text-pretty leading-loose text-secondary;
 			}
@@ -24,6 +33,10 @@ main {
 
 		hr {
 			@apply w-12 rounded-full border-border;
+		}
+
+		span.action {
+			@apply inline-flex flex-row;
 		}
 	}
 
@@ -69,16 +82,18 @@ main {
 				@apply w-[400px] items-start;
 
 				h1.title {
+					@apply overflow-hidden;
 					@apply text-5xl tracking-wide;
 				}
 
 				p.description {
+					@apply overflow-hidden;
 					@apply mt-4 tracking-wide;
 				}
 			}
 
 			span.action {
-				@apply inline-flex place-content-between;
+				@apply place-content-between;
 
 				ui-button.cta {
 					&::part(root) {
@@ -111,92 +126,6 @@ main {
 			}
 		}
 
-		ui-button.arrow-btn {
-			&::part(root) {
-				@apply absolute bottom-3 px-6 md:bottom-auto;
-				@apply rounded-none border-0 outline-none focus-hover:bg-transparent;
-				@apply z-10;
-			}
-
-			svg {
-				@apply size-5 text-slate-300 md:size-8 md:stroke-1;
-				@apply translate-x-0;
-				@apply transition-all duration-500;
-			}
-
-			p {
-				@apply text-slate-300;
-				@apply font-serif text-xl uppercase tracking-widest md:text-3xl;
-				@apply transition-transform duration-500;
-			}
-
-			&.left {
-				&::part(root) {
-					@apply left-0;
-					view-transition-name: left-arrow-btn;
-				}
-
-				p {
-					@apply translate-x-0 md:-translate-x-6 md:-rotate-90;
-				}
-			}
-
-			&.right {
-				&::part(root) {
-					@apply right-0 flex-row-reverse;
-					view-transition-name: right-arrow-btn;
-				}
-
-				p {
-					@apply translate-x-0 md:translate-x-6 md:rotate-90;
-				}
-			}
-		}
-
-		div.carousel {
-			@apply absolute bottom-8;
-			@apply hidden flex-row items-center gap-2 md:flex;
-			view-transition-name: carousel;
-
-			hr {
-				@apply w-2 rounded-full border-border;
-			}
-
-			ui-button::part(root) {
-				@apply size-3 p-0 focus-hover:mx-0.5;
-				@apply rounded-[2px] border-border;
-				@apply rotate-45;
-				@apply transition-all duration-500;
-
-				&.series {
-					@apply size-3 border-2;
-				}
-				&.drone {
-					@apply size-2 border border-slate-400;
-
-					&.active {
-						@apply border-blue-400;
-					}
-				}
-			}
-
-			span.series-container {
-				@apply flex flex-row place-content-center items-center;
-				@apply gap-3 px-2 pb-2 pt-8;
-				@apply border-x border-border;
-				@apply -translate-y-3;
-
-				hr {
-					@apply w-4;
-				}
-
-				p.label {
-					@apply absolute top-0;
-					@apply font-serif text-xs uppercase tracking-wide text-secondary opacity-70;
-				}
-			}
-		}
-
 		ui-button.github {
 			&::part(root) {
 				view-transition-name: github;
@@ -213,25 +142,44 @@ main {
 			}
 		}
 
-		h1.bg-text {
-			@apply pointer-events-none;
+		.bg-text {
+			/* @apply pointer-events-none; */
 			@apply absolute;
 			@apply text-zinc-100;
 			@apply font-display font-black uppercase;
 
 			&.lg {
-				view-transition-name: bg-text-lg;
-
 				@apply -bottom-12 left-6 md:-bottom-16;
 				@apply text-7xl leading-none md:text-8xl;
 				@apply origin-top-left -rotate-90;
+				view-transition-name: bg-text-lg;
 			}
 
 			&.md {
-				view-transition-name: bg-text-md;
-
 				@apply right-8 top-8;
 				@apply text-right text-4xl leading-none md:text-5xl;
+				@apply overflow-hidden;
+				view-transition-name: bg-text-md;
+
+				h1 {
+					animation-duration: 2000ms;
+					animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+					animation-fill-mode: forwards;
+					animation-name: fade-slide-from-right;
+
+					&.loading {
+						animation-name: fade-slide-to-right;
+
+						&:last-child {
+							animation-delay: 100ms;
+						}
+					}
+
+					&.paused {
+						transform: translateX(100%);
+						opacity: 0;
+					}
+				}
 			}
 		}
 	}
@@ -272,7 +220,7 @@ main {
 			}
 
 			span.action {
-				@apply flex flex-row items-center gap-2 xl:pt-2;
+				@apply items-center gap-2 xl:pt-2;
 
 				ui-button.cta {
 					&::part(root) {
@@ -347,6 +295,15 @@ main {
 		}
 	}
 
+	/* When the page is loading a different drone */
+	&.loading {
+		div.model-viewer {
+			div.product-description {
+				animation-name: fade-out;
+			}
+		}
+	}
+
 	/* When the product details window is open */
 	@media (min-width: 1280px) {
 		&.product-overview {
@@ -397,47 +354,6 @@ main {
 			--tw-translate-x: -4px !important;
 		}
 	}
-
-	/* Arrow Buttons */
-	&.arrow-btn {
-		opacity: 0.75;
-
-		&.left {
-			svg {
-				--tw-translate-x: -12px !important;
-			}
-			p {
-				--tw-translate-x: -4px !important;
-			}
-		}
-		&.right {
-			svg {
-				--tw-translate-x: 12px !important;
-			}
-			p {
-				--tw-translate-x: 4px !important;
-			}
-		}
-
-		@media (min-width: 768px) {
-			&.left {
-				svg {
-					--tw-translate-x: -12px !important;
-				}
-				p {
-					--tw-translate-x: -28px !important;
-				}
-			}
-			&.right {
-				svg {
-					--tw-translate-x: 12px !important;
-				}
-				p {
-					--tw-translate-x: 28px !important;
-				}
-			}
-		}
-	}
 }
 
 /* Product details tab animations */
@@ -453,39 +369,30 @@ main {
 		animation-direction: forwards;
 	}
 
-	@keyframes btn-slide-from-left {
-		0% {
-			transform: translateX(-100%);
-			opacity: 0;
-		}
-		50% {
-			transform: translateX(-100%);
-			opacity: 0;
-		}
-		100% {
-			transform: translateX(0);
-			opacity: 1;
-		}
-	}
-	@keyframes btn-slide-to-left {
-		0% {
-			transform: translateX(0%);
-			opacity: 1;
-		}
-		50% {
-			transform: translateX(-100%);
-			opacity: 1;
-		}
-		100% {
-			transform: translateX(-100%);
-			opacity: 0;
-		}
-	}
 	::view-transition-new(back-btn) {
-		animation: 1000ms cubic-bezier(0.075, 0.82, 0.165, 1) btn-slide-from-left forwards;
+		animation-duration: 1000ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-slide-from-left-delayed;
 	}
 	::view-transition-old(back-btn) {
-		animation: 1000ms cubic-bezier(0.075, 0.82, 0.165, 1) btn-slide-to-left forwards;
+		animation-duration: 1000ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-slide-to-left-delayed;
+	}
+
+	::view-transition-new(product-details) {
+		animation-duration: 1400ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-slide-from-right;
+	}
+	::view-transition-old(product-details) {
+		animation-duration: 1400ms;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		animation-fill-mode: forwards;
+		animation-name: fade-slide-to-right;
 	}
 
 	@keyframes new-model-viewer-expanded {
@@ -551,24 +458,5 @@ main {
 	::view-transition-old(model-viewer-collapsed) {
 		transform-origin: left;
 		animation: 1400ms cubic-bezier(0.075, 0.82, 0.165, 1) old-model-viewer-collapsed forwards;
-	}
-
-	@keyframes details-slide-from-right {
-		from {
-			transform: translateX(100%);
-			opacity: 0;
-		}
-	}
-	@keyframes details-slide-to-right {
-		to {
-			transform: translateX(100%);
-			opacity: 0;
-		}
-	}
-	::view-transition-new(product-details) {
-		animation: 1400ms cubic-bezier(0.075, 0.82, 0.165, 1) details-slide-from-right forwards;
-	}
-	::view-transition-old(product-details) {
-		animation: 1400ms cubic-bezier(0.075, 0.82, 0.165, 1) details-slide-to-right forwards;
 	}
 }

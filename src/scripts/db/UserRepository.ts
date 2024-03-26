@@ -5,46 +5,35 @@ import jsSHA from 'jssha';
 //	Data Imports
 import DefaultAdmin from '@/scripts/data/default_admin.json';
 
+//	Repository Imports
+import { BaseRepository } from '@/scripts/db/BaseRepository';
+
 //	Type Imports
 import { CreateUser, LoginUser, RegisterUser, User } from '@/scripts/models/User';
 
 export type UserDictionary = Record<number, User>;
-export class UserRepository {
-	private static numberOfUsers: number = 0;
-	private static users: UserDictionary = {};
+export class UserRepository extends BaseRepository<User> {
+	protected readonly storageKey: string = 'users';
+
+	private get users(): UserDictionary {
+		return this.getAllUsers();
+	}
+	private set users(users: UserDictionary) {
+		this.items = users;
+	}
 
 	//#region Get
 	/* -------------------------------------------------------------------------- */
 	/*                               // SECTION Get                               */
 	/* -------------------------------------------------------------------------- */
 
-	static getUsers = (): UserDictionary => {
-		const currentUsers = JSON.parse(window.localStorage.getItem('users') || '{}');
+	getAllUsers = (): UserDictionary => this.getAllItems() as UserDictionary;
+	getUser = (id: number): User | null => this.getItem(id);
+	getNumberOfUsers = (): number => this.getNumberOfItems();
 
-		//	Transform each object in local storage to a User object
-		try {
-			const parsedUsers = Object.values(currentUsers).reduce((acc: UserDictionary, user: any) => {
-				const userObject = User.parse(user);
-				if (!userObject) throw new Error(`User object is not valid: ${user}`);
-				acc[userObject.id] = userObject;
-				return acc;
-			}, {});
-			return parsedUsers as UserDictionary;
-		} catch (error) {
-			console.error(`Error parsing users from local storage: ${error}`);
-			return {};
-		}
-	};
-
-	static getUser = (id: number): User | null => UserRepository.users[id];
-
-	static getUserByEmail = (email: string): User | null => {
-		const user = Object.values(UserRepository.users).find((user) => user.email === email);
+	getUserByEmail = (email: string): User | null => {
+		const user = Object.values(this.users).find((user) => user.email === email);
 		return user || null;
-	};
-
-	static getNumberOfUsers = (): number => {
-		return UserRepository.numberOfUsers;
 	};
 
 	/* ------------------------------- // !SECTION ------------------------------ */
@@ -55,43 +44,21 @@ export class UserRepository {
 	/*                               // SECTION Add                               */
 	/* -------------------------------------------------------------------------- */
 
-	private static addUser = (user: User): void => {
-		if (UserRepository.users[user.id]) throw new Error(`User with id ${user.id} already exists`);
-		if (UserRepository.getUserByEmail(user.email)) throw new Error(`User with email ${user.email} already exists`);
-
-		//	Add the user to the local storage
-		UserRepository.users[user.id] = user;
-		window.localStorage.setItem('users', JSON.stringify(UserRepository.users));
-
-		//	Update the number of users
-		UserRepository.numberOfUsers++;
+	protected validateAddItem = (user: User): void => {
+		if (this.getUser(user.id)) throw new Error(`User with id ${user.id} already exists`);
+		if (this.getUserByEmail(user.email)) throw new Error(`User with email ${user.email} already exists`);
 	};
 
-	static addDefaultAdmin = (): void => {
+	addUser = (user: User): void => this.addItem(user);
+	addDefaultData = (): void => {
+		if (this.getUser(0)) return;
 		//	@ts-ignore
 		const admin = new User({
 			...DefaultAdmin,
 			_id: 0,
 			isParsing: true,
 		});
-		UserRepository.addUser(admin);
-	};
-
-	/* ------------------------------- // !SECTION ------------------------------ */
-	//#endregion
-
-	//#region Update
-	/* -------------------------------------------------------------------------- */
-	/*                              // SECTION Update                             */
-	/* -------------------------------------------------------------------------- */
-
-	static updateUsersList = (): void => {
-		UserRepository.users = UserRepository.getUsers();
-		UserRepository.updateNumberOfUsers();
-	};
-
-	static updateNumberOfUsers = (): void => {
-		UserRepository.numberOfUsers = Object.keys(UserRepository.users).length;
+		this.addItem(admin);
 	};
 
 	/* ------------------------------- // !SECTION ------------------------------ */
@@ -102,12 +69,35 @@ export class UserRepository {
 	/*                              // SECTION Others                             */
 	/* -------------------------------------------------------------------------- */
 
+	parse = (data: Record<string, any>): User | null => {
+		try {
+			const user = new User({
+				name: {
+					first: data.name.first,
+					last: data.name.last,
+				},
+				email: data.email,
+				phone: data.phone,
+				password: data.password,
+
+				isParsing: true,
+				_id: data._id,
+				_avatarColor: data.avatarColor,
+				_balance: data.balance,
+			});
+			return user;
+		} catch (error) {
+			console.error(`Error parsing user data: ${error}`);
+			return null;
+		}
+	};
+
 	/**
 	 * Uses the given user data to log in and find the user in the local storage if it exists.
 	 *
 	 * **Note: The password should not be hashed when calling this function.**
 	 */
-	static loginUser = (userData: LoginUser): User => {
+	loginUser = (userData: LoginUser): User => {
 		//	Transform the user data by hashing the password
 		const hashObject = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' });
 		hashObject.update(userData.password);
@@ -115,7 +105,7 @@ export class UserRepository {
 
 		//	Find user in the local storage with matching email and password
 		let userExists = false;
-		const user = Object.values(UserRepository.users).find((user) => {
+		const user = Object.values(this.users).find((user) => {
 			const userFound = user.email === userData.email;
 			const correctPassword = user.password === userData.password;
 			if (!userExists && userFound) userExists = true;
@@ -134,8 +124,8 @@ export class UserRepository {
 		return user!;
 	};
 
-	private static loginUserById = (id: number): User => {
-		const user = UserRepository.getUser(id);
+	private loginUserById = (id: number): User => {
+		const user = this.getUser(id);
 
 		//	If the user is not found, throw an error
 		if (!user) throw new Error(`No account exists with the id ${id}`);
@@ -147,11 +137,11 @@ export class UserRepository {
 		return user;
 	};
 
-	static loginFromCookies = (): User | null => {
+	loginFromCookies = (): User | null => {
 		const userId = Cookies.get('user');
 		if (userId) {
 			try {
-				const user = UserRepository.loginUserById(Number(userId));
+				const user = this.loginUserById(Number(userId));
 				window.currentUser = user;
 				return user;
 			} catch (error) {
@@ -161,7 +151,7 @@ export class UserRepository {
 		return null;
 	};
 
-	static registerUser = (userData: RegisterUser): User => {
+	registerUser = (userData: RegisterUser): User => {
 		//	Format the user data
 		const formattedData: CreateUser = {
 			name: {
@@ -175,7 +165,7 @@ export class UserRepository {
 
 		//	Create a new user and add it to the local storage
 		const newUser = new User(formattedData);
-		UserRepository.addUser(newUser);
+		this.addUser(newUser);
 
 		//	Save the user id in cookies
 		Cookies.set('user', newUser.id.toString(), { expires: 7 });
@@ -184,7 +174,7 @@ export class UserRepository {
 		return newUser;
 	};
 
-	static logoutUser = (): void => {
+	logoutUser = (): void => {
 		Cookies.remove('user');
 		window.currentUser = null;
 		window.location.reload();

@@ -45,4 +45,4 @@ export const convertIcons = () =>
 	});
 
 //	Convert all icons on page load
-document.addEventListener('DOMContentLoaded', convertIcons);
+convertIcons();

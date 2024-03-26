@@ -2,59 +2,36 @@
 import { Button } from '@/components/Button/logic';
 import '@/components/DroneViewer/logic';
 
+//	Model Imports
+// import { Product } from '@/scripts/models/Product';
+
+//	Utility Imports
+import { clamp, find, findAll, startViewTransition } from '@/scripts/_utils';
+
 let currentTab: number = 0;
 
-let viewDetailsButton: HTMLButtonElement;
-let backButton: HTMLButtonElement;
-let tabSelectorLabel: HTMLHeadingElement;
-let leftTabButton: Button;
-let rightTabButton: Button;
-let tabButtons: NodeListOf<Button>;
-let tabContents: NodeListOf<HTMLElement>;
-
-document.addEventListener('DOMContentLoaded', () => {
-	// document.querySelector('main')!.classList.add('product-overview');
-
-	viewDetailsButton = document.querySelector('#view-details-cta') as HTMLButtonElement;
-	backButton = document.querySelector('#back-btn') as HTMLButtonElement;
-	tabSelectorLabel = document.querySelector('.tab-selector .tab-title') as HTMLHeadingElement;
-	leftTabButton = document.querySelector('.left.tab-arrow-btn') as Button;
-	rightTabButton = document.querySelector('.right.tab-arrow-btn') as Button;
-	tabButtons = document.querySelectorAll('.tab-list .tab');
-	tabContents = document.querySelectorAll('.tab-content');
-
-	viewDetailsButton.addEventListener('click', handleViewDetails);
-	backButton.addEventListener('click', handleBack);
-	leftTabButton.addEventListener('touchend', () => handleChangeTab(currentTab - 1));
-	rightTabButton.addEventListener('touchend', () => handleChangeTab(currentTab + 1));
-	tabButtons.forEach((button, index) => {
-		button.addEventListener('click', () => handleChangeTab(index));
-	});
-});
-
-const startViewTransition = (callback: () => void) => {
-	//	If the browser doesnt support view transitions
-	if (!document.startViewTransition) {
-		callback();
-		return;
-	}
-	document.startViewTransition(callback);
-};
+const viewDetailsButton = find('#view-details-cta') as HTMLButtonElement;
+const backButton = find('#back-btn') as HTMLButtonElement;
+const tabSelectorLabel = find('#mobile-tab-label') as HTMLHeadingElement;
+const leftTabButton = find('#left-arrow-tab') as Button;
+const rightTabButton = find('#right-arrow-tab') as Button;
+const tabButtons = findAll('.tab-list .tab') as Array<Button>;
+const tabContents = findAll('.tab-content') as Array<Button>;
 
 const handleViewDetails = () =>
 	startViewTransition(() => {
-		document.querySelector('main')!.classList.add('product-overview');
+		find('main')!.classList.add('product-overview');
 	});
 
 const handleBack = () =>
 	startViewTransition(() => {
-		document.querySelector('main')!.classList.remove('product-overview');
+		find('main')!.classList.remove('product-overview');
 	});
 
 const handleChangeTab = (index: number) => {
 	//	Store the previous tab index and clamp the new index
 	const previousTab = currentTab;
-	index = Math.min(tabButtons.length - 1, Math.max(0, index));
+	index = clamp(index, 0, tabButtons.length - 1);
 	currentTab = index;
 
 	//	If the tab is already active, return
@@ -71,3 +48,17 @@ const handleChangeTab = (index: number) => {
 	//	Update the tab selector label
 	tabSelectorLabel.textContent = tabButtons[index].textContent;
 };
+
+//	Add event listeners
+viewDetailsButton.addEventListener('click', handleViewDetails);
+viewDetailsButton.addEventListener('touchend', handleViewDetails);
+backButton.addEventListener('click', handleBack);
+backButton.addEventListener('touchend', handleBack);
+leftTabButton.addEventListener('click', () => handleChangeTab(currentTab - 1));
+leftTabButton.addEventListener('touchend', () => handleChangeTab(currentTab - 1));
+rightTabButton.addEventListener('click', () => handleChangeTab(currentTab + 1));
+rightTabButton.addEventListener('touchend', () => handleChangeTab(currentTab + 1));
+tabButtons.forEach((button, index) => {
+	button.addEventListener('click', () => handleChangeTab(index));
+	button.addEventListener('touchend', () => handleChangeTab(index));
+});

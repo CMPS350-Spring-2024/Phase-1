@@ -62,16 +62,14 @@ export class Modal extends PrimitiveComponent {
 		});
 
 		//	Save the reference to all sub elements
-		this.modalContainer = this.shadowRoot!.querySelector('[part="modal"]');
-		this.header = this.shadowRoot!.querySelector('[part="header"]');
-		this.titleElement = this.shadowRoot!.querySelector('[part="title"]');
-		this.descriptionElement = this.shadowRoot!.querySelector('[part="description"]');
-		this.closeButton = this.shadowRoot!.querySelector('[exportparts="root: close-button"]');
-		this.content = this.shadowRoot!.querySelector('[part="content"]');
-		this.footer = this.shadowRoot!.querySelector('[part="footer"]');
-		this.toggleButton = this.shadowRoot!.querySelector<HTMLSlotElement>(
-			'[name="toggle"]',
-		)!.assignedNodes()[0] as HTMLElement;
+		this.modalContainer = this.find('[part="modal"]');
+		this.header = this.find('[part="header"]');
+		this.titleElement = this.find('[part="title"]');
+		this.descriptionElement = this.find('[part="description"]');
+		this.closeButton = this.find('[exportparts="root: close-button"]');
+		this.content = this.find('[part="content"]');
+		this.footer = this.find('[part="footer"]');
+		this.toggleButton = this.find<HTMLSlotElement>('[name="toggle"]')!.assignedNodes()[0] as HTMLElement;
 
 		//	Add on click event listener to the toggle button
 		if (this.toggleButton) this.toggleButton.addEventListener('click', () => this.toggle());
