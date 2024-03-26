@@ -5,7 +5,7 @@ import DefaultProductList from '@/scripts/data/product_list.json';
 import { BaseRepository } from '@/scripts/db/BaseRepository';
 
 //	Type Imports
-import { Product } from '@/scripts/models/Product';
+import { ISeries, Product } from '@/scripts/models/Product';
 
 export type ProductDictionary = Record<number, Product>;
 export class ProductRepository extends BaseRepository<Product> {
@@ -26,6 +26,16 @@ export class ProductRepository extends BaseRepository<Product> {
 	getAllProducts = (): ProductDictionary => this.getAllItems() as ProductDictionary;
 	getProduct = (id: number): Product | null => this.getItem(id);
 	getNumberOfProducts = (): number => this.getNumberOfItems();
+
+	getAllSeries = (): Array<ISeries> =>
+		Object.values(this.products).reduce((acc, product) => {
+			if (acc.find((existing) => existing.name === product.series.name)) return acc;
+			acc.push(product.series);
+			return acc;
+		}, [] as Array<ISeries>);
+
+	getProductsBySeries = (seriesName: string): Array<Product> =>
+		Object.values(this.products).filter((product) => product.series.name === seriesName);
 
 	/* ------------------------------- // !SECTION ------------------------------ */
 	//#endregion

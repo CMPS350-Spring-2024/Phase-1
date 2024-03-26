@@ -311,28 +311,6 @@ main {
 			--tw-translate-x: -4px !important;
 		}
 	}
-
-	/* Arrow Buttons */
-	&.arrow-btn {
-		opacity: 0.75;
-
-		&.left {
-			svg {
-				--tw-translate-x: -12px !important;
-			}
-			p {
-				--tw-translate-x: -4px !important;
-			}
-		}
-		&.right {
-			svg {
-				--tw-translate-x: 12px !important;
-			}
-			p {
-				--tw-translate-x: 4px !important;
-			}
-		}
-	}
 }
 
 /* Product details tab animations */

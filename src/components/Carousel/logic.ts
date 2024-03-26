@@ -7,6 +7,7 @@ import { Rating } from '@/components/Rating/logic';
 
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
+import type { ISeries, Product } from '@/scripts/models/Product';
 
 //	Utility Imports
 import { clamp, find, findAll, formatNumber } from '@/scripts/_utils';
@@ -29,10 +30,17 @@ export class Carousel extends BaseComponent {
 		drone: 0,
 	};
 
+	protected currentSeries: number = 0;
+	protected series: Array<ISeries> = window.ProductRepository.getAllSeries();
+	protected seriesProducts: Array<Array<Product>> = this.series.map((series) =>
+		window.ProductRepository.getProductsBySeries(series.name),
+	);
+
 	protected leftArrow: Button;
 	protected rightArrow: Button;
 	protected leftArrowText: HTMLParagraphElement;
 	protected rightArrowText: HTMLParagraphElement;
+	protected carouselContainer: HTMLElement;
 
 	protected droneViewer: DroneViewer;
 	protected seriesDescription: HTMLHeadingElement;
@@ -42,6 +50,13 @@ export class Carousel extends BaseComponent {
 	protected ratingTexts: Array<HTMLParagraphElement>;
 	protected descriptions: Array<HTMLParagraphElement>;
 	protected prices: Array<PriceDisplay>;
+
+	get currentDrone(): number {
+		return Number(this.getAttribute('drone'));
+	}
+	set currentDrone(value: number) {
+		this.drone = value;
+	}
 
 	static get observedAttributes() {
 		return [...super.observedAttributes, ...this.forwardedProperties] as string[];
@@ -55,6 +70,7 @@ export class Carousel extends BaseComponent {
 		this.rightArrow = this.find('[exportparts="root: right-arrow"]') as Button;
 		this.leftArrowText = this.find('[part="left-arrow-text"]') as HTMLParagraphElement;
 		this.rightArrowText = this.find('[part="right-arrow-text"]') as HTMLParagraphElement;
+		this.carouselContainer = this.find('[part="carousel"]') as HTMLElement;
 
 		//	Save the reference to elements in the parent DOM
 		this.droneViewer = find('ui-drone-viewer') as DroneViewer;
@@ -74,6 +90,7 @@ export class Carousel extends BaseComponent {
 
 	connectedCallback(): void {
 		super.connectedCallback();
+		this.renderCarousel();
 		setTimeout(() => this.renderDrone(), 1000);
 	}
 
@@ -83,6 +100,61 @@ export class Carousel extends BaseComponent {
 		//	If the drone attribute has changed, update the drone to display
 		if (name === 'drone' && oldValue !== newValue) this.handleChangeDrone(newValue as unknown as number);
 	}
+
+	renderCarousel = () => {
+		//	Figure out which series should be open
+		const openIndex = this.series.findIndex(({ name }) => name === this.getDrone()?.series.name);
+
+		//	For each series, create a carousel item and append it to the carousel container
+		const outputHtml = this.series
+			.map((series, index) => {
+				//	If the series is not the open series
+				if (index !== openIndex)
+					return `<ui-button data-series-index="${index}" exportparts="root: series"></ui-button>`;
+				else {
+					const seriesProducts = this.seriesProducts[index];
+
+					//	Create a carousel item for each product in the series
+					const seriesHtml = seriesProducts
+						.map(
+							({ id }, productIndex) => `
+								<ui-button
+								${id}
+									${Number(this.currentDrone) === Number(id) ? 'class="size-2.5 border-2 border-blue-400"' : ''}
+									data-series-index="${index}"
+									data-drone-index="${productIndex}"
+									exportparts="root: drone"
+								></ui-button>
+							`,
+						)
+						.join('<hr part="series-divider" />');
+
+					//	Return the series HTML
+					return `
+						<span part="series-container">
+							<p part="series-label">${series.name}</p>
+							<hr part="series-divider" />
+							${seriesHtml}
+							<hr part="series-divider" />
+						</span>
+					`;
+				}
+			})
+			.join('<hr part="divider" />');
+
+		//	Append the output HTML to the carousel container
+		this.carouselContainer.innerHTML = outputHtml;
+
+		//	Add event listeners to the series buttons
+		this.findAll('ui-button[exportparts="root: series"]').forEach((button) =>
+			button.addEventListener('click', (e) => this.handleSetSeries(e)),
+		);
+
+		//	Add event listeners to the drone buttons
+		this.findAll('ui-button[exportparts="root: drone"]').forEach((button) =>
+			button.addEventListener('click', (e) => this.handleSetDrone(e)),
+		);
+	};
 
 	renderDrone = () => {
 		const drone = this.getDrone() || this.getDrone(0)!;
@@ -120,17 +192,40 @@ export class Carousel extends BaseComponent {
 		this.prices.forEach((price) => price.setPrice(drone.price));
 	};
 
-	getDrone = (index = Number(this.drone)) => window.ProductRepository.getProduct(index);
-	getPreviousDrone = () => this.getDrone(Number(this.drone) - 1);
-	getNextDrone = () => this.getDrone(Number(this.drone) + 1);
+	getDrone = (index = this.currentDrone) => window.ProductRepository.getProduct(index);
+	getPreviousDrone = () => this.getDrone(this.currentDrone - 1);
+	getNextDrone = () => this.getDrone(this.currentDrone + 1);
 	getNumberOfDrones = () => window.ProductRepository.getNumberOfProducts();
 	getLastIndex = () => this.getNumberOfDrones() - 1;
 
-	handlePreviousDrone = () => this.handleChangeDrone(Number(this.drone) - 1);
-	handleNextDrone = () => this.handleChangeDrone(Number(this.drone) + 1);
+	handlePreviousDrone = () => this.handleChangeDrone(this.currentDrone - 1);
+	handleNextDrone = () => this.handleChangeDrone(this.currentDrone + 1);
 	handleChangeDrone = (index: number) => {
-		this.drone = clamp(index, 0, this.getLastIndex());
+		this.currentDrone = clamp(index, 0, this.getLastIndex());
+		this.renderCarousel();
 		this.renderDrone();
+	};
+
+	handleSetSeries = (event: Event) => {
+		const target = event.target as HTMLElement;
+		const index = clamp(Number(target.dataset.seriesIndex) || 0, 0, this.series.length - 1);
+
+		//	Set the current drone to the closest drone in the selected series
+		if (this.currentSeries < index) this.currentDrone = this.seriesProducts[index][0].id;
+		else this.currentDrone = this.seriesProducts[index][this.seriesProducts[index].length - 1].id;
+	};
+
+	handleSetDrone = (event: Event) => {
+		const target = event.target as HTMLElement;
+		const seriesIndex = clamp(Number(target.dataset.seriesIndex) || 0, 0, this.series.length - 1);
+		const droneIndex = clamp(
+			Number(target.dataset.droneIndex) || 0,
+			0,
+			this.seriesProducts[seriesIndex].length - 1,
+		);
+
+		//	Set the current drone to the selected drone
+		this.currentDrone = this.seriesProducts[seriesIndex][droneIndex].id;
 	};
 }
 

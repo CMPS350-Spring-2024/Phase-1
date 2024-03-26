@@ -74,22 +74,16 @@ ui-carousel {
 
 	/* Carousel Series Dot */
 	&::part(series) {
-		@apply size-3 p-0 focus-hover:mx-0.5;
+		@apply size-3 p-0;
 		@apply rounded-[2px] border-2 border-border;
 		@apply rotate-45;
-		@apply transition-all duration-500;
 	}
 
 	/* Carousel Drone Dot */
 	&::part(drone) {
-		@apply size-2 p-0 focus-hover:mx-0.5;
+		@apply size-2 p-0;
 		@apply rounded-[2px] border border-slate-400;
 		@apply rotate-45;
-		@apply transition-all duration-500;
-
-		/* &.active {
-			@apply border-blue-400;
-		} */
 	}
 
 	/* Carousel Dividers */

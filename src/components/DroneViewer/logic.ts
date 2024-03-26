@@ -169,8 +169,12 @@ export class DroneViewer extends PrimitiveComponent {
 	 */
 	loadDrone = ({ url, position, rotation, scale, cameraPosition }: IModel) => {
 		try {
-			//	Remove the current drone model
-			this.scene.remove(this.scene.getObjectByName('Drone')!);
+			//	Remove all the current drone models if there are duplicates
+			let droneModel = this.scene.getObjectByName('Drone');
+			while (droneModel) {
+				this.scene.remove(droneModel);
+				droneModel = this.scene.getObjectByName('Drone');
+			}
 
 			//	Load the drone model
 			const loader = new GLTFLoader();
