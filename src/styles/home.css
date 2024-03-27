@@ -136,6 +136,12 @@ main {
 			}
 		}
 
+		span.spinner {
+			@apply absolute size-12;
+			@apply border-[5px] text-border opacity-75;
+			z-index: -1;
+		}
+
 		ui-button.github {
 			&::part(root) {
 				view-transition-name: github;
@@ -310,6 +316,10 @@ main {
 		div.model-viewer {
 			div.product-description {
 				animation-name: fade-out;
+			}
+
+			span.spinner {
+				@apply inline-block;
 			}
 		}
 	}

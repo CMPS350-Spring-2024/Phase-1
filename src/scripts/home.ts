@@ -2,9 +2,6 @@
 import { Button } from '@/components/Button/logic';
 import '@/components/DroneViewer/logic';
 
-//	Model Imports
-// import { Product } from '@/scripts/models/Product';
-
 //	Utility Imports
 import { clamp, find, findAll, startViewTransition } from '@/scripts/_utils';
 
@@ -50,7 +47,6 @@ const handleChangeTab = (index: number) => {
 };
 
 //	Add event listeners
-find('main')!.classList.add('product-overview');
 viewDetailsButton.addEventListener('click', handleViewDetails);
 viewDetailsButton.addEventListener('touchend', handleViewDetails);
 backButton.addEventListener('click', handleBack);
