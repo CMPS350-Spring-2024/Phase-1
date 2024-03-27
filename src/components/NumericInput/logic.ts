@@ -135,8 +135,8 @@ export class NumericInput extends PrimitiveComponent {
 		this.element.addEventListener('change', () => this.handleValueChange());
 		this.decrement?.addEventListener('mousedown', () => this.handleDecrement());
 		this.increment?.addEventListener('mousedown', () => this.handleIncrement());
-		this.decrement?.addEventListener('touchstart', () => this.handleDecrement());
-		this.increment?.addEventListener('touchstart', () => this.handleIncrement());
+		this.decrement?.addEventListener('touchstart', () => this.handleDecrement(), { passive: true });
+		this.increment?.addEventListener('touchstart', () => this.handleIncrement(), { passive: true });
 		this.decrement?.addEventListener('mouseup', () => clearInterval(this.mouseHoldInterval));
 		this.increment?.addEventListener('mouseup', () => clearInterval(this.mouseHoldInterval));
 		this.decrement?.addEventListener('touchend', () => clearInterval(this.mouseHoldInterval));

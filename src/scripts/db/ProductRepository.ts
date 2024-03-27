@@ -2,18 +2,40 @@
 import { BaseRepository } from '@/scripts/db/BaseRepository';
 
 //	Type Imports
+import { clamp, round } from '@/scripts/_utils';
 import { ISeries, Product } from '@/scripts/models/Product';
 
 export type ProductDictionary = Record<number, Product>;
+export interface CartData {
+	/**
+	 * A dictionary of product ids and the quantity that exists in the cart
+	 */
+	items: Record<number, number>;
+	subtotal: number;
+	shippingFee: number;
+	total: number;
+}
 export class ProductRepository extends BaseRepository<Product> {
 	protected readonly storageKey: string = 'products';
 	protected readonly repositoryKey: string = 'ProductRepository';
+	protected static readonly SHIPPING_CONSTANT: number = 0.01;
+
+	protected _cart: CartData = {
+		items: {},
+		subtotal: 0,
+		shippingFee: 0,
+		total: 0,
+	};
 
 	private get products(): ProductDictionary {
 		return this.getAllProducts();
 	}
 	private set products(products: ProductDictionary) {
 		this.items = products;
+	}
+
+	get cart(): CartData {
+		return this._cart;
 	}
 
 	//#region Get
@@ -103,6 +125,34 @@ export class ProductRepository extends BaseRepository<Product> {
 			console.error(`Error parsing product data: ${error}`);
 			return null;
 		}
+	};
+
+	addProductToCart = (droneId: number, quantity: number = 1) => this.updateItemInCart(droneId, quantity);
+	removeProductFromCart = (droneId: number, quantity: number = 1) => this.updateItemInCart(droneId, -quantity);
+	private updateItemInCart = (droneId: number, quantity: number) => {
+		const droneData = this.getProduct(droneId);
+		if (!droneData) throw new Error(`Given drone does not exist: ${droneId}`);
+
+		//	Update the number of items
+		const currentQuantity = this._cart.items[droneId] || 0;
+		const newQuantity = clamp(currentQuantity + quantity, 0, droneData.quantity);
+		if (newQuantity > 0) this._cart.items[droneId] = newQuantity;
+		else delete this._cart.items[droneId];
+
+		//	Update the cart total
+		const subtotal = droneData.price * (newQuantity - currentQuantity);
+		const shipping = droneData.weight * ProductRepository.SHIPPING_CONSTANT * (newQuantity - currentQuantity);
+		const total = subtotal + shipping;
+		this._cart.subtotal += round(subtotal);
+		this._cart.shippingFee += round(shipping);
+		this._cart.total += round(total);
+
+		//	Return the new state of the cart
+		return this._cart;
+	};
+
+	confirmPurchase = () => {
+		//	Create new order, transaction, and update product stock
 	};
 
 	/* ------------------------------- // !SECTION ------------------------------ */

@@ -4,7 +4,7 @@ import * as v from 'valibot';
 
 //	Model Imports
 import { Avatar } from '@/components/Avatar/logic';
-import { BaseModel } from '@/scripts/models/BaseModel';
+import { BaseModel, CreateBase } from '@/scripts/models/BaseModel';
 
 //	Type Imports
 import type { AvatarProps } from '@/components/Avatar/logic';
@@ -110,10 +110,7 @@ export const RegistrationSchema = v.object(
 	{
 		firstName: v.string([v.minLength(1, 'Please enter your first name')]),
 		lastName: v.string([v.minLength(1, 'Please enter your last name')]),
-		email: v.string([
-			v.minLength(1, 'Please enter your email'),
-			v.email('Your email must be a valid email address'),
-		]),
+		email: v.string([v.minLength(1, 'Please enter your email'), v.email('Your email must be a valid email address')]),
 		phone: v.string([
 			v.minLength(1, 'Please enter your phone number'),
 			v.regex(/^\+974 \d{4} \d{4}$/, 'Your phone number must be in the format +974 XXXX XXXX'),
@@ -131,12 +128,10 @@ export const RegistrationSchema = v.object(
 	[v.custom(({ password, confirmPassword }) => password === confirmPassword, 'Your passwords do not match')],
 );
 
-export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'password'> {
+export interface CreateUser extends CreateBase, Pick<User, 'name' | 'email' | 'phone' | 'password'> {
 	/**
-	 * Only used when parsing the user data
+	 * Only used when parsing the product data
 	 */
-	isParsing?: boolean;
-	_id?: number;
 	_avatarColor?: AvatarProps['color'];
 	_balance?: number;
 }
