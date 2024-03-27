@@ -1,8 +1,8 @@
 // //	Component Imports
-// import { BaseComponent } from '@/components/BaseComponent';
+// // import { PrimitiveComponent } from '/PrimitiveComponent';
 
 // //	Type Imports
-// import type { BaseComponentProps } from '@/components/BaseComponent';
+// import { BaseComponent, type BaseComponentProps } from '../BaseComponent';
 
 // export interface BottombarProps extends BaseComponentProps {}
 
@@ -23,4 +23,4 @@
 // 	}
 // }
 
-// customElements.define('ui-bottombar', Bottombar);
+// customElements.define('bottombar', Bottombar);
