@@ -30,3 +30,10 @@ declare global {
 		startViewTransition(callback: () => void): void;
 	}
 }
+
+declare module 'three' {
+	interface Object3D {
+		getObjectByUserDataProperty: (key: string, value: any) => THREE.Object3D | undefined;
+		getObjectsByUserDataProperty: (key: string, value: any) => Array<THREE.Object3D>;
+	}
+}

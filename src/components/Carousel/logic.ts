@@ -238,8 +238,8 @@ export class Carousel extends BaseComponent {
 		this.weight.innerText = `${formatNumber(drone.weight, 0)}g drone weight`;
 
 		//	Load the new drone, if the drone viewer isnt ready, wait for it to be ready
-		if (this.droneViewer.loadDrone) this.droneViewer.loadDrone(drone.model, () => this.hideLoading());
-		else setTimeout(() => this.droneViewer.loadDrone(drone.model, () => this.hideLoading()), 1000);
+		if (this.droneViewer.loadDrone) this.droneViewer.loadDrone(drone, () => this.hideLoading());
+		else setTimeout(() => this.droneViewer.loadDrone(drone, () => this.hideLoading()), 1000);
 	};
 
 	getDrone = (index = this.currentDrone) => window.ProductRepository.getProduct(index);

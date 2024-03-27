@@ -1,7 +1,7 @@
 //	Package Imports
 import * as THREE from 'three';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
+import { GLTF, GLTFLoader } from 'three/addons/loaders/GLTFLoader';
 import { HorizontalBlurShader } from 'three/addons/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/addons/shaders/VerticalBlurShader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -11,7 +11,7 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
-import { IModel } from '@/scripts/models/Product';
+import type { Product } from '@/scripts/models/Product';
 
 export interface DroneViewer extends DroneViewerProps {}
 export interface DroneViewerProps extends BaseComponentProps {}
@@ -167,14 +167,24 @@ export class DroneViewer extends PrimitiveComponent {
 	/**
 	 * Loads the drone model and adds it to the scene.
 	 */
-	loadDrone = ({ url, position, rotation, scale, cameraPosition }: IModel, onLoadCallback?: Function) => {
+	loadDrone = (product: Product, onLoadCallback?: Function) => {
 		try {
-			//	Remove all the current drone models if there are duplicates
-			let droneModel = this.scene.getObjectByName('Drone');
-			while (droneModel) {
-				this.scene.remove(droneModel);
-				droneModel = this.scene.getObjectByName('Drone');
-			}
+			//	Hide all the current drone models if there are duplicates
+			let modelLoaded = false;
+			const droneModels = this.scene.getObjectsByUserDataProperty('isDrone', true);
+			console.log(this.scene.getObjectsByUserDataProperty('isDrone', true));
+			console.log(this.scene.getObjectByUserDataProperty('isDrone', true));
+			droneModels.forEach((droneModel) => {
+				console.log(droneModel.userData.droneName);
+				if (droneModel.userData.droneName !== product.name) droneModel.visible = false;
+				else {
+					droneModel.visible = true;
+					modelLoaded = true;
+				}
+			});
+
+			//	If the drone has previously been loaded, show it and return
+			if (modelLoaded) return this.handleOnLoad(droneModels[0] as GLTF, product, onLoadCallback);
 
 			//	Load the drone model
 			const loader = new GLTFLoader();
@@ -184,28 +194,8 @@ export class DroneViewer extends PrimitiveComponent {
 			loader.setDRACOLoader(dracoLoader);
 			loader.setCrossOrigin('anonymous');
 			loader.load(
-				url,
-				async (gltf) => {
-					//	Setup the drone model
-					const model = gltf.scene;
-					model.name = 'Drone';
-					model.position.set(position.x, position.y, position.z);
-					model.rotateX(rotation.x);
-					model.rotateY(rotation.y);
-					model.rotateZ(rotation.z);
-					model.scale.set(scale, scale, scale);
-					await this.renderer.compileAsync(model, this.camera, this.scene);
-
-					//	Setup the camera position
-					this.camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-
-					//	Add the drone model to the scene and render
-					this.add(model);
-					this.render();
-
-					//	Call the onLoadCallback if it exists
-					onLoadCallback?.();
-				},
+				product.model.url,
+				(gltf) => this.handleOnLoad(gltf, product, onLoadCallback),
 				undefined,
 				(error) => {
 					console.error(error);
@@ -355,6 +345,63 @@ export class DroneViewer extends PrimitiveComponent {
 		this.render();
 		this.updateControls();
 	};
+
+	private handleOnLoad = async (
+		droneModel: THREE.Object3D | GLTF,
+		{ name, model: { position, rotation, scale, cameraPosition } }: Product,
+		onLoadCallback?: Function,
+	) => {
+		//	Setup the drone model
+		const model = (droneModel as GLTF).scene || (droneModel as THREE.Object3D);
+		model.position.set(position.x, position.y, position.z);
+		model.rotateX(rotation.x);
+		model.rotateY(rotation.y);
+		model.rotateZ(rotation.z);
+		model.scale.set(scale, scale, scale);
+		model.visible = true;
+		model.userData.isDrone = true;
+		model.userData.droneName = name;
+		await this.renderer.compileAsync(model, this.camera, this.scene);
+
+		//	Setup the camera position
+		this.camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+
+		//	Add the drone model to the scene and render
+		this.add(model);
+		this.render();
+
+		//	Call the onLoadCallback if it exists
+		onLoadCallback?.();
+	};
 }
 
 customElements.define('ui-drone-viewer', DroneViewer);
+
+//	Extend three.js with a new method to get an object by user data
+THREE.Object3D.prototype.getObjectByUserDataProperty = function (name, value) {
+	if (this.userData[name] === value) return this;
+
+	for (let i = 0, l = this.children.length; i < l; i++) {
+		const child = this.children[i];
+		const object = child.getObjectByUserDataProperty(name, value);
+
+		if (object !== undefined) {
+			return object;
+		}
+	}
+
+	return undefined;
+};
+THREE.Object3D.prototype.getObjectsByUserDataProperty = function (name, value) {
+	if (this.userData[name] === value) return [this];
+
+	const objects = [] as Array<THREE.Object3D>;
+	for (let i = 0, l = this.children.length; i < l; i++) {
+		const child = this.children[i];
+		const childObjects = child.getObjectsByUserDataProperty(name, value);
+
+		if (childObjects.length > 0) childObjects.forEach((object) => objects.push(object));
+	}
+
+	return objects as Array<THREE.Object3D>;
+};
