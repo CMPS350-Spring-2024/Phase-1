@@ -7,7 +7,7 @@ import { ISeries, Product } from '@/scripts/models/Product';
 export type ProductDictionary = Record<number, Product>;
 export class ProductRepository extends BaseRepository<Product> {
 	protected readonly storageKey: string = 'products';
-	protected readonly repositoryName: string = 'ProductRepository';
+	protected readonly repositoryKey: string = 'ProductRepository';
 
 	private get products(): ProductDictionary {
 		return this.getAllProducts();
@@ -47,13 +47,15 @@ export class ProductRepository extends BaseRepository<Product> {
 	addDefaultData = async () => {
 		//	Add default data if there are no products or if in development mode
 		const isDev = import.meta.env.DEV;
-		if (isDev) this.products = [];
 		if (!isDev && this.getNumberOfProducts() > 0) return;
+		if (isDev) {
+			this.products = [];
+			this.numberOfItems = 0;
+		}
 
 		//	Fetch default product list and add each product to the repository
 		const defaultProductList = await fetch('/data/product_list.json').then((response) => response.json());
 		defaultProductList.forEach((productData: any) => {
-			//	@ts-ignore
 			const product = new Product({
 				...productData,
 				isParsing: true,
@@ -62,7 +64,7 @@ export class ProductRepository extends BaseRepository<Product> {
 				_numberOfSales: productData.numberOfSales,
 				_numberOfOngoingOrders: productData.numberOfOngoingOrders,
 			});
-			this.addItem(product);
+			this.addProduct(product);
 		});
 	};
 
@@ -76,7 +78,7 @@ export class ProductRepository extends BaseRepository<Product> {
 
 	parse = (data: Record<string, any>): Product | null => {
 		try {
-			const user = new Product({
+			const product = new Product({
 				_id: data._id,
 				name: data.name,
 				description: data.description,
@@ -95,9 +97,9 @@ export class ProductRepository extends BaseRepository<Product> {
 				_numberOfSales: data.numberOfSales,
 				_numberOfOngoingOrders: data.numberOfOngoingOrders,
 			});
-			return user;
+			return product;
 		} catch (error) {
-			console.error(`Error parsing user data: ${error}`);
+			console.error(`Error parsing product data: ${error}`);
 			return null;
 		}
 	};

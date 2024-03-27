@@ -3,12 +3,14 @@
 //	Type Imports
 import { BaseModel } from '@/scripts/models/BaseModel';
 
+export type BaseRepositoryEvents = 'initialize';
 export type BaseDictionary<Model extends BaseModel> = Record<number, Model>;
 export abstract class BaseRepository<Model extends BaseModel> {
 	protected abstract readonly storageKey: string;
-	protected abstract readonly repositoryName: string;
+	protected abstract readonly repositoryKey: string;
 	protected numberOfItems: number = 0;
 	protected items: BaseDictionary<Model> = {};
+
 	protected onInitialize: Array<Function> = [];
 
 	//#region Get
@@ -50,9 +52,9 @@ export abstract class BaseRepository<Model extends BaseModel> {
 	/*                               // SECTION Add                               */
 	/* -------------------------------------------------------------------------- */
 
-	protected validateAddItem = (item: Model): void => {
+	protected validateAddItem(item: Model): void {
 		if (this.getItem(item.id)) throw new Error(`Item with id ${item.id} already exists in ${this.storageKey}`);
-	};
+	}
 	protected addItem = (item: Model): void => {
 		this.validateAddItem(item);
 
@@ -89,14 +91,14 @@ export abstract class BaseRepository<Model extends BaseModel> {
 	/*                              // SECTION Others                             */
 	/* -------------------------------------------------------------------------- */
 
-	listen = (event: 'initialize', func: Function): void => {
+	listen(event: BaseRepositoryEvents, func: Function): void {
 		if (event === 'initialize') this.onInitialize.push(func);
-	};
+	}
 
 	initialize = async () => {
 		//	Add this object to the window object for global access
 		//	@ts-ignore
-		window[this.repositoryName] = this;
+		window[this.repositoryKey] = this;
 
 		//	Subscribe to the storage event to update the items list
 		window.addEventListener('storage', this.updateItemsList);

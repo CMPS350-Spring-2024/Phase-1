@@ -3,15 +3,21 @@ import Cookies from 'js-cookie';
 import jsSHA from 'jssha';
 
 //	Repository Imports
-import { BaseRepository } from '@/scripts/db/BaseRepository';
+import { BaseRepository, BaseRepositoryEvents } from '@/scripts/db/BaseRepository';
 
 //	Type Imports
+import { Customer } from '@/scripts/models/Customer';
 import { CreateUser, LoginUser, RegisterUser, User } from '@/scripts/models/User';
 
+export type UserRepositoryEvents = 'login' | 'register' | 'logout' | 'authChange' | BaseRepositoryEvents;
 export type UserDictionary = Record<number, User>;
 export class UserRepository extends BaseRepository<User> {
 	protected readonly storageKey: string = 'users';
-	protected readonly repositoryName: string = 'UserRepository';
+	protected readonly repositoryKey: string = 'UserRepository';
+
+	protected onLogin: Array<Function> = [];
+	protected onRegister: Array<Function> = [];
+	protected onLogout: Array<Function> = [];
 
 	private get users(): UserDictionary {
 		return this.getAllUsers();
@@ -43,7 +49,8 @@ export class UserRepository extends BaseRepository<User> {
 	/* -------------------------------------------------------------------------- */
 
 	protected validateAddItem = (user: User): void => {
-		if (this.getUser(user.id)) throw new Error(`User with id ${user.id} already exists`);
+		super.validateAddItem(user);
+
 		if (this.getUserByEmail(user.email)) throw new Error(`User with email ${user.email} already exists`);
 	};
 
@@ -67,6 +74,19 @@ export class UserRepository extends BaseRepository<User> {
 	/* -------------------------------------------------------------------------- */
 	/*                              // SECTION Others                             */
 	/* -------------------------------------------------------------------------- */
+
+	listen = (event: UserRepositoryEvents, func: Function) => {
+		super.listen(event as BaseRepositoryEvents, func);
+
+		if (event === 'login') this.onLogin.push(func);
+		if (event === 'register') this.onRegister.push(func);
+		if (event === 'logout') this.onLogout.push(func);
+		if (event === 'authChange') {
+			this.onLogin.push(func);
+			this.onRegister.push(func);
+			this.onLogout.push(func);
+		}
+	};
 
 	parse = (data: Record<string, any>): User | null => {
 		try {
@@ -119,6 +139,9 @@ export class UserRepository extends BaseRepository<User> {
 		//	Save the user id in cookies if found
 		Cookies.set('user', user!.id.toString(), { expires: 7 });
 
+		//	Call the login event listeners
+		this.onLogin.forEach((func) => func(user!));
+
 		//	Return the user if found, otherwise return null
 		return user!;
 	};
@@ -132,6 +155,9 @@ export class UserRepository extends BaseRepository<User> {
 		//	Save the user id in cookies if found
 		Cookies.set('user', id.toString(), { expires: 7 });
 
+		//	Call the login event listeners
+		this.onLogin.forEach((func) => func(user!));
+
 		//	Return the user if found, otherwise return null
 		return user;
 	};
@@ -142,6 +168,10 @@ export class UserRepository extends BaseRepository<User> {
 			try {
 				const user = this.loginUserById(Number(userId));
 				window.currentUser = user;
+
+				//	Call the login event listeners
+				this.onLogin.forEach((func) => func(user!));
+
 				return user;
 			} catch (error) {
 				Cookies.remove('user');
@@ -162,12 +192,15 @@ export class UserRepository extends BaseRepository<User> {
 			password: userData.password,
 		};
 
-		//	Create a new user and add it to the local storage
-		const newUser = new User(formattedData);
+		//	Since only customers can create accounts, create a new instance and add it to the local storage
+		const newUser = new Customer(formattedData);
 		this.addUser(newUser);
 
 		//	Save the user id in cookies
 		Cookies.set('user', newUser.id.toString(), { expires: 7 });
+
+		//	Call the register event listeners
+		this.onRegister.forEach((func) => func(newUser));
 
 		//	Return the new user
 		return newUser;
@@ -176,6 +209,11 @@ export class UserRepository extends BaseRepository<User> {
 	logoutUser = (): void => {
 		Cookies.remove('user');
 		window.currentUser = null;
+
+		//	Call the logout event listeners
+		this.onLogout.forEach((func) => func());
+
+		//	Reload the page to update the navbar and make sure the user is logged out
 		window.location.reload();
 	};
 
