@@ -1,10 +1,11 @@
 //	Repository Imports
-import { BaseRepository } from '@/scripts/db/BaseRepository';
+import { BaseRepository, BaseRepositoryEvents } from '@/scripts/db/BaseRepository';
 
 //	Type Imports
 import { clamp, round } from '@/scripts/_utils';
 import { ISeries, Product } from '@/scripts/models/Product';
 
+export type ProductRepositoryEvents = 'cartAdd' | 'cartRemove' | 'cartChange' | BaseRepositoryEvents;
 export type ProductDictionary = Record<number, Product>;
 export interface CartData {
 	/**
@@ -19,6 +20,9 @@ export class ProductRepository extends BaseRepository<Product> {
 	protected readonly storageKey: string = 'products';
 	protected readonly repositoryKey: string = 'ProductRepository';
 	protected static readonly SHIPPING_CONSTANT: number = 0.01;
+
+	protected onAddToCart: Array<Function> = [];
+	protected onRemoveFromCart: Array<Function> = [];
 
 	protected _cart: CartData = {
 		items: {},
@@ -56,6 +60,11 @@ export class ProductRepository extends BaseRepository<Product> {
 
 	getProductsBySeries = (seriesName: string): Array<Product> =>
 		Object.values(this.products).filter((product) => product.series.name === seriesName);
+
+	getProductsInCart = (): Array<Product> => {
+		const productIds = Object.keys(this._cart.items).map((id) => parseInt(id));
+		return productIds.map((id) => this.getProduct(id)!);
+	};
 
 	/* ------------------------------- // !SECTION ------------------------------ */
 	//#endregion
@@ -97,6 +106,17 @@ export class ProductRepository extends BaseRepository<Product> {
 	/* -------------------------------------------------------------------------- */
 	/*                              // SECTION Others                             */
 	/* -------------------------------------------------------------------------- */
+
+	listen = (event: ProductRepositoryEvents, func: Function) => {
+		super.listen(event as BaseRepositoryEvents, func);
+
+		if (event === 'cartAdd') this.onAddToCart.push(func);
+		if (event === 'cartRemove') this.onRemoveFromCart.push(func);
+		if (event === 'cartChange') {
+			this.onAddToCart.push(func);
+			this.onRemoveFromCart.push(func);
+		}
+	};
 
 	parse = (data: Record<string, any>): Product | null => {
 		try {
@@ -146,6 +166,10 @@ export class ProductRepository extends BaseRepository<Product> {
 		this._cart.subtotal += round(subtotal);
 		this._cart.shippingFee += round(shipping);
 		this._cart.total += round(total);
+
+		//	Notify listeners that the cart has been updated
+		if (quantity > 0) this.onAddToCart.forEach((func) => func(droneData, newQuantity));
+		else this.onRemoveFromCart.forEach((func) => func(droneData, newQuantity));
 
 		//	Return the new state of the cart
 		return this._cart;

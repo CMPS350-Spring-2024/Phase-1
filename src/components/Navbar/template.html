@@ -11,7 +11,10 @@
 					<h2></h2>
 				</a>
 			</div>
-			<nav class="tabs group">
+			<nav
+				class="tabs group"
+				id="navbar-tabs"
+			>
 				<ui-button
 					class="active"
 					fill="ghost"
@@ -28,9 +31,7 @@
 						stroke-linejoin="round"
 					>
 						<path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" />
-						<path
-							d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"
-						/>
+						<path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" />
 						<path d="m2 16 6 6" />
 						<circle
 							cx="16"
@@ -202,26 +203,42 @@
 								cy="21"
 								r="1"
 							/>
-							<path
-								d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
-							/>
+							<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
 						</svg>
 					</ui-button>
 
-					<ui-numeric-input value="2"></ui-numeric-input>
+					<div
+						class="item-list"
+						id="item-list"
+					></div>
 					<hr />
 					<span class="price-label">
 						<p>Subtotal</p>
-						<ui-price-display size="sm">3,889.00</ui-price-display>
+						<ui-price-display
+							id="subtotal-display"
+							size="sm"
+						>
+							3,889.00
+						</ui-price-display>
 					</span>
 					<span class="price-label">
 						<p>Shipping Fee</p>
-						<ui-price-display size="sm">100.00</ui-price-display>
+						<ui-price-display
+							id="shipping-display"
+							size="sm"
+						>
+							100.00
+						</ui-price-display>
 					</span>
 					<hr />
 					<span class="price-label">
 						<p>Total</p>
-						<ui-price-display size="md">3,999.00</ui-price-display>
+						<ui-price-display
+							id="total-display"
+							size="md"
+						>
+							3,999.00
+						</ui-price-display>
 					</span>
 					<ui-button
 						class="w-full"
@@ -400,9 +417,7 @@
 										rx="1"
 										ry="1"
 									/>
-									<path
-										d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
-									/>
+									<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
 									<path d="M12 11h4" />
 									<path d="M12 16h4" />
 									<path d="M8 11h.01" />
@@ -648,145 +663,9 @@
 				</ui-dropdown>
 			</div>
 		</div>
-		<div class="row">
-			<nav class="tabs group">
-				<ui-button
-					class="active"
-					fill="ghost"
-					href="/admin/index.html"
-				>
-					<svg
-						class="lucide lucide-hand-coins"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" />
-						<path
-							d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"
-						/>
-						<path d="m2 16 6 6" />
-						<circle
-							cx="16"
-							cy="9"
-							r="2.9"
-						/>
-						<circle
-							cx="6"
-							cy="5"
-							r="3"
-						/>
-					</svg>
-					Sale History
-				</ui-button>
-				<ui-button
-					fill="ghost"
-					href="/admin/products.html"
-				>
-					<svg
-						class="lucide lucide-package-search"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path
-							d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"
-						/>
-						<path d="m7.5 4.27 9 5.15" />
-						<polyline points="3.29 7 12 12 20.71 7" />
-						<line
-							x1="12"
-							x2="12"
-							y1="22"
-							y2="12"
-						/>
-						<circle
-							cx="18.5"
-							cy="15.5"
-							r="2.5"
-						/>
-						<path d="M20.27 17.27 22 19" />
-					</svg>
-					Product List
-				</ui-button>
-				<ui-button
-					fill="ghost"
-					href="/admin/users.html"
-				>
-					<svg
-						class="lucide lucide-users"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-						<circle
-							cx="9"
-							cy="7"
-							r="4"
-						/>
-						<path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-						<path d="M16 3.13a4 4 0 0 1 0 7.75" />
-					</svg>
-					Registered Users
-				</ui-button>
-				<ui-button
-					fill="ghost"
-					href="/admin/analytics.html"
-				>
-					<svg
-						class="lucide lucide-area-chart"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M3 3v18h18" />
-						<path d="M7 12v5h12V8l-5 5-4-4Z" />
-					</svg>
-					Analytics
-				</ui-button>
-				<ui-button
-					fill="ghost"
-					href="/admin/settings.html"
-				>
-					<svg
-						class="lucide lucide-settings"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path
-							d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
-						/>
-						<circle
-							cx="12"
-							cy="12"
-							r="3"
-						/>
-					</svg>
-					Settings
-				</ui-button>
-			</nav>
-		</div>
+		<div
+			class="row"
+			id="mobile-row"
+		></div>
 	</header>
 </template>

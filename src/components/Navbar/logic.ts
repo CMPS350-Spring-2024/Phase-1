@@ -32,6 +32,11 @@ export class Navbar extends PrimitiveComponent {
 	};
 
 	protected cartDropdown: Dropdown | null = null;
+	protected cartItemList: HTMLElement | null = null;
+	protected subtotalDisplay: PriceDisplay | null = null;
+	protected shippingDisplay: PriceDisplay | null = null;
+	protected totalDisplay: PriceDisplay | null = null;
+
 	protected accountDropdown: Dropdown | null = null;
 	protected loggedOutContent: HTMLElement | null = null;
 	protected loggedInContent: HTMLElement | null = null;
@@ -53,8 +58,19 @@ export class Navbar extends PrimitiveComponent {
 			defaultProperties: Navbar.defaultProperties,
 		});
 
-		//	Find the dropdowns and links
+		//	Duplicate the tabs into the row container for mobile view
+		const navbarTabs = this.element.querySelector('#navbar-tabs');
+		const mobileRow = this.element.querySelector('#mobile-row');
+		mobileRow!.appendChild(navbarTabs!.cloneNode(true));
+
+		//	Find the ui for the cart dropdown
 		this.cartDropdown = this.element.querySelector('ui-dropdown#cart-dropdown');
+		this.cartItemList = this.element.querySelector('#item-list');
+		this.subtotalDisplay = this.element.querySelector('#subtotal-display');
+		this.shippingDisplay = this.element.querySelector('#shipping-display');
+		this.totalDisplay = this.element.querySelector('#total-display');
+
+		//	Find the ui for the account dropdown
 		this.accountDropdown = this.element.querySelector('ui-dropdown#account-dropdown');
 		this.loggedOutContent = this.element.querySelector('#logged-out-content');
 		this.loggedInContent = this.element.querySelector('#logged-in-content');
@@ -62,7 +78,6 @@ export class Navbar extends PrimitiveComponent {
 		this.customerLinks = this.element.querySelector('#customer-links');
 		this.adminLinks = this.element.querySelector('#admin-links');
 		this.logoutButton = this.element.querySelector('ui-button#logout-button');
-
 		if (this.accountButton) {
 			this.accountAvatar = this.accountButton.querySelector('ui-avatar');
 			this.accountName = this.accountButton.querySelector('#user-name');
@@ -77,8 +92,12 @@ export class Navbar extends PrimitiveComponent {
 		super.connectedCallback();
 
 		//	Show the correct navbar based on the currently signed in user
-		this.updateAccountNavbar();
+		window.UserRepository.listen('initialize', () => this.updateAccountNavbar());
 		window.UserRepository.listen('authChange', () => this.updateAccountNavbar());
+
+		//	Update the cart dropdown when the cart changes
+		window.ProductRepository.listen('initialize', () => this.updateCartDropdown());
+		window.ProductRepository.listen('cartChange', () => this.updateCartDropdown());
 	}
 
 	/**
@@ -127,6 +146,42 @@ export class Navbar extends PrimitiveComponent {
 				this.adminLinks.classList.add('hidden');
 			}
 		}
+	};
+
+	updateCartDropdown = () => {
+		if (!this.cartItemList || !this.subtotalDisplay || !this.shippingDisplay || !this.totalDisplay) return;
+
+		//	Loop through each of the items in the cart
+		const outputHtml = Object.entries(window.ProductRepository.cart.items).map(([id, quantity]) => {
+			const productData = window.ProductRepository.getProduct(Number(id));
+			if (!productData) return;
+
+			//	Create a new item element and return the html
+			return `
+					<span class="cart-item">
+						<img src="/images/Mini 3.webp" />
+						<div class="label">
+							<h3>${productData.name}</h3>
+							<p>DJI</p>
+						</div>
+						<div class="price">
+							<ui-price-display>${formatNumber(productData.price * quantity)}</ui-price-display>
+							<ui-numeric-input size="sm" value="${quantity}"></ui-numeric-input>
+						</div>
+					</span>
+				`;
+		});
+
+		//	Insert the html into the item list
+		this.cartItemList.innerHTML = outputHtml.join('');
+
+		//	Update the subtotal, shipping, and total prices
+		const subtotal = window.ProductRepository.cart.subtotal;
+		const shipping = window.ProductRepository.cart.shippingFee;
+		const total = window.ProductRepository.cart.total;
+		this.subtotalDisplay.setPrice(subtotal);
+		this.shippingDisplay.setPrice(shipping);
+		this.totalDisplay.setPrice(total);
 	};
 }
 
