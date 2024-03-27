@@ -41,6 +41,9 @@ export class ProductRepository extends BaseRepository<Product> {
 	get cart(): CartData {
 		return this._cart;
 	}
+	get isCartEmpty(): boolean {
+		return Object.keys(this._cart.items).length === 0;
+	}
 
 	//#region Get
 	/* -------------------------------------------------------------------------- */

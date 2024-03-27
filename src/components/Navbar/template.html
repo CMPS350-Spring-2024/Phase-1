@@ -208,46 +208,14 @@
 					</ui-button>
 
 					<div
-						class="item-list"
-						id="item-list"
-					></div>
-					<hr />
-					<span class="price-label">
-						<p>Subtotal</p>
-						<ui-price-display
-							id="subtotal-display"
-							size="sm"
-						>
-							3,889.00
-						</ui-price-display>
-					</span>
-					<span class="price-label">
-						<p>Shipping Fee</p>
-						<ui-price-display
-							id="shipping-display"
-							size="sm"
-						>
-							100.00
-						</ui-price-display>
-					</span>
-					<hr />
-					<span class="price-label">
-						<p>Total</p>
-						<ui-price-display
-							id="total-display"
-							size="md"
-						>
-							3,999.00
-						</ui-price-display>
-					</span>
-					<ui-button
-						class="w-full"
-						fill="solid"
+						class="empty-cart"
+						id="empty-cart"
 					>
-						Confirm Purchase
 						<svg
-							class="lucide lucide-arrow-right"
+							class="lucide lucide-shopping-basket"
 							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -255,10 +223,73 @@
 							stroke-linecap="round"
 							stroke-linejoin="round"
 						>
-							<path d="M5 12h14" />
-							<path d="m12 5 7 7-7 7" />
+							<path d="m15 11-1 9" />
+							<path d="m19 11-4-7" />
+							<path d="M2 11h20" />
+							<path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4" />
+							<path d="M4.5 15.5h15" />
+							<path d="m5 11 4-7" />
+							<path d="m9 11 1 9" />
 						</svg>
-					</ui-button>
+						<p>Your cart is empty.</p>
+					</div>
+					<div
+						class="contents"
+						id="cart-content"
+					>
+						<div
+							class="contents"
+							id="item-list"
+						></div>
+						<hr />
+						<span class="price-label">
+							<p>Subtotal</p>
+							<ui-price-display
+								id="subtotal-display"
+								size="sm"
+							>
+								3,889.00
+							</ui-price-display>
+						</span>
+						<span class="price-label">
+							<p>Shipping Fee</p>
+							<ui-price-display
+								id="shipping-display"
+								size="sm"
+							>
+								100.00
+							</ui-price-display>
+						</span>
+						<hr />
+						<span class="price-label">
+							<p>Total</p>
+							<ui-price-display
+								id="total-display"
+								size="md"
+							>
+								3,999.00
+							</ui-price-display>
+						</span>
+						<ui-button
+							class="w-full"
+							fill="solid"
+						>
+							Confirm Purchase
+							<svg
+								class="lucide lucide-arrow-right"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M5 12h14" />
+								<path d="m12 5 7 7-7 7" />
+							</svg>
+						</ui-button>
+					</div>
 				</ui-dropdown>
 				<ui-dropdown
 					class="account"

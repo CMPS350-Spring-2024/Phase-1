@@ -32,6 +32,8 @@ export class Navbar extends PrimitiveComponent {
 	};
 
 	protected cartDropdown: Dropdown | null = null;
+	protected emptyCart: HTMLElement | null = null;
+	protected cartContent: HTMLElement | null = null;
 	protected cartItemList: HTMLElement | null = null;
 	protected subtotalDisplay: PriceDisplay | null = null;
 	protected shippingDisplay: PriceDisplay | null = null;
@@ -65,6 +67,8 @@ export class Navbar extends PrimitiveComponent {
 
 		//	Find the ui for the cart dropdown
 		this.cartDropdown = this.element.querySelector('ui-dropdown#cart-dropdown');
+		this.emptyCart = this.element.querySelector('#empty-cart');
+		this.cartContent = this.element.querySelector('#cart-content');
 		this.cartItemList = this.element.querySelector('#item-list');
 		this.subtotalDisplay = this.element.querySelector('#subtotal-display');
 		this.shippingDisplay = this.element.querySelector('#shipping-display');
@@ -149,15 +153,34 @@ export class Navbar extends PrimitiveComponent {
 	};
 
 	updateCartDropdown = () => {
-		if (!this.cartItemList || !this.subtotalDisplay || !this.shippingDisplay || !this.totalDisplay) return;
+		if (
+			!this.cartItemList ||
+			!this.subtotalDisplay ||
+			!this.shippingDisplay ||
+			!this.totalDisplay ||
+			!this.emptyCart ||
+			!this.cartContent
+		)
+			return;
 
-		//	Loop through each of the items in the cart
-		const outputHtml = Object.entries(window.ProductRepository.cart.items).map(([id, quantity]) => {
-			const productData = window.ProductRepository.getProduct(Number(id));
-			if (!productData) return;
+		//	If the cart is empty, hide the cart dropdown
+		if (window.ProductRepository.isCartEmpty) {
+			this.emptyCart.classList.remove('hidden');
+			this.cartContent.classList.add('hidden');
+		}
 
-			//	Create a new item element and return the html
-			return `
+		//	Else, show the cart dropdown
+		else {
+			this.emptyCart.classList.add('hidden');
+			this.cartContent.classList.remove('hidden');
+
+			//	Loop through each of the items in the cart
+			const outputHtml = Object.entries(window.ProductRepository.cart.items).map(([id, quantity]) => {
+				const productData = window.ProductRepository.getProduct(Number(id));
+				if (!productData) return;
+
+				//	Create a new item element and return the html
+				return `
 					<span class="cart-item">
 						<img src="/images/Mini 3.webp" />
 						<div class="label">
@@ -170,18 +193,19 @@ export class Navbar extends PrimitiveComponent {
 						</div>
 					</span>
 				`;
-		});
+			});
 
-		//	Insert the html into the item list
-		this.cartItemList.innerHTML = outputHtml.join('');
+			//	Insert the html into the item list
+			this.cartItemList.innerHTML = outputHtml.join('');
 
-		//	Update the subtotal, shipping, and total prices
-		const subtotal = window.ProductRepository.cart.subtotal;
-		const shipping = window.ProductRepository.cart.shippingFee;
-		const total = window.ProductRepository.cart.total;
-		this.subtotalDisplay.setPrice(subtotal);
-		this.shippingDisplay.setPrice(shipping);
-		this.totalDisplay.setPrice(total);
+			//	Update the subtotal, shipping, and total prices
+			const subtotal = window.ProductRepository.cart.subtotal;
+			const shipping = window.ProductRepository.cart.shippingFee;
+			const total = window.ProductRepository.cart.total;
+			this.subtotalDisplay.setPrice(subtotal);
+			this.shippingDisplay.setPrice(shipping);
+			this.totalDisplay.setPrice(total);
+		}
 	};
 }
 

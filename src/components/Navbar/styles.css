@@ -71,31 +71,39 @@ header.navbar {
 
 	/* Cart Dropdown */
 	ui-dropdown.cart {
-		.item-list {
-			@apply contents;
+		.empty-cart {
+			@apply flex flex-col items-center gap-4 p-4;
 
-			.cart-item {
-				@apply inline-flex flex-row items-center gap-2 self-stretch;
+			svg {
+				@apply size-8 text-secondary;
+			}
 
-				img {
-					@apply size-16 rounded-md border border-border;
+			p {
+				@apply text-sm text-secondary;
+			}
+		}
+
+		.cart-item {
+			@apply inline-flex flex-row items-center gap-2 self-stretch;
+
+			img {
+				@apply size-16 rounded-md border border-border;
+			}
+
+			.label {
+				@apply flex flex-1 flex-col;
+
+				h3 {
+					@apply text-base font-semibold text-title;
 				}
 
-				.label {
-					@apply flex flex-1 flex-col;
-
-					h3 {
-						@apply text-base font-semibold text-title;
-					}
-
-					p {
-						@apply text-sm text-secondary;
-					}
+				p {
+					@apply text-sm text-secondary;
 				}
+			}
 
-				.price {
-					@apply flex flex-col items-end gap-1;
-				}
+			.price {
+				@apply flex flex-col items-end gap-1;
 			}
 		}
 
