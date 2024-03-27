@@ -44,7 +44,7 @@ header.navbar {
 
 		/* Holds the navigation tabs on the admin version */
 		&.tabs {
-			@apply hidden flex-none gap-x-1 overflow-hidden lg:rounded-sm lg:bg-slate-100 lg:p-1;
+			@apply hidden flex-none gap-x-1 overflow-hidden lg:rounded lg:bg-slate-100 lg:p-1;
 
 			ui-button::part(root) {
 				@apply h-7 px-4 lg:px-8;
@@ -53,7 +53,7 @@ header.navbar {
 				@apply text-xs font-normal;
 
 				&.active {
-					@apply bg-slate-100 focus-hover:bg-slate-200 lg:rounded-sm lg:bg-white lg:focus-hover:bg-slate-50;
+					@apply bg-slate-100 focus-hover:bg-slate-200 lg:rounded lg:bg-white lg:focus-hover:bg-slate-50;
 				}
 			}
 		}

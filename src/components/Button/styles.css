@@ -2,7 +2,7 @@ ui-button {
 	/* Button */
 	&::part(root) {
 		@apply inline-flex place-content-center items-center gap-x-2;
-		@apply rounded-sm border;
+		@apply rounded border;
 		@apply whitespace-nowrap text-sm font-semibold tracking-[0.01em];
 		@apply disabled:pointer-events-none disabled:opacity-50 focus-hover:outline-none;
 		@apply transition-colors duration-200;

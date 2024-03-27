@@ -26,8 +26,14 @@ main {
 				@apply overflow-hidden;
 			}
 
+			span.quantity-tag {
+				@apply mt-4 px-2 py-1;
+				@apply rounded bg-slate-100 text-secondary;
+				@apply text-xs;
+			}
+
 			p.description {
-				@apply mt-4 text-pretty leading-loose text-secondary;
+				@apply mt-5 text-pretty leading-loose text-secondary;
 			}
 		}
 

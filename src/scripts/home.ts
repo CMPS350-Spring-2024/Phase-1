@@ -50,6 +50,7 @@ const handleChangeTab = (index: number) => {
 };
 
 //	Add event listeners
+find('main')!.classList.add('product-overview');
 viewDetailsButton.addEventListener('click', handleViewDetails);
 viewDetailsButton.addEventListener('touchend', handleViewDetails);
 backButton.addEventListener('click', handleBack);
