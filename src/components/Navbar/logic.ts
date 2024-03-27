@@ -78,6 +78,7 @@ export class Navbar extends PrimitiveComponent {
 
 		//	Show the correct navbar based on the currently signed in user
 		this.updateAccountNavbar();
+		window.UserRepository.listen('authChange', () => this.updateAccountNavbar());
 	}
 
 	/**
