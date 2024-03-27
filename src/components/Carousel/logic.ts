@@ -2,6 +2,9 @@
 import { BaseComponent } from '@/components/BaseComponent';
 import { Button } from '@/components/Button/logic';
 import { DroneViewer } from '@/components/DroneViewer/logic';
+import { Dropdown } from '@/components/Dropdown/logic';
+import { Navbar } from '@/components/Navbar/logic';
+import { NumericInput } from '@/components/NumericInput/logic';
 import { PriceDisplay } from '@/components/PriceDisplay/logic';
 import { Rating } from '@/components/Rating/logic';
 
@@ -54,6 +57,9 @@ export class Carousel extends BaseComponent {
 	protected descriptions: Array<HTMLParagraphElement>;
 	protected prices: Array<PriceDisplay>;
 
+	protected quantityInput: NumericInput;
+	protected addToCartButton: Button;
+
 	get currentDrone(): number {
 		return Number(this.getAttribute('drone'));
 	}
@@ -62,6 +68,7 @@ export class Carousel extends BaseComponent {
 		this.showLoading();
 		setTimeout(() => {
 			this.renderCarousel();
+			this.renderDetails();
 			this.renderDrone();
 		}, 700);
 	}
@@ -91,6 +98,8 @@ export class Carousel extends BaseComponent {
 		this.weight = find('.product-description .drone-weight.tag') as HTMLSpanElement;
 		this.descriptions = findAll('.product-description .description') as Array<HTMLParagraphElement>;
 		this.prices = findAll('.product-description ui-price-display') as Array<PriceDisplay>;
+		this.quantityInput = find('#add-to-cart-quantity') as NumericInput;
+		this.addToCartButton = find('#add-to-cart-cta') as Button;
 
 		//	Add the event listeners
 		this.leftArrow.addEventListener('click', () => this.handlePreviousDrone());
@@ -101,11 +110,7 @@ export class Carousel extends BaseComponent {
 
 	connectedCallback(): void {
 		super.connectedCallback();
-		this.showLoading();
-		setTimeout(() => {
-			this.renderCarousel();
-			this.renderDrone();
-		}, 500);
+		this.currentDrone = this.drone;
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -185,58 +190,74 @@ export class Carousel extends BaseComponent {
 	};
 
 	renderDrone = () => {
+		//	If the drone is not found, call the renderDrone function again when the product repository is initialized
+		const drone = this.getDrone();
+		if (!drone) window.ProductRepository.listen('initialize', () => this.renderDrone());
+		else {
+			//	Load the new drone, if the drone viewer isnt ready, wait for it to be ready
+			if (this.droneViewer.loadDrone) this.droneViewer.loadDrone(drone, () => this.hideLoading());
+			else setTimeout(() => this.droneViewer.loadDrone(drone, () => this.hideLoading()), 1000);
+		}
+	};
+
+	renderDetails = () => {
 		const drone = this.getDrone();
 		const previousDrone = this.getPreviousDrone();
 		const nextDrone = this.getNextDrone();
 
-		//	If the drone is not found, return
-		if (!drone) return window.ProductRepository.listen('initialize', () => this.renderDrone());
-
-		//	If there are no previous or next drones, hide the arrows, otherwise show them and update the text
-		if (!previousDrone) this.leftArrow.classList.add('hidden');
+		//	If the drone is not found, call the renderDetails function again when the product repository is initialized
+		if (!drone) window.ProductRepository.listen('initialize', () => this.renderDetails());
 		else {
-			this.leftArrow.classList.remove('hidden');
-			this.leftArrowText.innerText =
-				previousDrone.series.name === drone.series.name ? previousDrone.series.model : previousDrone.series.name;
+			//	If there are no previous or next drones, hide the arrows, otherwise show them and update the text
+			const previousSeries = previousDrone?.series.name;
+			const previousLabel = previousSeries === drone.series.name ? previousDrone?.series.model : previousSeries;
+			this.leftArrow.classList.toggle('hidden', previousDrone === undefined);
+			this.leftArrowText.innerText = previousLabel || '';
+			const nextSeries = nextDrone?.series.name;
+			const nextLabel = nextDrone?.series.name === drone.series.name ? nextDrone?.series.model : nextSeries;
+			this.rightArrow.classList.toggle('hidden', nextDrone === undefined);
+			this.rightArrowText.innerText = nextLabel || '';
+
+			//	Update rating value
+			this.ratings.forEach((rating) => rating.setRating(drone.rating));
+
+			//	Update the quantity, flight time, and weight
+			this.quantity.innerText = `${formatNumber(drone.quantity, 0)} in stock`;
+			this.flightTime.innerText = `${drone.flightTime}m flight time`;
+			this.weight.innerText = `${formatNumber(drone.weight, 0)}g drone weight`;
+
+			//	Set max quantity to the available quantity and add event listener to update the cart
+			this.quantityInput.max = drone.quantity;
+			this.quantityInput.value = 1;
+			this.addToCartButton.addEventListener('click', () => {
+				this.addToCartButton.loading = true;
+				setTimeout(() => {
+					window.ProductRepository.addProductToCart(drone.id, this.quantityInput.valueAsNumber);
+					this.addToCartButton.loading = false;
+					find<Navbar>('ui-navbar')?.find<Dropdown>('#cart-dropdown')?.show();
+				}, 500);
+			});
+
+			//	Update the series description
+			this.seriesDescription.innerHTML = drone.series.description
+				.split(' ')
+				.map((text) => `<h1 class="loading paused">${text}</h1>`)
+				.join('');
+
+			//	Update text elements in home page with reveal animation
+			this.prices.forEach((price) => price.setPrice(drone.price));
+			this.titles.forEach((title, index) => (title.innerHTML = revealWrapper(drone.name, index)));
+			this.descriptions.forEach(
+				(description, index) => (description.innerHTML = revealWrapper(drone.description, index, true)),
+			);
+			this.ratingTexts.forEach(
+				(ratingText, index) =>
+					(ratingText.innerHTML = revealWrapper(
+						`${drone.rating} (${formatNumber(drone.numberOfReviews, 0)} reviews)`,
+						index,
+					)),
+			);
 		}
-		if (!nextDrone) this.rightArrow.classList.add('hidden');
-		else {
-			this.rightArrow.classList.remove('hidden');
-			this.rightArrowText.innerText =
-				nextDrone.series.name === drone.series.name ? nextDrone.series.model : nextDrone.series.name;
-		}
-
-		//	Update the series description
-		this.seriesDescription.innerHTML = drone.series.description
-			.split(' ')
-			.map((text) => `<h1 class="loading paused">${text}</h1>`)
-			.join('');
-
-		//	Update rating value
-		this.ratings.forEach((rating) => rating.setRating(drone.rating));
-
-		//	Update text elements in home page with reveal animation
-		this.prices.forEach((price) => price.setPrice(drone.price));
-		this.titles.forEach((title, index) => (title.innerHTML = revealWrapper(drone.name, index)));
-		this.descriptions.forEach(
-			(description, index) => (description.innerHTML = revealWrapper(drone.description, index, true)),
-		);
-		this.ratingTexts.forEach(
-			(ratingText, index) =>
-				(ratingText.innerHTML = revealWrapper(
-					`${drone.rating} (${formatNumber(drone.numberOfReviews, 0)} reviews)`,
-					index,
-				)),
-		);
-
-		//	Update the quantity, flight time, and weight
-		this.quantity.innerText = `${formatNumber(drone.quantity, 0)} in stock`;
-		this.flightTime.innerText = `${drone.flightTime}m flight time`;
-		this.weight.innerText = `${formatNumber(drone.weight, 0)}g drone weight`;
-
-		//	Load the new drone, if the drone viewer isnt ready, wait for it to be ready
-		if (this.droneViewer.loadDrone) this.droneViewer.loadDrone(drone, () => this.hideLoading());
-		else setTimeout(() => this.droneViewer.loadDrone(drone, () => this.hideLoading()), 1000);
 	};
 
 	getDrone = (index = this.currentDrone) => window.ProductRepository.getProduct(index);

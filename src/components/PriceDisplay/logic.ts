@@ -42,6 +42,10 @@ export class PriceDisplay extends PrimitiveComponent {
 		this.valueElement = this.find('[part="value"]')!;
 	}
 
+	get value(): number {
+		return parseFloat(this.valueElement.querySelector('span')!.innerText);
+	}
+
 	connectedCallback(): void {
 		super.connectedCallback();
 		this.addTextReveal();

@@ -156,6 +156,12 @@ export class NumericInput extends PrimitiveComponent {
 		this.updateInternals();
 	}
 
+	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+		super.attributeChangedCallback(name, oldValue, newValue);
+
+		if (name === 'value') (this.element as HTMLInputElement).value = newValue;
+	}
+
 	formDisabledCallback(disabled: boolean): void {
 		this.disabled = disabled;
 	}
@@ -181,33 +187,37 @@ export class NumericInput extends PrimitiveComponent {
 
 	private handleValueChange = () => {
 		const value = (this.element as HTMLInputElement).valueAsNumber;
+		if (value === Number(this.value)) return;
 		this.value = value;
+		this.element.dispatchEvent(new Event('change'));
 		this.updateInternals();
 	};
 
 	private handleDecrement = () => {
-		(this.element as HTMLInputElement).stepDown();
-		this.updateInternals();
+		const decrement = () => {
+			(this.element as HTMLInputElement).stepDown();
+			this.element.dispatchEvent(new Event('input'));
+			this.handleValueChange();
+		};
 
 		//	Repeat the decrement action while the button is held down
+		decrement();
 		this.mouseHoldInterval = setTimeout(() => {
-			this.mouseHoldInterval = setInterval(() => {
-				(this.element as HTMLInputElement).stepDown();
-				this.updateInternals();
-			}, 75);
+			this.mouseHoldInterval = setInterval(decrement, 75);
 		}, 400);
 	};
 
 	private handleIncrement = () => {
-		(this.element as HTMLInputElement).stepUp();
-		this.updateInternals();
+		const increment = () => {
+			(this.element as HTMLInputElement).stepUp();
+			this.element.dispatchEvent(new Event('input'));
+			this.handleValueChange();
+		};
 
 		//	Repeat the increment action while the button is held down
+		increment();
 		this.mouseHoldInterval = setTimeout(() => {
-			this.mouseHoldInterval = setInterval(() => {
-				(this.element as HTMLInputElement).stepUp();
-				this.updateInternals();
-			}, 75);
+			this.mouseHoldInterval = setInterval(increment, 75);
 		}, 400);
 	};
 

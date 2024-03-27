@@ -124,9 +124,15 @@ export class Dropdown extends BaseComponent {
 		this._cleanupFloating();
 	}
 
-	show = () => (this.open = true);
-	close = () => (this.open = false);
 	toggle = () => (this.open = !this.open);
+	show = () => {
+		this.open = false;
+		this.open = true;
+	};
+	close = () => {
+		this.open = true;
+		this.open = false;
+	};
 }
 
 customElements.define('ui-dropdown', Dropdown);

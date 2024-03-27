@@ -87,6 +87,19 @@ export class Button extends PrimitiveComponent {
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		super.attributeChangedCallback(name, oldValue, newValue);
 
+		//	If the button is set to loading, hide the text and show the spinner
+		if (name === 'loading') {
+			if (newValue === 'true' || newValue === '') {
+				this.element.setAttribute('aria-busy', 'true');
+				this.element.setAttribute('disabled', 'true');
+				this.find('slot')!.classList.add('hidden');
+			} else {
+				this.element.removeAttribute('aria-busy');
+				this.element.removeAttribute('disabled');
+				this.find('slot')!.classList.remove('hidden');
+			}
+		}
+
 		//	If the href attribute is set, change the role to link if it's not already set, and wrap the button in an anchor tag
 		if (name === 'href') {
 			if (newValue === null) {

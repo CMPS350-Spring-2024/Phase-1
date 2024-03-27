@@ -2,6 +2,7 @@
 import { Avatar } from '@/components/Avatar/logic';
 import { Button } from '@/components/Button/logic';
 import { Dropdown } from '@/components/Dropdown/logic';
+import { NumericInput } from '@/components/NumericInput/logic';
 import { PriceDisplay } from '@/components/PriceDisplay/logic';
 import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
@@ -100,8 +101,8 @@ export class Navbar extends PrimitiveComponent {
 		window.UserRepository.listen('authChange', () => this.updateAccountNavbar());
 
 		//	Update the cart dropdown when the cart changes
-		window.ProductRepository.listen('initialize', () => this.updateCartDropdown());
-		window.ProductRepository.listen('cartChange', () => this.updateCartDropdown());
+		window.ProductRepository.listen('initialize', (_, oldValue, newValue) => this.updateCartDropdown(oldValue, newValue));
+		window.ProductRepository.listen('cartChange', (_, oldValue, newValue) => this.updateCartDropdown(oldValue, newValue));
 	}
 
 	/**
@@ -152,7 +153,7 @@ export class Navbar extends PrimitiveComponent {
 		}
 	};
 
-	updateCartDropdown = () => {
+	updateCartDropdown = (oldValue: number = 0, newValue: number = 0) => {
 		if (
 			!this.cartItemList ||
 			!this.subtotalDisplay ||
@@ -174,30 +175,6 @@ export class Navbar extends PrimitiveComponent {
 			this.emptyCart.classList.add('hidden');
 			this.cartContent.classList.remove('hidden');
 
-			//	Loop through each of the items in the cart
-			const outputHtml = Object.entries(window.ProductRepository.cart.items).map(([id, quantity]) => {
-				const productData = window.ProductRepository.getProduct(Number(id));
-				if (!productData) return;
-
-				//	Create a new item element and return the html
-				return `
-					<span class="cart-item">
-						<img src="/images/Mini 3.webp" />
-						<div class="label">
-							<h3>${productData.name}</h3>
-							<p>DJI</p>
-						</div>
-						<div class="price">
-							<ui-price-display>${formatNumber(productData.price * quantity)}</ui-price-display>
-							<ui-numeric-input size="sm" value="${quantity}"></ui-numeric-input>
-						</div>
-					</span>
-				`;
-			});
-
-			//	Insert the html into the item list
-			this.cartItemList.innerHTML = outputHtml.join('');
-
 			//	Update the subtotal, shipping, and total prices
 			const subtotal = window.ProductRepository.cart.subtotal;
 			const shipping = window.ProductRepository.cart.shippingFee;
@@ -205,7 +182,69 @@ export class Navbar extends PrimitiveComponent {
 			this.subtotalDisplay.setPrice(subtotal);
 			this.shippingDisplay.setPrice(shipping);
 			this.totalDisplay.setPrice(total);
+
+			//	If there is a new item in the cart, update the item list
+			if (oldValue === 0 || newValue === 0) {
+				//	Loop through each of the items in the cart
+				const outputHtml = Object.entries(window.ProductRepository.cart.items).map(([id, quantity]) => {
+					const productData = window.ProductRepository.getProduct(Number(id));
+					if (!productData) return;
+
+					//	Create a new item element and return the html
+					return `
+					<span class="cart-item" data-id="${id}">
+						<img src="/images/Mini 3.webp" />
+						<div class="label">
+							<h3>${productData.name}</h3>
+							<p>${productData.series.description}</p>
+						</div>
+						<div class="price">
+							<ui-price-display>${formatNumber(productData.price * quantity)}</ui-price-display>
+							<ui-numeric-input size="sm" value="${quantity}" max="${productData.quantity}"></ui-numeric-input>
+						</div>
+					</span>
+				`;
+				});
+
+				//	Insert the html into the item list
+				this.cartItemList.innerHTML = outputHtml.join('');
+
+				//	Add event listeners to the numeric inputs
+				const cartItems = Array.from(this.cartItemList.querySelectorAll('.cart-item')) as Array<HTMLElement>;
+				cartItems.forEach((cartItem) => {
+					const productId = Number(cartItem.dataset.id);
+					const productData = window.ProductRepository.getProduct(productId);
+					if (!productData) return;
+
+					const numericInput = cartItem.querySelector('ui-numeric-input') as NumericInput;
+					numericInput.find('input')!.addEventListener('change', (event) => {
+						const target = event.target as HTMLInputElement;
+						const newQuantity = target.valueAsNumber;
+						window.ProductRepository.updateItemInCart(productId, newQuantity);
+					});
+				});
+			}
+
+			//	Else, update only the numeric inputs and price display
+			else {
+				const cartItems = Array.from(this.cartItemList.querySelectorAll('.cart-item')) as Array<HTMLElement>;
+				cartItems.forEach((cartItem) => {
+					const productId = Number(cartItem.dataset.id);
+					const productData = window.ProductRepository.getProduct(productId);
+					if (!productData) return;
+
+					const numericInput = cartItem.querySelector('ui-numeric-input') as NumericInput;
+					const priceDisplay = cartItem.querySelector('ui-price-display') as PriceDisplay;
+
+					numericInput.value = window.ProductRepository.cart.items[productId];
+					priceDisplay.setPrice(productData.price * window.ProductRepository.cart.items[productId]);
+				});
+				return;
+			}
 		}
+
+		//	Open the cart dropdown
+		setTimeout(() => this.cartDropdown?.show(), 200);
 	};
 }
 

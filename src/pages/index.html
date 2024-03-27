@@ -12,6 +12,7 @@
 			<p>Back</p>
 		</ui-button>
 
+		<!-- Model Viewer -->
 		<div class="model-viewer">
 			<!-- Drone Description -->
 			<div class="product-description">
@@ -84,6 +85,8 @@
 				id="series-description"
 			></span>
 		</div>
+
+		<!-- Product Details -->
 		<div class="product-details">
 			<!-- Product Description -->
 			<span class="top spacer"></span>
@@ -107,9 +110,13 @@
 				<hr />
 				<ui-price-display size="lg"></ui-price-display>
 				<span class="action">
-					<ui-numeric-input min="1"></ui-numeric-input>
+					<ui-numeric-input
+						id="add-to-cart-quantity"
+						min="1"
+					></ui-numeric-input>
 					<ui-button
 						class="cta"
+						id="add-to-cart-cta"
 						fill="solid"
 					>
 						Add to Cart
@@ -140,25 +147,25 @@
 				</ui-button>
 			</span>
 
-			<!-- Features Tab -->
+			<!-- Features Tab Content -->
 			<section class="active tab-content">
 				<h3 class="tab-title">Features</h3>
 				test1
 			</section>
 
-			<!-- What's Inside Tab -->
+			<!-- What's Inside Tab Content -->
 			<section class="tab-content">
 				<h3 class="tab-title">In The Box</h3>
 				test2
 			</section>
 
-			<!-- Reviews Tab -->
+			<!-- Reviews Tab Content -->
 			<section class="tab-content">
 				<h3 class="tab-title">Reviews</h3>
 				test3
 			</section>
 
-			<!-- FAQ Tab -->
+			<!-- FAQ Tab Content -->
 			<section class="tab-content">
 				<h3 class="tab-title">Frequently Asked Questions</h3>
 				test4

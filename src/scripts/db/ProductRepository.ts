@@ -6,6 +6,7 @@ import { clamp, round } from '@/scripts/_utils';
 import { ISeries, Product } from '@/scripts/models/Product';
 
 export type ProductRepositoryEvents = 'cartAdd' | 'cartRemove' | 'cartChange' | BaseRepositoryEvents;
+export type CartChangeEvent = (droneId: number, oldQuantity: number, newQuantity: number) => void;
 export type ProductDictionary = Record<number, Product>;
 export interface CartData {
 	/**
@@ -21,14 +22,16 @@ export class ProductRepository extends BaseRepository<Product> {
 	protected readonly repositoryKey: string = 'ProductRepository';
 	protected static readonly SHIPPING_CONSTANT: number = 0.01;
 
-	protected onAddToCart: Array<Function> = [];
-	protected onRemoveFromCart: Array<Function> = [];
+	protected onAddToCart: Array<CartChangeEvent> = [];
+	protected onRemoveFromCart: Array<CartChangeEvent> = [];
 
 	protected _cart: CartData = {
-		items: {},
-		subtotal: 0,
-		shippingFee: 0,
-		total: 0,
+		items: {
+			'5': 5,
+		},
+		subtotal: 2345,
+		shippingFee: 12.45,
+		total: 2357.45,
 	};
 
 	private get products(): ProductDictionary {
@@ -110,14 +113,14 @@ export class ProductRepository extends BaseRepository<Product> {
 	/*                              // SECTION Others                             */
 	/* -------------------------------------------------------------------------- */
 
-	listen = (event: ProductRepositoryEvents, func: Function) => {
+	listen = (event: ProductRepositoryEvents, func: Function | CartChangeEvent) => {
 		super.listen(event as BaseRepositoryEvents, func);
 
-		if (event === 'cartAdd') this.onAddToCart.push(func);
-		if (event === 'cartRemove') this.onRemoveFromCart.push(func);
+		if (event === 'cartAdd') this.onAddToCart.push(func as CartChangeEvent);
+		if (event === 'cartRemove') this.onRemoveFromCart.push(func as CartChangeEvent);
 		if (event === 'cartChange') {
-			this.onAddToCart.push(func);
-			this.onRemoveFromCart.push(func);
+			this.onAddToCart.push(func as CartChangeEvent);
+			this.onRemoveFromCart.push(func as CartChangeEvent);
 		}
 	};
 
@@ -150,11 +153,12 @@ export class ProductRepository extends BaseRepository<Product> {
 		}
 	};
 
-	addProductToCart = (droneId: number, quantity: number = 1) => this.updateItemInCart(droneId, quantity);
-	removeProductFromCart = (droneId: number, quantity: number = 1) => this.updateItemInCart(droneId, -quantity);
-	private updateItemInCart = (droneId: number, quantity: number) => {
+	addProductToCart = (droneId: number, quantity: number = 1) => this.incrementItemInCart(droneId, quantity);
+	removeProductFromCart = (droneId: number, quantity: number = 1) => this.incrementItemInCart(droneId, -quantity);
+	private incrementItemInCart = (droneId: number, quantity: number) => {
 		const droneData = this.getProduct(droneId);
 		if (!droneData) throw new Error(`Given drone does not exist: ${droneId}`);
+		if (quantity === 0) return this._cart;
 
 		//	Update the number of items
 		const currentQuantity = this._cart.items[droneId] || 0;
@@ -171,12 +175,15 @@ export class ProductRepository extends BaseRepository<Product> {
 		this._cart.total += round(total);
 
 		//	Notify listeners that the cart has been updated
-		if (quantity > 0) this.onAddToCart.forEach((func) => func(droneData, newQuantity));
-		else this.onRemoveFromCart.forEach((func) => func(droneData, newQuantity));
+		if (quantity > 0) this.onAddToCart.forEach((func) => func(droneId, currentQuantity, newQuantity));
+		else this.onRemoveFromCart.forEach((func) => func(droneId, currentQuantity, newQuantity));
 
 		//	Return the new state of the cart
 		return this._cart;
 	};
+
+	updateItemInCart = (droneId: number, newQuantity: number) =>
+		this.incrementItemInCart(droneId, newQuantity - (this._cart.items[droneId] || 0));
 
 	confirmPurchase = () => {
 		//	Create new order, transaction, and update product stock

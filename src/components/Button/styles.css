@@ -48,12 +48,8 @@ ui-button {
 	&::part(spinner) {
 		@apply hidden;
 		@apply size-4;
-		@apply rounded-full border-[3px] border-current border-t-transparent;
+		@apply rounded-full border-[2px] border-current border-t-transparent;
 		@apply animate-spin;
-
-		&[loading] {
-			@apply inline-block;
-		}
 	}
 
 	/* Icon */
@@ -65,5 +61,15 @@ ui-button {
 	}
 	&[size='lg'] svg {
 		@apply size-4;
+	}
+
+	/* Loading State */
+	&[loading] {
+		&::part(root) {
+			@apply pointer-events-none;
+		}
+		&::part(spinner) {
+			@apply inline-block;
+		}
 	}
 }
