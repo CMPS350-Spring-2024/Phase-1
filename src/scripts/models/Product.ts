@@ -31,6 +31,11 @@ export interface IProduct {
 	weight: number;
 
 	/**
+	 * Maximum flight time in minutes
+	 */
+	flightTime: number;
+
+	/**
 	 * The overall rating of the product, out of 5
 	 */
 	rating: number;
@@ -213,6 +218,7 @@ export interface CreateProduct
 		| 'price'
 		| 'quantity'
 		| 'weight'
+		| 'flightTime'
 		| 'series'
 		| 'features'
 		| 'includedItems'
