@@ -124,10 +124,7 @@ export class DroneViewer extends PrimitiveComponent {
 		renderer.toneMappingExposure = 2;
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setClearColor(0xffffff, 0);
-		renderer.setSize(
-			(this.element as HTMLCanvasElement).clientWidth,
-			(this.element as HTMLCanvasElement).clientHeight,
-		);
+		renderer.setSize((this.element as HTMLCanvasElement).clientWidth, (this.element as HTMLCanvasElement).clientHeight);
 
 		//	Add some lights to the scene
 		const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff);
@@ -167,24 +164,21 @@ export class DroneViewer extends PrimitiveComponent {
 	/**
 	 * Loads the drone model and adds it to the scene.
 	 */
-	loadDrone = (product: Product, onLoadCallback?: Function) => {
+	loadDrone = async (product: Product, onLoadCallback?: Function) => {
 		try {
 			//	Hide all the current drone models if there are duplicates
-			let modelLoaded = false;
+			let cachedModel;
 			const droneModels = this.scene.getObjectsByUserDataProperty('isDrone', true);
-			console.log(this.scene.getObjectsByUserDataProperty('isDrone', true));
-			console.log(this.scene.getObjectByUserDataProperty('isDrone', true));
 			droneModels.forEach((droneModel) => {
-				console.log(droneModel.userData.droneName);
 				if (droneModel.userData.droneName !== product.name) droneModel.visible = false;
 				else {
 					droneModel.visible = true;
-					modelLoaded = true;
+					cachedModel = droneModel;
 				}
 			});
 
 			//	If the drone has previously been loaded, show it and return
-			if (modelLoaded) return this.handleOnLoad(droneModels[0] as GLTF, product, onLoadCallback);
+			if (cachedModel) return await this.handleOnLoad(cachedModel as GLTF, product, onLoadCallback);
 
 			//	Load the drone model
 			const loader = new GLTFLoader();
@@ -195,7 +189,7 @@ export class DroneViewer extends PrimitiveComponent {
 			loader.setCrossOrigin('anonymous');
 			loader.load(
 				product.model.url,
-				(gltf) => this.handleOnLoad(gltf, product, onLoadCallback),
+				async (gltf) => await this.handleOnLoad(gltf, product, onLoadCallback),
 				undefined,
 				(error) => {
 					console.error(error);
@@ -354,9 +348,7 @@ export class DroneViewer extends PrimitiveComponent {
 		//	Setup the drone model
 		const model = (droneModel as GLTF).scene || (droneModel as THREE.Object3D);
 		model.position.set(position.x, position.y, position.z);
-		model.rotateX(rotation.x);
-		model.rotateY(rotation.y);
-		model.rotateZ(rotation.z);
+		model.rotation.set(rotation.x, rotation.y, rotation.z);
 		model.scale.set(scale, scale, scale);
 		model.visible = true;
 		model.userData.isDrone = true;

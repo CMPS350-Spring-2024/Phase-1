@@ -112,7 +112,7 @@ export class Carousel extends BaseComponent {
 		super.attributeChangedCallback(name, oldValue, newValue);
 
 		//	If the drone attribute has changed, update the drone to display
-		if (name === 'drone' && oldValue !== newValue) this.handleChangeDrone(newValue as unknown as number);
+		if (name === 'drone' && this.currentDrone !== Number(newValue)) this.handleChangeDrone(newValue as unknown as number);
 	}
 
 	showLoading = () => {
@@ -138,8 +138,7 @@ export class Carousel extends BaseComponent {
 		const outputHtml = this.series
 			.map((series, index) => {
 				//	If the series is not the open series
-				if (index !== openIndex)
-					return `<ui-button data-series-index="${index}" exportparts="root: series"></ui-button>`;
+				if (index !== openIndex) return `<ui-button data-series-index="${index}" exportparts="root: series"></ui-button>`;
 				else {
 					const seriesProducts = this.seriesProducts[index];
 
@@ -198,9 +197,7 @@ export class Carousel extends BaseComponent {
 		else {
 			this.leftArrow.classList.remove('hidden');
 			this.leftArrowText.innerText =
-				previousDrone.series.name === drone.series.name ?
-					previousDrone.series.model
-				:	previousDrone.series.name;
+				previousDrone.series.name === drone.series.name ? previousDrone.series.model : previousDrone.series.name;
 		}
 		if (!nextDrone) this.rightArrow.classList.add('hidden');
 		else {
@@ -264,11 +261,7 @@ export class Carousel extends BaseComponent {
 	handleSetDrone = (event: Event) => {
 		const target = event.target as HTMLElement;
 		const seriesIndex = clamp(Number(target.dataset.seriesIndex) || 0, 0, this.series.length - 1);
-		const droneIndex = clamp(
-			Number(target.dataset.droneIndex) || 0,
-			0,
-			this.seriesProducts[seriesIndex].length - 1,
-		);
+		const droneIndex = clamp(Number(target.dataset.droneIndex) || 0, 0, this.seriesProducts[seriesIndex].length - 1);
 
 		//	Set the current drone to the selected drone
 		this.currentDrone = this.seriesProducts[seriesIndex][droneIndex].id;
