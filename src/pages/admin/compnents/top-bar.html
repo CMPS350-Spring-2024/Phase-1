@@ -1,75 +1,67 @@
-<extends
-	src="../../../layouts/base.html"
-	locals='{
-		"title": "Vite + TS",
-		"base_url": "../../../"
-	}'
->
-	<block name="app">
-		<link
-			rel="stylesheet"
-			href="../../../styles/admin.css"
-		/>
-		<script
-			type="module"
-			src="../../../../src/scripts/index.ts"
-		></script>
-		<header class="admin navbar">
-			<div class="nav-start-group">
-				<img
-					class="company-logo"
-					alt="company-logo"
-					src="../../../../public/DJI 1.svg"
-				/>
-				<h2 class="page-title">ADMIN</h2>
-			</div>
-			<div class="nav-center-group">
-				<nav>
-					<a href="">Sale history</a>
-					<a href="">product list</a>
-					<a href="">Registered Users</a>
-					<a href="">Analytics</a>
-					<a href="">Settings</a>
-				</nav>
-			</div>
-			<div class="nav-end-group">
-				<nav>
-					<a href="">
-						<!-- <img
+<template id="top-bar">
+	<link
+		rel="stylesheet"
+		href="../../../styles/admin.css"
+	/>
+	<script
+		type="module"
+		src="../../../../src/scripts/index.ts"
+	></script>
+	<header class="admin navbar">
+		<div class="nav-start-group">
+			<img
+				class="company-logo"
+				alt="company-logo"
+				src="../../../../public/DJI 1.svg"
+			/>
+			<h2 class="page-title">ADMIN</h2>
+		</div>
+		<div class="nav-center-group">
+			<nav>
+				<a href="">Sale history</a>
+				<a href="">product list</a>
+				<a href="">Registered Users</a>
+				<a href="">Analytics</a>
+				<a href="">Settings</a>
+			</nav>
+		</div>
+		<div class="nav-end-group">
+			<nav>
+				<a href="">
+					<!-- <img
                         alt="Search-icon"
                         src="./temp-images/search.svg"
                     /> -->
-						<!-- <h1>Test</h1> -->
-						<i
-							class="nav-icon"
-							alt="search-icon"
-							data-lucide="search"
-						></i>
-					</a>
-					<a href="">
-						<!-- <img
+					<!-- <h1>Test</h1> -->
+					<i
+						class="nav-icon"
+						alt="search-icon"
+						data-lucide="search"
+					></i>
+				</a>
+				<a href="">
+					<!-- <img
                         alt="cart-icon"
                         src="./temp-images/shopping-cart.svg"
                     /> -->
-						<i
-							class="nav-icon"
-							alt="shopping-cart"
-							data-lucide="shopping-cart"
-						></i>
-					</a>
-					<a href="">
-						<!-- <img
+					<i
+						class="nav-icon"
+						alt="shopping-cart"
+						data-lucide="shopping-cart"
+					></i>
+				</a>
+				<a href="">
+					<!-- <img
                             alt="user-icon"
                             src="./temp-images/user.svg"
                         /> -->
-						<i
-							class="nav-icon"
-							alt="user"
-							data-lucide="user"
-						></i>
-					</a>
-				</nav>
-			</div>
-		</header>
-	</block>
-</extends>
+					<i
+						class="nav-icon"
+						alt="user"
+						data-lucide="user"
+					></i>
+				</a>
+			</nav>
+		</div>
+	</header>
+</template>
