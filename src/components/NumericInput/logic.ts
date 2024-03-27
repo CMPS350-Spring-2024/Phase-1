@@ -55,6 +55,11 @@ export interface NumericInputProps extends BaseComponentProps {
 	 * If this input is in a form, this property makes it required.
 	 */
 	required?: boolean;
+
+	/**
+	 * The size of the input.
+	 */
+	size?: 'sm' | 'md';
 }
 
 /**
@@ -75,6 +80,7 @@ export class NumericInput extends PrimitiveComponent {
 		'disabled',
 		'readonly',
 		'required',
+		'size',
 	];
 	protected static readonly defaultProperties: NumericInputProps = {
 		value: 0,

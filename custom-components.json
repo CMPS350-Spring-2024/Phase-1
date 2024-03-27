@@ -256,6 +256,11 @@
 					"name": "required",
 					"description": "If this input is in a form, this property makes it required.",
 					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "size",
+					"description": "The size of the input.",
+					"values": [{ "name": "sm" }, { "name": "md" }]
 				}
 			],
 			"references": [
