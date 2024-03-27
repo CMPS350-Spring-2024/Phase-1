@@ -185,6 +185,7 @@ export class Product extends BaseModel {
 		this.price = productData.price;
 		this.quantity = productData.quantity;
 		this.weight = productData.weight;
+		this.flightTime = productData.flightTime;
 		this.series = productData.series;
 		this.features = productData.features;
 		this.includedItems = productData.includedItems;

@@ -86,6 +86,7 @@ export class ProductRepository extends BaseRepository<Product> {
 				price: data.price,
 				quantity: data.quantity,
 				weight: data.weight,
+				flightTime: data.flightTime,
 				series: data.series,
 				features: data.features,
 				includedItems: data.includedItems,

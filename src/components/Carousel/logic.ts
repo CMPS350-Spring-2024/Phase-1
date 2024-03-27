@@ -48,6 +48,9 @@ export class Carousel extends BaseComponent {
 	protected titles: Array<HTMLHeadingElement>;
 	protected ratings: Array<Rating>;
 	protected ratingTexts: Array<HTMLParagraphElement>;
+	protected quantity: HTMLSpanElement;
+	protected flightTime: HTMLSpanElement;
+	protected weight: HTMLSpanElement;
 	protected descriptions: Array<HTMLParagraphElement>;
 	protected prices: Array<PriceDisplay>;
 
@@ -83,6 +86,9 @@ export class Carousel extends BaseComponent {
 		this.titles = findAll('.product-description .title') as Array<HTMLHeadingElement>;
 		this.ratings = findAll('.product-description .product-rating ui-rating') as Array<Rating>;
 		this.ratingTexts = findAll('.product-description .product-rating p') as Array<HTMLParagraphElement>;
+		this.quantity = find('.product-description .quantity.tag') as HTMLSpanElement;
+		this.flightTime = find('.product-description .flight-time.tag') as HTMLSpanElement;
+		this.weight = find('.product-description .drone-weight.tag') as HTMLSpanElement;
 		this.descriptions = findAll('.product-description .description') as Array<HTMLParagraphElement>;
 		this.prices = findAll('.product-description ui-price-display') as Array<PriceDisplay>;
 
@@ -212,7 +218,7 @@ export class Carousel extends BaseComponent {
 		//	Update rating value
 		this.ratings.forEach((rating) => rating.setRating(drone.rating));
 
-		//	Update all text elements with reveal animation
+		//	Update text elements in home page with reveal animation
 		this.prices.forEach((price) => price.setPrice(drone.price));
 		this.titles.forEach((title, index) => (title.innerHTML = revealWrapper(drone.name, index)));
 		this.descriptions.forEach(
@@ -225,6 +231,11 @@ export class Carousel extends BaseComponent {
 					index,
 				)),
 		);
+
+		//	Update the quantity, flight time, and weight
+		this.quantity.innerText = `${formatNumber(drone.quantity, 0)} in stock`;
+		this.flightTime.innerText = `${drone.flightTime}m flight time`;
+		this.weight.innerText = `${formatNumber(drone.weight, 0)}g drone weight`;
 
 		//	Load the new drone, if the drone viewer isnt ready, wait for it to be ready
 		if (this.droneViewer.loadDrone) this.droneViewer.loadDrone(drone.model, () => this.hideLoading());
