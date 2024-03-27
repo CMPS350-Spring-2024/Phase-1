@@ -43,6 +43,8 @@ export class Dropdown extends BaseComponent {
 	protected static readonly templateName: string = 'dropdown-template';
 	protected static readonly forwardedProperties: Array<keyof DropdownProps> = [
 		'class',
+
+		'open',
 		'offset',
 		'placement',
 		'screenPadding',
@@ -112,6 +114,9 @@ export class Dropdown extends BaseComponent {
 
 		//	If the class was changed, forward it to the menu
 		if (name === 'class' && this.menu) this.menu.className = newValue;
+
+		//	If the open state was changed, toggle the menu
+		if (name === 'open' && this.toggleButton) this.toggleButton.focus();
 	}
 
 	disconnectedCallback(): void {
