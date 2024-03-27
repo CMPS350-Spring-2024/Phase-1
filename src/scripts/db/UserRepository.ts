@@ -90,7 +90,25 @@ export class UserRepository extends BaseRepository<User> {
 
 	parse = (data: Record<string, any>): User | null => {
 		try {
-			const user = new User({
+			//	If the user has an id of 0, it is the admin user
+			if (data._id === 0)
+				return new User({
+					name: {
+						first: data.name.first,
+						last: data.name.last,
+					},
+					email: data.email,
+					phone: data.phone,
+					password: data.password,
+
+					isParsing: true,
+					_id: data._id,
+					_avatarColor: data.avatarColor,
+					_balance: data.balance,
+				});
+
+			//	Else, create a new customer object
+			return new Customer({
 				name: {
 					first: data.name.first,
 					last: data.name.last,
@@ -98,13 +116,13 @@ export class UserRepository extends BaseRepository<User> {
 				email: data.email,
 				phone: data.phone,
 				password: data.password,
+				shippingAddress: data.shippingAddress,
 
 				isParsing: true,
 				_id: data._id,
 				_avatarColor: data.avatarColor,
 				_balance: data.balance,
 			});
-			return user;
 		} catch (error) {
 			console.error(`Error parsing user data: ${error}`);
 			return null;
