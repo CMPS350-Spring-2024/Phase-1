@@ -1,7 +1,7 @@
 //	Repository Imports
 
 //	Model Imports
-import { BaseModel } from '@/scripts/models/BaseModel';
+import { BaseModel, CreateBase } from '@/scripts/models/BaseModel';
 
 export interface Product extends IProduct {}
 export interface IProduct {
@@ -211,25 +211,24 @@ export class Product extends BaseModel {
 }
 
 export interface CreateProduct
-	extends Pick<
-		Product,
-		| 'name'
-		| 'description'
-		| 'model'
-		| 'price'
-		| 'quantity'
-		| 'weight'
-		| 'flightTime'
-		| 'series'
-		| 'features'
-		| 'includedItems'
-		| 'faqs'
-	> {
+	extends CreateBase,
+		Pick<
+			Product,
+			| 'name'
+			| 'description'
+			| 'model'
+			| 'price'
+			| 'quantity'
+			| 'weight'
+			| 'flightTime'
+			| 'series'
+			| 'features'
+			| 'includedItems'
+			| 'faqs'
+		> {
 	/**
 	 * Only used when parsing the product data
 	 */
-	isParsing?: boolean;
-	_id?: number;
 	_rating?: number;
 	_numberOfReviews?: number;
 	_numberOfSales?: number;

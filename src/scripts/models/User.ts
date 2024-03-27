@@ -4,7 +4,7 @@ import * as v from 'valibot';
 
 //	Model Imports
 import { Avatar } from '@/components/Avatar/logic';
-import { BaseModel } from '@/scripts/models/BaseModel';
+import { BaseModel, CreateBase } from '@/scripts/models/BaseModel';
 
 //	Type Imports
 import type { AvatarProps } from '@/components/Avatar/logic';
@@ -131,12 +131,10 @@ export const RegistrationSchema = v.object(
 	[v.custom(({ password, confirmPassword }) => password === confirmPassword, 'Your passwords do not match')],
 );
 
-export interface CreateUser extends Pick<User, 'name' | 'email' | 'phone' | 'password'> {
+export interface CreateUser extends CreateBase, Pick<User, 'name' | 'email' | 'phone' | 'password'> {
 	/**
-	 * Only used when parsing the user data
+	 * Only used when parsing the product data
 	 */
-	isParsing?: boolean;
-	_id?: number;
 	_avatarColor?: AvatarProps['color'];
 	_balance?: number;
 }
