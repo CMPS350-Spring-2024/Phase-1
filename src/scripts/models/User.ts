@@ -110,10 +110,7 @@ export const RegistrationSchema = v.object(
 	{
 		firstName: v.string([v.minLength(1, 'Please enter your first name')]),
 		lastName: v.string([v.minLength(1, 'Please enter your last name')]),
-		email: v.string([
-			v.minLength(1, 'Please enter your email'),
-			v.email('Your email must be a valid email address'),
-		]),
+		email: v.string([v.minLength(1, 'Please enter your email'), v.email('Your email must be a valid email address')]),
 		phone: v.string([
 			v.minLength(1, 'Please enter your phone number'),
 			v.regex(/^\+974 \d{4} \d{4}$/, 'Your phone number must be in the format +974 XXXX XXXX'),

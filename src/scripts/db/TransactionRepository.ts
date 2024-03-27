@@ -40,16 +40,17 @@ export class TransactionRepository extends BaseRepository<Transaction> {
 	protected validateAddItem = (transaction: Transaction): void => {
 		super.validateAddItem(transaction);
 
+		if (!window.currentUser) throw new Error('You must be logged in to add a transaction');
+		if (transaction.userId === 0) throw new Error('Transaction user id cannot be 0');
 		if (transaction.amount < 0) throw new Error('Transaction amount cannot be negative');
-		//	TODO make sure user has enough balance for withdrawal
+		if (transaction.userId !== window.currentUser.id) throw new Error('Transaction user id does not match current user id');
+		if (transaction.amount > window.currentUser.balance) throw new Error('Insufficient funds to make transaction');
 	};
 
 	addTransaction = (transaction: Transaction): void => this.addItem(transaction);
 	addDefaultData = async () => {
 		if (this.getNumberOfTransactions() > 0) return;
-		const defaultTransactionList = await fetch('/data/default_transactions.json').then((response) =>
-			response.json(),
-		);
+		const defaultTransactionList = await fetch('/data/default_transactions.json').then((response) => response.json());
 		defaultTransactionList.forEach((transactionData: any) => {
 			const transaction = new Transaction({
 				...transactionData,
@@ -85,6 +86,14 @@ export class TransactionRepository extends BaseRepository<Transaction> {
 			console.error(`Error parsing transaction data: ${error}`);
 			return null;
 		}
+	};
+
+	/**
+	 * Top up the current user's balance by the given amount
+	 */
+	topUpBalance = (amount: number): void => {
+		const transaction = new Transaction({ amount, type: 'deposit' });
+		this.addTransaction(transaction);
 	};
 
 	/* ------------------------------- // !SECTION ------------------------------ */
