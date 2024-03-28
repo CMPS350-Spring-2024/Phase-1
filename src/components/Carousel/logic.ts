@@ -109,6 +109,9 @@ export class Carousel extends BaseComponent {
 	connectedCallback(): void {
 		super.connectedCallback();
 		this.currentDrone = this.drone;
+
+		//	Whenever the product repository is updated, re-render the home page
+		window.ProductRepository.listen('dataChange', () => (this.currentDrone = this.drone));
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {

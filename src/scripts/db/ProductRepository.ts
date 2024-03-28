@@ -4,6 +4,7 @@ import { BaseRepository, BaseRepositoryEvents } from '@/scripts/db/BaseRepositor
 //	Type Imports
 import { clamp, round } from '@/scripts/_utils';
 import { ISeries, Product } from '@/scripts/models/Product';
+import { Transaction } from '../models/Transaction';
 
 export type ProductRepositoryEvents = 'cartAdd' | 'cartRemove' | 'cartClear' | 'cartChange' | BaseRepositoryEvents;
 export type CartChangeEvent = (droneId: number, oldQuantity: number, newQuantity: number) => void;
@@ -118,6 +119,13 @@ export class ProductRepository extends BaseRepository<Product> {
 		this._cart = JSON.parse(window.localStorage.getItem('cart') || JSON.stringify(this.defaultCartData));
 	};
 
+	validateUpdateItem = (product: Product): void => {
+		super.validateUpdateItem(product);
+
+		//	Make sure only quantity, rating, price, and sales can be updated
+	};
+	updateProduct = (product: Product): void => this.updateItem(product);
+
 	/* ------------------------------- // !SECTION ------------------------------ */
 	//#endregion
 
@@ -205,13 +213,44 @@ export class ProductRepository extends BaseRepository<Product> {
 		this.incrementItemInCart(droneId, newQuantity - (this._cart.items[droneId] || 0));
 
 	clearCart = () => {
-		this._cart = this.defaultCartData;
+		this._cart = JSON.parse(JSON.stringify(this.defaultCartData));
 		window.localStorage.setItem('cart', JSON.stringify(this._cart));
 		this.onClearCart.forEach((func) => func());
 	};
 
 	confirmPurchase = () => {
-		//	Create new order, transaction, update product stock and decrease account balance
+		try {
+			if (this.isCartEmpty) throw new Error('Cannot checkout with an empty cart');
+			if (!window.currentUser) throw new Error('You must be logged in to confirm a purchase');
+			if (window.currentUser.isAdmin) throw new Error('Admins cannot make purchases');
+
+			//	Recalculate the total in case there was an error
+			const newTotal = Object.entries(this._cart.items).reduce((acc, [droneId, quantity]) => {
+				const drone = this.getProduct(Number(droneId))!;
+				const subtotal = drone.price * quantity;
+				const shipping = drone.weight * ProductRepository.SHIPPING_CONSTANT * quantity;
+				return acc + subtotal + shipping;
+			}, 0);
+
+			//	Create new order, transaction
+			const transaction = new Transaction({ amount: newTotal, type: 'withdrawal' });
+			window.TransactionRepository.addTransaction(transaction);
+			console.log(transaction);
+
+			//	Update stock and account balance
+			window.currentUser.balance -= newTotal;
+			Object.entries(this._cart.items).forEach(([droneId, quantity]) => {
+				const drone = this.getProduct(Number(droneId))!;
+				drone.quantity -= quantity;
+				this.updateProduct(drone);
+			});
+
+			//	Clear the cart and reload the page
+			this.clearCart();
+			console.log(this._cart);
+		} catch (error) {
+			console.error(`There was an error with your purchase: ${error}`);
+		}
 	};
 
 	/* ------------------------------- // !SECTION ------------------------------ */

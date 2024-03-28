@@ -5,6 +5,7 @@ import { User } from '@/scripts/models/User';
 
 //	Repository Imports
 import { ProductRepository } from '@/scripts/db/ProductRepository';
+import { TransactionRepository } from '@/scripts/db/TransactionRepository';
 import { UserRepository } from '@/scripts/db/UserRepository';
 
 //	Extend the window object to include the current user
@@ -19,6 +20,11 @@ declare global {
 		 * The product repository
 		 */
 		ProductRepository: ProductRepository;
+
+		/**
+		 * The transaction repository
+		 */
+		TransactionRepository: TransactionRepository;
 
 		/**
 		 * The user repository
