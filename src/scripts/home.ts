@@ -7,8 +7,8 @@ import { clamp, find, findAll, startViewTransition } from '@/scripts/_utils';
 
 let currentTab: number = 0;
 
-const viewDetailsButton = find('#view-details-cta') as HTMLButtonElement;
-const backButton = find('#back-btn') as HTMLButtonElement;
+const viewDetailsButton = find('#view-details-cta') as Button;
+const backButton = find('#back-btn') as Button;
 const tabSelectorLabel = find('#mobile-tab-label') as HTMLHeadingElement;
 const leftTabButton = find('#left-arrow-tab') as Button;
 const rightTabButton = find('#right-arrow-tab') as Button;
@@ -48,15 +48,8 @@ const handleChangeTab = (index: number) => {
 
 //	Add event listeners
 // find('main')!.classList.add('product-overview');
-viewDetailsButton.addEventListener('click', handleViewDetails);
-viewDetailsButton.addEventListener('touchend', handleViewDetails);
-backButton.addEventListener('click', handleBack);
-backButton.addEventListener('touchend', handleBack);
-leftTabButton.addEventListener('click', () => handleChangeTab(currentTab - 1));
-leftTabButton.addEventListener('touchend', () => handleChangeTab(currentTab - 1));
-rightTabButton.addEventListener('click', () => handleChangeTab(currentTab + 1));
-rightTabButton.addEventListener('touchend', () => handleChangeTab(currentTab + 1));
-tabButtons.forEach((button, index) => {
-	button.addEventListener('click', () => handleChangeTab(index));
-	button.addEventListener('touchend', () => handleChangeTab(index));
-});
+viewDetailsButton.onClick(handleViewDetails);
+backButton.onClick(handleBack);
+leftTabButton.onClick(() => handleChangeTab(currentTab - 1));
+rightTabButton.onClick(() => handleChangeTab(currentTab + 1));
+tabButtons.forEach((button, index) => button.onClick(() => handleChangeTab(index)));

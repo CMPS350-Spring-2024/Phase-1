@@ -5,6 +5,8 @@ export const clamp = (value: number, min: number, max: number) => Math.min(max, 
 export const round = (value: number, decimals: number = 2) =>
 	Math.round((value + Number.EPSILON) * Math.pow(10, decimals)) / Math.pow(10, decimals);
 
+export const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 export const formatNumber = (value: number, decimals: number = 2) =>
 	new Intl.NumberFormat('en-US', {
 		minimumFractionDigits: decimals,

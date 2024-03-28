@@ -102,10 +102,8 @@ export class Carousel extends BaseComponent {
 		this.addToCartButton = find('#add-to-cart-cta') as Button;
 
 		//	Add the event listeners
-		this.leftArrow.addEventListener('click', () => this.handlePreviousDrone());
-		this.leftArrow.addEventListener('touchend', () => this.handlePreviousDrone());
-		this.rightArrow.addEventListener('click', () => this.handleNextDrone());
-		this.rightArrow.addEventListener('touchend', () => this.handleNextDrone());
+		this.leftArrow.onClick(() => this.handlePreviousDrone());
+		this.rightArrow.onClick(() => this.handleNextDrone());
 	}
 
 	connectedCallback(): void {
@@ -179,13 +177,13 @@ export class Carousel extends BaseComponent {
 		this.carouselContainer.innerHTML = outputHtml;
 
 		//	Add event listeners to the series buttons
-		this.findAll('ui-button[exportparts="root: series"]').forEach((button) =>
-			button.addEventListener('click', (e) => this.handleSetSeries(e)),
+		this.findAll<Button>('ui-button[exportparts="root: series"]').forEach((button) =>
+			button.onClick((e) => this.handleSetSeries(e)),
 		);
 
 		//	Add event listeners to the drone buttons
-		this.findAll('ui-button[exportparts="root: drone"]').forEach((button) =>
-			button.addEventListener('click', (e) => this.handleSetDrone(e)),
+		this.findAll<Button>('ui-button[exportparts="root: drone"]').forEach((button) =>
+			button.onClick((e) => this.handleSetDrone(e)),
 		);
 	};
 

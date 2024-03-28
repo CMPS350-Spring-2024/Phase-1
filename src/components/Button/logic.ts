@@ -4,6 +4,9 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
+//	Utility Imports
+import { isMobile } from '@/scripts/_utils';
+
 export interface Button extends Omit<ButtonProps, 'onclick'> {}
 export interface ButtonProps extends BaseComponentProps {
 	/**
@@ -140,7 +143,7 @@ export class Button extends PrimitiveComponent {
 				form.appendChild(proxyButton);
 
 				//	When this button is clicked, click the proxy button
-				this.element.addEventListener('click', () => proxyButton.click());
+				this.onClick(proxyButton.click);
 			}
 		} else if (name === 'type' && oldValue === 'submit') {
 			const form = this.closest('form');
@@ -153,9 +156,9 @@ export class Button extends PrimitiveComponent {
 		}
 	}
 
-	onClick = (handler: Function): void => {
-		this.element.addEventListener('click', handler as EventListener);
-		this.element.addEventListener('touchstart', handler as EventListener, { passive: true });
+	onClick = (handler: (e: Event) => void): void => {
+		if (!isMobile) this.addEventListener('click', (e) => handler(e));
+		else this.addEventListener('touchend', (e) => handler(e));
 	};
 }
 
