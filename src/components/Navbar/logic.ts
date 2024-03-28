@@ -193,7 +193,7 @@ export class Navbar extends PrimitiveComponent {
 					//	Create a new item element and return the html
 					return `
 					<span class="cart-item" data-id="${id}">
-						<img src="/images/Mini 3.webp" />
+						<img src="${productData.imageUrl}" />
 						<div class="label">
 							<h3>${productData.name}</h3>
 							<p>${productData.series.description}</p>

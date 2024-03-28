@@ -56,6 +56,11 @@ export interface IProduct {
 	numberOfOngoingOrders: number;
 
 	/**
+	 * The image URL of the product
+	 */
+	imageUrl: string;
+
+	/**
 	 * The 3D model to display for the product
 	 */
 	model: {
@@ -181,11 +186,12 @@ export class Product extends BaseModel {
 
 		this.name = productData.name;
 		this.description = productData.description;
-		this.model = productData.model;
 		this.price = productData.price;
 		this.quantity = productData.quantity;
 		this.weight = productData.weight;
 		this.flightTime = productData.flightTime;
+		this.imageUrl = productData.imageUrl;
+		this.model = productData.model;
 		this.series = productData.series;
 		this.features = productData.features;
 		this.includedItems = productData.includedItems;
@@ -216,11 +222,12 @@ export interface CreateProduct
 			Product,
 			| 'name'
 			| 'description'
-			| 'model'
 			| 'price'
 			| 'quantity'
 			| 'weight'
 			| 'flightTime'
+			| 'imageUrl'
+			| 'model'
 			| 'series'
 			| 'features'
 			| 'includedItems'

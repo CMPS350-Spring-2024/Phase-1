@@ -3,6 +3,7 @@
 		"_id": 0,
 		"name": "Mavic 3 Pro",
 		"description": "The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and extensive range, ideal for photographers and filmmakers in diverse settings.",
+		"imageUrl": "/images/Mavic 3 Pro.webp",
 		"model": {
 			"url": "/models/Mavic 3 Pro.glb",
 			"position": {
@@ -43,6 +44,7 @@
 		"_id": 1,
 		"name": "Mavic 3 Classic",
 		"description": "The DJI Air 3 is an advanced all-around drone equipped with dual cameras. It strikes a balance between performance and portability, making it an excellent choice for aerial photography and videography.",
+		"imageUrl": "/images/Mavic 3 Classic.webp",
 		"model": {
 			"url": "/models/Mavic 3 Classic.glb",
 			"position": {
@@ -83,6 +85,7 @@
 		"_id": 2,
 		"name": "Air 3",
 		"description": "The DJI Air 3 is a versatile drone featuring a 1/1.3-inch CMOS dual-camera system for 48MP photos and 4K/60fps HDR videos, with a 46-minute max flight time and omnidirectional obstacle sensing for enhanced safety and performance.",
+		"imageUrl": "/images/Air 3.webp",
 		"model": {
 			"url": "/models/Air 3.glb",
 			"position": {
@@ -123,6 +126,7 @@
 		"_id": 3,
 		"name": "Mini 4 Pro",
 		"description": "The DJI Mini 4 Pro is a lightweight drone under 249g with advanced features like 4K/60fps HDR video, omnidirectional obstacle sensing, and up to 45 minutes of flight time, designed for easy portability and enhanced aerial photography.",
+		"imageUrl": "/images/Mini 4 Pro.webp",
 		"model": {
 			"url": "/models/Mini 4 Pro.glb",
 			"position": {
@@ -163,6 +167,7 @@
 		"_id": 4,
 		"name": "Mini 3 Pro",
 		"description": "The DJI Mini 3 Pro is a compact and powerful drone featuring tri-directional obstacle sensing, up to 38 minutes of flight time, and a 1/1.3-inch sensor for superior image quality with 4K/60fps video capabilities. It's designed for portability and ease of use, with intelligent flight modes and enhanced transmission technology.",
+		"imageUrl": "/images/Mini 3 Pro.webp",
 		"model": {
 			"url": "/models/Mini 4 Pro.glb",
 			"position": {
@@ -203,6 +208,7 @@
 		"_id": 5,
 		"name": "Mini 3",
 		"description": "The DJI Mini 3 is a compact and lightweight drone under 249 g, featuring a 1/1.3-inch sensor for 4K HDR video, extended flight time up to 51 minutes, and enhanced wind resistance up to 10.7 m/s¹[1]. It offers True Vertical Shooting, intelligent flight modes, and is compatible with a range of accessories for versatile aerial photography.",
+		"imageUrl": "/images/Mini 3.webp",
 		"model": {
 			"url": "/models/Mini 3.glb",
 			"position": {
