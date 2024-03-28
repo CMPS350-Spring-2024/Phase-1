@@ -118,6 +118,10 @@
 					"name": "loading",
 					"description": "Shows a loading spinner inside the button.",
 					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "loadingDelay",
+					"description": "Gives the button an artificial loading delay."
 				}
 			],
 			"references": [

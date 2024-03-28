@@ -104,6 +104,10 @@ export class Carousel extends BaseComponent {
 		//	Add the event listeners
 		this.leftArrow.onClick(() => this.handlePreviousDrone());
 		this.rightArrow.onClick(() => this.handleNextDrone());
+		this.addToCartButton.onClick(() => {
+			window.ProductRepository.addProductToCart(this.getDrone()!.id, this.quantityInput.valueAsNumber);
+			find<Navbar>('ui-navbar')?.find<Dropdown>('#cart-dropdown')?.show();
+		});
 	}
 
 	connectedCallback(): void {
@@ -230,19 +234,6 @@ export class Carousel extends BaseComponent {
 			//	Set max quantity to the available quantity
 			this.quantityInput.max = drone.quantity;
 			this.quantityInput.value = 1;
-
-			//	Add event listener to the add to cart button whilst deleting the old event listener
-			const newButton = this.addToCartButton.cloneNode(true) as Button;
-			this.addToCartButton.replaceWith(newButton);
-			this.addToCartButton = newButton;
-			this.addToCartButton.onClick(() => {
-				this.addToCartButton.loading = true;
-				setTimeout(() => {
-					window.ProductRepository.addProductToCart(drone.id, this.quantityInput.valueAsNumber);
-					this.addToCartButton.loading = false;
-					find<Navbar>('ui-navbar')?.find<Dropdown>('#cart-dropdown')?.show();
-				}, 500);
-			});
 
 			//	Update the series description
 			this.seriesDescription.innerHTML = drone.series.description

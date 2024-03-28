@@ -95,8 +95,11 @@ export class Navbar extends PrimitiveComponent {
 
 		//	Add event listener to buttons
 		if (this.clearCartButton) this.clearCartButton.onClick(window.ProductRepository.clearCart);
-		if (this.checkoutButton) this.checkoutButton.onClick(window.ProductRepository.confirmPurchase);
 		if (this.logoutButton) this.logoutButton.onClick(window.UserRepository.logoutUser);
+		if (this.checkoutButton) {
+			this.checkoutButton.onClick(window.ProductRepository.confirmPurchase);
+			this.checkoutButton.onClick(() => this.cartDropdown!.focus(), true);
+		}
 	}
 
 	connectedCallback(): void {

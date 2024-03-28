@@ -50,6 +50,11 @@ export interface ButtonProps extends BaseComponentProps {
 	loading?: boolean;
 
 	/**
+	 * Gives the button an artificial loading delay.
+	 */
+	loadingDelay?: number;
+
+	/**
 	 * The function to call when the button is clicked.
 	 */
 	onclick?: () => void;
@@ -72,6 +77,7 @@ export class Button extends PrimitiveComponent {
 		'round',
 		'disabled',
 		'loading',
+		'loadingDelay',
 	];
 	protected static readonly defaultProperties: ButtonProps = {
 		target: '_self',
@@ -156,9 +162,21 @@ export class Button extends PrimitiveComponent {
 		}
 	}
 
-	onClick = (handler: (e: Event) => void): void => {
-		if (!isMobile) this.addEventListener('click', (e) => handler(e));
-		else this.addEventListener('touchend', (e) => handler(e));
+	onClick = (handler: (e: Event) => void, skipDelay: boolean = false): void => {
+		const handlerFunction = (e: Event) => {
+			if (this.loadingDelay && !skipDelay) {
+				this.setAttribute('loading', '');
+				setTimeout(() => {
+					this.removeAttribute('loading');
+					handler(e);
+				}, Number(this.loadingDelay));
+			} else {
+				handler(e);
+			}
+		};
+
+		if (!isMobile) this.addEventListener('click', (e) => handlerFunction(e));
+		else this.addEventListener('touchend', (e) => handlerFunction(e));
 	};
 }
 
