@@ -30,7 +30,7 @@ export class Carousel extends BaseComponent {
 	protected static readonly templateName: string = 'carousel-template';
 	protected static readonly forwardedProperties: Array<keyof CarouselProps> = ['class', 'drone'];
 	protected static readonly defaultProperties: CarouselProps = {
-		drone: 0,
+		drone: 4,
 	};
 
 	protected currentSeries: number = 0;
