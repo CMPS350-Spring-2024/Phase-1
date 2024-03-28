@@ -3,8 +3,8 @@ import { BaseRepository, BaseRepositoryEvents } from '@/scripts/db/BaseRepositor
 
 //	Type Imports
 import { clamp, round } from '@/scripts/_utils';
+import { Order } from '@/scripts/models/Order';
 import { ISeries, Product } from '@/scripts/models/Product';
-import { Transaction } from '@/scripts/models/Transaction';
 
 export type ProductRepositoryEvents = 'cartAdd' | 'cartRemove' | 'cartClear' | 'cartChange' | BaseRepositoryEvents;
 export type CartChangeEvent = (droneId: number, oldQuantity: number, newQuantity: number) => void;
@@ -224,30 +224,37 @@ export class ProductRepository extends BaseRepository<Product> {
 			if (!window.currentUser) throw new Error('You must be logged in to confirm a purchase');
 			if (window.currentUser.isAdmin) throw new Error('Admins cannot make purchases');
 
-			//	Recalculate the total in case there was an error
-			const newTotal = Object.entries(this._cart.items).reduce((acc, [droneId, quantity]) => {
-				const drone = this.getProduct(Number(droneId))!;
-				const subtotal = drone.price * quantity;
-				const shipping = drone.weight * ProductRepository.SHIPPING_CONSTANT * quantity;
-				return acc + subtotal + shipping;
-			}, 0);
-
-			//	Create new order, transaction
-			const transaction = new Transaction({ amount: newTotal, type: 'withdrawal' });
-			window.TransactionRepository.addTransaction(transaction);
-			console.log(transaction);
-
-			//	Update stock and account balance
-			window.currentUser.balance -= newTotal;
+			//	Create a separate order for each product in the cart, whilst recalculating the total
+			let newTotal = 0;
 			Object.entries(this._cart.items).forEach(([droneId, quantity]) => {
-				const drone = this.getProduct(Number(droneId))!;
-				drone.quantity -= quantity;
-				this.updateProduct(drone);
+				const droneData = this.getProduct(Number(droneId))!;
+
+				const subtotal = droneData.price * quantity;
+				const shippingFee = droneData.weight * ProductRepository.SHIPPING_CONSTANT * quantity;
+				const total = subtotal + shippingFee;
+				newTotal += total;
+
+				window.OrderRepository.addOrder(
+					new Order({
+						productId: droneData.id,
+						quantity,
+						subtotal,
+						shippingFee,
+						total,
+					}),
+				);
+			});
+
+			//	Create new transaction and update drone stock
+			window.TransactionRepository.deductBalance(newTotal);
+			Object.entries(this._cart.items).forEach(([droneId, quantity]) => {
+				const droneData = this.getProduct(Number(droneId))!;
+				droneData.quantity -= quantity;
+				this.updateProduct(droneData);
 			});
 
 			//	Clear the cart and reload the page
 			this.clearCart();
-			console.log(this._cart);
 		} catch (error) {
 			console.error(`There was an error with your purchase: ${error}`);
 		}

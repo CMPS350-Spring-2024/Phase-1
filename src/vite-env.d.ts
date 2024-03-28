@@ -5,6 +5,7 @@ import { Customer } from '@/scripts/models/Customer';
 import { User } from '@/scripts/models/User';
 
 //	Repository Imports
+import { OrderRepository } from '@/scripts/db/OrderRepository';
 import { ProductRepository } from '@/scripts/db/ProductRepository';
 import { TransactionRepository } from '@/scripts/db/TransactionRepository';
 import { UserRepository } from '@/scripts/db/UserRepository';
@@ -16,6 +17,11 @@ declare global {
 		 * The currently logged in user
 		 */
 		currentUser: User | Customer | null;
+
+		/**
+		 * The order repository
+		 */
+		OrderRepository: OrderRepository;
 
 		/**
 		 * The product repository

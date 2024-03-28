@@ -55,7 +55,10 @@ export interface CreateTransaction extends CreateBase, Pick<Transaction, 'amount
 	_userId?: number;
 }
 export const CreateTransactionSchema = object({
-	userId: number([minValue(1), notValue(0)]),
-	amount: number([minValue(0)]),
-	type: picklist(['deposit', 'withdrawal']),
+	userId: number([
+		minValue(1, 'Invalid user id found whilst placing a new order'),
+		notValue(0, 'Only customers can make orders'),
+	]),
+	amount: number([minValue(0, 'Order amount cannot be negative')]),
+	type: picklist(['deposit', 'withdrawal'], 'Transaction can only be a deposit or a withdrawal'),
 });

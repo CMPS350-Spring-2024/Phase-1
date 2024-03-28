@@ -96,12 +96,14 @@ export interface CreateOrder extends CreateBase, Pick<Order, 'productId' | 'quan
 }
 export const CreateOrderSchema = object(
 	{
-		userId: number([minValue(1), notValue(0)]),
-		amount: number([minValue(0)]),
-		quantity: number([minValue(1)]),
-		subtotal: number([minValue(0)]),
-		shippingFee: number([minValue(0)]),
-		total: number([minValue(0)]),
+		userId: number([
+			minValue(1, 'Invalid user id found whilst placing a new order'),
+			notValue(0, 'Only customers can make orders'),
+		]),
+		quantity: number([minValue(1, 'Cannot place an order with no items')]),
+		subtotal: number([minValue(0, 'Order subtotal cannot be negative')]),
+		shippingFee: number([minValue(0, 'Order shipping fee cannot be negative')]),
+		total: number([minValue(0, 'Order total cannot be negative')]),
 	},
 	[custom((order) => order.total >= order.subtotal + order.shippingFee, 'Order total was not calculated correctly')],
 );

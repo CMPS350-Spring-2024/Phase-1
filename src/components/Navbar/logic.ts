@@ -108,6 +108,7 @@ export class Navbar extends PrimitiveComponent {
 		//	Show the correct navbar based on the currently signed in user
 		window.UserRepository.listen('initialize', () => this.updateAccountNavbar());
 		window.UserRepository.listen('authChange', () => this.updateAccountNavbar());
+		window.TransactionRepository.listen('dataChange', () => this.updateAccountNavbar());
 
 		//	Update the cart dropdown when the cart changes
 		window.ProductRepository.listen('initialize', (_, oldV, newV) => this.updateCartDropdown(oldV, newV, false));

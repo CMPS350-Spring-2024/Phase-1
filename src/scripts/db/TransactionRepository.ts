@@ -96,6 +96,20 @@ export class TransactionRepository extends BaseRepository<Transaction> {
 	 */
 	topUpBalance = (amount: number): void => {
 		const transaction = new Transaction({ amount, type: 'deposit' });
+		if (!window.currentUser) throw new Error('You must be logged in to top up your balance');
+
+		window.currentUser.balance += transaction.amount;
+		window.UserRepository.updateUser(window.currentUser);
+		this.addTransaction(transaction);
+	};
+
+	deductBalance = (amount: number): void => {
+		const transaction = new Transaction({ amount, type: 'withdrawal' });
+		if (!window.currentUser) throw new Error('You must be logged in to top up your balance');
+
+		//	Withdraw the amount from the current user's balance
+		window.currentUser.balance -= transaction.amount;
+		window.UserRepository.updateUser(window.currentUser);
 		this.addTransaction(transaction);
 	};
 
