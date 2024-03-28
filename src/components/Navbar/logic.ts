@@ -101,8 +101,8 @@ export class Navbar extends PrimitiveComponent {
 		window.UserRepository.listen('authChange', () => this.updateAccountNavbar());
 
 		//	Update the cart dropdown when the cart changes
-		window.ProductRepository.listen('initialize', (_, oldValue, newValue) => this.updateCartDropdown(oldValue, newValue));
-		window.ProductRepository.listen('cartChange', (_, oldValue, newValue) => this.updateCartDropdown(oldValue, newValue));
+		window.ProductRepository.listen('initialize', (_, oldV, newV) => this.updateCartDropdown(oldV, newV, false));
+		window.ProductRepository.listen('cartChange', (_, oldV, newV) => this.updateCartDropdown(oldV, newV));
 	}
 
 	/**
@@ -153,7 +153,7 @@ export class Navbar extends PrimitiveComponent {
 		}
 	};
 
-	updateCartDropdown = (oldValue: number = 0, newValue: number = 0) => {
+	updateCartDropdown = (oldValue: number = 0, newValue: number = 0, notify: boolean = true) => {
 		if (
 			!this.cartItemList ||
 			!this.subtotalDisplay ||
@@ -244,7 +244,7 @@ export class Navbar extends PrimitiveComponent {
 		}
 
 		//	Open the cart dropdown
-		setTimeout(() => this.cartDropdown?.show(), 200);
+		if (notify) setTimeout(() => this.cartDropdown?.show(), 200);
 	};
 }
 

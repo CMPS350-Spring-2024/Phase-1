@@ -74,10 +74,10 @@ export abstract class BaseRepository<Model extends BaseModel> {
 	/*                              // SECTION Update                             */
 	/* -------------------------------------------------------------------------- */
 
-	protected updateItemsList = (): void => {
+	protected updateItemsList() {
 		this.items = this.getAllItems();
 		this.updateNumberOfItems();
-	};
+	}
 
 	protected updateNumberOfItems = (): void => {
 		this.numberOfItems = Object.keys(this.items).length;

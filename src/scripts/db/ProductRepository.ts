@@ -25,12 +25,13 @@ export class ProductRepository extends BaseRepository<Product> {
 	protected onAddToCart: Array<CartChangeEvent> = [];
 	protected onRemoveFromCart: Array<CartChangeEvent> = [];
 
-	protected _cart: CartData = {
+	protected defaultCartData: CartData = {
 		items: {},
 		subtotal: 0,
 		shippingFee: 0,
 		total: 0,
 	};
+	protected _cart: CartData = this.defaultCartData;
 
 	private get products(): ProductDictionary {
 		return this.getAllProducts();
@@ -106,6 +107,19 @@ export class ProductRepository extends BaseRepository<Product> {
 	/* ------------------------------- // !SECTION ------------------------------ */
 	//#endregion
 
+	//#region Update
+	/* -------------------------------------------------------------------------- */
+	/*                              // SECTION Update                             */
+	/* -------------------------------------------------------------------------- */
+
+	updateItemsList = () => {
+		super.updateItemsList();
+		this._cart = JSON.parse(window.localStorage.getItem('cart') || JSON.stringify(this.defaultCartData));
+	};
+
+	/* ------------------------------- // !SECTION ------------------------------ */
+	//#endregion
+
 	//#region Others
 	/* -------------------------------------------------------------------------- */
 	/*                              // SECTION Others                             */
@@ -173,6 +187,9 @@ export class ProductRepository extends BaseRepository<Product> {
 		this._cart.shippingFee = clamp(this._cart.shippingFee + round(shipping), 0, Infinity);
 		this._cart.total = clamp(this._cart.total + round(total), 0, Infinity);
 
+		//	Save the updated cart to local storage
+		window.localStorage.setItem('cart', JSON.stringify(this._cart));
+
 		//	Notify listeners that the cart has been updated
 		if (quantity > 0) this.onAddToCart.forEach((func) => func(droneId, currentQuantity, newQuantity));
 		else this.onRemoveFromCart.forEach((func) => func(droneId, currentQuantity, newQuantity));
@@ -185,7 +202,7 @@ export class ProductRepository extends BaseRepository<Product> {
 		this.incrementItemInCart(droneId, newQuantity - (this._cart.items[droneId] || 0));
 
 	confirmPurchase = () => {
-		//	Create new order, transaction, and update product stock
+		//	Create new order, transaction, update product stock and decrease account balance
 	};
 
 	/* ------------------------------- // !SECTION ------------------------------ */
