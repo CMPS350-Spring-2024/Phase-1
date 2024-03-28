@@ -2,7 +2,7 @@ ui-alert {
 	/* Container */
 	&::part(root) {
 		@apply hidden gap-3 p-4;
-		@apply rounded-sm border;
+		@apply rounded border;
 	}
 
 	/* Icon */

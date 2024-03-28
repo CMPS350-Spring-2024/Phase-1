@@ -1,4 +1,5 @@
 //	Component Imports
+import { Button } from '@/components/Button/logic';
 import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
 //	Type Imports
@@ -33,26 +34,19 @@ export class Modal extends PrimitiveComponent {
 	protected showHeader: boolean = false;
 	protected showFooter: boolean = false;
 
-	protected toggleButton: HTMLElement | null = null;
+	protected toggleButton: Button | null = null;
 	protected modalContainer: HTMLElement | null = null;
 
 	protected header: HTMLElement | null = null;
 	protected titleElement: HTMLElement | null = null;
 	protected descriptionElement: HTMLElement | null = null;
-	protected closeButton: HTMLElement | null = null;
+	protected closeButton: Button | null = null;
 
 	protected content: HTMLElement | null = null;
 	protected footer: HTMLElement | null = null;
 
 	static get observedAttributes() {
-		return [
-			...super.observedAttributes,
-			...this.forwardedAttributes,
-			'class',
-			'open',
-			'title',
-			'description',
-		] as string[];
+		return [...super.observedAttributes, ...this.forwardedAttributes, 'class', 'open', 'title', 'description'] as string[];
 	}
 
 	constructor() {
@@ -69,13 +63,13 @@ export class Modal extends PrimitiveComponent {
 		this.closeButton = this.find('[exportparts="root: close-button"]');
 		this.content = this.find('[part="content"]');
 		this.footer = this.find('[part="footer"]');
-		this.toggleButton = this.find<HTMLSlotElement>('[name="toggle"]')!.assignedNodes()[0] as HTMLElement;
+		this.toggleButton = this.find<HTMLSlotElement>('[name="toggle"]')!.assignedNodes()[0] as Button;
 
 		//	Add on click event listener to the toggle button
-		if (this.toggleButton) this.toggleButton.addEventListener('click', () => this.toggle());
+		if (this.toggleButton) this.toggleButton.onClick(() => this.toggle());
 
 		//	When the close button is clicked, close the modal
-		if (this.closeButton) this.closeButton.addEventListener('click', () => this.close());
+		if (this.closeButton) this.closeButton.onClick(() => this.close());
 
 		//	When the modal is closed, remove the open attribute
 		this.element.addEventListener('close', () => (this.open = false));

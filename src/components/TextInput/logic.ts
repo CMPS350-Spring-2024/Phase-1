@@ -2,6 +2,7 @@
 import { throttle } from '@convergence/throttle-utils';
 
 //	Component Imports
+import { Button } from '@/components/Button/logic';
 import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
 //	Type Imports
@@ -114,7 +115,7 @@ export class TextInput extends PrimitiveComponent {
 		placeholder: 'Enter text...',
 	};
 
-	protected visibilityToggle: HTMLButtonElement | null = null;
+	protected visibilityToggle: Button | null = null;
 
 	static formAssociated = true;
 	private _defaultValue: string | undefined;
@@ -146,7 +147,7 @@ export class TextInput extends PrimitiveComponent {
 		//	If this is a password input, find the visibility toggle button and add the isPassword attribute
 		if (this.type === 'password') {
 			this.isPassword = true;
-			this.visibilityToggle = this.find('[exportparts="root: visibility-toggle"]') as HTMLButtonElement;
+			this.visibilityToggle = this.find('[exportparts="root: visibility-toggle"]') as Button;
 		}
 
 		//	Add event listener to update the value property when the input changes
@@ -154,7 +155,7 @@ export class TextInput extends PrimitiveComponent {
 			'input',
 			throttle(() => this.handleValueChange(), 100),
 		);
-		this.visibilityToggle?.addEventListener('click', () => this.handleToggleVisibility());
+		this.visibilityToggle?.onClick(() => this.handleToggleVisibility());
 		this.element.addEventListener('keydown', (event) => this.handleFormSubmit(event));
 	}
 

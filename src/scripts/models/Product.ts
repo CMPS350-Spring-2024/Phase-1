@@ -1,7 +1,7 @@
 //	Repository Imports
 
 //	Model Imports
-import { BaseModel } from '@/scripts/models/BaseModel';
+import { BaseModel, CreateBase } from '@/scripts/models/BaseModel';
 
 export interface Product extends IProduct {}
 export interface IProduct {
@@ -31,6 +31,11 @@ export interface IProduct {
 	weight: number;
 
 	/**
+	 * Maximum flight time in minutes
+	 */
+	flightTime: number;
+
+	/**
 	 * The overall rating of the product, out of 5
 	 */
 	rating: number;
@@ -49,6 +54,11 @@ export interface IProduct {
 	 * The number of ongoing orders
 	 */
 	numberOfOngoingOrders: number;
+
+	/**
+	 * The image URL of the product
+	 */
+	imageUrl: string;
 
 	/**
 	 * The 3D model to display for the product
@@ -176,10 +186,12 @@ export class Product extends BaseModel {
 
 		this.name = productData.name;
 		this.description = productData.description;
-		this.model = productData.model;
 		this.price = productData.price;
 		this.quantity = productData.quantity;
 		this.weight = productData.weight;
+		this.flightTime = productData.flightTime;
+		this.imageUrl = productData.imageUrl;
+		this.model = productData.model;
 		this.series = productData.series;
 		this.features = productData.features;
 		this.includedItems = productData.includedItems;
@@ -205,24 +217,25 @@ export class Product extends BaseModel {
 }
 
 export interface CreateProduct
-	extends Pick<
-		Product,
-		| 'name'
-		| 'description'
-		| 'model'
-		| 'price'
-		| 'quantity'
-		| 'weight'
-		| 'series'
-		| 'features'
-		| 'includedItems'
-		| 'faqs'
-	> {
+	extends CreateBase,
+		Pick<
+			Product,
+			| 'name'
+			| 'description'
+			| 'price'
+			| 'quantity'
+			| 'weight'
+			| 'flightTime'
+			| 'imageUrl'
+			| 'model'
+			| 'series'
+			| 'features'
+			| 'includedItems'
+			| 'faqs'
+		> {
 	/**
 	 * Only used when parsing the product data
 	 */
-	isParsing?: boolean;
-	_id?: number;
 	_rating?: number;
 	_numberOfReviews?: number;
 	_numberOfSales?: number;

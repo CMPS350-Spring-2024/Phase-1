@@ -118,6 +118,10 @@
 					"name": "loading",
 					"description": "Shows a loading spinner inside the button.",
 					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "loadingDelay",
+					"description": "Gives the button an artificial loading delay."
 				}
 			],
 			"references": [
@@ -256,6 +260,11 @@
 					"name": "required",
 					"description": "If this input is in a form, this property makes it required.",
 					"values": [{ "name": "true" }, { "name": "false" }]
+				},
+				{
+					"name": "size",
+					"description": "The size of the input.",
+					"values": [{ "name": "sm" }, { "name": "md" }]
 				}
 			],
 			"references": [

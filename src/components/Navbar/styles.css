@@ -44,7 +44,7 @@ header.navbar {
 
 		/* Holds the navigation tabs on the admin version */
 		&.tabs {
-			@apply hidden flex-none gap-x-1 overflow-hidden lg:rounded-sm lg:bg-slate-100 lg:p-1;
+			@apply hidden flex-none gap-x-1 overflow-hidden lg:rounded lg:bg-slate-100 lg:p-1;
 
 			ui-button::part(root) {
 				@apply h-7 px-4 lg:px-8;
@@ -53,7 +53,7 @@ header.navbar {
 				@apply text-xs font-normal;
 
 				&.active {
-					@apply bg-slate-100 focus-hover:bg-slate-200 lg:rounded-sm lg:bg-white lg:focus-hover:bg-slate-50;
+					@apply bg-slate-100 focus-hover:bg-slate-200 lg:rounded lg:bg-white lg:focus-hover:bg-slate-50;
 				}
 			}
 		}
@@ -71,6 +71,42 @@ header.navbar {
 
 	/* Cart Dropdown */
 	ui-dropdown.cart {
+		.empty-cart {
+			@apply flex flex-col items-center gap-4 p-4;
+
+			svg {
+				@apply size-8 text-secondary;
+			}
+
+			p {
+				@apply text-sm text-secondary;
+			}
+		}
+
+		.cart-item {
+			@apply inline-flex flex-row items-center gap-2 self-stretch;
+
+			img {
+				@apply size-16 rounded-md border border-border;
+			}
+
+			.label {
+				@apply flex flex-1 flex-col;
+
+				h3 {
+					@apply text-base font-semibold text-title;
+				}
+
+				p {
+					@apply text-sm text-secondary;
+				}
+			}
+
+			.price {
+				@apply flex flex-col items-end gap-1;
+			}
+		}
+
 		.price-label {
 			@apply flex flex-row place-content-between;
 
@@ -79,8 +115,20 @@ header.navbar {
 			}
 		}
 
+		.actions {
+			@apply inline-flex flex-row items-center gap-1;
+
+			ui-button#clear-cart::part(root) {
+				@apply size-[38px] shrink-0 p-0;
+			}
+
+			ui-button#checkout::part(root) {
+				@apply w-full;
+			}
+		}
+
 		&.cart::part(menu) {
-			@apply w-[400px] gap-4;
+			@apply max-h-[600px] w-[400px] gap-4;
 		}
 	}
 
@@ -102,7 +150,7 @@ header.navbar {
 		}
 
 		&::part(menu) {
-			@apply w-60 gap-2 overflow-hidden;
+			@apply w-60 gap-2;
 		}
 	}
 

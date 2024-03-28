@@ -3,6 +3,7 @@
 		"_id": 0,
 		"name": "Mavic 3 Pro",
 		"description": "The DJI Mavic 3 Pro is a top-tier drone with impressive performance, excellent imaging, and extensive range, ideal for photographers and filmmakers in diverse settings.",
+		"imageUrl": "/images/Mavic 3 Pro.webp",
 		"model": {
 			"url": "/models/Mavic 3 Pro.glb",
 			"position": {
@@ -22,9 +23,10 @@
 				"z": 2.8
 			}
 		},
-		"price": 3999,
+		"price": 2199,
 		"quantity": 1043,
 		"weight": 998,
+		"flightTime": 43,
 		"rating": 3.6,
 		"numberOfReviews": 4415,
 		"numberOfSales": 1050,
@@ -42,6 +44,7 @@
 		"_id": 1,
 		"name": "Mavic 3 Classic",
 		"description": "The DJI Air 3 is an advanced all-around drone equipped with dual cameras. It strikes a balance between performance and portability, making it an excellent choice for aerial photography and videography.",
+		"imageUrl": "/images/Mavic 3 Classic.webp",
 		"model": {
 			"url": "/models/Mavic 3 Classic.glb",
 			"position": {
@@ -64,6 +67,7 @@
 		"price": 1399,
 		"quantity": 456,
 		"weight": 895,
+		"flightTime": 46,
 		"rating": 3.3,
 		"numberOfReviews": 1205,
 		"numberOfSales": 1050,
@@ -79,10 +83,93 @@
 	},
 	{
 		"_id": 2,
+		"name": "Air 3",
+		"description": "The DJI Air 3 is a versatile drone featuring a 1/1.3-inch CMOS dual-camera system for 48MP photos and 4K/60fps HDR videos, with a 46-minute max flight time and omnidirectional obstacle sensing for enhanced safety and performance.",
+		"imageUrl": "/images/Air 3.webp",
+		"model": {
+			"url": "/models/Air 3.glb",
+			"position": {
+				"x": 0,
+				"y": 0.45,
+				"z": 0
+			},
+			"rotation": {
+				"x": -0.1,
+				"y": 3.1416,
+				"z": 0
+			},
+			"scale": 0.9,
+			"cameraPosition": {
+				"x": 1.5,
+				"y": 0,
+				"z": 2.8
+			}
+		},
+		"price": 1099,
+		"quantity": 456,
+		"weight": 720,
+		"flightTime": 46,
+		"rating": 2.4,
+		"numberOfReviews": 1205,
+		"numberOfSales": 1050,
+		"numberOfOngoingOrders": 6,
+		"series": {
+			"name": "Air",
+			"model": "3",
+			"description": "Aerial Photography"
+		},
+		"features": [],
+		"includedItems": [],
+		"faqs": []
+	},
+	{
+		"_id": 3,
+		"name": "Air 2S",
+		"description": "The DJI Air 2S is a high-performance drone featuring a 1-inch CMOS sensor for superior image quality, 5.4K video capabilities, and advanced obstacle sensing with APAS 4.0, all in a compact design weighing less than 600g1. It offers innovative features like MasterShots for automatic cinematic shots and O3 transmission technology for smooth, reliable feeds up to 12 km away.",
+		"imageUrl": "/images/Air 2S.webp",
+		"model": {
+			"url": "/models/Air 2S.glb",
+			"position": {
+				"x": 0,
+				"y": 0.2,
+				"z": 0
+			},
+			"rotation": {
+				"x": -0.025,
+				"y": 0,
+				"z": 0
+			},
+			"scale": 0.005,
+			"cameraPosition": {
+				"x": 1.5,
+				"y": 0,
+				"z": 2.8
+			}
+		},
+		"price": 999,
+		"quantity": 456,
+		"weight": 595,
+		"flightTime": 31,
+		"rating": 4.7,
+		"numberOfReviews": 1205,
+		"numberOfSales": 1050,
+		"numberOfOngoingOrders": 6,
+		"series": {
+			"name": "Air",
+			"model": "2S",
+			"description": "Aerial Photography"
+		},
+		"features": [],
+		"includedItems": [],
+		"faqs": []
+	},
+	{
+		"_id": 4,
 		"name": "Mini 4 Pro",
 		"description": "The DJI Mini 4 Pro is a lightweight drone under 249g with advanced features like 4K/60fps HDR video, omnidirectional obstacle sensing, and up to 45 minutes of flight time, designed for easy portability and enhanced aerial photography.",
+		"imageUrl": "/images/Mini 4 Pro.webp",
 		"model": {
-			"url": "/models/Mini 4.glb",
+			"url": "/models/Mini 4 Pro.glb",
 			"position": {
 				"x": 0,
 				"y": 0.14,
@@ -103,6 +190,7 @@
 		"price": 959,
 		"quantity": 1043,
 		"weight": 249,
+		"flightTime": 45,
 		"rating": 4.9,
 		"numberOfReviews": 9465,
 		"numberOfSales": 1050,
@@ -111,6 +199,170 @@
 			"name": "Mini",
 			"model": "4 Pro",
 			"description": "Aerial Photography"
+		},
+		"features": [],
+		"includedItems": [],
+		"faqs": []
+	},
+	{
+		"_id": 5,
+		"name": "Mini 3 Pro",
+		"description": "The DJI Mini 3 Pro is a compact and powerful drone featuring tri-directional obstacle sensing, up to 38 minutes of flight time, and a 1/1.3-inch sensor for superior image quality with 4K/60fps video capabilities. It's designed for portability and ease of use, with intelligent flight modes and enhanced transmission technology.",
+		"imageUrl": "/images/Mini 3 Pro.webp",
+		"model": {
+			"url": "/models/Mini 4 Pro.glb",
+			"position": {
+				"x": 0,
+				"y": 0.14,
+				"z": 0
+			},
+			"scale": 0.125,
+			"rotation": {
+				"x": -0.225,
+				"y": 3.1416,
+				"z": 0
+			},
+			"cameraPosition": {
+				"x": 1.5,
+				"y": 0.1,
+				"z": 2.8
+			}
+		},
+		"price": 599,
+		"quantity": 1043,
+		"weight": 249,
+		"flightTime": 47,
+		"rating": 4.2,
+		"numberOfReviews": 9465,
+		"numberOfSales": 1050,
+		"numberOfOngoingOrders": 6,
+		"series": {
+			"name": "Mini",
+			"model": "3 Pro",
+			"description": "Aerial Photography"
+		},
+		"features": [],
+		"includedItems": [],
+		"faqs": []
+	},
+	{
+		"_id": 6,
+		"name": "Mini 3",
+		"description": "The DJI Mini 3 is a compact and lightweight drone under 249 g, featuring a 1/1.3-inch sensor for 4K HDR video, extended flight time up to 51 minutes, and enhanced wind resistance up to 10.7 m/s¹[1]. It offers True Vertical Shooting, intelligent flight modes, and is compatible with a range of accessories for versatile aerial photography.",
+		"imageUrl": "/images/Mini 3.webp",
+		"model": {
+			"url": "/models/Mini 3.glb",
+			"position": {
+				"x": 0,
+				"y": -0.03,
+				"z": -0.6
+			},
+			"scale": 1.15,
+			"rotation": {
+				"x": -0.2,
+				"y": 3.1416,
+				"z": 0
+			},
+			"cameraPosition": {
+				"x": 1.5,
+				"y": 0.1,
+				"z": 2.8
+			}
+		},
+		"price": 469,
+		"quantity": 1043,
+		"weight": 249,
+		"flightTime": 51,
+		"rating": 5.0,
+		"numberOfReviews": 4167,
+		"numberOfSales": 1050,
+		"numberOfOngoingOrders": 6,
+		"series": {
+			"name": "Mini",
+			"model": "3",
+			"description": "Aerial Photography"
+		},
+		"features": [],
+		"includedItems": [],
+		"faqs": []
+	},
+	{
+		"_id": 7,
+		"name": "FPV",
+		"description": "The DJI FPV is a fully-assembled drone that offers an immersive flying experience with 4K/60fps video, a super-wide 150° FOV, and advanced safety features like Emergency Brake and Hover. It's designed for high-speed and agile maneuvering, making it suitable for both beginners and experienced pilots.",
+		"imageUrl": "/images/FPV.webp",
+		"model": {
+			"url": "/models/FPV.glb",
+			"position": {
+				"x": 0,
+				"y": -0.25,
+				"z": 0
+			},
+			"scale": 0.01,
+			"rotation": {
+				"x": -0.475,
+				"y": 0,
+				"z": 0
+			},
+			"cameraPosition": {
+				"x": 1.5,
+				"y": 0.1,
+				"z": 2.8
+			}
+		},
+		"price": 999,
+		"quantity": 46691,
+		"weight": 795,
+		"flightTime": 20,
+		"rating": 3.1,
+		"numberOfReviews": 4167,
+		"numberOfSales": 1050,
+		"numberOfOngoingOrders": 6,
+		"series": {
+			"name": "FPV",
+			"model": "",
+			"description": "Immersive Flight Experience"
+		},
+		"features": [],
+		"includedItems": [],
+		"faqs": []
+	},
+	{
+		"_id": 8,
+		"name": "Inspire 3",
+		"description": "The DJI Inspire 3 is a state-of-the-art drone featuring an 8K sensor for high-quality aerial cinematography and advanced flight capabilities, including 360° pan and tilt boost, centimeter-level RTK positioning, and a new O3 Pro video transmission system for enhanced stability and live feed quality.",
+		"imageUrl": "/images/Inspire 3.webp",
+		"model": {
+			"url": "/models/Inspire 3.glb",
+			"position": {
+				"x": 0,
+				"y": 0.6,
+				"z": 0
+			},
+			"scale": 5,
+			"rotation": {
+				"x": -0.33,
+				"y": 0,
+				"z": 0
+			},
+			"cameraPosition": {
+				"x": 1.5,
+				"y": 0.1,
+				"z": 2.8
+			}
+		},
+		"price": 16499,
+		"quantity": 132,
+		"weight": 3995,
+		"flightTime": 28,
+		"rating": 4.3,
+		"numberOfReviews": 155,
+		"numberOfSales": 236,
+		"numberOfOngoingOrders": 6,
+		"series": {
+			"name": "Inspire",
+			"model": "3",
+			"description": "Aerial Cinematic Tools"
 		},
 		"features": [],
 		"includedItems": [],

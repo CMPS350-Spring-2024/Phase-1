@@ -2,7 +2,7 @@ ui-numeric-input {
 	/* Container */
 	&::part(root) {
 		@apply h-10;
-		@apply inline-flex items-center p-2;
+		@apply inline-flex items-center overflow-hidden p-2;
 		@apply rounded-lg border;
 		@apply border-gray-200 bg-white;
 	}
@@ -26,6 +26,26 @@ ui-numeric-input {
 
 		svg {
 			@apply size-3.5;
+		}
+	}
+
+	/* Size Variants */
+	&[size='sm'] {
+		&::part(root) {
+			@apply h-7 rounded p-0;
+		}
+		&::part(input) {
+			@apply w-8;
+			@apply border-x border-border;
+			@apply text-sm;
+		}
+		&::part(button) {
+			@apply size-7;
+			@apply rounded-md border-0;
+			@apply shadow-none;
+			svg {
+				@apply size-3;
+			}
 		}
 	}
 }

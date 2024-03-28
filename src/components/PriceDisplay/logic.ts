@@ -40,7 +40,14 @@ export class PriceDisplay extends PrimitiveComponent {
 		});
 		this.unitElement = this.find('[part="unit"]')!;
 		this.valueElement = this.find('[part="value"]')!;
+	}
 
+	get value(): number {
+		return parseFloat(this.valueElement.querySelector('span')!.innerText);
+	}
+
+	connectedCallback(): void {
+		super.connectedCallback();
 		this.addTextReveal();
 	}
 

@@ -47,4 +47,16 @@ main {
 	.lucide {
 		@apply text-[1em];
 	}
+
+	/* Default spinner component */
+	.spinner {
+		@apply hidden;
+		@apply size-4;
+		@apply rounded-full border-[3px] border-current border-t-transparent;
+		@apply animate-spin;
+
+		&.active {
+			@apply inline-block;
+		}
+	}
 }

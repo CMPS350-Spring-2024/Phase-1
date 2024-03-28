@@ -4,6 +4,9 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
 
+//	Utility Imports
+import { isMobile } from '@/scripts/_utils';
+
 export interface Button extends Omit<ButtonProps, 'onclick'> {}
 export interface ButtonProps extends BaseComponentProps {
 	/**
@@ -47,6 +50,11 @@ export interface ButtonProps extends BaseComponentProps {
 	loading?: boolean;
 
 	/**
+	 * Gives the button an artificial loading delay.
+	 */
+	loadingDelay?: number;
+
+	/**
 	 * The function to call when the button is clicked.
 	 */
 	onclick?: () => void;
@@ -69,6 +77,7 @@ export class Button extends PrimitiveComponent {
 		'round',
 		'disabled',
 		'loading',
+		'loadingDelay',
 	];
 	protected static readonly defaultProperties: ButtonProps = {
 		target: '_self',
@@ -86,6 +95,19 @@ export class Button extends PrimitiveComponent {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		super.attributeChangedCallback(name, oldValue, newValue);
+
+		//	If the button is set to loading, hide the text and show the spinner
+		if (name === 'loading') {
+			if (newValue === 'true' || newValue === '') {
+				this.element.setAttribute('aria-busy', 'true');
+				this.element.setAttribute('disabled', 'true');
+				this.find('slot')!.classList.add('hidden');
+			} else {
+				this.element.removeAttribute('aria-busy');
+				this.element.removeAttribute('disabled');
+				this.find('slot')!.classList.remove('hidden');
+			}
+		}
 
 		//	If the href attribute is set, change the role to link if it's not already set, and wrap the button in an anchor tag
 		if (name === 'href') {
@@ -127,7 +149,7 @@ export class Button extends PrimitiveComponent {
 				form.appendChild(proxyButton);
 
 				//	When this button is clicked, click the proxy button
-				this.element.addEventListener('click', () => proxyButton.click());
+				this.onClick(proxyButton.click);
 			}
 		} else if (name === 'type' && oldValue === 'submit') {
 			const form = this.closest('form');
@@ -139,6 +161,23 @@ export class Button extends PrimitiveComponent {
 			}
 		}
 	}
+
+	onClick = (handler: (e: Event) => void, skipDelay: boolean = false): void => {
+		const handlerFunction = (e: Event) => {
+			if (this.loadingDelay && !skipDelay) {
+				this.setAttribute('loading', '');
+				setTimeout(() => {
+					this.removeAttribute('loading');
+					handler(e);
+				}, Number(this.loadingDelay));
+			} else {
+				handler(e);
+			}
+		};
+
+		if (!isMobile) this.addEventListener('click', (e) => handlerFunction(e));
+		else this.addEventListener('touchend', (e) => handlerFunction(e));
+	};
 }
 
 customElements.define('ui-button', Button);
