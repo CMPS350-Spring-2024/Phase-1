@@ -4,7 +4,7 @@ import { BaseRepository, BaseRepositoryEvents } from '@/scripts/db/BaseRepositor
 //	Type Imports
 import { clamp, round } from '@/scripts/_utils';
 import { ISeries, Product } from '@/scripts/models/Product';
-import { Transaction } from '../models/Transaction';
+import { Transaction } from '@/scripts/models/Transaction';
 
 export type ProductRepositoryEvents = 'cartAdd' | 'cartRemove' | 'cartClear' | 'cartChange' | BaseRepositoryEvents;
 export type CartChangeEvent = (droneId: number, oldQuantity: number, newQuantity: number) => void;

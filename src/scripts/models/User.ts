@@ -1,6 +1,6 @@
 //	Package Imports
 import jsSHA from 'jssha';
-import * as v from 'valibot';
+import { custom, email, minLength, object, regex, string } from 'valibot';
 
 //	Model Imports
 import { Avatar } from '@/components/Avatar/logic';
@@ -89,12 +89,12 @@ export class User extends BaseModel {
 }
 
 export interface LoginUser extends Pick<User, 'email' | 'password'> {}
-export const LoginSchema = v.object({
-	email: v.string([v.minLength(1, 'Please enter your email'), v.email('Your email must be a valid email address')]),
-	password: v.string([
-		v.minLength(1, 'Please enter your password'),
-		v.minLength(8, 'Your password must be at least 8 characters long'),
-		v.regex(
+export const LoginSchema = object({
+	email: string([minLength(1, 'Please enter your email'), email('Your email must be a valid email address')]),
+	password: string([
+		minLength(1, 'Please enter your password'),
+		minLength(8, 'Your password must be at least 8 characters long'),
+		regex(
 			/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
 			'Your password must contain at least one uppercase letter, one lowercase letter, and one number',
 		),
@@ -106,26 +106,26 @@ export interface RegisterUser extends Pick<User, 'email' | 'phone' | 'password'>
 	lastName: string;
 	confirmPassword: string;
 }
-export const RegistrationSchema = v.object(
+export const RegistrationSchema = object(
 	{
-		firstName: v.string([v.minLength(1, 'Please enter your first name')]),
-		lastName: v.string([v.minLength(1, 'Please enter your last name')]),
-		email: v.string([v.minLength(1, 'Please enter your email'), v.email('Your email must be a valid email address')]),
-		phone: v.string([
-			v.minLength(1, 'Please enter your phone number'),
-			v.regex(/^\+974 \d{4} \d{4}$/, 'Your phone number must be in the format +974 XXXX XXXX'),
+		firstName: string([minLength(1, 'Please enter your first name')]),
+		lastName: string([minLength(1, 'Please enter your last name')]),
+		email: string([minLength(1, 'Please enter your email'), email('Your email must be a valid email address')]),
+		phone: string([
+			minLength(1, 'Please enter your phone number'),
+			regex(/^\+974 \d{4} \d{4}$/, 'Your phone number must be in the format +974 XXXX XXXX'),
 		]),
-		password: v.string([
-			v.minLength(1, 'Please enter your password'),
-			v.minLength(8, 'Your password must be at least 8 characters long'),
-			v.regex(
+		password: string([
+			minLength(1, 'Please enter your password'),
+			minLength(8, 'Your password must be at least 8 characters long'),
+			regex(
 				/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
 				'Your password must contain at least one uppercase letter, one lowercase letter, and one number',
 			),
 		]),
-		confirmPassword: v.string([v.minLength(1, 'Please confirm your password')]),
+		confirmPassword: string([minLength(1, 'Please confirm your password')]),
 	},
-	[v.custom(({ password, confirmPassword }) => password === confirmPassword, 'Your passwords do not match')],
+	[custom(({ password, confirmPassword }) => password === confirmPassword, 'Your passwords do not match')],
 );
 
 export interface CreateUser extends CreateBase, Pick<User, 'name' | 'email' | 'phone' | 'password'> {

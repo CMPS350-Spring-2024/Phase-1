@@ -1,5 +1,5 @@
 //	Package Imports
-import * as v from 'valibot';
+import { minValue, notValue, number, object, picklist } from 'valibot';
 
 //	Model Imports
 import { BaseModel, CreateBase } from '@/scripts/models/BaseModel';
@@ -54,7 +54,8 @@ export interface CreateTransaction extends CreateBase, Pick<Transaction, 'amount
 	_dateTime?: number;
 	_userId?: number;
 }
-export const CreateTransactionSchema = v.object({
-	amount: v.number([v.minValue(0)]),
-	type: v.picklist(['deposit', 'withdrawal']),
+export const CreateTransactionSchema = object({
+	userId: number([minValue(1), notValue(0)]),
+	amount: number([minValue(0)]),
+	type: picklist(['deposit', 'withdrawal']),
 });

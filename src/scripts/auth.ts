@@ -1,5 +1,5 @@
 //	Package Imports
-import * as v from 'valibot';
+import { parse } from 'valibot';
 
 //	Component Imports
 import { Alert } from '@/components/Alert/logic';
@@ -26,7 +26,7 @@ export const handleLogin = (event: Event) => {
 
 	//	Validate the incoming data and show the errors if any, then log the user in
 	try {
-		const output = v.parse(LoginSchema, data);
+		const output = parse(LoginSchema, data);
 		const user = window.UserRepository.loginUser(output);
 
 		//	Redirect to either the customer page or admin page
@@ -51,7 +51,7 @@ export const handleRegistration = (event: Event) => {
 
 	//	Validate the incoming data and show the errors if any, then register the user
 	try {
-		const output = v.parse(RegistrationSchema, data);
+		const output = parse(RegistrationSchema, data);
 		window.UserRepository.registerUser(output);
 		window.location.assign('/customer/index.html');
 	} catch (error: unknown) {

@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 
 //	Model Imports
+import { Customer } from '@/scripts/models/Customer';
 import { User } from '@/scripts/models/User';
 
 //	Repository Imports
@@ -14,7 +15,7 @@ declare global {
 		/**
 		 * The currently logged in user
 		 */
-		currentUser: User | null;
+		currentUser: User | Customer | null;
 
 		/**
 		 * The product repository

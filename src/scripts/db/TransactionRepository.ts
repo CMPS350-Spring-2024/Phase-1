@@ -1,8 +1,11 @@
+//	Package Imports
+import { parse } from 'valibot';
+
 //	Repository Imports
 import { BaseRepository } from '@/scripts/db/BaseRepository';
 
 //	Type Imports
-import { Transaction } from '@/scripts/models/Transaction';
+import { CreateTransactionSchema, Transaction } from '@/scripts/models/Transaction';
 
 export type TransactionDictionary = Record<number, Transaction>;
 export class TransactionRepository extends BaseRepository<Transaction> {
@@ -41,10 +44,10 @@ export class TransactionRepository extends BaseRepository<Transaction> {
 		super.validateAddItem(transaction);
 
 		if (!window.currentUser) throw new Error('You must be logged in to add a transaction');
-		if (transaction.userId === 0) throw new Error('Transaction user id cannot be 0');
-		if (transaction.amount < 0) throw new Error('Transaction amount cannot be negative');
 		if (transaction.userId !== window.currentUser.id) throw new Error('Transaction user id does not match current user id');
 		if (transaction.amount > window.currentUser.balance) throw new Error('Insufficient funds to make transaction');
+
+		parse(CreateTransactionSchema, transaction);
 	};
 
 	addTransaction = (transaction: Transaction): void => this.addItem(transaction);

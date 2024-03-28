@@ -37,6 +37,8 @@ export interface ICustomer {
 	};
 }
 
+export type IShippingAddress = Customer['shippingAddress'];
+
 export class Customer extends User {
 	protected static readonly repositoryKey: string = 'UserRepository';
 
