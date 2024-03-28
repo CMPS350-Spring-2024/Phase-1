@@ -15,6 +15,8 @@ export abstract class BaseRepository<Model extends BaseModel> {
 	protected onAdd: Array<Function> = [];
 	protected onUpdate: Array<Function> = [];
 
+	private _isInitialized: boolean = false;
+
 	//#region Get
 	/* -------------------------------------------------------------------------- */
 	/*                               // SECTION Get                               */
@@ -111,10 +113,14 @@ export abstract class BaseRepository<Model extends BaseModel> {
 	/* -------------------------------------------------------------------------- */
 
 	listen(event: BaseRepositoryEvents, func: Function): void {
-		if (event === 'initialize') this.onInitialize.push(func);
-		else if (event === 'add') this.onAdd.push(func);
-		else if (event === 'update') this.onUpdate.push(func);
-		else if (event === 'dataChange') {
+		if (event === 'initialize') {
+			this.onInitialize.push(func);
+			if (this._isInitialized) func();
+		}
+
+		if (event === 'add') this.onAdd.push(func);
+		if (event === 'update') this.onUpdate.push(func);
+		if (event === 'dataChange') {
 			this.onAdd.push(func);
 			this.onUpdate.push(func);
 		}
@@ -134,6 +140,7 @@ export abstract class BaseRepository<Model extends BaseModel> {
 
 		//	Call all onInitialize functions
 		this.onInitialize.forEach((func) => func());
+		this._isInitialized = true;
 	};
 
 	/**

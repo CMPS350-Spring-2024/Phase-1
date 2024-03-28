@@ -150,7 +150,7 @@ header.navbar {
 		}
 
 		&::part(menu) {
-			@apply w-60 gap-2 overflow-hidden;
+			@apply w-60 gap-2;
 		}
 	}
 
