@@ -2,6 +2,9 @@
 import { BaseComponent } from '@/components/BaseComponent';
 import { Button } from '@/components/Button/logic';
 import { DroneViewer } from '@/components/DroneViewer/logic';
+import { Dropdown } from '@/components/Dropdown/logic';
+import { Navbar } from '@/components/Navbar/logic';
+import { NumericInput } from '@/components/NumericInput/logic';
 import { PriceDisplay } from '@/components/PriceDisplay/logic';
 import { Rating } from '@/components/Rating/logic';
 
@@ -26,9 +29,6 @@ export interface CarouselProps extends BaseComponentProps {
 export class Carousel extends BaseComponent {
 	protected static readonly templateName: string = 'carousel-template';
 	protected static readonly forwardedProperties: Array<keyof CarouselProps> = ['class', 'drone'];
-	protected static readonly defaultProperties: CarouselProps = {
-		drone: 0,
-	};
 
 	protected currentSeries: number = 0;
 	protected series: Array<ISeries> = window.ProductRepository.getAllSeries();
@@ -48,17 +48,31 @@ export class Carousel extends BaseComponent {
 	protected titles: Array<HTMLHeadingElement>;
 	protected ratings: Array<Rating>;
 	protected ratingTexts: Array<HTMLParagraphElement>;
+	protected quantity: HTMLSpanElement;
+	protected flightTime: HTMLSpanElement;
+	protected weight: HTMLSpanElement;
 	protected descriptions: Array<HTMLParagraphElement>;
 	protected prices: Array<PriceDisplay>;
+
+	protected quantityInput: NumericInput;
+	protected addToCartButton: Button;
 
 	get currentDrone(): number {
 		return Number(this.getAttribute('drone'));
 	}
 	set currentDrone(value: number) {
 		this.drone = value;
+
+		//	Update the URL with the new drone id
+		const searchParams = new URLSearchParams(window.location.search);
+		searchParams.set('drone', String(value));
+		window.history.replaceState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
+
+		//	Update the UI and show the loading screen
 		this.showLoading();
 		setTimeout(() => {
 			this.renderCarousel();
+			this.renderDetails();
 			this.renderDrone();
 		}, 700);
 	}
@@ -68,7 +82,11 @@ export class Carousel extends BaseComponent {
 	}
 
 	constructor() {
-		super({ defaultProperties: Carousel.defaultProperties });
+		super({
+			defaultProperties: {
+				drone: Number(new URLSearchParams(window.location.search).get('drone')) || 4,
+			},
+		});
 
 		//	Save the reference to elements in the shadow DOM
 		this.leftArrow = this.find('[exportparts="root: left-arrow"]') as Button;
@@ -83,30 +101,37 @@ export class Carousel extends BaseComponent {
 		this.titles = findAll('.product-description .title') as Array<HTMLHeadingElement>;
 		this.ratings = findAll('.product-description .product-rating ui-rating') as Array<Rating>;
 		this.ratingTexts = findAll('.product-description .product-rating p') as Array<HTMLParagraphElement>;
+		this.quantity = find('.product-description .quantity.tag') as HTMLSpanElement;
+		this.flightTime = find('.product-description .flight-time.tag') as HTMLSpanElement;
+		this.weight = find('.product-description .drone-weight.tag') as HTMLSpanElement;
 		this.descriptions = findAll('.product-description .description') as Array<HTMLParagraphElement>;
 		this.prices = findAll('.product-description ui-price-display') as Array<PriceDisplay>;
+		this.quantityInput = find('#add-to-cart-quantity') as NumericInput;
+		this.addToCartButton = find('#add-to-cart-cta') as Button;
 
 		//	Add the event listeners
-		this.leftArrow.addEventListener('click', () => this.handlePreviousDrone());
-		this.leftArrow.addEventListener('touchend', () => this.handlePreviousDrone());
-		this.rightArrow.addEventListener('click', () => this.handleNextDrone());
-		this.rightArrow.addEventListener('touchend', () => this.handleNextDrone());
+		this.leftArrow.onClick(() => this.handlePreviousDrone());
+		this.rightArrow.onClick(() => this.handleNextDrone());
+		this.addToCartButton.onClick(() => {
+			window.ProductRepository.addProductToCart(this.getDrone()!.id, this.quantityInput.valueAsNumber);
+			find<Navbar>('ui-navbar')?.find<Dropdown>('#cart-dropdown')?.show();
+		});
 	}
 
 	connectedCallback(): void {
 		super.connectedCallback();
-		this.showLoading();
-		setTimeout(() => {
-			this.renderCarousel();
-			this.renderDrone();
-		}, 500);
+		this.currentDrone = this.drone;
+
+		//	Whenever the product repository is updated, re-render the home page
+		window.ProductRepository.listen('dataChange', () => (this.currentDrone = this.drone));
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		super.attributeChangedCallback(name, oldValue, newValue);
 
 		//	If the drone attribute has changed, update the drone to display
-		if (name === 'drone' && oldValue !== newValue) this.handleChangeDrone(newValue as unknown as number);
+		if (name === 'drone' && this.currentDrone !== Number(newValue) && !Number.isNaN(newValue))
+			this.handleChangeDrone(Number(newValue));
 	}
 
 	showLoading = () => {
@@ -132,8 +157,7 @@ export class Carousel extends BaseComponent {
 		const outputHtml = this.series
 			.map((series, index) => {
 				//	If the series is not the open series
-				if (index !== openIndex)
-					return `<ui-button data-series-index="${index}" exportparts="root: series"></ui-button>`;
+				if (index !== openIndex) return `<ui-button data-series-index="${index}" exportparts="root: series"></ui-button>`;
 				else {
 					const seriesProducts = this.seriesProducts[index];
 
@@ -169,66 +193,77 @@ export class Carousel extends BaseComponent {
 		this.carouselContainer.innerHTML = outputHtml;
 
 		//	Add event listeners to the series buttons
-		this.findAll('ui-button[exportparts="root: series"]').forEach((button) =>
-			button.addEventListener('click', (e) => this.handleSetSeries(e)),
+		this.findAll<Button>('ui-button[exportparts="root: series"]').forEach((button) =>
+			button.onClick((e) => this.handleSetSeries(e)),
 		);
 
 		//	Add event listeners to the drone buttons
-		this.findAll('ui-button[exportparts="root: drone"]').forEach((button) =>
-			button.addEventListener('click', (e) => this.handleSetDrone(e)),
+		this.findAll<Button>('ui-button[exportparts="root: drone"]').forEach((button) =>
+			button.onClick((e) => this.handleSetDrone(e)),
 		);
 	};
 
 	renderDrone = () => {
+		//	If the drone is not found, call the renderDrone function again when the product repository is initialized
+		const drone = this.getDrone();
+		if (!drone) window.ProductRepository.listen('initialize', () => this.renderDrone());
+		else {
+			//	Load the new drone, if the drone viewer isnt ready, wait for it to be ready
+			if (this.droneViewer.loadDrone) this.droneViewer.loadDrone(drone, () => this.hideLoading());
+			else setTimeout(() => this.droneViewer.loadDrone(drone, () => this.hideLoading()), 1000);
+		}
+	};
+
+	renderDetails = () => {
 		const drone = this.getDrone();
 		const previousDrone = this.getPreviousDrone();
 		const nextDrone = this.getNextDrone();
 
-		//	If the drone is not found, return
-		if (!drone) return window.ProductRepository.listen('initialize', () => this.renderDrone());
-
-		//	If there are no previous or next drones, hide the arrows, otherwise show them and update the text
-		if (!previousDrone) this.leftArrow.classList.add('hidden');
+		//	If the drone is not found, call the renderDetails function again when the product repository is initialized
+		if (!drone) window.ProductRepository.listen('initialize', () => this.renderDetails());
 		else {
-			this.leftArrow.classList.remove('hidden');
-			this.leftArrowText.innerText =
-				previousDrone.series.name === drone.series.name ?
-					previousDrone.series.model
-				:	previousDrone.series.name;
+			//	If there are no previous or next drones, hide the arrows, otherwise show them and update the text
+			const previousSeries = previousDrone?.series.name;
+			const previousLabel = previousSeries === drone.series.name ? previousDrone?.series.model : previousSeries;
+			this.leftArrow.classList.toggle('hidden', previousDrone === undefined);
+			this.leftArrowText.innerText = previousLabel || '';
+			const nextSeries = nextDrone?.series.name;
+			const nextLabel = nextDrone?.series.name === drone.series.name ? nextDrone?.series.model : nextSeries;
+			this.rightArrow.classList.toggle('hidden', nextDrone === undefined);
+			this.rightArrowText.innerText = nextLabel || '';
+
+			//	Update rating value
+			this.ratings.forEach((rating) => rating.setRating(drone.rating));
+
+			//	Update the quantity, flight time, and weight
+			this.quantity.innerText = `${formatNumber(drone.quantity, 0)} in stock`;
+			this.flightTime.innerText = `${drone.flightTime}m flight time`;
+			this.weight.innerText = `${formatNumber(drone.weight, 0)}g drone weight`;
+
+			//	Set max quantity to the available quantity
+			this.quantityInput.max = drone.quantity;
+			this.quantityInput.value = 1;
+
+			//	Update the series description
+			this.seriesDescription.innerHTML = drone.series.description
+				.split(' ')
+				.map((text) => `<h1 class="loading paused">${text}</h1>`)
+				.join('');
+
+			//	Update text elements in home page with reveal animation
+			this.prices.forEach((price) => price.setPrice(drone.price));
+			this.titles.forEach((title, index) => (title.innerHTML = revealWrapper(drone.name, index)));
+			this.descriptions.forEach(
+				(description, index) => (description.innerHTML = revealWrapper(drone.description, index, true)),
+			);
+			this.ratingTexts.forEach(
+				(ratingText, index) =>
+					(ratingText.innerHTML = revealWrapper(
+						`${drone.rating} (${formatNumber(drone.numberOfReviews, 0)} reviews)`,
+						index,
+					)),
+			);
 		}
-		if (!nextDrone) this.rightArrow.classList.add('hidden');
-		else {
-			this.rightArrow.classList.remove('hidden');
-			this.rightArrowText.innerText =
-				nextDrone.series.name === drone.series.name ? nextDrone.series.model : nextDrone.series.name;
-		}
-
-		//	Update the series description
-		this.seriesDescription.innerHTML = drone.series.description
-			.split(' ')
-			.map((text) => `<h1 class="loading paused">${text}</h1>`)
-			.join('');
-
-		//	Update rating value
-		this.ratings.forEach((rating) => rating.setRating(drone.rating));
-
-		//	Update all text elements with reveal animation
-		this.prices.forEach((price) => price.setPrice(drone.price));
-		this.titles.forEach((title, index) => (title.innerHTML = revealWrapper(drone.name, index)));
-		this.descriptions.forEach(
-			(description, index) => (description.innerHTML = revealWrapper(drone.description, index, true)),
-		);
-		this.ratingTexts.forEach(
-			(ratingText, index) =>
-				(ratingText.innerHTML = revealWrapper(
-					`${drone.rating} (${formatNumber(drone.numberOfReviews, 0)} reviews)`,
-					index,
-				)),
-		);
-
-		//	Load the new drone, if the drone viewer isnt ready, wait for it to be ready
-		if (this.droneViewer.loadDrone) this.droneViewer.loadDrone(drone.model, () => this.hideLoading());
-		else setTimeout(() => this.droneViewer.loadDrone(drone.model, () => this.hideLoading()), 1000);
 	};
 
 	getDrone = (index = this.currentDrone) => window.ProductRepository.getProduct(index);
@@ -253,11 +288,7 @@ export class Carousel extends BaseComponent {
 	handleSetDrone = (event: Event) => {
 		const target = event.target as HTMLElement;
 		const seriesIndex = clamp(Number(target.dataset.seriesIndex) || 0, 0, this.series.length - 1);
-		const droneIndex = clamp(
-			Number(target.dataset.droneIndex) || 0,
-			0,
-			this.seriesProducts[seriesIndex].length - 1,
-		);
+		const droneIndex = clamp(Number(target.dataset.droneIndex) || 0, 0, this.seriesProducts[seriesIndex].length - 1);
 
 		//	Set the current drone to the selected drone
 		this.currentDrone = this.seriesProducts[seriesIndex][droneIndex].id;

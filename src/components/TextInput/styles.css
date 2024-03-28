@@ -20,7 +20,7 @@ ui-text-input {
 	&::part(container) {
 		@apply cursor-text;
 		@apply flex items-center self-stretch;
-		@apply gap-3 rounded-sm px-3.5 py-2.5;
+		@apply gap-3 rounded px-3.5 py-2.5;
 		@apply border border-border bg-white focus-within:ring;
 	}
 

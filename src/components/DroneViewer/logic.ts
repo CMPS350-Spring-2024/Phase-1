@@ -1,7 +1,7 @@
 //	Package Imports
 import * as THREE from 'three';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
+import { GLTF, GLTFLoader } from 'three/addons/loaders/GLTFLoader';
 import { HorizontalBlurShader } from 'three/addons/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/addons/shaders/VerticalBlurShader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -11,7 +11,7 @@ import { PrimitiveComponent } from '@/components/PrimitiveComponent';
 
 //	Type Imports
 import type { BaseComponentProps } from '@/components/BaseComponent';
-import { IModel } from '@/scripts/models/Product';
+import type { Product } from '@/scripts/models/Product';
 
 export interface DroneViewer extends DroneViewerProps {}
 export interface DroneViewerProps extends BaseComponentProps {}
@@ -27,11 +27,11 @@ export class DroneViewer extends PrimitiveComponent {
 	static MODEL_SCALE = 5;
 	static PLANE_WIDTH = 10;
 	static PLANE_HEIGHT = 10;
-	static SHADOW_CAMERA_HEIGHT = 0.5;
+	static SHADOW_CAMERA_HEIGHT = 1;
 
 	static SHADOW_OPACITY = 1;
-	static SHADOW_DARKNESS = 1;
-	static SHADOW_BLUR = 3;
+	static SHADOW_DARKNESS = 0.3;
+	static SHADOW_BLUR = 2.5;
 
 	container: HTMLElement | null = null;
 	helper: HTMLElement | null = null;
@@ -124,10 +124,7 @@ export class DroneViewer extends PrimitiveComponent {
 		renderer.toneMappingExposure = 2;
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setClearColor(0xffffff, 0);
-		renderer.setSize(
-			(this.element as HTMLCanvasElement).clientWidth,
-			(this.element as HTMLCanvasElement).clientHeight,
-		);
+		renderer.setSize((this.element as HTMLCanvasElement).clientWidth, (this.element as HTMLCanvasElement).clientHeight);
 
 		//	Add some lights to the scene
 		const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff);
@@ -167,14 +164,21 @@ export class DroneViewer extends PrimitiveComponent {
 	/**
 	 * Loads the drone model and adds it to the scene.
 	 */
-	loadDrone = ({ url, position, rotation, scale, cameraPosition }: IModel, onLoadCallback?: Function) => {
+	loadDrone = async (product: Product, onLoadCallback?: Function) => {
 		try {
-			//	Remove all the current drone models if there are duplicates
-			let droneModel = this.scene.getObjectByName('Drone');
-			while (droneModel) {
-				this.scene.remove(droneModel);
-				droneModel = this.scene.getObjectByName('Drone');
-			}
+			//	Hide all the current drone models if there are duplicates
+			let cachedModel;
+			const droneModels = this.scene.getObjectsByUserDataProperty('isDrone', true);
+			droneModels.forEach((droneModel) => {
+				if (droneModel.userData.droneName !== product.name) droneModel.visible = false;
+				else {
+					droneModel.visible = true;
+					cachedModel = droneModel;
+				}
+			});
+
+			//	If the drone has previously been loaded, show it and return
+			if (cachedModel) return await this.handleOnLoad(cachedModel as GLTF, product, onLoadCallback);
 
 			//	Load the drone model
 			const loader = new GLTFLoader();
@@ -184,28 +188,8 @@ export class DroneViewer extends PrimitiveComponent {
 			loader.setDRACOLoader(dracoLoader);
 			loader.setCrossOrigin('anonymous');
 			loader.load(
-				url,
-				async (gltf) => {
-					//	Setup the drone model
-					const model = gltf.scene;
-					model.name = 'Drone';
-					model.position.set(position.x, position.y, position.z);
-					model.rotateX(rotation.x);
-					model.rotateY(rotation.y);
-					model.rotateZ(rotation.z);
-					model.scale.set(scale, scale, scale);
-					await this.renderer.compileAsync(model, this.camera, this.scene);
-
-					//	Setup the camera position
-					this.camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-
-					//	Add the drone model to the scene and render
-					this.add(model);
-					this.render();
-
-					//	Call the onLoadCallback if it exists
-					onLoadCallback?.();
-				},
+				product.model.url,
+				async (gltf) => await this.handleOnLoad(gltf, product, onLoadCallback),
 				undefined,
 				(error) => {
 					console.error(error);
@@ -355,6 +339,61 @@ export class DroneViewer extends PrimitiveComponent {
 		this.render();
 		this.updateControls();
 	};
+
+	private handleOnLoad = async (
+		droneModel: THREE.Object3D | GLTF,
+		{ name, model: { position, rotation, scale, cameraPosition } }: Product,
+		onLoadCallback?: Function,
+	) => {
+		//	Setup the drone model
+		const model = (droneModel as GLTF).scene || (droneModel as THREE.Object3D);
+		model.position.set(position.x, position.y, position.z);
+		model.rotation.set(rotation.x, rotation.y, rotation.z);
+		model.scale.set(scale, scale, scale);
+		model.visible = true;
+		model.userData.isDrone = true;
+		model.userData.droneName = name;
+		await this.renderer.compileAsync(model, this.camera, this.scene);
+
+		//	Setup the camera position
+		this.camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+
+		//	Add the drone model to the scene and render
+		this.add(model);
+		this.render();
+
+		//	Call the onLoadCallback if it exists
+		onLoadCallback?.();
+	};
 }
 
 customElements.define('ui-drone-viewer', DroneViewer);
+
+//	Extend three.js with a new method to get an object by user data
+THREE.Object3D.prototype.getObjectByUserDataProperty = function (name, value) {
+	if (this.userData[name] === value) return this;
+
+	for (let i = 0, l = this.children.length; i < l; i++) {
+		const child = this.children[i];
+		const object = child.getObjectByUserDataProperty(name, value);
+
+		if (object !== undefined) {
+			return object;
+		}
+	}
+
+	return undefined;
+};
+THREE.Object3D.prototype.getObjectsByUserDataProperty = function (name, value) {
+	if (this.userData[name] === value) return [this];
+
+	const objects = [] as Array<THREE.Object3D>;
+	for (let i = 0, l = this.children.length; i < l; i++) {
+		const child = this.children[i];
+		const childObjects = child.getObjectsByUserDataProperty(name, value);
+
+		if (childObjects.length > 0) childObjects.forEach((object) => objects.push(object));
+	}
+
+	return objects as Array<THREE.Object3D>;
+};

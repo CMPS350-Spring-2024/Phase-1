@@ -43,6 +43,8 @@ export class Dropdown extends BaseComponent {
 	protected static readonly templateName: string = 'dropdown-template';
 	protected static readonly forwardedProperties: Array<keyof DropdownProps> = [
 		'class',
+
+		'open',
 		'offset',
 		'placement',
 		'screenPadding',
@@ -85,9 +87,11 @@ export class Dropdown extends BaseComponent {
 					shift({ padding: Number(this.screenPadding) }),
 					size({
 						apply: ({ availableWidth, availableHeight }) => {
+							const currentMaxWidth = parseInt(this.menu!.style.maxWidth) || Infinity;
+							const currentMaxHeight = parseInt(this.menu!.style.maxHeight) || Infinity;
 							Object.assign(this.menu!.style, {
-								maxWidth: `${availableWidth}px`,
-								maxHeight: `${availableHeight}px`,
+								maxWidth: `${Math.min(currentMaxWidth, availableWidth)}px`,
+								maxHeight: `${Math.min(currentMaxHeight, availableHeight)}px`,
 							});
 						},
 					}),
@@ -112,6 +116,9 @@ export class Dropdown extends BaseComponent {
 
 		//	If the class was changed, forward it to the menu
 		if (name === 'class' && this.menu) this.menu.className = newValue;
+
+		//	If the open state was changed, toggle the menu
+		if (name === 'open' && this.toggleButton) this.toggleButton.focus();
 	}
 
 	disconnectedCallback(): void {
@@ -119,9 +126,15 @@ export class Dropdown extends BaseComponent {
 		this._cleanupFloating();
 	}
 
-	show = () => (this.open = true);
-	close = () => (this.open = false);
 	toggle = () => (this.open = !this.open);
+	show = () => {
+		this.open = false;
+		this.open = true;
+	};
+	close = () => {
+		this.open = true;
+		this.open = false;
+	};
 }
 
 customElements.define('ui-dropdown', Dropdown);

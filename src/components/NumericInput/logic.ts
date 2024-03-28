@@ -55,6 +55,11 @@ export interface NumericInputProps extends BaseComponentProps {
 	 * If this input is in a form, this property makes it required.
 	 */
 	required?: boolean;
+
+	/**
+	 * The size of the input.
+	 */
+	size?: 'sm' | 'md';
 }
 
 /**
@@ -75,6 +80,7 @@ export class NumericInput extends PrimitiveComponent {
 		'disabled',
 		'readonly',
 		'required',
+		'size',
 	];
 	protected static readonly defaultProperties: NumericInputProps = {
 		value: 0,
@@ -92,6 +98,8 @@ export class NumericInput extends PrimitiveComponent {
 	static formAssociated = true;
 	private _defaultValue: number | undefined;
 	private _internals: ElementInternals;
+
+	private mouseHoldInterval: number | undefined;
 
 	public get valueAsNumber(): number {
 		return Number(this.value!);
@@ -131,8 +139,14 @@ export class NumericInput extends PrimitiveComponent {
 
 		//	Add event listener to update the value property when the input changes and to increment/decrement the value
 		this.element.addEventListener('change', () => this.handleValueChange());
-		this.decrement?.addEventListener('click', () => this.handleDecrement());
-		this.increment?.addEventListener('click', () => this.handleIncrement());
+		this.decrement?.addEventListener('mousedown', () => this.handleDecrement());
+		this.increment?.addEventListener('mousedown', () => this.handleIncrement());
+		this.decrement?.addEventListener('touchstart', () => this.handleDecrement(), { passive: true });
+		this.increment?.addEventListener('touchstart', () => this.handleIncrement(), { passive: true });
+		this.decrement?.addEventListener('mouseup', () => clearInterval(this.mouseHoldInterval));
+		this.increment?.addEventListener('mouseup', () => clearInterval(this.mouseHoldInterval));
+		this.decrement?.addEventListener('touchend', () => clearInterval(this.mouseHoldInterval));
+		this.increment?.addEventListener('touchend', () => clearInterval(this.mouseHoldInterval));
 	}
 
 	connectedCallback(): void {
@@ -140,6 +154,12 @@ export class NumericInput extends PrimitiveComponent {
 
 		//	Initialize validation
 		this.updateInternals();
+	}
+
+	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+		super.attributeChangedCallback(name, oldValue, newValue);
+
+		if (name === 'value') (this.element as HTMLInputElement).value = newValue;
 	}
 
 	formDisabledCallback(disabled: boolean): void {
@@ -167,18 +187,38 @@ export class NumericInput extends PrimitiveComponent {
 
 	private handleValueChange = () => {
 		const value = (this.element as HTMLInputElement).valueAsNumber;
+		if (value === Number(this.value)) return;
 		this.value = value;
+		this.element.dispatchEvent(new Event('change'));
 		this.updateInternals();
 	};
 
 	private handleDecrement = () => {
-		(this.element as HTMLInputElement).stepDown();
-		this.updateInternals();
+		const decrement = () => {
+			(this.element as HTMLInputElement).stepDown();
+			this.element.dispatchEvent(new Event('input'));
+			this.handleValueChange();
+		};
+
+		//	Repeat the decrement action while the button is held down
+		decrement();
+		this.mouseHoldInterval = setTimeout(() => {
+			this.mouseHoldInterval = setInterval(decrement, 75);
+		}, 400);
 	};
 
 	private handleIncrement = () => {
-		(this.element as HTMLInputElement).stepUp();
-		this.updateInternals();
+		const increment = () => {
+			(this.element as HTMLInputElement).stepUp();
+			this.element.dispatchEvent(new Event('input'));
+			this.handleValueChange();
+		};
+
+		//	Repeat the increment action while the button is held down
+		increment();
+		this.mouseHoldInterval = setTimeout(() => {
+			this.mouseHoldInterval = setInterval(increment, 75);
+		}, 400);
 	};
 
 	public checkValidity = () => this._internals.checkValidity();

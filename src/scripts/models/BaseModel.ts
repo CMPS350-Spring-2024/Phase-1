@@ -6,7 +6,7 @@ export abstract class BaseModel {
 		return this._id;
 	}
 
-	constructor(data: { isParsing?: boolean; _id?: number }) {
+	constructor(data: CreateBase) {
 		//	Generate a random id which is not already in use
 		let newId = 0;
 		//	@ts-ignore
@@ -17,4 +17,12 @@ export abstract class BaseModel {
 		if (data.isParsing) this._id = data._id ?? newId;
 		else this._id = newId;
 	}
+}
+
+export interface CreateBase {
+	/**
+	 * Only used when parsing the user data
+	 */
+	isParsing?: boolean;
+	_id?: number;
 }

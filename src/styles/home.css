@@ -26,8 +26,18 @@ main {
 				@apply overflow-hidden;
 			}
 
+			span.specifications {
+				@apply inline-flex gap-2;
+
+				span.tag {
+					@apply mt-4 px-2 py-1;
+					@apply rounded bg-slate-100 text-secondary;
+					@apply text-xs;
+				}
+			}
+
 			p.description {
-				@apply mt-4 text-pretty leading-loose text-secondary;
+				@apply mt-5 text-pretty leading-loose text-secondary;
 			}
 		}
 
@@ -124,6 +134,12 @@ main {
 					}
 				}
 			}
+		}
+
+		span.spinner {
+			@apply absolute size-12;
+			@apply border-[5px] text-border opacity-75;
+			z-index: -1;
 		}
 
 		ui-button.github {
@@ -300,6 +316,10 @@ main {
 		div.model-viewer {
 			div.product-description {
 				animation-name: fade-out;
+			}
+
+			span.spinner {
+				@apply inline-block;
 			}
 		}
 	}

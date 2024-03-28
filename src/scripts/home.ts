@@ -2,16 +2,13 @@
 import { Button } from '@/components/Button/logic';
 import '@/components/DroneViewer/logic';
 
-//	Model Imports
-// import { Product } from '@/scripts/models/Product';
-
 //	Utility Imports
 import { clamp, find, findAll, startViewTransition } from '@/scripts/_utils';
 
 let currentTab: number = 0;
 
-const viewDetailsButton = find('#view-details-cta') as HTMLButtonElement;
-const backButton = find('#back-btn') as HTMLButtonElement;
+const viewDetailsButton = find('#view-details-cta') as Button;
+const backButton = find('#back-btn') as Button;
 const tabSelectorLabel = find('#mobile-tab-label') as HTMLHeadingElement;
 const leftTabButton = find('#left-arrow-tab') as Button;
 const rightTabButton = find('#right-arrow-tab') as Button;
@@ -21,11 +18,21 @@ const tabContents = findAll('.tab-content') as Array<Button>;
 const handleViewDetails = () =>
 	startViewTransition(() => {
 		find('main')!.classList.add('product-overview');
+
+		//	Update the search query params
+		const searchParams = new URLSearchParams(window.location.search);
+		searchParams.set('details', 'true');
+		window.history.pushState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
 	});
 
 const handleBack = () =>
 	startViewTransition(() => {
 		find('main')!.classList.remove('product-overview');
+
+		//	Update the search query params
+		const searchParams = new URLSearchParams(window.location.search);
+		searchParams.delete('details');
+		window.history.pushState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
 	});
 
 const handleChangeTab = (index: number) => {
@@ -49,16 +56,13 @@ const handleChangeTab = (index: number) => {
 	tabSelectorLabel.textContent = tabButtons[index].textContent;
 };
 
+//	Load the correct view based on the search query params
+const searchParams = new URLSearchParams(window.location.search);
+if (searchParams.get('details')) find('main')!.classList.add('product-overview');
+
 //	Add event listeners
-viewDetailsButton.addEventListener('click', handleViewDetails);
-viewDetailsButton.addEventListener('touchend', handleViewDetails);
-backButton.addEventListener('click', handleBack);
-backButton.addEventListener('touchend', handleBack);
-leftTabButton.addEventListener('click', () => handleChangeTab(currentTab - 1));
-leftTabButton.addEventListener('touchend', () => handleChangeTab(currentTab - 1));
-rightTabButton.addEventListener('click', () => handleChangeTab(currentTab + 1));
-rightTabButton.addEventListener('touchend', () => handleChangeTab(currentTab + 1));
-tabButtons.forEach((button, index) => {
-	button.addEventListener('click', () => handleChangeTab(index));
-	button.addEventListener('touchend', () => handleChangeTab(index));
-});
+viewDetailsButton.onClick(handleViewDetails);
+backButton.onClick(handleBack);
+leftTabButton.onClick(() => handleChangeTab(currentTab - 1));
+rightTabButton.onClick(() => handleChangeTab(currentTab + 1));
+tabButtons.forEach((button, index) => button.onClick(() => handleChangeTab(index)));
