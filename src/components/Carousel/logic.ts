@@ -29,9 +29,6 @@ export interface CarouselProps extends BaseComponentProps {
 export class Carousel extends BaseComponent {
 	protected static readonly templateName: string = 'carousel-template';
 	protected static readonly forwardedProperties: Array<keyof CarouselProps> = ['class', 'drone'];
-	protected static readonly defaultProperties: CarouselProps = {
-		drone: 4,
-	};
 
 	protected currentSeries: number = 0;
 	protected series: Array<ISeries> = window.ProductRepository.getAllSeries();
@@ -65,6 +62,13 @@ export class Carousel extends BaseComponent {
 	}
 	set currentDrone(value: number) {
 		this.drone = value;
+
+		//	Update the URL with the new drone id
+		const searchParams = new URLSearchParams(window.location.search);
+		searchParams.set('drone', String(value));
+		window.history.replaceState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
+
+		//	Update the UI and show the loading screen
 		this.showLoading();
 		setTimeout(() => {
 			this.renderCarousel();
@@ -78,7 +82,11 @@ export class Carousel extends BaseComponent {
 	}
 
 	constructor() {
-		super({ defaultProperties: Carousel.defaultProperties });
+		super({
+			defaultProperties: {
+				drone: Number(new URLSearchParams(window.location.search).get('drone')) || 4,
+			},
+		});
 
 		//	Save the reference to elements in the shadow DOM
 		this.leftArrow = this.find('[exportparts="root: left-arrow"]') as Button;
@@ -122,7 +130,8 @@ export class Carousel extends BaseComponent {
 		super.attributeChangedCallback(name, oldValue, newValue);
 
 		//	If the drone attribute has changed, update the drone to display
-		if (name === 'drone' && this.currentDrone !== Number(newValue)) this.handleChangeDrone(newValue as unknown as number);
+		if (name === 'drone' && this.currentDrone !== Number(newValue) && !Number.isNaN(newValue))
+			this.handleChangeDrone(Number(newValue));
 	}
 
 	showLoading = () => {

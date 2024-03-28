@@ -18,11 +18,21 @@ const tabContents = findAll('.tab-content') as Array<Button>;
 const handleViewDetails = () =>
 	startViewTransition(() => {
 		find('main')!.classList.add('product-overview');
+
+		//	Update the search query params
+		const searchParams = new URLSearchParams(window.location.search);
+		searchParams.set('details', 'true');
+		window.history.pushState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
 	});
 
 const handleBack = () =>
 	startViewTransition(() => {
 		find('main')!.classList.remove('product-overview');
+
+		//	Update the search query params
+		const searchParams = new URLSearchParams(window.location.search);
+		searchParams.delete('details');
+		window.history.pushState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
 	});
 
 const handleChangeTab = (index: number) => {
@@ -46,8 +56,11 @@ const handleChangeTab = (index: number) => {
 	tabSelectorLabel.textContent = tabButtons[index].textContent;
 };
 
+//	Load the correct view based on the search query params
+const searchParams = new URLSearchParams(window.location.search);
+if (searchParams.get('details')) find('main')!.classList.add('product-overview');
+
 //	Add event listeners
-// find('main')!.classList.add('product-overview');
 viewDetailsButton.onClick(handleViewDetails);
 backButton.onClick(handleBack);
 leftTabButton.onClick(() => handleChangeTab(currentTab - 1));
