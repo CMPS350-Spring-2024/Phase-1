@@ -116,7 +116,7 @@ header.navbar {
 		}
 
 		&.cart::part(menu) {
-			@apply w-[400px] gap-4;
+			@apply max-h-[600px] w-[400px] gap-4;
 		}
 	}
 

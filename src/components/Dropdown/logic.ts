@@ -87,9 +87,11 @@ export class Dropdown extends BaseComponent {
 					shift({ padding: Number(this.screenPadding) }),
 					size({
 						apply: ({ availableWidth, availableHeight }) => {
+							const currentMaxWidth = parseInt(this.menu!.style.maxWidth) || Infinity;
+							const currentMaxHeight = parseInt(this.menu!.style.maxHeight) || Infinity;
 							Object.assign(this.menu!.style, {
-								maxWidth: `${availableWidth}px`,
-								maxHeight: `${availableHeight}px`,
+								maxWidth: `${Math.min(currentMaxWidth, availableWidth)}px`,
+								maxHeight: `${Math.min(currentMaxHeight, availableHeight)}px`,
 							});
 						},
 					}),
