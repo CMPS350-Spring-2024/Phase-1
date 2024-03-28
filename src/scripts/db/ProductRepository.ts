@@ -26,12 +26,10 @@ export class ProductRepository extends BaseRepository<Product> {
 	protected onRemoveFromCart: Array<CartChangeEvent> = [];
 
 	protected _cart: CartData = {
-		items: {
-			'5': 5,
-		},
-		subtotal: 2345,
-		shippingFee: 311.25,
-		total: 2357.45,
+		items: {},
+		subtotal: 0,
+		shippingFee: 0,
+		total: 0,
 	};
 
 	private get products(): ProductDictionary {

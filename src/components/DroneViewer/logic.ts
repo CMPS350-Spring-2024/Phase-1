@@ -27,11 +27,11 @@ export class DroneViewer extends PrimitiveComponent {
 	static MODEL_SCALE = 5;
 	static PLANE_WIDTH = 10;
 	static PLANE_HEIGHT = 10;
-	static SHADOW_CAMERA_HEIGHT = 0.5;
+	static SHADOW_CAMERA_HEIGHT = 1;
 
 	static SHADOW_OPACITY = 1;
-	static SHADOW_DARKNESS = 1;
-	static SHADOW_BLUR = 3;
+	static SHADOW_DARKNESS = 0.3;
+	static SHADOW_BLUR = 2.5;
 
 	container: HTMLElement | null = null;
 	helper: HTMLElement | null = null;
