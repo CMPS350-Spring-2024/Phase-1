@@ -20,7 +20,7 @@ export interface CartData {
 export class ProductRepository extends BaseRepository<Product> {
 	protected readonly storageKey: string = 'products';
 	protected readonly repositoryKey: string = 'ProductRepository';
-	protected static readonly SHIPPING_CONSTANT: number = 0.01;
+	protected static readonly SHIPPING_CONSTANT: number = 0.25;
 
 	protected onAddToCart: Array<CartChangeEvent> = [];
 	protected onRemoveFromCart: Array<CartChangeEvent> = [];
@@ -30,7 +30,7 @@ export class ProductRepository extends BaseRepository<Product> {
 			'5': 5,
 		},
 		subtotal: 2345,
-		shippingFee: 12.45,
+		shippingFee: 311.25,
 		total: 2357.45,
 	};
 
@@ -130,11 +130,12 @@ export class ProductRepository extends BaseRepository<Product> {
 				_id: data._id,
 				name: data.name,
 				description: data.description,
-				model: data.model,
 				price: data.price,
 				quantity: data.quantity,
 				weight: data.weight,
 				flightTime: data.flightTime,
+				imageUrl: data.imageUrl,
+				model: data.model,
 				series: data.series,
 				features: data.features,
 				includedItems: data.includedItems,
@@ -170,9 +171,9 @@ export class ProductRepository extends BaseRepository<Product> {
 		const subtotal = droneData.price * (newQuantity - currentQuantity);
 		const shipping = droneData.weight * ProductRepository.SHIPPING_CONSTANT * (newQuantity - currentQuantity);
 		const total = subtotal + shipping;
-		this._cart.subtotal += round(subtotal);
-		this._cart.shippingFee += round(shipping);
-		this._cart.total += round(total);
+		this._cart.subtotal = clamp(this._cart.subtotal + round(subtotal), 0, Infinity);
+		this._cart.shippingFee = clamp(this._cart.shippingFee + round(shipping), 0, Infinity);
+		this._cart.total = clamp(this._cart.total + round(total), 0, Infinity);
 
 		//	Notify listeners that the cart has been updated
 		if (quantity > 0) this.onAddToCart.forEach((func) => func(droneId, currentQuantity, newQuantity));

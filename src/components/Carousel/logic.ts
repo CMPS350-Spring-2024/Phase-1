@@ -226,9 +226,14 @@ export class Carousel extends BaseComponent {
 			this.flightTime.innerText = `${drone.flightTime}m flight time`;
 			this.weight.innerText = `${formatNumber(drone.weight, 0)}g drone weight`;
 
-			//	Set max quantity to the available quantity and add event listener to update the cart
+			//	Set max quantity to the available quantity
 			this.quantityInput.max = drone.quantity;
 			this.quantityInput.value = 1;
+
+			//	Add event listener to the add to cart button whilst deleting the old event listener
+			const newButton = this.addToCartButton.cloneNode(true) as Button;
+			this.addToCartButton.replaceWith(newButton);
+			this.addToCartButton = newButton;
 			this.addToCartButton.addEventListener('click', () => {
 				this.addToCartButton.loading = true;
 				setTimeout(() => {
