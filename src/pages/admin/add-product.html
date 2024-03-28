@@ -1,0 +1,135 @@
+<extends
+	src="../../layouts/base.html"
+	locals='{
+		"title": "Vite + TS",
+		"base_url": "../../"
+	}'
+>
+	<block name="app">
+		<link
+			rel="stylesheet"
+			href="../../styles/index.css"
+		/>
+		<script
+			type="module"
+			src="../../../src/scripts/index.ts"
+		></script>
+
+		<div class="this-page-content">
+			<header class="admin navbar">
+				<div class="nav-start-group">
+					<img
+						class="company-logo"
+						alt="company-logo"
+						src="../../../../public/DJI 1.svg"
+					/>
+					<h2 class="page-title">ADMIN</h2>
+				</div>
+				<div class="nav-center-group">
+					<nav>
+						<a href="">Sale history</a>
+						<a href="">product list</a>
+						<a href="">Registered Users</a>
+						<a href="">Analytics</a>
+						<a href="">Settings</a>
+					</nav>
+				</div>
+				<div class="nav-end-group">
+					<nav>
+						<a href="">
+							<!-- <img
+						alt="Search-icon"
+						src="./temp-images/search.svg"
+					/> -->
+							<!-- <h1>Test</h1> -->
+							<i
+								class="nav-icon"
+								alt="search-icon"
+								data-lucide="search"
+							></i>
+						</a>
+						<a href="">
+							<!-- <img
+						alt="cart-icon"
+						src="./temp-images/shopping-cart.svg"
+					/> -->
+							<i
+								class="nav-icon"
+								alt="shopping-cart"
+								data-lucide="shopping-cart"
+							></i>
+						</a>
+						<a href="">
+							<!-- <img
+							alt="user-icon"
+							src="./temp-images/user.svg"
+						/> -->
+							<i
+								class="nav-icon"
+								alt="user"
+								data-lucide="user"
+							></i>
+						</a>
+					</nav>
+				</div>
+			</header>
+			<main>
+				<section class="page-info">
+					<div>
+						<div class="page-name"><h2>Create New Product</h2></div>
+						<div><p>Add a new drone to the arsenal and display it for sale in the DJI store</p></div>
+					</div>
+				</section>
+			</main>
+			<footer>
+				<section class="footer-components">
+					<section>
+						<h2 class="company-title">DJI</h2>
+					</section>
+					<section class="bottom-bar">
+						<section>
+							<h2>Marketplace</h2>
+							<h4>Mavic</h4>
+							<h4>Air</h4>
+							<h4>Mini</h4>
+							<h4>Phantom</h4>
+							<h4>Avata</h4>
+							<h4>FPV</h4>
+							<h4>Inspire</h4>
+							<h4>Matrice</h4>
+						</section>
+						<section>
+							<h2>Customer</h2>
+							<h4>My Balance</h4>
+							<h4>Past Orders</h4>
+							<h4>Saved Adress</h4>
+							<h4>Apeaerance</h4>
+						</section>
+						<section>
+							<h2>Admin</h2>
+							<h4>Pending Orders</h4>
+							<h4>Product Catalouge</h4>
+						</section>
+						<section>
+							<h2>Legal</h2>
+							<h4>Terms and Conditions</h4>
+							<h4>License</h4>
+						</section>
+					</section>
+
+					<section class="about-copyright">
+						<div>
+							<img alt="github-logo" />
+						</div>
+						<div>
+							<article>
+								&copy; Mohammed Putra, Mohammed Al-ghazali , Marawan Khankan, and Osamah Al-sumaitit ,
+								All Rights Reserved.
+							</article>
+						</div>
+					</section>
+				</section>
+			</footer>
+		</div>
+	</block>
+</extends>

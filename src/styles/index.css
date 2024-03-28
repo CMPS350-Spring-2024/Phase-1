@@ -30,6 +30,23 @@
 		@apply text-[1em];
 	}
 }
+
+@layer components {
+	/* to send the footer to the ground*/
+	.this-page-content {
+		@apply flex min-h-[100vh] flex-col;
+	}
+
+	.page-name {
+		@apply text-xl font-extrabold;
+	}
+
+	footer {
+		@apply mt-auto place-items-end;
+		/* @apply  border-2 border-slate-600; */
+	}
+}
+/* footer componenets */
 @layer components {
 	.company-title {
 		@apply flex justify-center;
@@ -39,14 +56,10 @@
 	}
 
 	.bottom-bar {
-		@apply grid gap-4;
+		@apply m-2 grid gap-4 px-[25px] py-[30px];
 		@apply justify-center;
 		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 		/* grid-template-columns:1fr 1fr ; */
-
-		margin: 2rem;
-
-		padding: 25px 30px;
 	}
 	.about-copyright > div {
 		@apply mr-2 flex flex-col
@@ -140,6 +153,9 @@
 	main {
 		@apply m-4;
 	}
+	.page-info {
+		@apply mx-2 my-12;
+	}
 }
 /* search bar */
 @layer components {
@@ -224,11 +240,20 @@
 		}
 	}
 }
+
+@layer compnents {
+	.gallary {
+		@apply flex flex-col;
+	}
+	.gallary-row .gallary-row-items {
+		@apply flex flex-row;
+	}
+}
 /* item card stylingh */
 
 @layer components {
 	.product-prv {
-		@apply m-8 rounded-lg border-2 border-slate-200;
+		@apply m-2 rounded-lg border-2 border-slate-200;
 	}
 
 	.product-prv {
@@ -236,7 +261,7 @@
 	}
 
 	.image-prev {
-		@apply mx-[80px] my-[-50px] size-[350px];
+		@apply mx-[20px] my-[-70px];
 		/* @apply mx-[100px] my-[10px] size-[300px]; */
 	}
 	.middle-section,
@@ -257,7 +282,7 @@
 		@apply fill-[#FFEA00] text-[#FFEA00];
 	}
 	.reviews {
-		@apply text-[15pt] text-slate-500;
+		@apply text-[8pt] text-slate-500;
 	}
 
 	.price {
@@ -268,23 +293,23 @@
 		@apply m-4 flex flex-row justify-between gap-1;
 
 		.title {
-			@apply text-[30px] font-bold;
+			@apply text-[16px] font-bold;
 		}
 
 		.price {
 			@apply flex flex-row items-baseline justify-between gap-2 border-b-[lightblue_1px_solid];
 			.amount {
-				@apply text-[30px] font-bold;
+				@apply text-[16px] font-bold;
 			}
 
 			.currency {
-				@apply text-lg text-slate-400;
+				@apply text-xs text-slate-400;
 			}
 		}
 	}
 
 	.end-section > div {
-		@apply m-4 flex flex-row justify-between text-lg;
+		@apply m-2 flex flex-row justify-between text-xs;
 	}
 
 	.bottom-buttons {
@@ -293,7 +318,7 @@
 	}
 
 	.bottom-buttons > button {
-		@apply w-[100%]  items-center rounded-b border-l-[0.5px] border-slate-100  py-3 text-center text-lg font-semibold hover:bg-blue-600;
+		@apply w-[100%]  items-center rounded-b border-l-[0.5px] border-slate-100  py-3 text-center text-xs font-semibold hover:bg-blue-600;
 	}
 }
 

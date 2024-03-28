@@ -1,0 +1,459 @@
+<extends
+	src="../../layouts/base.html"
+	locals='{
+		"title": "Vite + TS",
+		"base_url": "../../"
+	}'
+>
+	<block name="app">
+		<link
+			rel="stylesheet"
+			href="../../styles/index.css"
+		/>
+		<script
+			type="module"
+			src="../../../src/scripts/index.ts"
+		></script>
+
+		<div class="this-page-content">
+			<header class="admin navbar">
+				<div class="nav-start-group">
+					<img
+						class="company-logo"
+						alt="company-logo"
+						src="../../../../public/DJI 1.svg"
+					/>
+					<h2 class="page-title">ADMIN</h2>
+				</div>
+				<div class="nav-center-group">
+					<nav>
+						<a href="">Sale history</a>
+						<a href="">product list</a>
+						<a href="">Registered Users</a>
+						<a href="">Analytics</a>
+						<a href="">Settings</a>
+					</nav>
+				</div>
+				<div class="nav-end-group">
+					<nav>
+						<a href="">
+							<!-- <img
+						alt="Search-icon"
+						src="./temp-images/search.svg"
+					/> -->
+							<!-- <h1>Test</h1> -->
+							<i
+								class="nav-icon"
+								alt="search-icon"
+								data-lucide="search"
+							></i>
+						</a>
+						<a href="">
+							<!-- <img
+						alt="cart-icon"
+						src="./temp-images/shopping-cart.svg"
+					/> -->
+							<i
+								class="nav-icon"
+								alt="shopping-cart"
+								data-lucide="shopping-cart"
+							></i>
+						</a>
+						<a href="">
+							<!-- <img
+							alt="user-icon"
+							src="./temp-images/user.svg"
+						/> -->
+							<i
+								class="nav-icon"
+								alt="user"
+								data-lucide="user"
+							></i>
+						</a>
+					</nav>
+				</div>
+			</header>
+			<main>
+				<section class="statistics">
+					<div class="card">
+						<div class="group">
+							<p class="label">In stock</p>
+							<div class="this-stat-group">
+								<h2 class="this-stat text-xl">461</h2>
+								<h2 class="currncy text-gray-600">drones</h2>
+							</div>
+							<div class="flex flex-row content-baseline">
+								<div class="percantage-group">
+									<i
+										class="icon"
+										data-lucide="trending-up"
+									></i>
+									<h2 class="percantage">37.3%</h2>
+								</div>
+								<div><h2 class="duration">last 30 days</h2></div>
+							</div>
+						</div>
+						<i
+							class="icon"
+							data-lucide="boxes"
+						></i>
+					</div>
+					<div class="card">
+						<div class="group">
+							<p class="label">Quantity Sold</p>
+							<div class="this-stat-group">
+								<h2 class="this-stat">41,321</h2>
+
+								<h2 class="currncy text-gray-600">Drones</h2>
+							</div>
+							<div class="flex flex-row">
+								<div class="percantage-group">
+									<i
+										class="icon"
+										data-lucide="trending-up"
+									></i>
+									<h2 class="percantage">1.51%</h2>
+								</div>
+								<div><h2 class="duration">last 30 days</h2></div>
+							</div>
+						</div>
+						<i
+							class="icon"
+							data-lucide="coins"
+						></i>
+					</div>
+					<div class="card">
+						<div class="group">
+							<p class="label">Ongoing Orders</p>
+							<div class="this-stat-group">
+								<h2 class="this-stat">41</h2>
+								<h2 class="currncy text-gray-600">Orders</h2>
+							</div>
+							<div class="flex flex-row">
+								<div class="percantage-group">
+									<i
+										class="icon"
+										data-lucide="trending-up"
+									></i>
+									<h2 class="percantage">53.6%</h2>
+								</div>
+								<div><h2 class="duration">last 30 days</h2></div>
+							</div>
+						</div>
+						<i
+							class="icon"
+							data-lucide="package-check"
+						></i>
+					</div>
+					<div class="card">
+						<div class="group">
+							<p class="label">Package Weight</p>
+							<div>
+								<div class="this-stat-group">
+									<h2 class="this-stat">48.54%</h2>
+								</div>
+							</div>
+							<div class="flex flex-row">
+								<h2 class="text-gray-400">3m x 3m x 3m</h2>
+								<!-- <div class="percantage-group">
+									<i
+										class="icon"
+										data-lucide="trending-down"
+									></i>
+									<h2 class="percantage">4.1%</h2>
+								</div>
+								<div><h2 class="duration">last 30 days</h2></div> -->
+							</div>
+						</div>
+						<i
+							class="icon"
+							data-lucide="container"
+						></i>
+					</div>
+				</section>
+				<section class="item-detialed">
+					<section>
+						<img
+							class="image-prev"
+							alt="image-removebg-preview-1"
+							src="../../../../../public/images/prev-1.png"
+						/>
+					</section>
+					<section>
+						<div class="item-type"><h3>Aerial Photography</h3></div>
+						<div class="item-name"><h2>DJI Mavic 3</h2></div>
+					</section>
+
+					<section class="ratings">
+						<div class="stars">
+							<i
+								class="star filled"
+								alt="star"
+								data-lucide="star"
+							></i>
+							<i
+								class="star filled"
+								alt="star"
+								data-lucide="star"
+							></i>
+							<i
+								class="star filled"
+								alt="star"
+								data-lucide="star"
+							></i>
+							<i
+								class="star"
+								alt="star"
+								data-lucide="star"
+							></i>
+							<i
+								class="star"
+								alt="star"
+								data-lucide="star"
+							></i>
+						</div>
+						<section>3.0 (5,051 reviews)</section>
+					</section>
+					<section class="item-disc">
+						<article>
+							The DJI Mavic 3 Pro is a flagship drone that combines powerful performance, stunning
+							imaging, and long-range transmission. It features a tri-camera system with multiple focal
+							lengths, a 4/3 CMOS Hasselblad camera, and a 1TB SSD. Whether you are a photography
+							enthusiast, a professional photographer, or a film/television producer, the Mavic 3 Pro can
+							help you create stunning works in various scenarios.
+						</article>
+					</section>
+
+					<div class="price">
+						<p class="currency">USD</p>
+						<p class="amount">3,889.00</p>
+					</div>
+					<div class="my-4 flex flex-row gap-4">
+						<ui-button>
+							<p class="text-[18px]">View Product</p>
+							<i data-lucide="external-link"></i>
+						</ui-button>
+						<ui-button>
+							<!-- <p class="text-[18px]">View Product</p> -->
+							<i data-lucide="pencil"></i>
+						</ui-button>
+					</div>
+				</section>
+				<section class="page-info">
+					<div>
+						<div class="page-name"><h2>Sale history</h2></div>
+						<div><p>Keep track of all past orders and view their status</p></div>
+					</div>
+
+					<div class="search-filter">
+						<div class="search-bar">
+							<label
+								class="sr-only"
+								for="icon"
+							>
+								Search
+							</label>
+							<div>
+								<div class="search-icon">
+									<i
+										class="nav-icon"
+										alt="search-icon"
+										data-lucide="search"
+									></i>
+								</div>
+								<input
+									class=""
+									id="icon"
+									name="icon"
+									type="text"
+									placeholder="Search"
+								/>
+							</div>
+
+							<div class="clear-icon">
+								<i
+									class="nav-icon"
+									alt="search-icon"
+									data-lucide="Delete"
+								></i>
+							</div>
+						</div>
+
+						<div class="filter-buttons">
+							<button type="button">
+								<p>sort</p>
+								<i
+									class="icon"
+									alt="search-icon"
+									data-lucide="arrow-down-up"
+								></i>
+							</button>
+							<button type="button">
+								<p>filter</p>
+								<i
+									class="icon"
+									alt="search-icon"
+									data-lucide="list-filter"
+								></i>
+							</button>
+
+							<!-- <button
+								class="add-product-button"
+								type="button"
+							>
+								<p>Add Product</p>
+								<i
+									class="icon"
+									alt="add-icon"
+									data-lucide="plus"
+								></i>
+							</button> -->
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<table class="order-table">
+						<thead class="table-head">
+							<tr>
+								<th scope="col">
+									<div>
+										<input
+											id="checkbox-all"
+											type="checkbox"
+										/>
+										<label for="checkbox-all"></label>
+									</div>
+								</th>
+								<th scope="col"><p>order</p></th>
+								<th scope="col"><p>Date</p></th>
+								<th scope="col"><p>item</p></th>
+								<th scope="col"><p>Status</p></th>
+								<th scope="col"><p>Address</p></th>
+								<th scope="col"><p>Quantity</p></th>
+								<th scope="col"><p>Amount</p></th>
+							</tr>
+						</thead>
+						<tbody class="table-body">
+							<tr>
+								<td>
+									<div>
+										<input
+											id="checkbox-1"
+											type="checkbox"
+										/>
+										<label for="checkbox-1"></label>
+									</div>
+								</td>
+								<td class="order-number"><p>#123456</p></td>
+								<td class="order-date"><p>Mar 9, 2024</p></td>
+								<td class="order-name"><p>DJI Mavic 3 Pro</p></td>
+
+								<td class="order-status status-delivered">
+									<div>
+										<i
+											class="icon"
+											data-lucide="check-circle"
+										></i>
+										<p>Delivered</p>
+									</div>
+								</td>
+								<td class="order-address"><p>Street 1234, Qatar University, Doha, Qatar</p></td>
+
+								<td class="order-quantity"><p>2x</p></td>
+
+								<td class="order-amount">
+									<p class="currency">USD</p>
+									<p class="amount">3,889.00</p>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div>
+										<input
+											id="checkbox-2"
+											type="checkbox"
+										/>
+										<label for="checkbox-2"></label>
+									</div>
+								</td>
+								<td class="order-number"><p>#123456</p></td>
+								<td class="order-date"><p>Mar 9, 2024</p></td>
+								<td class="order-name"><p>DJI Mavic 3 Pro</p></td>
+
+								<td class="order-status status-waiting">
+									<div>
+										<i
+											class="icon"
+											data-lucide="clock3"
+										></i>
+										<p>ETA 3 DAYS</p>
+									</div>
+								</td>
+								<td class="order-address"><p>Street 1234, Qatar University, Doha, Qatar</p></td>
+
+								<td class="order-quantity"><p>2x</p></td>
+
+								<td class="order-amount">
+									<p class="currency">USD</p>
+									<p class="amount">3,889.00</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+			</main>
+
+			<footer>
+				<section class="footer-components">
+					<section>
+						<h2 class="company-title">DJI</h2>
+					</section>
+					<section class="bottom-bar">
+						<section>
+							<h2>Marketplace</h2>
+							<h4>Mavic</h4>
+							<h4>Air</h4>
+							<h4>Mini</h4>
+							<h4>Phantom</h4>
+							<h4>Avata</h4>
+							<h4>FPV</h4>
+							<h4>Inspire</h4>
+							<h4>Matrice</h4>
+						</section>
+						<section>
+							<h2>Customer</h2>
+							<h4>My Balance</h4>
+							<h4>Past Orders</h4>
+							<h4>Saved Adress</h4>
+							<h4>Apeaerance</h4>
+						</section>
+						<section>
+							<h2>Admin</h2>
+							<h4>Pending Orders</h4>
+							<h4>Product Catalouge</h4>
+						</section>
+						<section>
+							<h2>Legal</h2>
+							<h4>Terms and Conditions</h4>
+							<h4>License</h4>
+						</section>
+					</section>
+
+					<section class="about-copyright">
+						<div>
+							<img alt="github-logo" />
+						</div>
+						<div>
+							<article>
+								&copy; Mohammed Putra, Mohammed Al-ghazali , Marawan Khankan, and Osamah Al-sumaitit ,
+								All Rights Reserved.
+							</article>
+						</div>
+					</section>
+				</section>
+			</footer>
+		</div>
+	</block>
+</extends>
