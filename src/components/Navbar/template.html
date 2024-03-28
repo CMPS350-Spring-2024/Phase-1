@@ -270,25 +270,43 @@
 								3,999.00
 							</ui-price-display>
 						</span>
-						<ui-button
-							class="w-full"
-							fill="solid"
-						>
-							Confirm Purchase
-							<svg
-								class="lucide lucide-arrow-right"
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
+						<span class="actions">
+							<ui-button id="clear-cart">
+								<svg
+									class="lucide lucide-trash"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M3 6h18" />
+									<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+									<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+								</svg>
+							</ui-button>
+							<ui-button
+								id="checkout"
+								fill="solid"
 							>
-								<path d="M5 12h14" />
-								<path d="m12 5 7 7-7 7" />
-							</svg>
-						</ui-button>
+								Confirm Purchase
+								<svg
+									class="lucide lucide-arrow-right"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M5 12h14" />
+									<path d="m12 5 7 7-7 7" />
+								</svg>
+							</ui-button>
+						</span>
 					</div>
 				</ui-dropdown>
 				<ui-dropdown

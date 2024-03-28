@@ -152,6 +152,11 @@ export class Button extends PrimitiveComponent {
 			}
 		}
 	}
+
+	onClick = (handler: Function): void => {
+		this.element.addEventListener('click', handler as EventListener);
+		this.element.addEventListener('touchstart', handler as EventListener, { passive: true });
+	};
 }
 
 customElements.define('ui-button', Button);

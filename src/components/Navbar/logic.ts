@@ -39,6 +39,8 @@ export class Navbar extends PrimitiveComponent {
 	protected subtotalDisplay: PriceDisplay | null = null;
 	protected shippingDisplay: PriceDisplay | null = null;
 	protected totalDisplay: PriceDisplay | null = null;
+	protected clearCartButton: Button | null = null;
+	protected checkoutButton: Button | null = null;
 
 	protected accountDropdown: Dropdown | null = null;
 	protected loggedOutContent: HTMLElement | null = null;
@@ -74,6 +76,8 @@ export class Navbar extends PrimitiveComponent {
 		this.subtotalDisplay = this.element.querySelector('#subtotal-display');
 		this.shippingDisplay = this.element.querySelector('#shipping-display');
 		this.totalDisplay = this.element.querySelector('#total-display');
+		this.clearCartButton = this.element.querySelector('#clear-cart');
+		this.checkoutButton = this.element.querySelector('#checkout');
 
 		//	Find the ui for the account dropdown
 		this.accountDropdown = this.element.querySelector('ui-dropdown#account-dropdown');
@@ -89,8 +93,9 @@ export class Navbar extends PrimitiveComponent {
 			this.accountBalance = this.accountButton.querySelector('ui-price-display');
 		}
 
-		//	Add event listener to log out button
-		if (this.logoutButton) this.logoutButton.addEventListener('click', window.UserRepository.logoutUser);
+		//	Add event listener to buttons
+		if (this.clearCartButton) this.clearCartButton.onClick(window.ProductRepository.clearCart);
+		if (this.logoutButton) this.logoutButton.onClick(window.UserRepository.logoutUser);
 	}
 
 	connectedCallback(): void {

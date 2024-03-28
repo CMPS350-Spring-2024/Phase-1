@@ -5,7 +5,7 @@ import { BaseRepository, BaseRepositoryEvents } from '@/scripts/db/BaseRepositor
 import { clamp, round } from '@/scripts/_utils';
 import { ISeries, Product } from '@/scripts/models/Product';
 
-export type ProductRepositoryEvents = 'cartAdd' | 'cartRemove' | 'cartChange' | BaseRepositoryEvents;
+export type ProductRepositoryEvents = 'cartAdd' | 'cartRemove' | 'cartClear' | 'cartChange' | BaseRepositoryEvents;
 export type CartChangeEvent = (droneId: number, oldQuantity: number, newQuantity: number) => void;
 export type ProductDictionary = Record<number, Product>;
 export interface CartData {
@@ -24,8 +24,9 @@ export class ProductRepository extends BaseRepository<Product> {
 
 	protected onAddToCart: Array<CartChangeEvent> = [];
 	protected onRemoveFromCart: Array<CartChangeEvent> = [];
+	protected onClearCart: Array<Function> = [];
 
-	protected defaultCartData: CartData = {
+	protected readonly defaultCartData: CartData = {
 		items: {},
 		subtotal: 0,
 		shippingFee: 0,
@@ -130,9 +131,11 @@ export class ProductRepository extends BaseRepository<Product> {
 
 		if (event === 'cartAdd') this.onAddToCart.push(func as CartChangeEvent);
 		if (event === 'cartRemove') this.onRemoveFromCart.push(func as CartChangeEvent);
+		if (event === 'cartClear') this.onClearCart.push(func as Function);
 		if (event === 'cartChange') {
 			this.onAddToCart.push(func as CartChangeEvent);
 			this.onRemoveFromCart.push(func as CartChangeEvent);
+			this.onClearCart.push(func as Function);
 		}
 	};
 
@@ -200,6 +203,12 @@ export class ProductRepository extends BaseRepository<Product> {
 
 	updateItemInCart = (droneId: number, newQuantity: number) =>
 		this.incrementItemInCart(droneId, newQuantity - (this._cart.items[droneId] || 0));
+
+	clearCart = () => {
+		this._cart = this.defaultCartData;
+		window.localStorage.setItem('cart', JSON.stringify(this._cart));
+		this.onClearCart.forEach((func) => func());
+	};
 
 	confirmPurchase = () => {
 		//	Create new order, transaction, update product stock and decrease account balance

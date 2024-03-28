@@ -115,6 +115,18 @@ header.navbar {
 			}
 		}
 
+		.actions {
+			@apply inline-flex flex-row items-center gap-1;
+
+			ui-button#clear-cart::part(root) {
+				@apply size-[38px] shrink-0 p-0;
+			}
+
+			ui-button#checkout::part(root) {
+				@apply w-full;
+			}
+		}
+
 		&.cart::part(menu) {
 			@apply max-h-[600px] w-[400px] gap-4;
 		}

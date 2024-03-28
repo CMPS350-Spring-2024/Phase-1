@@ -234,7 +234,7 @@ export class Carousel extends BaseComponent {
 			const newButton = this.addToCartButton.cloneNode(true) as Button;
 			this.addToCartButton.replaceWith(newButton);
 			this.addToCartButton = newButton;
-			this.addToCartButton.addEventListener('click', () => {
+			this.addToCartButton.onClick(() => {
 				this.addToCartButton.loading = true;
 				setTimeout(() => {
 					window.ProductRepository.addProductToCart(drone.id, this.quantityInput.valueAsNumber);
