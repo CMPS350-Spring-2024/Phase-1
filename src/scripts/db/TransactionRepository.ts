@@ -28,9 +28,9 @@ export class TransactionRepository extends BaseRepository<Transaction> {
 	getTransaction = (id: number): Transaction | null => this.getItem(id);
 	getNumberOfTransactions = (): number => this.getNumberOfItems();
 
-	getTransactionsByUser = (userId: number): Transaction[] => [];
-	getTransactionsByType = (type: 'deposit' | 'withdrawal'): Transaction[] => [];
-	getTransactionsByDate = (date: number): Transaction[] => [];
+	// getTransactionsByUser = (userId: number): Transaction[] => [];
+	// getTransactionsByType = (type: 'deposit' | 'withdrawal'): Transaction[] => [];
+	// getTransactionsByDate = (date: number): Transaction[] => [];
 
 	/* ------------------------------- // !SECTION ------------------------------ */
 	//#endregion
